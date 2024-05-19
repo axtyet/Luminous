@@ -4,7 +4,7 @@
 [rewrite_local]
 
 
-^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/itunes/yyyj..js
+^https:\/\/buy\.itunes\.apple\.com\/verifyReceipt url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/itunes/yyyj.js
 
 [mitm] 
 
