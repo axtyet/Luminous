@@ -1,6 +1,6 @@
 /*
  * 原P佬基础增加当前时间
- *
+ * 
 */
 let initial = {
     numberOfRequests: 0,
@@ -46,3 +46,4 @@ $httpAPI("GET", "/v1/requests/recent", null, (body) => {
         icon: "bolt.horizontal.circle.fill",
     });
 });
+
