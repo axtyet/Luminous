@@ -1,12 +1,12 @@
 /*
-红周刊 2.2.9 (2024.1.10)
+红周刊 2.2.10 (2024.7.20)
 
 [rewrite_local]
 
-^https:\/\/ssl\.zhoukan1992\.com\.cn\/wechat_xcx\/(info|zk_news_list)\.php url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/Hongzhoukan.js
+^https:\/\/ssl\.weeklyonstock.com\/wechat_xcx\/(info|zk_news_list)\.php url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/Hongzhoukan.js
 
 [mitm]
-hostname = ssl.zhoukan1992.com.cn
+hostname = ssl.weeklyonstock.com
 
 */
 
