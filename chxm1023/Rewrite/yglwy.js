@@ -10,7 +10,7 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/www\.ecigrxy\.cn\/api\/user\/info url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/yglwy.js
+^https?:\/\/www\.ecigrxy\.cn\/api\/(user\/info|login) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/yglwy.js
 
 [mitm]
 hostname = www.ecigrxy.cn

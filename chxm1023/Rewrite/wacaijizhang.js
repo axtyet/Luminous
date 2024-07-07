@@ -9,10 +9,10 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/jz\.wacai\.com url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/wacaijizhang.js
+https://jz.wacaijizhang.com url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/wacaijizhang.js
 
 [mitm]
-hostname = jz.wacai.com
+hostname = jz.wacaijizhang.com
 
 *************************************/
 
