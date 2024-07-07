@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-07-05
+更新日期：2024-07-08
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -26,8 +26,9 @@ const ua = $request.headers['User-Agent'] || $request.headers['user-agent'];
 const bundle_id = chxm1023.receipt["bundle_id"] || chxm1023.receipt["Bundle_Id"];
 
 const list = {
+  'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //Overdrop-天气预报
+  'PDFReaderPro%20Free': { cm: 'sjblb', hx: 'hxpda', id: "com.pdfreaderpro.free.member.all_access_pack_permanent_license.001", latest: "chxm1023" }, //PDFReaderProFree
   'VideoHelper': { cm: 'sjblb', hx: 'hxpda', id: "vip_service", latest: "chxm1023" }, //媒关系
-  'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //媒关系
   'Digital%20Planner': { cm: 'sjbla', hx: 'hxpda', id: "com.softwings.DigitalPlanner.1year", latest: "chxm1023" }, //电子手帐
   'SuperMandarin': { cm: 'sjbla', hx: 'hxpda', id: "pth_vip_year", latest: "chxm1023" }, //普通话水平测试
   'SuperQuestion': { cm: 'sjbla', hx: 'hxpda', id: "qtzs_vip_year", latest: "chxm1023" }, //真题全刷
