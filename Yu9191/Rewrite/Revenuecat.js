@@ -63,13 +63,14 @@ if (typeof $response == "undefined") {
   var UA = $request.headers['user-agent'];
   const app = '1';
   const UAMappings = {
+    
     'Super%20AI%20Chat':{ name: 'premium', id: 'chatbot_v4_1999_1y'},
     'MusicPutty':{ name: 'pro_version', id: 'mp_3599_1y'},//6.24
     'Linearity':{ name: 'pro', id: 'linearity_curve_pro_yearly_launch_offer'},
     'iplayTV':{ name: 'com.ll.btplayer.12', id: 'com.ll.btplayer.12'},//6.21
     '%E8%B5%84%E6%BA%90%E6%90%AC%E8%BF%90%E5%A4%A7%E5%B8%88':{ name: 'SaveTikYoutu_common', id: 'LifetimeSubscription'},
     'DHWaterMarkManager':{ name: 'Vip', id: 'lifetimeVIP_001'},//6.20
-    
+    'Krishna%20VPN%20Plus%20Browser':{ name: 'vpnz-lifetime', id: 'vpnz-lifetime'},//7.7
     'XBListeningEnglish':{ name: 'enPro', id: 'com.shenming.newconceptvip.year'},
     'FretTrainer':{ name: 'pro', id: 'frettrainer.sub.yearly.pro'},//5.7
     '%E9%B2%B8%E8%90%BD%E6%96%87%E6%A1%88':{ name: 'vip', id: 'jl_year'},//2024.5.6
