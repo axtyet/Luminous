@@ -1,4 +1,4 @@
-# 2024-06-10 21:15
+# 2024-07-08 21:52
 
 #!/bin/bash
 
@@ -17,11 +17,11 @@ curl -L -o Tool-repo/Surge/Rules/iCloud.list "https://raw.githubusercontent.com/
 curl -L -o Tool-repo/Surge/Rules/TestFlight.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Surge/Rules/AppleProxy.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Surge/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Surge/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Surge/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Surge/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Surge/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Surge/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
 curl -L -o Tool-repo/Surge/Rules/Instagram.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Instagram.list"
@@ -106,11 +106,11 @@ curl -L -o Tool-repo/Clash/Rules/Download.list "https://raw.githubusercontent.co
 # 苹果
 curl -L -o Tool-repo/Clash/Rules/Apple.list "https://raw.githubusercontent.com/NobyDa/Script/master/Surge/Apple.list"
 # OpenAI
-curl -L -o Tool-repo/Clash/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Clash/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Clash/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Clash/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Clash/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Clash/Rules/Telegram.list "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Clash/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -177,7 +177,7 @@ cp -r Tool-repo/Surge/Rules/OpenAI.list Tool-repo/QuantumultX/Rules/OpenAI.list
 # Claude AI
 curl -L -o Tool-repo/QuantumultX/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/QuantumultX/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/QuantumultX/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/QuantumultX/Rules/Telegram.list "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/QuantumultX/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -249,11 +249,11 @@ curl -L -o Tool-repo/Loon/Rules/iCloud.list "https://raw.githubusercontent.com/b
 curl -L -o Tool-repo/Loon/Rules/TestFlight.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Loon/Rules/AppleProxy.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Loon/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Loon/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Loon/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Loon/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Loon/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Loon/Rules/Telegram.list "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Loon/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -328,11 +328,11 @@ curl -L -o Tool-repo/Shadowrocket/Rules/iCloud.list "https://raw.githubuserconte
 curl -L -o Tool-repo/Shadowrocket/Rules/TestFlight.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Shadowrocket/Rules/AppleProxy.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Shadowrocket/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Shadowrocket/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Shadowrocket/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Shadowrocket/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Shadowrocket/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Shadowrocket/Rules/Telegram.list "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Shadowrocket/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -409,11 +409,11 @@ curl -L -o Tool-repo/Stash/Rules/iCloud.yaml "https://raw.githubusercontent.com/
 curl -L -o Tool-repo/Stash/Rules/TestFlight.yaml "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Stash/Rules/AppleProxy.yaml "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Stash/Rules/OpenAI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Stash/Rules/OpenAI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Stash/Rules/Claude.yaml "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Stash/Rules/AI.yaml "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Stash/Rules/AI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Stash/Rules/Telegram.yaml "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Stash/Rules/Twitter.yaml "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -487,11 +487,11 @@ curl -L -o Tool-repo/Stash/Rules/iCloud.list "https://raw.githubusercontent.com/
 curl -L -o Tool-repo/Stash/Rules/TestFlight.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Stash/Rules/AppleProxy.list "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Stash/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Stash/Rules/OpenAI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Stash/Rules/Claude.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Stash/Rules/AI.list "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Stash/Rules/AI.list "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Stash/Rules/Telegram.list "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Stash/Rules/Twitter.list "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
@@ -567,11 +567,11 @@ curl -L -o Tool-repo/Egern/Rules/iCloud.yaml "https://raw.githubusercontent.com/
 curl -L -o Tool-repo/Egern/Rules/TestFlight.yaml "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/TestFlight/TestFlight.list"
 curl -L -o Tool-repo/Egern/Rules/AppleProxy.yaml "https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/AppleProxy/AppleProxy.list"
 # OpenAI
-curl -L -o Tool-repo/Egern/Rules/OpenAI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/OpenAI.list"
+curl -L -o Tool-repo/Egern/Rules/OpenAI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # Claude AI
 curl -L -o Tool-repo/Egern/Rules/Claude.yaml "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Claude.list"
 # AIGC
-curl -L -o Tool-repo/Egern/Rules/AI.yaml "https://ruleset.skk.moe/List/non_ip/ai.conf"
+curl -L -o Tool-repo/Egern/Rules/AI.yaml "https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Rule/AI.list"
 # 社交媒体
 curl -L -o Tool-repo/Egern/Rules/Telegram.yaml "https://raw.githubusercontent.com/Repcz/Tool/X/Surge/Rules/Telegram.list"
 curl -L -o Tool-repo/Egern/Rules/Twitter.yaml "https://raw.githubusercontent.com/ACL4SSR/ACL4SSR/master/Clash/Ruleset/Twitter.list"
