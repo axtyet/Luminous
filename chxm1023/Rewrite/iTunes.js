@@ -29,6 +29,7 @@ const list = {
   'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //Overdrop-天气预报
   'PDFReaderPro%20Free': { cm: 'sjblb', hx: 'hxpda', id: "com.pdfreaderpro.free.member.all_access_pack_permanent_license.001", latest: "chxm1023" }, //PDFReaderProFree
   'VideoHelper': { cm: 'sjblb', hx: 'hxpda', id: "vip_service", latest: "chxm1023" }, //媒关系
+  'Xfuse': { cm: 'sjblb', hx: 'hxpda', id: "com.xfuse.ProVision", latest: "chxm1023" }, //磁力播放器
   'Digital%20Planner': { cm: 'sjbla', hx: 'hxpda', id: "com.softwings.DigitalPlanner.1year", latest: "chxm1023" }, //电子手帐
   'SuperMandarin': { cm: 'sjbla', hx: 'hxpda', id: "pth_vip_year", latest: "chxm1023" }, //普通话水平测试
   'SuperQuestion': { cm: 'sjbla', hx: 'hxpda', id: "qtzs_vip_year", latest: "chxm1023" }, //真题全刷
