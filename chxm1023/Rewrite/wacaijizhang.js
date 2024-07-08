@@ -1,7 +1,8 @@
 /*************************************
 
 项目名称：挖财记账
-下载地址：https://too.st/5ez
+下载地址：https://t.cn/A6SkblaQ
+更新日期：2024-07-08
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -9,7 +10,7 @@
 **************************************
 
 [rewrite_local]
-https://jz.wacaijizhang.com url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/wacaijizhang.js
+^https?:\/\/jz\.wacaijizhang\.com\/(api\/(my\/v\d|vipmember\/v\d\/index|usercenter\/userInfo)|jz-activity\/bkk-frontier\/api\/vipmember\/v\d\/index) url script-response-body JS/wacaijizhang.js
 
 [mitm]
 hostname = jz.wacaijizhang.com
@@ -17,28 +18,43 @@ hostname = jz.wacaijizhang.com
 *************************************/
 
 
-var body = $response.body;
+var chxm1023 = JSON.parse($response.body);
+const my = /api\/my\/v\d/;
+const vip = /(vipmember\/v\d\/index|jz-activity\/bkk-frontier\/api\/vipmember\/v\d\/index)/;
+const user = /usercenter\/userInfo/;
 
-body = body.replace(/\"isVip":\d+/g, '\"isVip":1');
+if(my.test($request.url)){
+  chxm1023.data.vipInfo = {
+    "vipMemberType" : "挖财记账超级年会员",
+    "isVipMember" : true,
+    "expirationDate" : 4092599349000,
+    "continuous" : true,
+    "remainingDays" : 99999,
+    "consecutiveDays" : 99999
+  };
+}
 
-body = body.replace(/\"sex":"\d+"/g, '\"sex":"1"');
+if(vip.test($request.url)){
+  chxm1023.data.vipInfo = {
+    ...chxm1023.data.vipInfo,
+    "adFreeVipEnable" : 1,
+    "adFreePermanentVip" : true,
+    "vipMemberEnable" : 1,
+    "continuousEnable" : 1,
+    "continuousType" : 1,
+    "expirationDate" : 4092599349000,
+    "superExpireDate" : 4092599349000,
+    "adFreeExpireDate" : 4092599349000,
+    "isPermanentVip" : true,
+    "freeSendAdFreeVipEnable" : 0,
+    "vipType" : 2,
+    "expireDaysDays" : 99999,
+    "freeSendVipEnable" : 0
+  };
+}
 
-body = body.replace(/\"isPermanentVip":\w+/g, '\"isPermanentVip":true');
+if(user.test($request.url)){
+  chxm1023.data.isVip = 1;
+}
 
-body = body.replace(/\"freeSendVipEnable":\d+/g, '\"freeSendVipEnable":1');
-
-body = body.replace(/\"freeSendAdFreeVipEnable":\d+/g, '\"freeSendAdFreeVipEnable":1');
-
-body = body.replace(/\"vipType":\d+/g, '\"vipType":2');
-
-body = body.replace(/\"expireDaysDays":\d+/g, '\"expireDaysDays":99999');
-
-body = body.replace(/\"vipMemberEnable":\d+/g, '\"vipMemberEnable":1');
-
-body = body.replace(/\"adFreePermanentVip":\w+/g, '\"adFreePermanentVip":true');
-
-body = body.replace(/\"matchVipTrial":\w+/g, '\"matchVipTrial":true');
-
-body = body.replace(/\"adFreeVipEnable":\d+/g, '\"adFreeVipEnable":1');
-
-$done({body});
+$done({body : JSON.stringify(chxm1023)});
