@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-07-08
+更新日期：2024-07-09
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -27,6 +27,7 @@ const bundle_id = chxm1023.receipt["bundle_id"] || chxm1023.receipt["Bundle_Id"]
 
 const list = {
   'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //Overdrop-天气预报
+  'Boom': { cm: 'sjblb', hx: 'hxpda', id: "com.globaldelight.iBoom.LifetimeDiscountPack", latest: "chxm1023" },//Boom
   'PDFReaderPro%20Free': { cm: 'sjblb', hx: 'hxpda', id: "com.pdfreaderpro.free.member.all_access_pack_permanent_license.001", latest: "chxm1023" }, //PDFReaderProFree
   'VideoHelper': { cm: 'sjblb', hx: 'hxpda', id: "vip_service", latest: "chxm1023" }, //媒关系
   'Xfuse': { cm: 'sjblb', hx: 'hxpda', id: "com.xfuse.ProVision", latest: "chxm1023" }, //磁力播放器
