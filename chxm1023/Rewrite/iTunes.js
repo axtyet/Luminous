@@ -27,6 +27,7 @@ const bundle_id = chxm1023.receipt["bundle_id"] || chxm1023.receipt["Bundle_Id"]
 
 const list = {
   'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //Overdrop-天气预报
+  'qxzs': { cm: 'sjblb', hx: 'hxpda', id: "yongjiu", latest: "chxm1023" },//心率广播
   'Boom': { cm: 'sjblb', hx: 'hxpda', id: "com.globaldelight.iBoom.LifetimeDiscountPack", latest: "chxm1023" },//Boom
   'PDFReaderPro%20Free': { cm: 'sjblb', hx: 'hxpda', id: "com.pdfreaderpro.free.member.all_access_pack_permanent_license.001", latest: "chxm1023" }, //PDFReaderProFree
   'VideoHelper': { cm: 'sjblb', hx: 'hxpda', id: "vip_service", latest: "chxm1023" }, //媒关系
