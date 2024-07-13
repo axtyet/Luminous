@@ -1,35 +1,29 @@
-// 2024-07-14 01:02:36
+// 2024-07-14 01:49:13
 var json = JSON.parse($response.body);
 
-// 需要删除的路径
-var pathsToDelete = [
-    "values.me_config.common_service_list[0]", // 我的云笔记
-    "values.me_config.common_service_list[1]", // 迅雷浏览器
-    "values.me_config.common_service_list[2]", // 迅雷TV
-    "values.me_config.common_service_list[3]", // 金融专区
-    "values.me_config.common_service_list[4]", // 迅雷快鸟
-    "values.me_config.entrance_list[6]", // 迅雷小说
-    "values.me_config.banner_service_list" // 云盘横幅
-];
-
-// 删除指定路径
-pathsToDelete.forEach(function(path) {
-    var parts = path.split('.');
-    var current = json;
-    for (var i = 0; i < parts.length; i++) {
-        var part = parts[i];
-        if (i === parts.length - 1) {
-            if (current.hasOwnProperty(part)) {
-                delete current[part];
-            }
-        } else {
-            if (current.hasOwnProperty(part)) {
-                current = current[part];
-            } else {
-                break;
-            }
+// 删除我的云笔记、迅雷浏览器、迅雷TV、金融专区、迅雷快鸟
+if (json.values && json.values.me_config && json.values.me_config.common_service_list) {
+    var commonServiceIndexes = [0, 1, 2, 3, 4];
+    commonServiceIndexes.forEach(function(index) {
+        if (json.values.me_config.common_service_list[index]) {
+            delete json.values.me_config.common_service_list[index];
         }
-    }
-});
+    });
+}
+
+// 删除迅雷小说
+if (json.values && json.values.me_config && json.values.me_config.entrance_list) {
+    var entranceIndexes = [6, 7];
+    entranceIndexes.forEach(function(index) {
+        if (json.values.me_config.entrance_list[index]) {
+            delete json.values.me_config.entrance_list[index];
+        }
+    });
+}
+
+// 删除我的页面横幅
+if (json.values && json.values.me_config && json.values.me_config.banner_service_list) {
+    delete json.values.me_config.banner_service_list;
+}
 
 $done({ body: JSON.stringify(json) });
