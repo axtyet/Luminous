@@ -64,7 +64,8 @@ if (typeof $response == "undefined") {
   const app = '1';
   const UAMappings = {
     'Python3IDE':{ name: 'pro', id: 'python3ide_six_month'},//7.14
-   
+    'Scale%20Finder':{ name: 'Pro', id: 'sf_2999_1y_1w0'},//7.14
+    'Who%20Stalks':{ name: 'Premium', id: 'ws_999_1m'},//7.14
     'PrevisShot':{ name: 'VIP', id: 'com.previsshot.previsshot.continuous_subscribe_12month_vip'},//7.9
     'Super%20AI%20Chat':{ name: 'premium', id: 'chatbot_v4_1999_1y'},
     'MusicPutty':{ name: 'pro_version', id: 'mp_3599_1y'},//6.24
