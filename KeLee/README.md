@@ -142,7 +142,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="70"><strong>去广告插件</strong></td>
+    <td rowspan="72"><strong>去广告插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="loon://import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Cainiao_remove_ads.plugin">菜鸟去广告</a></td>
@@ -418,7 +418,15 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>69</td>
     <td><a href="loon://import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/QuarkBrowser_remove_ads.plugin">夸克去广告</a></td>
+  </tr>
   <tr>
+    <td>70</td>
+    <td><a href="loon://import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/JiaXiaoDrive_remove_ads.plugin">驾校一点通去广告</a></td>
+  </tr>
+  <tr>
+    <td>71</td>
+    <td><a href="loon://import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/JiaKaoBaoDian_remove_ads.plugin">驾考宝典去广告</a></td>
+  </tr>
     <td></td>
     <td></td>
     <td></td>
