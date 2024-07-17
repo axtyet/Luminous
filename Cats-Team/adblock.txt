@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: Merge from EasyList,EasyListChina etc. and Add Some Rules.
-! ! Version: 2024-07-16 11:05:31(GMT+8) 
-! Total count: 133642
+! ! Version: 2024-07-17 08:03:56(GMT+8) 
+! Total count: 133662
  
 ###ADtip
 ###AdBlockDialog
@@ -3325,6 +3325,7 @@ $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zz
 /analytics.js$domain=qunar.com
 /analytics.js$domain=tokyometro.jp|resumes.breakdownexpress.com|techcult.com|inbox.lv|kopeda.com|freexcafe.com|rusvideos.tv|nakubani.ru|lun.com|songsara.net|newsmax.com|bolgehastanesi.com|ewtc.de|newsdig.tbs.co.jp|imore.com|city.kushiro.lg.jp|emeraldbridal.com.au|emarat-news.ae|imobie.jp|tikla.com.tr|rusvideos.porn|jrkyushu.co.jp|amiunique.org|edit.ing|konami.com
 /analytics.js/v1/*
+/analytics.plausible.js
 /analytics.prod.$domain=~fifteen.eu
 /analytics.sitecatalyst.js
 /analytics.v1.js
@@ -5805,6 +5806,7 @@ $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zz
 /screencount?vcid=
 /scribd_events?
 /script.js|$~third-party,domain=beaumontenterprise.com|chron.com|ctinsider.com|ctpost.com|darientimes.com|expressnews.com|fairfieldcitizenonline.com|fuelfix.com|greenwichtime.com|hearstmediact.com|hearstmediatx.com|houstonchronicle.com|lmtonline.com|middletownpress.com|milfordmirror.com|mrt.com|myplainview.com|mysanantonio.com|ncadvertiser.com|newmilfordspectrum.com|newstimes.com|nhregister.com|ourmidland.com|registercitizen.com|seattlepi.com|sfchronicle.com|sfgate.com|sheltonherald.com|stamfordadvocate.com|thehour.com|theintelligencer.com|theridgefieldpress.com|timesunion.com|trumbulltimes.com|westport-news.com|wiltonbulletin.com|yourconroenews.com
+/script.pageview-props.js
 /script.tagged-events.outbound-links.js
 /script.tagged-events.pageview-props.js
 /script/pixel.js
@@ -6805,7 +6807,6 @@ $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zz
 /wtrack?event=
 /wutime-adblocktracker/*
 /wutime_adblock/*
-/www\.eldorado\.gg\/[a-zA-Z0-9]{10,20}\.js/$script,~third-party,domain=eldorado.gg
 /wwwcount.cgi?
 /wxh_asy.js
 /wxhawkeye.js
@@ -18017,6 +18018,7 @@ doood.site,vidsrc.pro#$#abort-on-property-read window.open
 doorblog.jp,pachinkopachisro.com,blog.livedoor.jp,blog.jp#?#.plugin-memo > div.side > div.ninja-recommend-block:upward(2)
 doordash.com#$#hide-if-matches-xpath './/span[@data-testid][contains(.,"Sponsored") or contains(.,"Commandité") or contains(.,"Patrocinado")]/ancestor-or-self::div[@data-testid="LegoFlexibleItemSquareContainer"][1]'
 doordash.com#$#hide-if-matches-xpath '//a[contains(@data-anchor-id,"store-info")]//following::span[contains(.,"Sponsored") or contains(.,"Commandité") or contains(.,"Patrocinado")]/ancestor::div[string-length(@class) >= 62][1]'
+doordash.com#$#hide-if-matches-xpath '//div[@role]//following::span[contains(.,"Sponsored") or contains(.,"Commandité") or contains(.,"Patrocinado")]//ancestor::div[string-length(@class) >= 62][1]'
 dota2.ru#$#abort-on-property-read helpUsImproveSite
 douban.com##.bottom_ad_download
 douban.com##.channel_promo
@@ -39752,6 +39754,7 @@ focus.cn##.index-app-download
 focus.cn##.module-common-float-im
 focus.cn##.qhb-fixed
 focus.cn##.shequn-code-img
+focus.de#%#//scriptlet('set-constant', 'trackIVWFOL', 'noopFunc')
 foerderland.de#@#.pub_300x250
 foerderland.de#@#.pub_300x250m
 foerderland.de#@#.pub_728x90
@@ -41444,7 +41447,6 @@ image.baidu.com###ecomContainer
 image.baidu.com###imgCmsAdPart
 image.baidu.com###imgid > .fcimgpage
 image.baidu.com###only-lady-sec
-image.baidu.com###pageLayoutTipWindow
 image.baidu.com###plz-albums
 image.baidu.com###plz-head-banner
 image.baidu.com###relEcom
@@ -45377,6 +45379,8 @@ minnyuu.jp#?#div[class$="BlockBase"] > div > div > div.plugin-freearea > div.nin
 minwt.com##.g-336-280
 mirrormedia.mg##.micro-ad
 mirrormedia.mg##.story__ad
+mirrormedia.mg##div[class^="gpt-placeholder"]
+mirrormedia.mg##div[class^="related-article-list__AdvertisementWrapper"]
 mirrormedia.mg#%#//scriptlet("set-constant", "dataLayer", "emptyArr")
 missfq.e.bauermedia.co.nz$image
 missyuan.com##.spaceborder
@@ -50133,7 +50137,6 @@ vgtimes.ru#$#json-prune 'data.0.attributes.bannerId'
 via.intercom.io/o$image
 vid.onlymu.site##.tips
 vid2faf.site#$#abort-on-property-read window.open
-vidak.icu,pb.wtf,piratbit.*##a[href="//www.liveinternet.ru/click"]
 vide-greniers.org##A[class^="replacement_"]
 videobug.net,videofun.me,vidzur.com##.randid
 videofun.me###flowplayer > div[class][style]:first-child
@@ -60055,6 +60058,7 @@ zzzyk.com###Tinfo
 ||alamocapital.actonservice.com^
 ||alapita.openapp.link^
 ||alarm.youku.com/api/sendAlarm
+||alaskaair.com/AlXMT4Ma/init.js
 ||alaskaair.com/javascripts/adrum.js$script,redirect=noopjs,domain=alaskaair.com
 ||alawar.com/gcounter_alawar.js
 ||alb.reddit.com^
@@ -64910,6 +64914,7 @@ zzzyk.com###Tinfo
 ||beacon-1.newrelic.com^
 ||beacon-api.aliyuncs.com^
 ||beacon-fullpage-predictor.goguardian.com^
+||beacon-v2.helpscout.net^
 ||beacon.adelphic.com^
 ||beacon.affil.walmart.com^
 ||beacon.aimtell.com^
@@ -65507,6 +65512,7 @@ zzzyk.com###Tinfo
 ||bksckn.minhacasasolar.com.br^
 ||bkstg.flyx.me^
 ||bkvtrack.com^$third-party
+||bkxpph.xyz^
 ||bkxuprh.cn^
 ||bkzmtp.xyz^
 ||bl-test.curatedplanet.com^
@@ -67441,6 +67447,7 @@ zzzyk.com###Tinfo
 ||cdn.pranmcpkx.com^
 ||cdn.preciso.net^$third-party
 ||cdn.privacy-mgmt.com/wrapper/metrics$important
+||cdn.production.townsquareblogs.com/wp-content/uploads/static/prebid/carbon/pb.js
 ||cdn.pubnub.com^
 ||cdn.q.gs/js/display.js$script,third-party
 ||cdn.q.gs/js/entry.js$script,third-party
@@ -68968,6 +68975,7 @@ zzzyk.com###Tinfo
 ||cnt.viptube.com^
 ||cnt.vivatube.
 ||cnt.vivatube.com^
+||cnt.web-apps-prod.wo-cloud.com^
 ||cnt.wetteronline.de/cgi-bin/ivw/CP/
 ||cnt.wetteronline.de^
 ||cnt.winporn.
@@ -74995,6 +75003,7 @@ zzzyk.com###Tinfo
 ||dfxwdc.com^
 ||dg.champion-compressors.com^
 ||dg.compair.com^
+||dg.incomaker.com/tracking/
 ||dg.irco.com^
 ||dg.its-ats.com^
 ||dg.ptl.irco.com^
@@ -77339,6 +77348,8 @@ zzzyk.com###Tinfo
 ||elderlyinsect.com^$third-party
 ||elderlyscissors.com^$third-party
 ||elderlytown.com^$third-party
+||eldorado.gg/liberate_script_data_$script
+||eldorado.gg/main.$script,replace=/\,dataUnlocker:\{scriptName:\".*?\"\}//
 ||eldoradottfha.dataplane.rudderstack.com^
 ||ele26126.jscrambler.com^
 ||elecfans.com/images/*/675x90.
@@ -90679,6 +90690,7 @@ zzzyk.com###Tinfo
 ||ldgxsr.locasun-vp.fr^
 ||ldhteg.mooihorloge.nl^
 ||ldinry.drinks.ch^
+||ldipsuml.top^
 ||ldjhlqr.cn^
 ||ldjnbn.xyz^
 ||ldlc.com/V4px/js/ldlcmachine.js
@@ -104080,6 +104092,7 @@ zzzyk.com###Tinfo
 ||ple.pearlinsurance.com^
 ||pleasantpump.com^$third-party
 ||plecki.com^$third-party
+||plecnyz.icu^
 ||pleisty.com^$third-party
 ||plenty.vidio.com^
 ||plerdy.com^$third-party
@@ -105403,6 +105416,7 @@ zzzyk.com###Tinfo
 ||qhres.com/static/4b6ab193405b6ca3.js
 ||qhres.com/static/b4f92ac067a4768b/v4/modules/footer.js
 ||qhres.com^*/baidu_
+||qhscsu.xyz^
 ||qhssjyb.xyz^
 ||qhtdmlf.xyz^
 ||qhupdate.com^$third-party
@@ -107912,6 +107926,7 @@ zzzyk.com###Tinfo
 ||s.dc-tag.jp^
 ||s.deepl.com^
 ||s.durhamregion.com^
+||s.ensonhaber.com/assets/js/lib/esh-tag-v5.js
 ||s.ergotherapieblog.de^
 ||s.eur.cemex.com^
 ||s.fission.codes^
@@ -110487,6 +110502,7 @@ zzzyk.com###Tinfo
 ||shelbypublishing.actonservice.com^
 ||shell-recharge.tupinambaenergia.com.br^
 ||shellcat.ru^$third-party
+||shemale6.com/player/stats.php?event=Init$image,redirect=1x1-transparent.gif,domain=shemale6.com
 ||shemsfm.net/ar/setStats/
 ||shemsfm.net/fr/setStats/
 ||shen4club.com/style/*.js?v=
@@ -126786,6 +126802,7 @@ zzzyk.com###Tinfo
 ||udc.yahoo.com^$domain=d3ward.github.io
 ||udcm.yahoo.com^
 ||udcm.yahoo.com^$domain=d3ward.github.io
+||udd1i5.zhihu.com^
 ||udemy.com/api-2.0/ecl
 ||udemy.com/api-2.0/ecl?
 ||udeztrb.cn^
@@ -128529,6 +128546,7 @@ zzzyk.com###Tinfo
 ||vwyycnq.cn^
 ||vxcjoz.nextadvisor.com^
 ||vxdpmxw.xyz^
+||vxdrfr.xyz^
 ||vxfdepn.cn^
 ||vxhsj.cn^
 ||vxhtxt.xyz^
@@ -129416,6 +129434,7 @@ zzzyk.com###Tinfo
 ||weidenhammer.actonservice.com^
 ||weidianyuedu.com^$third-party
 ||weifengtianxia.com^
+||weights.gg/api/data/analytics.trackUserSession
 ||weihaojiaju.com/tu888/
 ||weike87.com/images/*0
 ||weike87.com/images/*1
@@ -133031,6 +133050,7 @@ zzzyk.com###Tinfo
 ||zebestof.com^$third-party
 ||zebjlt.buzz^
 ||zebjlt.xyz^
+||zed.dev/_vercel/insights/view
 ||zedwhyex.com^$third-party
 ||zeerat.com^$third-party
 ||zefpks.dealdonkey.com^
