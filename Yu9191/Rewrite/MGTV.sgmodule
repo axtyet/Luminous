@@ -1,0 +1,21 @@
+#!name=MGTV
+#!desc=MGTV
+
+[URL Rewrite]
+#播放页开通提示移除
+http://vip.bz.mgtv.com/client/dynamic_entry - reject
+
+[Script]
+mgtv1 = type=http-request, pattern=^http[s]?:\/\/mobile\.api\.mgtv\.com\/v[0-9]\/(playlist|video\/album|video\/relative|video\/list).*$, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/mgtv1.js, timeout=60
+
+MGTV = type=http-request, pattern=https://mobile-stream.api.mgtv.com/v1/video/source?, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/MGTV.js, timeout=60
+
+mgtv = type=http-response, pattern=https://nuc.api.mgtv.com/GetUserInfo, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/mgtv.js, requires-body=true, max-size=-1, timeout=60
+
+mgtv = type=http-response, pattern=https://mobile-stream.api.mgtv.com/v1/video/source, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/mgtv.js, requires-body=true, max-size=-1, timeout=60
+
+#港区
+MGTV = type=http-request, pattern=^https://mobile.api.mgtv.com/v8/video/getSource, script-path=https://raw.githubusercontent.com/Yu9191/Rewrite/main/MGTV.js, timeout=60
+
+[MITM]
+hostname = %APPEND% *.mgtv.com
