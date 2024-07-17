@@ -5,9 +5,13 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Kuwo.png
-#!date = 2024-07-18 02:40:08
+#!date = 2024-07-18 03:38:24
 
 [Rule]
+# 拦截HTTPDNS
+DOMIAN, serveraddr.service.kugou.com, REJECT
+URL-REGEX, ^http:\/\/ncomment\.kuwo\.cn\/com\.s, REJECT
+
 # 腾讯优量汇 - 广告服务商
 DOMAIN, ios.bugly.qq.com, REJECT
 DOMAIN, mazu.m.qq.com, REJECT
@@ -28,14 +32,26 @@ DOMAIN-SUFFIX, gdt.qq.com, REJECT
 # c2.gdt.qq.com, REJECT
 DOMAIN, tmeadcomm.y.qq.com, REJECT
 DOMAIN, mobilead.kuwo.cn, REJECT
+DOMAIN, adstats.tencentmusic.com, REJECT
+DOMAIN, adsmind.gdtimg.com, REJECT
+DOMAIN, ad.tencentmusic.com, REJECT
+DOMAIN, mc.tencentmusic.com, REJECT
 
 # 广告配置
 URL-REGEX, ^http:\/\/rich\.kuwo\.cn\/AdService\/, REJECT-DICT
 URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/user\/freeMode\/, REJECT-DICT
 URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/app\/pasterAdvert\/, REJECT-DICT
+URL-REGEX, ^http:\/\/rich\.kuwo\.cn\/EcomResourceServer\/, REJECT-DICT
+URL-REGEX, ^http:\/\/rich\.kuwo\.cn\/AdService\/, REJECT-DICT
+IP-CIDR, 111.206.98.63/32, REJECT, no-resolve
+
 # URL-REGEX, ^http:\/\/mobilead\.kuwo\.cn\/EcomResourceServer\/, REJECT-DICT
 # 精简我的页面侧边栏
-URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v1\/app\/newMenuList\/menuListInfo, REJECT-DICT
+URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/app\/newMenuList\/menuListInfo, REJECT-DICT
+# 迷你播放器横幅
+URL-REGEX, ^http:\/\/vip\d\.kuwo\.cn\/vip\/v\d\/sysinfo\?op=getRePayAndDoPayBox, REJECT-DICT
+# 听书页面广告
+URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/album\/adBar\/, REJECT-DICT
 
 [Rewrite]
 # 我的页面横幅
@@ -46,4 +62,4 @@ URL-REGEX, ^http:\/\/wapi\.kuwo\.cn\/openapi\/v1\/app\/newMenuList\/menuListInfo
 http-response ^http:\/\/wapi\.kuwo\.cn\/openapi\/v\d\/tingshu\/index\/radio script-path = https://raw.githubusercontent.com/axtyet/Luminous/main/KeLee/Resource/Script/Kuwo/Kuwo_remove_ads.js, requires-body = true, tag = 移除听书页面广告
 
 [Mitm]
-hostname = mobilead.kuwo.cn, appi.kuwo.cn
+hostname = mobilead.kuwo.cn, appi.kuwo.cn, mc.tencentmusic.com
