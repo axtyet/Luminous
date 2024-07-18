@@ -147,7 +147,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="76"><strong>去广告插件</strong></td>
+    <td rowspan="77"><strong>去广告插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=encode(url)https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Cainiao_remove_ads.plugin">菜鸟去广告</a></td>
@@ -447,6 +447,10 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>75</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=encode(url)https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Kuwo_remove_ads.plugin">酷我音乐去广告</a></td>
+  </tr>
+  <tr>
+    <td>76</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=encode(url)https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/DubbingShow_remove_ads.plugin">配音秀去广告</a></td>
   </tr>
     <td></td>
     <td></td>
