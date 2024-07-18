@@ -8,7 +8,7 @@ FaceSwapper解锁VIP
 ^https?:\/\/api-.*\.facereplacerext\.com\/api\/rest\/commerce\/integrate\/vip\/perform url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/FaceSwapper.js
 
 [mitm]
-hostname = api-sgp.facereplacerext.com
+hostname = api-*.facereplacerext.com
 
 */
 
