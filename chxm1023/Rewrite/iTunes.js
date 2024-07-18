@@ -26,7 +26,10 @@ const ua = $request.headers['User-Agent'] || $request.headers['user-agent'];
 const bundle_id = chxm1023.receipt["bundle_id"] || chxm1023.receipt["Bundle_Id"];
 
 const list = {
+  'VideoLab': { cm: 'sjbla', hx: 'hxpda', id: "com.jellybus.VideoLab.IAP.PRO7999", latest: "chxm1023" },//VideoLab
+  'MOLDIV': { cm: 'sjbla', hx: 'hxpda', id: "com.jellybus.Moldiv.IAP.PRO7999", latest: "chxm1023" },//MOLDIV
   'PICSPLAY': { cm: 'sjbla', hx: 'hxpda', id: "com.jellybus.PicsPlay2.IAP.PRO5999", latest: "chxm1023" },//PICSPLAY
+  'Rookie': { cm: 'sjbla', hx: 'hxpda', id: "com.jellybus.Rookie.IAP.PRO5999", latest: "chxm1023" },//RKCAM
   'MoneyWiz': { cm: 'sjbla', hx: 'hxpda', id: "com.moneywiz.personalfinance.1year", latest: "chxm1023" }, //MoneyWiz-个人财务
   'Overdrop': { cm: 'sjblb', hx: 'hxpda', id: "com.weather.overdrop.forever", latest: "chxm1023" }, //Overdrop-天气预报
   'qxzs': { cm: 'sjblb', hx: 'hxpda', id: "yongjiu", latest: "chxm1023" },//心率广播
