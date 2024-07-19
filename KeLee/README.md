@@ -2,13 +2,13 @@
 
 ------
 
-> [!CAUTION]  
+> [!CAUTION]
 > 禁止在中华人民共和国境内平台公开传播本仓库内的任何内容或以此牟利！
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > 本仓库提供的插件大部分引用自其他作者，由我转写为 Loon 的插件。所有插件均保留了原作者署名信息，在此感谢各位原作者。
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > 转载时你需要保留原作者署名信息，且遵守本仓库的 [CC BY-NC-SA 4.0](https://github.com/luestr/ProxyResource/blob/main/LICENSE.md) 许可协议。
 
 ------
@@ -134,10 +134,14 @@ Plus 流量 1024G 月付 120
 
 #### 插件列表
 
-1. 此处的所有插件全部通过可用性验证，直接点击链接一键添加即可，不要复制链接手动安装；
-2. 如果你的插件无法生效就说明你自己的配置有问题，请自行排查问题移除冲突项目或导入`最小配置`配置使用，默认内置这里的大部分常用插件；
-3. 如果你点击下面的链接发现跳转到了空白页面，建议恢复 Safari 为默认浏览器后重启设备。待网络完全恢复到正常状态之后，再打开 Loon，以重新下载统一链接的配置文件；
-4. 遇到插件失效的，请先阅读[知识库](https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/b6047d8b-621c-44af-bfa6-a28d35bcf928)排查。
+> [!IMPORTANT]
+> 如果你点击下面的链接发现跳转到了空白页面，建议恢复 Safari 为默认浏览器后重启设备。待网络完全恢复到正常状态之后，再打开 Loon，以重新下载统一链接的配置文件。
+
+> [!WARNING]
+> 此处的所有插件可直接点击链接一键添加，不要复制链接手动安装。
+
+> [!NOTE]
+> 遇到插件失效的，请先阅读[知识库](https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/b6047d8b-621c-44af-bfa6-a28d35bcf928)排查。
 
 
 <table>
