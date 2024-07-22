@@ -5,27 +5,34 @@
 #!keyword = 去广告, ZenmoFeiShi
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/DiDi.png
-#!date = 2024-06-21 01:28:12
+#!date = 2024-07-22 23:08:51
 
 [Rule]
-DOMAIN, gwp.xiaojukeji.com, REJECT
+AND, ((DEST-PORT, 25641), (IP-CIDR, 123.207.209.39/32, no-resolve)), REJECT
+AND, ((DEST-PORT, 25641), (IP-CIDR, 123.207.209.60/32, no-resolve)), REJECT
+AND, ((DEST-PORT, 25641), (IP-CIDR, 139.199.240.12/32, no-resolve)), REJECT
+AND, ((DEST-PORT, 25641), (IP-CIDR, 139.199.240.15/32, no-resolve)), REJECT
+# DOMAIN, img-ys011.didistatic.com, REJECT
 
 [Rewrite]
-^https:\/\/hd\.xiaojukeji\.com\/d reject-dict
+^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/xpget reject-dict
+^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds reject-dict
+^https:\/\/daijia\.kuaidadi\.com\/gateway reject-dict
+^https:\/\/freight\.xiaojukeji\.com\/gateway reject-dict
+^https:\/\/daijia\.kuaidadi\.com:443\/gateway reject-dict
+^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget reject-dict
+^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/other\/fast reject-dict
+^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf reject-dict
 
 [Script]
 http-response ^https:\/\/common\.diditaxi\.com\.cn\/common\/v\d\/usercenter\/me script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/daijia\.kuaidadi\.com\/gateway script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/daijia\.kuaidadi\.com:443\/gateway script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/freight\.xiaojukeji\.com\/gateway script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/xpget script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/ct\.xiaojukeji\.com\/agent\/v3\/feeds script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/res\.xiaojukeji\.com\/resapi\/activity\/mget script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/other\/fast script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/conf\.diditaxi\.com\.cn\/dynamic\/conf script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
+
 http-response ^https:\/\/conf\.diditaxi\.com\.cn\/homepage\/v\d\/core script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
-http-response ^https:\/\/api\.udache\.com\/gulfstream\/pre-sale\/v1\/other\/pGetSceneList script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
+
+http-response ^https:\/\/api\.udache\.com\/gulfstream\/pre-sale\/v1\/other\/pGetSceneLis script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
+
 http-response ^https:\/\/conf\.diditaxi\.com\.cn\/ota\/na\/yuantu\/infoList script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/DiDi/DiDi_remove_ads.js, requires-body = true, tag = 移除广告
 
+
 [Mitm]
-hostname = api.udache.com, common.diditaxi.com.cn, conf.diditaxi.com.cn, ct.xiaojukeji.com, daijia.kuaidadi.com, freight.xiaojukeji.com, hd.xiaojukeji.com, res.xiaojukeji.com
+hostname = common.diditaxi.com.cn, freight.xiaojukeji.com, daijia.kuaidadi.com, ct.xiaojukeji.com, res.xiaojukeji.com, conf.diditaxi.com.cn, pi.udache.com, 123.207.209.*, 112.53.55.225, 120.241.142.*, 120.241.143.*, 116.85.2.*, 139.199.240.84
