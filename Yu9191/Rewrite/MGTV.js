@@ -13,9 +13,9 @@ https://mobile-stream.api.mgtv.com/v1/video/source url script-response-body http
 ^https://mobile.api.mgtv.com/v8/video/getSource url script-request-header https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/MGTV.js
 #播放页开通提示移除
 http://vip.bz.mgtv.com/client/dynamic_entry url reject
-
+https://pad.api.mgtv.com/v8/video/getSource url script-request-header https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/MGTV.js
 [mitm] 
-hostname = *.mgtv.com
+hostname = *.mgtv.com, pad.api.mgtv.com
 
 */
 
