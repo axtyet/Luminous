@@ -5,7 +5,7 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/KeLee.png
-#!date = 2024-07-22 22:03:55
+#!date = 2024-07-23 17:23:11
 
 [Rule]
 # Outlook
@@ -175,7 +175,8 @@ URL-REGEX, ^http:\/\/p\.kuaidi100\.com\/advertisement\/, REJECT-DICT
 ^https:\/\/qiye\.gaoding\.com\/api\/v3\/oc\/v2\/delivery-pits\/ios-splash\/ reject-dict
 
 # 猫眼 - 移除开屏广告、红包悬浮
-^https:\/\/p0\.pipi\.cn\/adAdmin\/[A-Za-z0-9]+\.(jpg|png)\?imageMogr2\/(quality\/85\?may_covertWebp|thumbnail\/!165x165r%7CimageMogr2\/cut\/165x165x0x0\/gravity\/center)$ reject
+^https:\/\/p0\.pipi\.cn\/(adAdmin|mediaplus\/maoyantong_ads_fe)\/\w+\.jpg\?imageMogr2\/quality\/ reject-dict
+^https:\/\/p0\.pipi\.cn\/(adAdmin|mediaplus\/maoyantong_ads_fe)\/\w+\.(jpg|png)\?imageMogr2\/thumbnail\/(860x0|!165x165|!1049x1169) reject-dict
 
 # 站酷 - 开屏广告
 ^https:\/\/api\.zcool\.com\.cn\/v\d\.\d\.\d/common\/open-screen reject-dict
