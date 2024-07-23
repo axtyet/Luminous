@@ -1,6 +1,6 @@
-/*
-脚本引用
-*/
+// 2024-07-23 18:39:44
+const url = $request.url;
+let header = $request.headers;
 let obj = JSON.parse($response.body);
 if (url.includes("/v1/activity")) {
     // 彩云推广
