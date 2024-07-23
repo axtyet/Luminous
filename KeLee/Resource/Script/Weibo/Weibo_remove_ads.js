@@ -1,7 +1,7 @@
 /*
 引用地址：https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
 */
-// 2024-04-13 19:05
+// 2024-07-23 10:45
 
 const url = $request.url;
 if (!$response.body) $done({});
@@ -1149,7 +1149,7 @@ if (url.includes("/interface/sdk/sdkad.php")) {
         }
       }
     }
-  } else if (url.includes("/v1/ad/preload")) {
+  } else if (url.includes("/v1/ad/preload") || url.includes("/v2/ad/preload")) {
     // 开屏广告
     if (obj?.ads?.length > 0) {
       for (let item of obj.ads) {
