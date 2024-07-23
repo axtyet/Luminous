@@ -63,6 +63,7 @@ if (typeof $response == "undefined") {
   var UA = $request.headers['user-agent'];
   const app = '1';
   const UAMappings = {
+    'Gradient':{ name: 'unlimited', id: 'com.tickettothemoon.gradient.unlimited.yearly.small'},//7.23
     'Python3IDE':{ name: 'pro', id: 'python3ide_six_month'},//7.14
     'Scale%20Finder':{ name: 'Pro', id: 'sf_2999_1y_1w0'},//7.14
     'Who%20Stalks':{ name: 'Premium', id: 'ws_999_1m'},//7.14
