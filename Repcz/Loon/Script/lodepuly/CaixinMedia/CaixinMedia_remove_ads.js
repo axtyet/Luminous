@@ -1,12 +1,10 @@
 /*
-脚本引用
+脚本引用 https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/break/caixin.js
 */
-// 2023-12-11 07:25
+// 2024-07-16 20:00
 
 var url = $request.url;
-var header = $request.headers;
 const isQuanX = typeof $task !== "undefined";
-const appinfo = "";
 
 if (url.includes("/gg.caixin.com/s")) {
   // 开屏广告
@@ -25,6 +23,8 @@ if (url.includes("/gg.caixin.com/s")) {
     $done({ body });
   }
 } else {
+  if (!$response) $done({});
+  if (!$response.body) $done({});
   let obj = JSON.parse($response.body);
   if (url.includes("/api/dataplus/columns")) {
     // 首页-数据通

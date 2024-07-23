@@ -1,0 +1,20 @@
+#!name = 彩云天气去广告
+#!desc = 移除彩云天气广告
+#!openUrl = https://apps.apple.com/app/id847764912
+#!author = RuCu6
+#!keyword = 去广告, RuCu6
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/ColorfulClouds.png
+#!date = 2024-07-23 16:28:50
+
+[Rewrite]
+^https:\/\/biz\.cyapi\.cn\/(p\/v1\/entries|p\/v1\/trial_card\/info|v2\/product) reject-dict
+^https:\/\/starplucker\.cyapi\.cn\/v3\/(config\/cypage\/\w+\/conditions|notification\/message_center|operation\/homefeatures) reject-dict
+
+[Script]
+http-response ^https:\/\/biz\.cyapi\.cn\/(p\/v1\/vip_info|v2\/user) script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/CaixinMedia/CaixinMedia_remove_ads.js, requires-body = true, tag = 彩云天气去广告
+http-response ^https:\/\/wrapper\.cyapi\.cn\/v1\/activity\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/CaixinMedia/CaixinMedia_remove_ads.js, requires-body = true, tag = 彩云天气去广告
+http-request ^https:\/\/wrapper\.cyapi\.cn\/v1\/(nafp\/origin_images|satellite)\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/CaixinMedia/CaixinMedia_remove_ads.js, tag = 彩云天气去广告
+
+[Mitm]
+hostname = biz.cyapi.cn, starplucker.cyapi.cn, wrapper.cyapi.cn
