@@ -1,7 +1,8 @@
 /*
 脚本引用 https://raw.githubusercontent.com/ZenmoFeiShi/Qx/main/Didichuxing.js
 */
-// 2024-07-22 22:52:56
+// 2024-07-24 13:57
+
 const url = $request.url;
 if (!$response.body) $done({});
 
@@ -27,7 +28,7 @@ if (url.includes("/homepage/v1/core")) {
     obj.data.order_cards.nav_list_card.data = obj.data.order_cards.nav_list_card.data.filter(item => keepNavIds.includes(item.nav_id));
   }
   // 保留底部tap首页、我的
-  const keepBottomNavIds = ['v6x_home', 'user_center' ];
+  const keepBottomNavIds = ['v6x_home', 'home_page' , 'user_center' ];
   if (obj.data && obj.data.disorder_cards && obj.data.disorder_cards.bottom_nav_list && obj.data.disorder_cards.bottom_nav_list.data) {
     obj.data.disorder_cards.bottom_nav_list.data = obj.data.disorder_cards.bottom_nav_list.data.filter(item => keepBottomNavIds.includes(item.id));
   }
@@ -62,4 +63,3 @@ if (url.includes("/usercenter/me")) {
 }
 
 $done({ body: JSON.stringify(obj) });
-
