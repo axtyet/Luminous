@@ -30,6 +30,7 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
   'HRV': { hx: 'hxpdc', id: "com.stress.test.record.yearly", latest: "chxm1023" },  //解压小橘子(需试用)
+  'iVCam': { cm: 'timeb', hx: 'hxpda', id: "ivcam.full", latest: "chxm1023" },//iVCam
   'RBrowser': { cm: 'timea', hx: 'hxpda', id: "com.mm.RBroswer.product11", latest: "chxm1023" }, //R浏览器
   'VideoLab': { cm: 'timea', hx: 'hxpda', id: "com.jellybus.VideoLab.IAP.PRO7999", latest: "chxm1023" },//VideoLab
   'Filterra': { cm: 'timea', hx: 'hxpda', id: "com.filterra.wtonetimepurchase", latest: "chxm1023" },//Filterra
