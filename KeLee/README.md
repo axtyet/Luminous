@@ -151,7 +151,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="82"><strong>去广告插件</strong></td>
+    <td rowspan="84"><strong>去广告插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Cainiao_remove_ads.plugin">菜鸟去广告</a></td>
@@ -470,11 +470,19 @@ Plus 流量 1024G 月付 120
   </tr>
   <tr>
     <td>80</td>
-    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/XFuse_remove_ads.plugin">磁力宅播放器去广告</a></td>
   </tr>
   <tr>
     <td>81</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
+  </tr>
+  <tr>
+    <td>82</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Remove_ads_by_keli.plugin">可莉广告过滤器</a></td>
+  </tr>
+  <tr>
+    <td>83</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/ColorfulClouds_remove_ads.plugin">彩云天气去广告</a></td>
   </tr>
     <td></td>
     <td></td>
