@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2024-07-24 08:03:18(GMT+8) 
-! Total count: 33759
+! ! Version: 2024-07-25 08:03:21(GMT+8) 
+! Total count: 33761
  
 ###ADtip
 ###AdBlockDialog
@@ -1701,6 +1701,7 @@ $script,third-party,domain=colamanga.com
 $script,third-party,domain=torkitty.com|torrentkitty.app|torrentkitty.asia|torrentkitty.cam|torrentkitty.ink|torrentkitty.io|torrentkitty.live|torrentkitty.lol|torrentkitty.net|torrentkitty.se|torrentkitty.tv|torrkitty.com
 $script,third-party,websocket,domain=52codes.net
 $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zzzzz688.com
+$third-party,xmlhttprequest,websocket,domain=qiyoudy2.com|qiyoudy4.com
 &ADFAssetID=$media,domain=expres.cz|www.idnes.cz|auto.cz|autorevue.cz|maminka.cz|reflex.cz|blesk.cz|dama.cz|e15.cz|mojezdravi.cz|zeny.cz|zive.cz
 &ADFAssetID=$media,domain=www.ahaonline.cz|info.cz|onetv.cz|iprima.cz
 &cmpState=$script,domain=ahaonline.cz|info.cz|onetv.cz
@@ -1724,6 +1725,7 @@ $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zz
 -*-*-*-*.panda^$script,third-party
 -1316632262.cos.
 -1316899192.cos.
+-1321533417.cos.
 -1688-wp-media/ads/
 -90mh-gg.
 -adblock-notice-
@@ -2597,6 +2599,7 @@ $third-party,xmlhttprequest,domain=subhd.tv|subhdtw.com|xyg688.com|xyg688.xyz|zz
 /jun0120211102193659.
 /jun0120211112090740.
 /k120g270.
+/k228.oss-
 /k300g250.
 /k960g90.
 /kan/ads/dl.js
@@ -7508,10 +7511,12 @@ bilibili.com##.bili-video-card:has(.bili-video-card__info--creative-ad) > .bili-
 bilibili.com##.bili-video-card__wrap > a[href^="http"]:not([href*=".bilibili.com/"])
 bilibili.com##.btn-ctnr
 bilibili.com##.clearfix.h5-download-bar
+bilibili.com##.container > div.bili-video-card.is-rcmd:not(:has(> *))
 bilibili.com##.desktop-download-tip
 bilibili.com##.download-client-trigger.download-entry
 bilibili.com##.eva-banner
 bilibili.com##.extension-tips
+bilibili.com##.floor-single-card:has(.floor-skeleton):not(:has(> div.bili-video-card__skeleton))
 bilibili.com##.gg-floor-module
 bilibili.com##.index-promote
 bilibili.com##.index__container__src-commonComponent-bottomOpenApp-
@@ -8823,34 +8828,19 @@ douyin.com###videoSideBar iframe
 douyin.com###videoSideBar:-abp-has(div:-abp-contains(/商品|商家|退款|店铺/))
 douyin.com#?##douyin-right-container > div[class] > div[class]:has(> ul[class] > li[class] > a[href][target="_blank"] + div:contains(广告))
 douyin.com#?#.xgplayer>div[class]:-abp-has(svg[height="16"][width="30"])
-douyu.com###FansFestival2003Tips
-douyu.com###douyu_room_normal_player_danmuDom > .ani-base-hover.DanmuEffectBC.ani-broadcast
-douyu.com###douyu_room_normal_player_proxy_box > .PlayerSuspendedBallAd
 douyu.com###js-fix-download
 douyu.com###js-live-room-recommend
-douyu.com###js-player-dialog
-douyu.com###js-player-guessgame
 douyu.com###js-room-activity
 douyu.com###sign_p_1
 douyu.com##.ActPayDialog
 douyu.com##.BargainingKit
-douyu.com##.Bottom
-douyu.com##.ChatEffect
-douyu.com##.ConfigBroadcast.ani-broadcast
-douyu.com##.FishpondTreasure
-douyu.com##.FudaiGiftToolBarTips
+douyu.com##.ClientJump
+douyu.com##.Download
 douyu.com##.Header-download-wrap
-douyu.com##.HeaderGif-left
-douyu.com##.HeaderGif-right
 douyu.com##.IconCardAdBoundsBox
 douyu.com##.PaladinPop
-douyu.com##.PcDiversion
 douyu.com##.PrivilegeGiftModalDialog
 douyu.com##.ScreenBannerAd
-douyu.com##.SuperFansGuideTips
-douyu.com##.TaskIcon
-douyu.com##.ToolbarActivityArea
-douyu.com##.ToolbarActivityArea > div:nth-of-type(1) > div:nth-of-type(1) > div.ActivityItem:nth-of-type(3)
 douyu.com##.XinghaiAd
 douyu.com##.adcontainer
 douyu.com##.bglink
@@ -8865,7 +8855,6 @@ douyu.com##.hot-sign-2
 douyu.com##.imageItem-wrap[style="width: 1200px; height: 120px;"]
 douyu.com##.imageItem-wrap[style="width: 287px; height: 559px;"]
 douyu.com##.index-common-1-rrh
-douyu.com##.is-active.UPlayerLotteryEnter
 douyu.com##.is-mask.MedalUserGuide
 douyu.com##.isLink[href^="https://igxe.cn/"]
 douyu.com##.layout-Slide-banner:not([href*="douyu"])
@@ -8880,15 +8869,10 @@ douyu.com##.video-info-download
 douyu.com##a[href*=".miaozhen.com"]
 douyu.com##a[href*=".youzan.com"]
 douyu.com##a[href^="http://tracking.ad-survey.com/"]
-douyu.com##div.Title-row:nth-of-type(3)
-douyu.com##div.is-normal.Title-col:nth-of-type(2)
 douyu.com##div[class*=LiveRoomDianzan]
 douyu.com##div[class^="ChargeTask"]
+douyu.com##div[class^="code_box"]
 douyu.com##div[id^="sign_p_"]
-douyu.com##li.RightNavigate-item:nth-of-type(1)
-douyu.com##li.RightNavigate-item:nth-of-type(1) > [href^="/client"]
-douyu.com##li.RightNavigate-item:nth-of-type(2)
-douyu.com##li.RightNavigate-item:nth-of-type(2) > [href^="/client"]
 douyu.com#?#.SharePanel:-abp-has(> .SharePanel-content > .SharePanel-contentTitle:-abp-contains(福利))
 douyu.com#?#.bc-wrapper:-abp-has(>.wm-view>div>.isLink[href*=".qualtrics.com/"])
 douyu.com#?#.wm-general:-abp-has(.link[href*=".tmall.com"])
@@ -9115,6 +9099,8 @@ ebay.*#$#hide-if-contains-visible-text /.*/ 'div.x-ads-placements>div' div.recs-
 ebay.*#$#hide-if-contains-visible-text /.*/ 'div.x-ads-slot>div[data-from^="ads_platform"]' div.recs-item-list-subtitle>div ^^sh^^ * iframe[title^="Sponsored"]
 ebay.*#$#hide-if-contains-visible-text /.*/ 'div[data-interactions*="ADV"]>div.recs-card-container' div.recs-grid-subtitle>div ^^sh^^ * iframe
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ 'div.recs-grid-item-card>div.recs-item-content' div>span[role^="text"]
+ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ 'div>div.recs-cardlist-container' div>span[class^="recs-subtitle-label"][role^="text"]
+ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ 'div[id^="placement"][style] div' div>span[data-text^="Sponsored"]
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ 'section.ads-berries' div>span ^^sh^^ div[style]
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ div[role]>div 'div[role]>div.recs-item-content * div ^^sh^^ style+span.dsa-label'
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzati|Sponsorowane|G⁣e⁣s⁣p⁣o⁣n⁣s⁣o⁣r⁣d|Patrocinado/ li>div 'li>div.recs-item-content * div ^^sh^^ style+span.dsa-label'
@@ -9128,9 +9114,11 @@ ebay.*#$#hide-if-matches-xpath './/div[@class="ads-pd-s2--sponsored"]/ancestor::
 ebay.*#$#hide-if-matches-xpath './/div[@class="srp-1p__ad-column"]/ancestor-or-self::a[@class="srp-1p__link"]'
 ebay.*#$#hide-if-matches-xpath './/div[contains(@class,"pd-sponsored")]/parent::div[starts-with(@class,"ads-")]/ancestor::div[@data-testid="x-ads-placements"]'
 ebay.*#$#hide-if-matches-xpath './/div[contains(@class,"sponsored-infotip")]/parent::div[starts-with(@class,"ads")]/parent::div[contains(@class,"ads")]/ancestor::div[@id and @aria-label="Advertisement"]'
+ebay.*#$#hide-if-matches-xpath './/div[contains(@data-interactions,"Promoted")]/div//ancestor-or-self::div[contains(@data-interactions,"Promoted")]'
 ebay.*#$#hide-if-matches-xpath './/span[contains(@class,"dsa-label")][@role="text"][text()]/ancestor::div[@class="recs-item-content"]'
 ebay.*#$#hide-if-matches-xpath '//canvas[@width][@height="20"][not(@style="display:none")]/preceding::div[@class="recs-content-wrap-mot"]/ancestor-or-self::li[@class="carousel__snap-point"][@style]'
-ebay.*#$#hide-if-matches-xpath '//div[contains(@data-interactions,"Promoted")]/div[@class="recs-card-container"]/ancestor-or-self::div[1]'
+ebay.*#$#hide-if-matches-xpath '//div[contains(@class,"x-ads-slot")]/div[@data-from="ads_platform"]/ancestor-or-self::div[contains(@class,"x-ads-slot")]'
+ebay.*#$#hide-if-matches-xpath '//span[@data-text="Sponsored"]/ancestor::div[contains(@class,"x-ads-placements")]'
 ebay.*#$#race start; hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado|Anzeige/ 'li.s-item' '* li div>span>div ^^sh^^ span:not([aria-hidden="true"])'; hide-if-contains-and-matches-style /./ li[data-viewport] 'li[data-viewport] .s-item__sep>div ^^sh^^ span' /./ 'overflow-x: visible'; hide-if-contains-visible-text /./ 'li[data-viewport]' '.s-item__sep>div ^^sh^^ span:nth-child(2)'; hide-if-matches-computed-xpath './/div[contains(@class, "s-item__detail")]/span/div[@aria-labelledby = "{{}}"]/ancestor::li' './/style[contains(text(),"size: var")]' /^\\s*div\\.(.*?)_/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/script[contains(text(),"CSSStyleDeclaration")]' /getPropertyValue\\(\\"\\-\\-(.*?)\\"/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/style[contains(text(),"div:first-line")]' '/0px;\\s\\-\\-(.*?)\\:/'; hide-if-matches-computed-xpath './/li//span[@class="s-item__sep"]/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]//div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; hide-if-matches-computed-xpath './/li//span/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]/div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; race stop;
 ebay.*#$#race start; hide-if-matches-xpath './/span[starts-with(@class,"recs-subtitle-label")][@role="text"][text()]/ancestor-or-self::div[@class="recs-placement-arrangement"]'; hide-if-matches-xpath './/div[starts-with(@class,"recs-subtitle-label")][@role="text"][text()]/ancestor-or-self::div[@class="recs-placement-arrangement"]'; race stop;
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[id^="placement"][style]' div>span ^^sh^^ div[style]
@@ -11810,8 +11798,10 @@ kdslife.com###tao
 kdslife.com###youhui
 kdslife.com##a[href*="kds.2144.cn"]
 kdslife.com,pchome.net##.weixin
+ke.com##.app-down
 ke.com##.app_content
 ke.com##.app_daoliu_layer
+ke.com##.download
 ke.qq.com##.bottom-bar
 keepfiles.fr###shadow
 kehuan.net.cn##.bread_728x90
@@ -12341,12 +12331,7 @@ m.douban.com##div.center [style*='padding: 4px;']
 m.douban.com##h2 > [href^="https://www.douban.com/doubanapp/card/get_app"]
 m.douban.com#?#a:contains(用App看更多)
 m.douban.com#?#div:matches-css(width:68px)
-m.douyu.com##.DownloadBtn
-m.douyu.com##.HomeHeader-openAppB
-m.douyu.com##.abtest-downloadDialog
-m.douyu.com##.btn-open-app
-m.douyu.com##.btn-open-app.open-btn-more
-m.douyu.com##.clarity-downDialog
+m.douyu.com##div[class*="OpenAppBtn"]
 m.egame.qq.com###gcOfficialWidgetWrapper
 m.egame.qq.com###installGameBar
 m.egame.qq.com###installbar
@@ -13201,7 +13186,7 @@ new.qq.com#@##TopAd
 newcger.com##.banner_recom
 newduba.cn###jq_youxi
 newegg.*#$#hide-if-matches-xpath './/a[@class="item-img"][@rel]/following::span[contains(text(),"Sponsored")]/ancestor::div[contains(@class,"item-cell")][starts-with(@id,"item_cell")]'
-newegg.*#$#hide-if-matches-xpath './/div[contains(@class,"menu-box")]/span[contains(text(),"Sponsored")]/ancestor::div[contains(@class,"at-side")]'; hide-if-matches-xpath './/div[@class="row-body-inner"]//div[contains(@class,"menu-box")]/span[contains(text(),"Sponsored")]/ancestor::div[@class][2]'; hide-if-matches-xpath './/span["Sponsored"]/ancestor::div[starts-with(@class,"product-headline")]';hide-if-matches-xpath './/span[.=" Sponsored"]/ancestor::div[@class=" grid-col" or @class="swiper-slide"]'; hide-if-contains-visible-text /Sponsored/ div[class^="product"] 'div[class][style]>span';
+newegg.*#$#hide-if-matches-xpath './/div[contains(@class,"menu-box")]/span[contains(text(),"Sponsored")]/ancestor::div[contains(@class,"at-side")]'; hide-if-matches-xpath './/div[@class="row-body-inner"]//div[contains(@class,"menu-box")]/span[contains(text(),"Sponsored")]/ancestor::div[@class][3]'; hide-if-matches-xpath './/span["Sponsored"]/ancestor::div[starts-with(@class,"product-headline")]'; hide-if-matches-xpath './/span[contains(text(),"Sponsored")]/ancestor::div[starts-with(@class,"product-headline") or @class=" grid-col" or contains(@class,"swiper-slide")]'; hide-if-contains-visible-text /Sponsored/ div[class^="product"] 'div[class][style]>span';
 newegg.com##div[class*="-sponsored"]
 newkaliningrad.ru##body > .soclinks + script + div[class]:not([id])
 newmobilelife.com###ATS_sticky
@@ -15403,6 +15388,7 @@ theguardian.com##.js-adblock-sticky
 theguardian.com##.site-message--adblock-message
 thenewslens.com##div[class^="help-tnl-"]
 thenewslens.com##div[class^="help-tnl-container-"]
+thepaper.cn###QRcode
 thepaper.cn###head_ask_app_down
 thepaper.cn##.download
 thepaper.cn##[class^='index_footer_banner']
@@ -15995,7 +15981,7 @@ vidmoly.to###dos_vlock
 vidmoly.to#$#abort-current-inline-script addEventListener DOMContentLoaded
 vidshare.tv,govid.me,hdvid.tv,ovid.pro,gomovies.film,gomovies.sc,gomovies.es,gostream.nu,openloadmovies.net,openloadmovies.review,flashx.tv,cloudvideo.tv#$#abort-on-property-write Fingerprint2
 vidshare.tv,vidshar.tv,series.movie,gowatchseries.movie,gowatchseries.tv#$#abort-current-inline-script Object.defineProperty XMLHttpRequest
-viet69.name,ungtycomicsvip.com,truyengihotqua.net,truyengihotqua.com,truyengihotdo.net,truyengihotnha.com,truyengihotnha.net,truyengihotnay.com,dualeotruyenbi.com,yurineko.net,vlxyz.tube,javhay.click,phimsexhay669.pro,cliphot69.blog,doctruyen3qvn.pro,hentaizz.biz,animehay.in,vlxx.xxx,heo69.moe,top1sex.club,lenlut.tv,sexmup18.com,hentaivn.today,sexvn1.cc,cdn.streamvl.sbs,www.buomtv.vip,truyenvn.cam,cdnstream.sbs,javtiful.com,sexvn.tuoi69s.com,quatvn.baby,tenmientruyengi.net,topviet69.com,phim18hd.sex,live.sexviet88.dev,gaidep3x.pro,demo.14412882.com,sexphimhd.vip,ungtycomicsvip.net,xemphim18.cc,vn.cliphot69.live,hhtq5.vip#$#abort-current-inline-script WebAssembly instantiate
+viet69.name,ungtycomicsvip.com,truyengihotqua.net,truyengihotqua.com,truyengihotdo.net,truyengihotnha.com,truyengihotnha.net,truyengihotnay.com,dualeotruyenbi.com,yurineko.net,vlxyz.tube,javhay.click,phimsexhay669.pro,cliphot69.blog,doctruyen3qvn.pro,hentaizz.biz,animehay.in,vlxx.xxx,heo69.moe,top1sex.club,lenlut.tv,sexmup18.com,hentaivn.today,sexvn1.cc,cdn.streamvl.sbs,www.buomtv.vip,truyenvn.cam,cdnstream.sbs,javtiful.com,sexvn.tuoi69s.com,quatvn.baby,tenmientruyengi.net,topviet69.com,phim18hd.sex,live.sexviet88.dev,sexnhe.biz,demo.14412882.com,sexphimhd.vip,ungtycomicsvip.net,xemphim18.cc,vn.cliphot69.live,hhtq5.vip#$#abort-current-inline-script WebAssembly instantiate
 view.inews.qq.com##div[class^="article-recommend_wrapper"]
 view.inews.qq.com##div[class^="bottom-bar_buttonWrap"]
 view.inews.qq.com##div[class^="infinite-comment-list_subText"]
@@ -16653,7 +16639,7 @@ xnxx-sex-videos.com#$#abort-current-inline-script setTimeout /window.location/
 xnxx-sex-videos.com#$#override-property-read user_out false
 xnxx-sexfilme.com#$#abort-on-property-read open; abort-on-property-write SpacialUp;
 xnxx-sexfilme.com#$#hide-if-matches-xpath './/span[contains(text(),"Advertisement")]/parent::div[@class][1]'; hide-if-matches-xpath './/div[contains(@class,"logo")]/ancestor::div[@data-ga_action="join"]/ancestor::aside[@id][1]';
-xoilac86z15.live#$#abort-on-property-read adsRedirectPopups
+xoilacs.cc#$#abort-on-property-read adsRedirectPopups
 xoivo2.online,tructiepdabong5.co,vaoroi365.com#$#override-property-read adsPlayer '';override-property-read adsTvcs ''
 xpiaotian.net#@#.pagead
 xstud.org#$#abort-on-property-read _0xd07e
@@ -18182,6 +18168,7 @@ zzzyk.com###Tinfo
 ||67.21.92.*.gif
 ||670t5x.cn^
 ||6789.net^$third-party
+||68287zubo85737.com^
 ||68710266.com^
 ||692881.com^
 ||693836.com^$popup
@@ -18479,6 +18466,7 @@ zzzyk.com###Tinfo
 ||962.net/show/cms_$script
 ||962.net/show/down_
 ||962.net/show/index_
+||96382zubo66756.com^
 ||9669.cn/ipdat/duilian/
 ||9669.cn/jsam/play_
 ||9669.com^$script,third-party
@@ -20122,6 +20110,7 @@ zzzyk.com###Tinfo
 ||betylife.com^
 ||bewilderedbattle.com^$third-party
 ||bewilderedblade.com^$third-party
+||bewr1.com^
 ||beyers.cn^
 ||bf99.com/User*/Ad_
 ||bf99.com/User/Images/bg_Blued.jpg
@@ -20528,6 +20517,7 @@ zzzyk.com###Tinfo
 ||bydzfldt.xyz^
 ||byjykj.xyz^
 ||bymahuxv.xyz^
+||byretuv.top^
 ||byscy.cn^$third-party
 ||bytecdn.cn/ta/resource/v0/analytics.js
 ||bytravel.cn/images/cus/
@@ -22106,6 +22096,7 @@ zzzyk.com###Tinfo
 ||doubleclick.net^
 ||doubtfulrainstorm.com^$third-party
 ||douguo.net/upload/post/d/
+||doujs01.shop^
 ||doujs01.xyz^
 ||doujs010.xyz^
 ||doujs02.xyz^
@@ -24020,6 +24011,7 @@ zzzyk.com###Tinfo
 ||hearinglizards.com^$third-party
 ||heartbreakingmind.com^$third-party
 ||hearthorn.com^$third-party
+||heatherssb.com^
 ||heavyplayground.com^$third-party
 ||hebei.com.cn/eap/
 ||hebei.com.cn/sys/online_calc.js
@@ -25185,6 +25177,7 @@ zzzyk.com###Tinfo
 ||jedlnn.xyz^
 ||jeepyy.com^$third-party
 ||jessicarace.com^
+||jetlwsa.top^
 ||jf2v.mnpool.cn^
 ||jfjslia.top^
 ||jflwhf.xyz^
@@ -25980,6 +25973,7 @@ zzzyk.com###Tinfo
 ||kwdgudw.cn^
 ||kweriod.top^
 ||kwflvcdn.000dn.com^*.flv
+||kwgqaqf.icu^
 ||kwiqcoh.icu^
 ||kwivb.cn^
 ||kwo-0115.cc^
@@ -28522,6 +28516,7 @@ zzzyk.com###Tinfo
 ||pzfqzv.xyz^
 ||pzjizsyf.icu^
 ||pzkrgcp.cn^
+||pznlpp.xyz^
 ||pzphmkf.xyz^
 ||pzpivx.xyz^
 ||pzqqstb.icu^
@@ -28911,6 +28906,7 @@ zzzyk.com###Tinfo
 ||qzpmx.cn^
 ||qzqd2.com^
 ||qzs.gdtimg.com^
+||qzsvwo.xyz^
 ||qzvzluu.xyz^
 ||qzwb.com/phpstat/
 ||r.99waiyu.com^
@@ -30954,6 +30950,7 @@ zzzyk.com###Tinfo
 ||tradetooth.com^$third-party
 ||trafficjam.cn^$third-party
 ||trafficjunky.net^
+||trafficmanager.net^
 ||trafficstars.com$third-party
 ||tranquilamulet.com^$third-party
 ||tranquilarchipelago.com^$third-party
@@ -31287,6 +31284,7 @@ zzzyk.com###Tinfo
 ||ui8l2.xyz^
 ||uiakq.top^
 ||uibjhqwkl.com^
+||uicdns.xyz^
 ||uidwyx.icu^
 ||uifyeldt.top^
 ||uigxgg.xyz^
@@ -31752,6 +31750,7 @@ zzzyk.com###Tinfo
 ||voxirf.xyz^
 ||voyagepotato.com^$third-party
 ||vozftn.xyz^
+||vpdnjl.xyz^
 ||vppzjv.xyz^
 ||vpqko.fun^
 ||vpqrydt.xyz^
@@ -31907,6 +31906,7 @@ zzzyk.com###Tinfo
 ||wbkaqly.cn^
 ||wbnbocz.xyz^
 ||wbnlwyj.xyz^
+||wbqqo.com^$third-party
 ||wbubgob.cn^
 ||wbupbv.com^
 ||wbvfj.xyz^
@@ -32699,6 +32699,7 @@ zzzyk.com###Tinfo
 ||xryrylt.cn^
 ||xs.dmzj.com^
 ||xs.houyi.baofeng.net^
+||xs6po.icu^
 ||xs8.cn/qreport?
 ||xsbiquge.la/js/detail.js
 ||xsfajf.xyz^
@@ -32997,7 +32998,7 @@ zzzyk.com###Tinfo
 ||yimuhe.com/n_ad/
 ||yin1.zgpingshu.com^
 ||yingav.net/images/content/spot01.jpg
-||yinghua8.tv/bar/
+||yinghua8.*/bar/
 ||yinghuavideo.com/bar/
 ||yingnanyqq.com^
 ||yingshizxw.com/js/tc/
@@ -33016,6 +33017,7 @@ zzzyk.com###Tinfo
 ||yizhibo.com/special/h5corner.html
 ||yjbdyjnctgj.top^
 ||yjcf360.com/ad.
+||yje912.cn^
 ||yjnhkd.com^
 ||yjnhndt.com^
 ||yjnkas.com^
