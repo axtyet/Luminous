@@ -1,4 +1,4 @@
-// 2024-07-26 16:36:27
+// 2024-07-26 19:09:38
 const url = $request.url;
 let obj = JSON.parse($response.body);
 
@@ -21,6 +21,13 @@ if (url.includes("/party/config")) {
     delete obj.data.partyBannerIndex; // 娱乐页面横幅
     delete obj.data.partyListBanner; // 娱乐页面横幅
     delete obj.data.partyTopBanner; // 娱乐页面横幅
+}
+
+// 删除广场搜索填充词
+if (url.includes("/post/fetchSearchRecommend")) {
+    if (obj.data && obj.data.list) {
+        obj.data.list = [];
+    }
 }
 
 $done({ body: JSON.stringify(obj) });
