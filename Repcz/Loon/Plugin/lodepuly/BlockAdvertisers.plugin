@@ -1,11 +1,11 @@
 #!name = 广告平台拦截器
-#!desc = 拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、锐讯灵通等广告平台的广告请求，更适合iOS平台的应用。
+#!desc = 拦截腾讯、字节跳动、快手、百度、邑盟、倍孜、艾狄墨搏、袤博、极光、个推、友盟、阿里、优比客思、秒针、网易、美团、小米、京东、天目、讯飞、泛连、锐讯灵通等广告平台的广告请求，更适合iOS平台的应用。
 #!openUrl = 
 #!author = 可莉🅥
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Website_icon/120px/TencentAd.png
-#!date = 2024-07-27 20:39:48
+#!date = 2024-07-27 21:18:14
 
 [Rule]
 # 字节跳动广告
@@ -53,6 +53,8 @@ DOMAIN-KEYWORD, -ad-sign.byteimg.com, REJECT
 DOMAIN-KEYWORD, api-access.pangolin-sdk-toutiao, REJECT
 DOMAIN-KEYWORD, log-api.pangolin-sdk-toutiao, REJECT
 DOMAIN-KEYWORD, -ad.byteoversea.com, REJECT
+DOMAIN-KEYWORD, video-cn.snssdk.com, REJECT
+DOMAIN-KEYWORD, asiad.byteactivity, REJECT
 
 # 讯飞AI营销
 DOMAIN-KEYWORD, iflyad.bj.openstorage.cn, REJECT
@@ -68,6 +70,9 @@ DOMAIN, ztoken.uyunad.com, REJECT
 DOMAIN, gdfp.gifshow.com, REJECT
 DOMAIN, open.e.kuaishou.com, REJECT
 DOMAIN-SUFFIX, adukwai.com, REJECT
+
+# SupersonicAds
+DOMAIN, init.supersonicads.com, REJECT
 
 # 上海倍孜
 DOMAIN, sdk.beizi.biz, REJECT
@@ -131,7 +136,6 @@ DOMAIN, adsmind.ugdtimg.com, REJECT
 DOMAIN, appsupport.qq.com, REJECT
 DOMAIN, c2.gdt.qq.com, REJECT
 DOMAIN, huatuocode.huatuo.qq.com, REJECT
-DOMAIN, i.gtimg.cn, REJECT
 DOMAIN, info4.video.qq.com, REJECT
 DOMAIN, info6.video.qq.com, REJECT
 DOMAIN, ios.bugly.qq.com, REJECT
@@ -187,6 +191,9 @@ DOMAIN, aspect-upush.umeng.com, REJECT
 DOMAIN, plbslog.umeng.com, REJECT
 DOMAIN, log.umtrack.com, REJECT
 DOMAIN, aaid.umeng.com, REJECT
+
+# FUNLINK - 北京泛连科技
+DOMAIN, adtracker.adfunlink.com, REJECT
 
 # 天目 - 广告服务商
 DOMAIN, sdk.tianmu.mobi, REJECT
