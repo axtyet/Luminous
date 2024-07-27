@@ -6,7 +6,7 @@
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/TikTok.png
 #!select = 解锁地区, 台湾, 日本, 韩国, 泰国, 越南, 英国, 法国, 德国, 美国, 巴西, 俄罗斯, 墨西哥, 土耳其, 西班牙, 阿根廷, 新加坡, 菲律宾, 马来西亚
-#!date = 2024-05-16 17:23:42
+#!date = 2024-07-27 20:21:36
 
 [Rule]
 # 2024-04-30 00:47:47
@@ -112,7 +112,7 @@ DOMAIN-KEYWORD, ttlivecdn.com., PROXY
 # 去广告
 ^https:\/\/api-va\.tiktokv\.com\/api\/ad\/ reject
 # 域名解析
-^https:\/\/tnc16-platform-useast1a\.tiktokv\.com\/get_domains\/ reject
+^https:\/\/tnc\d+-platform-\w+\.tiktokv\.com\/get_domains\/ reject
 
 [Script]
 http-request https?:\/\/.+.(tiktokv|tiktokcdn).com\/.+(region\d?=CN|&mcc_mnc=\d+) script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/TikTok/TikTok_redirect.js, tag = TikTok解锁
