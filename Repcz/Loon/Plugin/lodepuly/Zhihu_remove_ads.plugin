@@ -57,12 +57,12 @@ IP-CIDR6, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
 ^https:\/\/zhuanlan\.zhihu\.com\/api\/articles\/\d+\/recommendation reject
 
 [Script]
-# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片
+# 首页 - 悬浮图标、顶部横幅、开屏广告、关注页推荐、推荐信息流、热榜信息流、热榜直播、回答底部卡片、精简顶部标签
 http-response ^https:\/\/api\.zhihu\.com\/commercial_api\/app_float_layer script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
 http-response ^https:\/\/api\.zhihu\.com\/feed\/render\/tab\/config\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
 http-response ^https:\/\/api\.zhihu\.com\/(moments_v3|topstory\/hot-lists\/total|topstory\/recommend) script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
 http-response ^https:\/\/api\.zhihu\.com\/v2\/topstory\/hot-lists\/everyone-seeing\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
-http-response ^https:\/\/api\.zhihu\.com\/root\/tab script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
+http-response ^https:\/\/api\.zhihu\.com\/root\/tab script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 精简顶部标签
 
 http-response ^https:\/\/api\.zhihu\.com\/(answers|articles)\/v2\/\d+ script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Zhihu/Zhihu_remove_ads.js, requires-body = true, tag = 移除首页推广
 
