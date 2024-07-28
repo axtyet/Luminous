@@ -5,23 +5,16 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/iMaiCai.png
-#!date = 2024-07-16 17:08:35
+#!date = 2024-07-29 00:48:27
 
 [Rule]
 # 广告下发
-# IP-CIDR, 101.236.12.16/32, REJECT, no-resolve
-IP-CIDR, 101.50.8.64/32, REJECT, no-resolve // 首次
-# IP-CIDR, 103.37.142.230/32, REJECT, no-resolve
-IP-CIDR, 103.37.152.161/32, REJECT, no-resolve
-IP-CIDR, 103.37.152.162/32, REJECT, no-resolve
-IP-CIDR, 103.63.160.64/32, REJECT, no-resolve
-IP-CIDR, 202.90.108.69/32, REJECT, no-resolve
-IP-CIDR, 202.90.110.45/32, REJECT, no-resolve
-IP-CIDR, 202.90.110.8/32, REJECT, no-resolvee // 首次
-IP-CIDR, 203.76.217.241/32, REJECT, no-resolvee // 首次
-IP-CIDR, 203.76.217.243/32, REJECT, no-resolvee // 首次
-IP-CIDR, 203.76.217.37/32, REJECT, no-resolve
-IP-CIDR, 2405:1480:1000:3::20/128, REJECT, no-resolve
+AND, ((DEST-PORT, 443), (IP-ASN, 4811, no-resolve), (PROTOCOL, TCP)), REJECT
+AND, ((DEST-PORT, 443), (IP-ASN, 17621, no-resolve), (PROTOCOL, TCP)), REJECT
+AND, ((DEST-PORT, 443), (IP-ASN, 59025, no-resolve), (PROTOCOL, TCP)), REJECT
+AND, ((DEST-PORT, 443), (IP-ASN, 63619, no-resolve), (PROTOCOL, TCP)), REJECT
+AND, ((DEST-PORT, 443), (IP-ASN, 141771, no-resolve), (PROTOCOL, TCP)), REJECT
+AND, ((DEST-PORT, 443), (IP-ASN, 146781, no-resolve), (PROTOCOL, TCP)), REJECT
 
 [Rewrite]
 # 开屏广告
