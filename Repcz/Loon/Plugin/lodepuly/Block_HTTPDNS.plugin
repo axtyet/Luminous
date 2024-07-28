@@ -5,13 +5,16 @@
 #!keyword = DNS, 可莉, VirgilClyne
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/HTTPDNS.png
-#!date = 2024-07-29 00:51:44
+#!date = 2024-07-29 03:03:12
 
 [Rule]
 # YY语音
 DOMAIN, yyapp-httpdns.gslb.yy.com, REJECT
 DOMAIN, union-httpdns.gslb.yy.com, REJECT
 DOMAIN, httpdns-v6.gslb.yy.com, REJECT
+
+# 虎牙
+URL-REGEX, ^http:\/\/cdn\.wup\.huya\.com\/launch\/queryHttpDns, REJECT
 
 # 抖音
 AND, ((DOMAIN-KEYWORD, api100-core-quic-), (DOMAIN-SUFFIX, amemv.com)), REJECT
@@ -195,6 +198,7 @@ IP-CIDR6, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
 [Rewrite]
 # 腾讯DNS
 ^https?:\/\/119\.29\.29\.29\/d reject
+
 # 小川在线HTTPDNS
 ^https?:\/\/203\.107\.1\.1/\d+/ss reject
 ^https?:\/\/203\.107\.1\.33/\d+/ss reject
@@ -203,13 +207,19 @@ IP-CIDR6, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
 ^https?:\/\/203\.107\.1\.97/\d+/ss reject
 ^https?:\/\/2401:b180:2000:30::1c\/\d+\/d reject
 ^https?:\/\/2401:b180:2000:20::10\/\d+\/d reject
+
 # 网易邮箱
 ^https?:\/\/appconf\.mail\.163\.com\/mailmaster\/api\/http\/urlConfig\.do$ reject-dict
+
 # 闲鱼
 ^https?:\/\/amdc\.alipay\.com\/query
+
 # 百度网盘
 ^https?:\/\/180\.76\.76\.200\/v\d\/resolve reject
 ^https?:\/\/180\.76\.76\.112\/v\d\/resolve reject
 
+# 虎牙
+^https?:\/\/cdn\.wup\.huya\.com\/monitor\/monitor\.jsp reject
+
 [Mitm]
-hostname = 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, appconf.mail.163.com, amdc.alipay.com, 180.76.76.200, 180.76.76.112
+hostname = 119.29.29.29, 203.107.1.1, 203.107.1.33, 203.107.1.66, 203.107.1.67, 203.107.1.97, 2401:b180:2000:30::1c, 2401:b180:2000:20::10, appconf.mail.163.com, amdc.alipay.com, 180.76.76.200, 180.76.76.112, cdn.wup.huya.com
