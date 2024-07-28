@@ -1,0 +1,32 @@
+#!name = 斗鱼去广告
+#!desc = 移除开屏、首页视频流、首页轮播图广告，移除直播间悬浮窗。
+#!openUrl = https://apps.apple.com/app/id433125283
+#!author = 可莉🅥
+#!keyword = 去广告, 可莉
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Douyu.png
+#!date = 2024-07-28 21:30:39
+
+[Rule]
+# 拦截HTTPDNS
+^http:\/\/203\.107\.1\.33\/\d+\/ss
+^http:\/\/203\.107\.1\.34\/\d+\/ss
+IP-CIDR, 119.29.29.98/32, REJECT, no-resolve
+IP-CIDR, 119.29.29.99/32, REJECT, no-resolve
+
+[Rewrite]
+# 开屏广告
+^https:\/\/rtbapi\.douyucdn\.cn\/japi\/sign\/app\/getinfo reject-dict
+
+[Script]
+# 首页轮播图和视频流广告
+http-response ^https:\/\/apiv2\.douyucdn\.cn\/mgapi\/livenc\/home\/getRecV3 script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Douyu/Douyu_remove_ads.js, requires-body = true, tag = 移除首页轮播图和视频流广告
+
+# 首页直播间悬浮窗
+http-response ^https:\/\/apiv2\.douyucdn\.cn\/japi\/entrance\/roomRes\/nc\/m\/list script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Douyu/Douyu_remove_ads.js, requires-body = true, tag = 移除首页直播间悬浮窗
+
+# 修改应用配置
+http-response ^https:\/\/venus\.douyucdn\.cn\/venus\/config\/static\/update script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/Douyu/Douyu_remove_ads.js, requires-body = true, tag = 修改应用配置
+
+[Mitm]
+hostname = rtbapi.douyucdn.cn, apiv2.douyucdn.cn, venus.douyucdn.cn
