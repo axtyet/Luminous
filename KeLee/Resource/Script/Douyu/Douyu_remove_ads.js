@@ -1,52 +1,44 @@
-// 2024-07-28 21:37:36
+// 2024-07-28 22:19:42
 const url = $request.url;
 let obj = JSON.parse($response.body);
 
-function removeAdsFromRecCont(data) {
-    if (data && data.rec_cont) {
-        data.rec_cont.forEach(item => {
-            if (item.hasOwnProperty("ad")) {
-                delete item.ad;
-            }
-        });
-    }
-}
-
-function removePendantAndEntrance(data) {
-    if (data) {
-        delete data.pendant_a;
-        delete data.entrance_d;
-    }
-}
-
-function setKeysToZero(data, keys) {
-    keys.forEach(key => {
-        if (data.hasOwnProperty(key)) {
-            data[key] = 0;
-        }
-    });
-}
-
-// 首页轮播图和视频流广告
 if (url.includes("/mgapi/livenc/home/getRecV3")) {
-    removeAdsFromRecCont(obj.data);
+    function removeAds(data) {
+        return data.filter(item => !item.ad);
+    }
+
+    if (obj.data && obj.data.rec_cont) {
+        obj.data.rec_cont = removeAds(obj.data.rec_cont);
+    }
+    if (obj.data && obj.data.rec_card && obj.data.rec_card.card_banner) {
+        obj.data.rec_card.card_banner = removeAds(obj.data.rec_card.card_banner);
+    }
 }
 
-// 首页直播间悬浮窗
 if (url.includes("/japi/entrance/roomRes/nc/m/list")) {
-    removePendantAndEntrance(obj.data);
+    if (obj.data) {
+        delete obj.data.pendant_a; // 直播间悬浮窗
+        delete obj.data.entrance_d; // 直播间宝箱
+    }
 }
 
-if (/^\/venus\/config\/static\/update\?aid=ios&client_sys=ios&keyCodeSet=flow_config/.test(url)) {
-    const keysToZero = [
-        "greatGodGameSitterSwitch", // 大神游戏陪玩
-        "followMoreAnchorEntrance", // 关注更多主播入口
-        "sdklivebanner", // 直播横幅
-        "homeActFloatSwitch", // 首页活动悬浮窗
-        "bringGoodsSwitch", // 带货开关
-        "qqGameSwitch" // QQ游戏
-    ];
-    setKeysToZero(obj, keysToZero);
+if (/^\/venus\/config\/static\/update\?aid=ios&client_sys=ios&keyCodeSet=flow_config$/.test(url)) {
+    const keysToZero = {
+        "greatGodGameSitterSwitch": 0, // 大神游戏陪玩
+        "followMoreAnchorEntrance": 0, // 关注更多主播入口
+        "sdklivebanner": 0, // 直播横幅
+        "homeActFloatSwitch": 0, // 首页活动悬浮窗
+        "bringGoodsSwitch": 0, // 带货开关
+        "qqGameSwitch": 0 // QQ游戏
+    };
+
+    if (obj.data) {
+        for (let key in keysToZero) {
+            if (obj.data.hasOwnProperty(key)) {
+                obj.data[key] = keysToZero[key];
+            }
+        }
+    }
 }
 
 $done({ body: JSON.stringify(obj) });
