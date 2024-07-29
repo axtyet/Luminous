@@ -1,4 +1,4 @@
-// 2024-07-28 22:19:42
+// 2024-07-29 16:35:35
 const url = $request.url;
 let obj = JSON.parse($response.body);
 
@@ -10,8 +10,14 @@ if (url.includes("/mgapi/livenc/home/getRecV3")) {
     if (obj.data && obj.data.rec_cont) {
         obj.data.rec_cont = removeAds(obj.data.rec_cont);
     }
-    if (obj.data && obj.data.rec_card && obj.data.rec_card.card_banner) {
-        obj.data.rec_card.card_banner = removeAds(obj.data.rec_card.card_banner);
+    if (obj.data && obj.data.rec_card) {
+        // obj.data.rec_card.card_banner = removeAds(obj.data.rec_card.card_banner);
+        for (let i in obj.data.rec_card) {
+            var v = obj.data.rec_card[i]
+            if (v.rec_card.card_banner) {
+                v.rec_card.card_banner = removeAds(v.rec_card.card_banner)
+            }
+        }
     }
 }
 
