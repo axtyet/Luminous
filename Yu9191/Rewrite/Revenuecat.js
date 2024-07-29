@@ -63,6 +63,7 @@ if (typeof $response == "undefined") {
   var UA = $request.headers['user-agent'];
   const app = '1';
   const UAMappings = {
+    'reader':{ name: 'subscriptions', id: 'com.valo.reader.vip1.forever'},
     'Gradient':{ name: 'unlimited', id: 'com.tickettothemoon.gradient.unlimited.yearly.small'},//7.23
     'Python3IDE':{ name: 'pro', id: 'python3ide_six_month'},//7.14
     'Scale%20Finder':{ name: 'Pro', id: 'sf_2999_1y_1w0'},//7.14
