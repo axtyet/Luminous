@@ -5,7 +5,7 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Douyu.png
-#!date = 2024-07-29 21:11:41
+#!date = 2024-07-29 21:43:28
 
 [Rule]
 # 拦截HTTPDNS
@@ -19,6 +19,9 @@ IP-CIDR, 119.29.29.99/32, REJECT, no-resolve
 AND, ((DEST-PORT, 18000), (PROTOCOL, STUN)), REJECT
 DOMAIN, stun1.douyucdn.cn, REJECT
 DOMAIN, stun1.qvb.qcloud.com, REJECT
+
+# 请求重定向
+^(http:\/\/)((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/(hlsh5p1\.douyucdn2\.cn)(.*) 302 $1$5$6
 
 [Rewrite]
 # 开屏广告
