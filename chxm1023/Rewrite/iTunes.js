@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-07-22
+更新日期：2024-07-29
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,9 +29,10 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
+  'com.BertonYc.ScannerOCR': { cm: 'timeb', hx: 'hxpda', id: "Scanner_Subscibe_Permanent", latest: "chxm1023" }, //万能扫描王
   'HRV': { hx: 'hxpdc', id: "com.stress.test.record.yearly", latest: "chxm1023" },  //解压小橘子(需试用)
-  'iVCam': { cm: 'timeb', hx: 'hxpda', id: "ivcam.full", latest: "chxm1023" },//iVCam
-  'RBrowser': { cm: 'timea', hx: 'hxpda', id: "com.mm.RBroswer.product11", latest: "chxm1023" }, //R浏览器
+  'iVCam': { cm: 'timeb', hx: 'hxpda', id: "ivcam.full", latest: "chxm1023" },//iVCam-电脑摄像头
+  'RBrowser': { cm: 'timea', hx: 'hxpda', id: "com.mm.RBroswer.product11", latest: "chxm1023" }, //R浏览器(需试用)
   'VideoLab': { cm: 'timea', hx: 'hxpda', id: "com.jellybus.VideoLab.IAP.PRO7999", latest: "chxm1023" },//VideoLab
   'Filterra': { cm: 'timea', hx: 'hxpda', id: "com.filterra.wtonetimepurchase", latest: "chxm1023" },//Filterra
   'MOLDIV': { cm: 'timea', hx: 'hxpda', id: "com.jellybus.Moldiv.IAP.PRO7999", latest: "chxm1023" },//MOLDIV
