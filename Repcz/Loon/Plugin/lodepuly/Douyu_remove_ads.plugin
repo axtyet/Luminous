@@ -5,15 +5,20 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Douyu.png
-#!date = 2024-07-29 17:18:22
+#!date = 2024-07-29 21:11:41
 
 [Rule]
 # 拦截HTTPDNS
-^http:\/\/203\.107\.1\.33\/\d+\/ss
-^http:\/\/203\.107\.1\.34\/\d+\/ss
+URL-REGEX, ^http:\/\/203\.107\.1\.33\/\d+\/ss, REJECT
+URL-REGEX, ^http:\/\/203\.107\.1\.34\/\d+\/ss, REJECT
+URL-REGEX, ^http:\/\/linkmicschedule\.douyucdn\.cn\/im_schedule\/im_gate_list, REJECT
 IP-CIDR, 119.29.29.98/32, REJECT, no-resolve
 IP-CIDR, 119.29.29.99/32, REJECT, no-resolve
-URL-REGEX, ^http:\/\/linkmicschedule\.douyucdn\.cn\/im_schedule\/im_gate_list, REJECT
+
+# 拦截STUN请求
+AND, ((DEST-PORT, 18000), (PROTOCOL, STUN)), REJECT
+DOMAIN, stun1.douyucdn.cn, REJECT
+DOMAIN, stun1.qvb.qcloud.com, REJECT
 
 [Rewrite]
 # 开屏广告
