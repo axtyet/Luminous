@@ -1,7 +1,9 @@
 /*************************************
 
-项目名称：涩涩视频 —— 去除所有广告
-下载地址：https://os.privacypolicie.net
+项目名称：涩涩视频—去除所有广告
+下载地址：https://23581.net/
+在线观看：https://os.privacypolicie.net
+在线观看：https://kb403128.jnruiying.com
 获取地址：kuaiboshipin8568@gmail.com 发送任意内容邮件获取最新下载地址
 更新日期：2024-07-30
 脚本作者：chxm1023
@@ -11,10 +13,10 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/(files\.(yuchenglw|honghufly)\.com|(os\.privacypolicie|ss\.osupdate|cdn\.privacypolicie)\.net) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Advertising/sssp.js
+^https?:\/\/.*\.(yuchenglw|honghufly|privacypolicie|osupdate|jnruiying)\.(net|com) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Advertising/sssp.js
 
 [mitm]
-hostname = files.*.com, os.privacypolicie.net, ss.osupdate.net
+hostname = *.yuchenglw.com, *.honghufly.com, *.privacypolicie.net, *.osupdate.net, *.jnruiying.com
 
 *************************************/
 
