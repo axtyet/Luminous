@@ -6,7 +6,7 @@
 #
 # Egern Version ≥ 1.22.0(392)
 #
-# 最后更新时间: 2024-07-31 19:40
+# 最后更新时间: 2024-07-31 22:10
 #
 # ================
 
@@ -17,43 +17,34 @@ vif_only: true
 hijack_dns:
 - '*:53'
 
-# 自定义MaxMind数据库
+# 自定义 MaxMind 数据库
 geoip_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
 
 dns:
-  # DNS 引导器：用于解析上游DNS(DoT、DoH、DoQ)，默认 system
-  bootstrap:
-    - system
-  # 上游 DNS 服务器
-  upstreams:
-    # 国内公共加密 DNS
-    Domestic-Encrypted-DNS:
+  bootstrap: # DNS 引导器：用于解析上游DNS(DoT、DoH、DoQ)，默认 system
+  - system
+  upstreams: # 上游 DNS 服务器
+    Domestic-Encrypted-DNS: # 国内公共加密 DNS
     - quic://dns.alidns.com
     - https://doh.pub/dns-query
-    # 国外公共加密 DNS (不推荐，自行启用)
-    Foreign-Encrypted-DNS:
+    Foreign-Encrypted-DNS: # 国外公共加密 DNS (不推荐，自行启用)
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
-  # DNS 转发规则
-  forward:
-    # 国内规则集
-  - proxy_rule_set:
+  forward: # DNS 转发规则
+  - proxy_rule_set: # 国内域名规则集
       match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/ChinaDomain.yaml
-      value: system
+      value: system # 使用系统 DNS 解析
       update_interval: 86400
-    # 通配符规则
-  - wildcard:
+  - wildcard: # 通配符规则
       match: '*'
       value: Domestic-Encrypted-DNS
-  # 域名映射
-  hosts:
-    dns.google: 8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844 # https://dns.google/dns-query
-    cloudflare-dns.com: 104.16.249.249, 104.16.248.249, 2606:4700::6810:f8f9, 2606:4700::6810:f9f9 # https://cloudflare-dns.com/dns-query
-    dns.alidns.com: 223.5.5.5, 223.6.6.6, 2400:3200:baba::1, 2400:3200::1 3 # https://dns.alidns.com/dns-query
-    doh.pub: 1.12.12.12, 120.53.53.53 # https://doh.pub/dns-query
-    dot.pub: 1.12.12.12, 120.53.53.53 # dot.pub:853
-  # 公网 IP 地址查询
-  public_ip_lookup_url: https://ifconfig.me/ip
+  hosts: # 域名映射
+    dns.google: 8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844
+    cloudflare-dns.com: 104.16.249.249, 104.16.248.249, 2606:4700::6810:f8f9, 2606:4700::6810:f9f9
+    dns.alidns.com: 223.5.5.5, 223.6.6.6, 2400:3200:baba::1, 2400:3200::1 3
+    doh.pub: 1.12.12.12, 120.53.53.53
+    dot.pub: 1.12.12.12, 120.53.53.53
+  public_ip_lookup_url: https://ifconfig.me/ip  # 公网 IP 地址查询
 
 policy_groups:
 - external:
