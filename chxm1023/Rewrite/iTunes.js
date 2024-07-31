@@ -29,6 +29,7 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
+  'ChordMaster': { cm: 'timeb', hx: 'hxpda', id: "com.chordMaster.once", latest: "chxm1023" }, //识谱大师
   'Xfuse': { cm: 'timeb', hx: 'hxpda', id: "com.xfuse.ProVision", latest: "chxm1023" }, //磁力宅播放器
   'com.BertonYc.ScannerOCR': { cm: 'timeb', hx: 'hxpda', id: "Scanner_Subscibe_Permanent", latest: "chxm1023" }, //万能扫描王
   'HRV': { hx: 'hxpdc', id: "com.stress.test.record.yearly", latest: "chxm1023" },  //解压小橘子(需试用)
