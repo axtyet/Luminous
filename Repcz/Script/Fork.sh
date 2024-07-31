@@ -633,6 +633,8 @@ curl -L -o Tool-repo/Egern/Rules/Direct_fmz200.yaml "https://raw.githubuserconte
 curl -L -o Tool-repo/Egern/Rules/Ads_fmz200.yaml "https://raw.githubusercontent.com/fmz200/wool_scripts/main/QuantumultX/filter/fenliu.list"
 # Lan
 cp -r Tool-repo/Surge/Rules/Lan.list Tool-repo/Egern/Rules/Lan.yaml
+# Direct
+cp -r Tool-repo/Surge/Rules/Direct.list Tool-repo/Egern/Rules/Direct.yaml
 
 
 #--- GeoIP ---#

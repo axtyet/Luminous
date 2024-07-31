@@ -4,7 +4,7 @@
 # TG:https://t.me/QVQ_Channel
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 #
-# Egern Version ≥ 1.21.0
+# Egern Version ≥ 1.22.0(392)
 #
 # 最后更新时间: 2024-07-31 19:40
 #
@@ -36,6 +36,11 @@ dns:
     - https://dns.google/dns-query
   # DNS 转发规则
   forward:
+    # 国内规则集
+  - proxy_rule_set:
+      match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/ChinaDomain.yaml
+      value: system
+      update_interval: 86400
     # 通配符规则
   - wildcard:
       match: '*'
