@@ -80,6 +80,8 @@ curl -L -o Tool-repo/Surge/Rules/Ads_fmz200.list "https://raw.githubusercontent.
 # SukkaW
 curl -L -o Tool-repo/Surge/Rules/Ads_SukkaW.list "https://ruleset.skk.moe/List/domainset/reject.conf"
 curl -L -o Tool-repo/Surge/Rules/Ads_SukkaW_NoIP.list "https://ruleset.skk.moe/List/non_ip/reject.conf"
+curl -L -o Tool-repo/Surge/Rules/CDN.list "https://ruleset.skk.moe/List/domainset/cdn.conf"
+curl -L -o Tool-repo/Surge/Rules/CDN_NoIP.list "https://ruleset.skk.moe/List/non_ip/cdn.conf"
 # ConnersHua
 curl -L -o Tool-repo/Surge/Rules/Ads_ConnersHua.list "https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Reject/Advertising.list"
 curl -L -o Tool-repo/Surge/Rules/Hijacking_ConnersHua.list "https://raw.githubusercontent.com/ConnersHua/RuleGo/master/Surge/Ruleset/Extra/Reject/Hijacking.list"

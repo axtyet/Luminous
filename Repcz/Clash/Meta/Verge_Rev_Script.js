@@ -1,8 +1,8 @@
-// 参考 Verge 示例 Script 配置
+// 参考 Verge Rev 示例 Script 配置
 //
 // Clash Verg Rev Version ≥ 1.7.2
 //
-// 最后更新时间: 2024-07-05 18:05
+// 最后更新时间: 2024-07-31 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -155,9 +155,7 @@ function main(config) {
   config["tun"] = {
     "enable": true,
     "stack": "mixed",
-    "dns-hijack": ["any:53"],
-    "auto-route": true,
-    "auto-detect-interface": true  
+    "dns-hijack": ["any:53"]
   };
 
   // 覆盖策略组
@@ -430,6 +428,12 @@ function main(config) {
       "behavior": "classical",
       "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/ProxyGFW.list",
       "path": "./rule-providers/ProxyGFW.list"
+    },
+    "China": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/ChinaDomain.list",
+      "path": "./rule-providers/China.list"
     }
   };
 
@@ -455,7 +459,7 @@ function main(config) {
     "GEOSITE,github,微软服务",
     "GEOSITE,microsoft,微软服务",
     "GEOSITE,gfw,国外网站",
-    "GEOSITE,cn,DIRECT",
+    "RULE-SET,China,DIRECT",
     "GEOIP,lan,DIRECT",
     "GEOIP,CN,DIRECT",
     "MATCH,兜底分流"
