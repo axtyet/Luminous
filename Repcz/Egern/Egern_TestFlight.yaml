@@ -6,7 +6,7 @@
 #
 # Egern Version ≥ 1.22.0(392)
 #
-# 最后更新时间: 2024-07-31 23:30
+# 最后更新时间: 2024-08-01 07：25
 #
 # ================
 
@@ -32,8 +32,462 @@ dns:
     - https://cloudflare-dns.com/dns-query
     - https://dns.google/dns-query
 
+  forward:
 
-  forward: # DNS 转发规则
+  # 阿里
+  - wildcard: # 阿里巴巴
+      match: '*.alibaba.cn'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里巴巴
+      match: '*.alibaba.com.cn'
+      value: quic://dns.alidns.com
+  - wildcard: # Alibaba 中国
+      match: '*.china.alibaba.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 1688
+      match: '*.1688.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 淘宝
+      match: '*.taobao.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 淘宝 缓存
+      match: '*.tbcache.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 天猫
+      match: '*.tmall.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里 CDN
+      match: '*.alicdn.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里昆仑
+      match: '*.alikunlun.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 云引擎应用平台
+      match: '*.aliapp.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 上云平台
+      match: '*.aliapp.org'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里用户上传资料
+      match: '*.alibabausercontent.com'
+      value: quic://dns.alidns.com
+  - wildcard: # mmstat 数据统计 广告追踪
+      match: '*.mmstat.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 淘宝短网址
+      match: 'tb.cn'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云
+      match: '*.aliyun.*'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云 CDN
+      match: '*.aliyuncdn.*'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云 API 服务
+      match: '*.aliyuncs.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云 DDoS防护
+      match: '*.aliyunddos.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云盘
+      match: '*.aliyundrive.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云盾
+      match: '*.aliyundun.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云盾 Web 应用防火墙
+      match: '*.aliyundunwaf.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 阿里云 内部
+      match: '*.aliyun-inc.com'
+      value: quic://dns.alidns.com
+
+  # 蚂蚁集团
+  - wildcard: # 蚂蚁集团
+      match: '*.antgroup.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 蚂蚁金服
+      match: '*.antfin.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 蚂蚁金服
+      match: '*.antfinancial.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝
+      match: '*.alipay.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝
+      match: '*.alipay.com.cn'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝 HTTP DNS
+      match: '*.alipaydns.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝 商家资源
+      match: '*.alipayeshop.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝 Mdap
+      match: '*.alipaylog.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝 静态资源
+      match: '*.alipayobjects.com'
+      value: quic://dns.alidns.com
+  - wildcard: # 支付宝 开放技术生态体系
+      match: '*.alipay-eco.com'
+      value: quic://dns.alidns.com
+
+  # 腾讯
+  - wildcard: # 腾讯
+      match: '*.tencent.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云
+      match: '*.qcloud.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云CDN
+      match: '*.qcloudcdn.cn'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云CDN
+      match: '*.qcloudcdn.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云对象储存
+      match: '*.qcloudcos.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云静态资源
+      match: '*.qcloudimg.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云超级管家
+      match: '*.qcloudcjgj.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云网站管家
+      match: '*.qcloudwzgj.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云主页管家
+      match: '*.qcloudzygj.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯开放云
+      match: '*.myqcloud.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云
+      match: '*.tencent-cloud.net'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云aiot解决方案
+      match: '*.tencentcloud-aiot.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云API
+      match: '*.tencentcloudapi.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云容器镜像服务TCR
+      match: '*.tencentcloudcr.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云云市场
+      match: '*.tencentcloudmarket.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # QQ
+      match: '*.qq.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯头像
+      match: '*.qlogo.cn'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯图片
+      match: '*.qpic.cn'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微信
+      match: '*.weixin.qq.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微信
+      match: '*.wx.qq.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微信
+      match: '*.weixin.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微信公众平台
+      match: '*.weixinbridge.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # WeChat
+      match: '*.wechat.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微信小程序
+      match: '*.servicewechat.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 微云
+      match: '*.weiyun.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯 图片 静态资源
+      match: '*.gtimg.cn'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯 图片 静态资源
+      match: '*.idqqimg.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯 静态资源 CDN
+      match: '*.cdn-go.cn'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云 智能云解析DNS
+      match: '*.smtcdns.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯云 智能云解析DNS
+      match: '*.smtcdns.net'
+      value: https://doh.pub/dns-query
+  - wildcard: # 腾讯短网址
+      match: 'url.cn'
+      value: https://doh.pub/dns-query
+
+  # 百度
+  - wildcard: # 百度
+      match: '*.baidu'
+      value: 180.76.76.76
+  - wildcard: # 百度
+      match: '*.baidu.com'
+      value: 180.76.76.76
+  - wildcard: # 百度 静态资源
+      match: '*.bdimg.com'
+      value: 180.76.76.76
+  - wildcard: # 百度 静态资源
+      match: '*.bdstatic.com'
+      value: 180.76.76.76
+  - wildcard: # 百度网盘
+      match: '*.baidupcs.*'
+      value: 180.76.76.76
+  - wildcard: # 百度云CDN
+      match: '*.baiduyuncdn.*'
+      value: 180.76.76.76
+  - wildcard: # 百度云DNS
+      match: '*.baiduyundns.*'
+      value: 180.76.76.76
+  - wildcard: # 百度云 DNS
+      match: '*.bdydns.*'
+      value: 180.76.76.76
+  - wildcard: # 百度云 CDN
+      match: '*.bdycdn.*'
+      value: 180.76.76.76
+  - wildcard: # 百度云 域名
+      match: '*.bdysite.com'
+      value: 180.76.76.76
+  - wildcard: # 百度云 域名
+      match: '*.bdysites.com'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云
+      match: '*.baidubce.*'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 DNS
+      match: '*.bcedns.*'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 对象存储BOS
+      match: '*.bcebos.com'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 播放器服务
+      match: '*.bcevod.com'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 图片服务
+      match: '*.bceimg.com'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 主机
+      match: '*.bcehost.com'
+      value: 180.76.76.76
+  - wildcard: # 百度智能云 主机
+      match: '*.bcehosts.com'
+      value: 180.76.76.76
+  - wildcard: # 百度短网址
+      match: 'dwz.cn'
+      value: 180.76.76.76
+
+  # 360
+  - wildcard: # 360安全中心
+      match: '*.360.cn'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360安全卫士
+      match: '*.360safe.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360快资讯
+      match: '*.360kuai.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360搜索
+      match: '*.so.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360网页快照服务
+      match: '*.360webcache.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 奇虎api
+      match: '*.qihuapi.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360图床
+      match: '*.qhimg.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360图床
+      match: '*.qhimgs.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360图床
+      match: '*.qhimgs?.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360
+      match: '*.qhmsg.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 奇虎静态资源
+      match: '*.qhres.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 奇虎静态资源
+      match: '*.qhres?.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 导航静态文件
+      match: '*.dhrest.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360
+      match: '*.qhupdate.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360安全云盘
+      match: '*.yunpan.cn'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360安全云盘
+      match: '*.yunpan.com.cn'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360安全云盘
+      match: '*.yunpan.com'
+      value: https://doh.360.cn/dns-query
+  - wildcard: # 360短网址
+      match: 'urlqh.cn'
+      value: https://doh.360.cn/dns-query
+
+  # Bytedance
+  - wildcard: # 艾特迷
+      match: '*.amemv.com'
+      value: 180.184.1.1
+  - wildcard: # 西瓜 图片服务
+      match: '*.bdxiguaimg.com'
+      value: 180.184.1.1
+  - wildcard: # 西瓜 静态资源
+      match: '*.bdxiguastatic.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 UNPKG
+      match: '*.byted-static.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动
+      match: '*.bytedance.*'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 DNS
+      match: '*.bytedns.net'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 CDN 文件存储
+      match: '*.bytednsdoc.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 Goofy
+      match: '*.bytegoofy.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 图片服务
+      match: '*.byteimg.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 SCM
+      match: '*.bytescm.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 TOS
+      match: '*.bytetos.com'
+      value: 180.184.1.1
+  - wildcard: # 飞书企业服务平台
+      match: '*.bytexservice.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音
+      match: '*.douyin.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 静态资源
+      match: '*.douyinpic.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 静态资源
+      match: '*.douyinstatic.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 静态资源
+      match: '*.douyinvod.com'
+      value: 180.184.1.1
+  - wildcard: # FeelGood平台
+      match: '*.feelgood.cn'
+      value: 180.184.1.1
+  - wildcard: # 飞聊官网
+      match: '*.feiliao.com'
+      value: 180.184.1.1
+  - wildcard: # 快手
+      match: '*.gifshow.com'
+      value: 180.184.1.1
+  - wildcard: # 火山网
+      match: '*.huoshan.com'
+      value: 180.184.1.1
+  - wildcard: # 火山直播
+      match: '*.huoshanzhibo.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 dapm
+      match: '*.ibytedapm.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 CDN
+      match: '*.iesdouyin.com'
+      value: 180.184.1.1
+  - wildcard: # 西瓜视频
+      match: '*.ixigua.com'
+      value: 180.184.1.1
+  - wildcard: # 快手
+      match: '*.kspkg.com'
+      value: 180.184.1.1
+  - wildcard: # 抖音 静态资源
+      match: '*.pstatp.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条
+      match: '*.snssdk.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条
+      match: '*.toutiao.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条
+      match: '*.toutiao13.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条 静态资源
+      match: '*.toutiao???.???'
+      value: 180.184.1.1
+  - wildcard: # 头条云
+      match: '*.toutiaocloud.cn'
+      value: 180.184.1.1
+  - wildcard: # 头条云
+      match: '*.toutiaocloud.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条 建站
+      match: '*.toutiaopage.com'
+      value: 180.184.1.1
+  - wildcard: # 悟空
+      match: '*.wukong.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 API
+      match: '*.zijieapi.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 图片服务
+      match: '*.zijieimg.com'
+      value: 180.184.1.1
+  - wildcard: # 今日头条 网页版
+      match: '*.zjbyte.com'
+      value: 180.184.1.1
+  - wildcard: # 字节跳动 CDN
+      match: '*.zjcdn.com'
+      value: 180.184.1.1
+
+  # BiliBili
+  - wildcard: # BiliBili upos视频服务器（阿里云）
+      match: 'upos-sz-mirrorali.bilivideo.com'
+      value: quic://dns.alidns.com
+  - wildcard: # BiliBili upos视频服务器（阿里云）
+      match: 'upos-sz-mirrorali?.bilivideo.com'
+      value: quic://dns.alidns.com
+  - wildcard: # BiliBili upos视频服务器（阿里云）
+      match: 'upos-sz-mirrorali??.bilivideo.com'
+      value: quic://dns.alidns.com
+  - wildcard: # BiliBili upos视频服务器（百度云）
+      match: 'upos-sz-mirrorbos.bilivideo.com'
+      value: 180.76.76.76
+  - wildcard: # BiliBili upos视频服务器（腾讯云）
+      match: 'upos-sz-mirrorcos.bilivideo.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # BiliBili upos视频服务器（腾讯云）
+      match: 'upos-sz-mirrorcos?.bilivideo.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # BiliBili upos视频服务器（腾讯云）
+      match: 'upos-sz-mirrorcos??.bilivideo.com'
+      value: https://doh.pub/dns-query
+  - wildcard: # BiliBili upos视频服务器（百度云）
+      match: 'upos-sz-upcdnbd??.bilivideo.com'
+      value: 180.76.76.76
+  - wildcard: # BiliBili upos视频服务器（腾讯云）
+      match: 'upos-sz-upcdntx.bilivideo.com'
+      value: https://doh.pub/dns-query
 
   - proxy_rule_set: # 国内域名规则集
       match: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Rules/ChinaDomain.yaml
