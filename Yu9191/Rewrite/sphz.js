@@ -1,0 +1,25 @@
+/*
+视频盒子
+
+[rewrite_local]
+https://revenue.ezboti.com/api/v1/server/customer.info url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/sphz.js
+[mitm]
+hostname = revenue.ezboti.com
+
+*/
+
+const replacement = "eyJyZXN1bHQiOnsiaWQiOiIxMzE5NzQwMjI1Nzk0ODM1NDM4NyIsImV4dGVybmFsX2lkIjoiOGY2NjllNjljN2NhNGFkNTg3OTU5NTQzZGQ4MWFkMGQiLCJleHRlcm5hbF9kdF9jcmVhdGVkIjoiMjAyNC0wMy0yOFQwODo1Mjo0M1oiLCJuaWNrbmFtZSI6IiIsImJhbGFuY2VfcyI6W3siZXF1aXR5Ijp7ImlkIjoiNmF0MXJmMXd4Z3RzbiIsIm5hbWUiOiJcdTlhZDhcdTdlYTdcdTRmMWFcdTU0NTgtXHU2NWUwXHU5NjUwXHU0ZTBiXHU4ZjdkIiwiYWxpYXMiOiJtb250aGx5X3ZpcCJ9LCJlcXVpdHlfaWQiOiI2YXQxcmYxd3hndHNuIiwicGF0dGVybiI6MSwiYmFsYW5jZSI6MjcxMTcwMjM2MiwiYmFsYW5jZV90ZXh0IjoiOTk5OS0wOS0yOVQwODo1Mjo0MloiLCJpc19iYWxhbmNlX2luZmluaXRlIjpmYWxzZSwiaXNfYmFsYW5jZV91c2FibGUiOnRydWUsImhhc19jaGFyZ2VkIjpmYWxzZSwiaGFzX2luaXRpYWwiOnRydWUsImJhbGFuY2VfbG9nX2lkIjoiMzY4MDIyIn1dLCJob21lX2xpbmsiOnsiZXhwIjoyNzExNjQ2NjY0LCJ1cmwiOiJodHRwczovL3JldmVudWUuZXpib3RpLmNvbS9wYXl3YWxsLyMvcmc5eXB4bXlienVidS9ob21lP3Rva2VuPUMtZXlKaGJHY2lPaUpJVXpJMU5pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SnRaWEpqYUdGdWRGOXBaQ0k2T0RFM01qVTBOakkzTnpFNU1qTTFNRGN3TXl3aVkzVnpkRzl0WlhKZmFXUWlPakV6TVRrM05EQXlNalUzT1RRNE16VTBNemczTENKd2NtOXFaV04wWDJsa0lqb2ljM0p6ZUdaeE1qZzNhSEo2YXlJc0ltTnNhV1Z1ZEY5dmNHVnVhV1FpT201MWJHd3NJbVY0Y0NJNk1UY3hNVFkwTmpZMk5Dd2libTl1WTJVaU9pSnRPREUwT1hwblkzTm1NalZrWjNsbUluMC43djBEb25yWkpXczZJMHRKdnowRmNRdUg0MjB2RC1YZElERTdGRGV3bmowIiwicHJvbW90ZXJfdXJsIjoiaHR0cHM6Ly9yZXZlbnVlLmV6Ym90aS5jb20vcGF5d2FsbC8jL3JnOXlweG15Ynp1YnUvcHJvbW90ZXItaG9tZT90b2tlbj1DLWV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUp0WlhKamFHRnVkRjlwWkNJNk9ERTNNalUwTmpJM056RTVNak0xTURjd015d2lZM1Z6ZEc5dFpYSmZhV1FpT2pFek1UazNOREF5TWpVM09UUTRNelUwTXpnM0xDSndjbTlxWldOMFgybGtJam9pYzNKemVHWnhNamczYUhKNmF5SXNJbU5zYVdWdWRGOXZjR1Z1YVdRaU9tNTFiR3dzSW1WNGNDSTZNVGN4TVRZME5qWTJOQ3dpYm05dVkyVWlPaUp0T0RFME9YcG5ZM05tTWpWa1ozbG1JbjAuN3YwRG9uclpKV3M2STB0SnZ6MEZjUXVINDIwdkQtWGRJREU3RkRld25qMCJ9LCJleHRyYV9saW5rIjpudWxsLCJkdF9jcmVhdGVkIjoiMjAyNC0wMy0yOFQwODo1Mjo0M1oiLCJkdF91cGRhdGVkIjoiMjAyNC0wMy0yOFQwODo1Mjo0M1oifSwiZXhwIjoxMDE5NjY3NzQ0MDAwMDAsIm5vbmNlIjoiZDY1aHF3OWV2cWQxNDJxbiJ9"; 
+
+try {
+    let bodyStr = $response.body.trim();
+    let parts = bodyStr.split('.');
+    if (parts.length !== 3) {
+        throw new Error('他妈的响应体里面没有用“.”分隔');
+    }
+    let modifiedResponseBody = `${parts[0]}.${replacement}.${parts[2]}`;
+    $done({ body: modifiedResponseBody });
+} catch (e) {
+    console.log("Error processing response: ", e.message);
+    console.log("Stack Trace: ", e.stack);
+    $done({ body: $response.body });
+}
