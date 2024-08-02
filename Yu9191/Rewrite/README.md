@@ -17,6 +17,14 @@
 - 累计访客量: ![累计访客量](https://profile-counter.glitch.me/Yu9191/count.svg)
 - [星标数量](https://img.shields.io/github/stars/Yu9191/Rewrite?style=social): ![星标数量](https://img.shields.io/github/stars/Yu9191/Rewrite?style=social)
 
+## My Gtihub Trohpy
+
+<div align="center">
+
+![](https://github-profile-trophy.vercel.app/?username=Sliverkiss)
+
+</div>
+ 
 ## 仓库脚本合集 没加iTunes和api.reven的 请用叮当猫的
 
 脚本链接：[点击查看脚本](https://raw.githubusercontent.com/Yu9191/Rewrite/main/BabyScript.txt)
