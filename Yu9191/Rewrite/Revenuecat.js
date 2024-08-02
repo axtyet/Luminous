@@ -35,10 +35,10 @@
 ^https?:\/\/api\.revenuecat\.com\/v1\/(subscribers\/[^\/]+$|receipts$) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/Revenuecat.js
 #清理
 ^https?:\/\/api\.revenuecat\.com\/v1\/(subscribers\/[^\/]+$|receipts$) url script-request-header https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/Revenuecat.js
-
+https://api.lianjiu.fun/app/api/v1/profile url reject
 
 [mitm] 
-hostname = api.revenuecat.com
+hostname = api.revenuecat.com, api.lianjiu.fun
 
 ************************************/
 
@@ -63,6 +63,7 @@ if (typeof $response == "undefined") {
   var UA = $request.headers['user-agent'];
   const app = '1';
   const UAMappings = {
+    'becoming':{ name: 'Strength Pro', id: 'strength_membership_monthly'},//练就
     'Chords':{ name: 'FullUnlock', id: 'cas_full_unlock_yearly_50_off'},//8.1
     'reader':{ name: 'subscriptions', id: 'com.valo.reader.vip1.forever'},
     'Gradient':{ name: 'unlimited', id: 'com.tickettothemoon.gradient.unlimited.yearly.small'},//7.23
