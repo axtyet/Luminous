@@ -1,8 +1,10 @@
-// 2024-08-05 02:31:55
+// 2024-08-05 02:40:28
 const url = $request.url;
 // 移除功能入口角标
-if (url.includes("/oc/exhibitions/templates/resources")) {
-    let obj = JSON.parse($response.body);
+if (!$response.body) $done({});
+let obj = JSON.parse($response.body);
+
+if (url.includes("/oc/exhibitions/templates/resources") || url.includes("/oc/exhibitions/all_editor_tools/resources")) {
     if (obj.pits && Array.isArray(obj.pits)) {
         obj.pits.forEach(pit => {
             if (pit.materials && Array.isArray(pit.materials)) {
@@ -14,7 +16,6 @@ if (url.includes("/oc/exhibitions/templates/resources")) {
             }
         });
     }
-    $done({ body: JSON.stringify(obj) });
-} else {
-    $done({});
 }
+
+$done({ body: JSON.stringify(obj) });

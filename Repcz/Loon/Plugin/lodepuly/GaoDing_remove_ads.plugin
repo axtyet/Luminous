@@ -1,11 +1,11 @@
 #!name = 稿定设计去广告
-#!desc = 移除稿定设计开屏广告、首页轮播图和弹窗。
+#!desc = 移除稿定设计开屏广告、首页轮播图和弹窗，移除功能入口角标。
 #!openUrl = https://apps.apple.com/app/id1113276760
 #!author = 可莉🅥
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/GaoDing.png
-#!date = 2024-08-05 02:32:24
+#!date = 2024-08-05 02:46:13
 
 [Rewrite]
 # 开屏广告
@@ -25,7 +25,7 @@
 
 [Script]
 # 移除功能入口角标
-http-response ^https:\/\/www\.gaoding\.com\/api\/v3\/oc\/exhibitions\/templates\/resources$ script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/GaoDing/GaoDing_remove_ads.js, requires-body = true, tag = 移除功能入口角标
+http-response ^https:\/\/www\.gaoding\.com\/api\/v3\/oc\/exhibitions\/(templates|all_editor_tools)\/resources$ script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/GaoDing/GaoDing_remove_ads.js, requires-body = true, tag = 移除功能入口角标
 
 [Mitm]
 hostname = www.gaoding.com
