@@ -1,0 +1,20 @@
+#!name = TestFlight解锁
+#!desc = 解除TestFlight的区域限制，支持tvOS。
+#!openUrl = https://apps.apple.com/app/id899247664
+#!author = 可莉🅥
+#!keyword = 功能增强, 可莉
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/TestFlight.png
+#!date = 2024-07-31 21:34:53
+
+[General]
+skip-proxy = iosapps.itunes.apple.com
+
+[Rule]
+DOMAIN, testflight.apple.com, PROXY
+
+[Rewrite]
+^https?:\/\/testflight\.apple\.com\/v\d\/accounts\/.+?\/install$ request-body-replace-regex "storefrontId"\x20:\x20"\d{6}-\d{2},\d{2}", "storefrontId":"143441-19,29",
+
+[Mitm]
+hostname = testflight.apple.com

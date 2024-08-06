@@ -4,7 +4,7 @@
 [rewrite_local]
 
 #正则
-^(https:\/\/api\.fzxhmy\.com\/(?:unique\/backgrounds|image\/fetch|avatar\/landing|background\/overview|member\/details|unique\/landinginitialize|creator\/newcomers|np\/overview)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/zuimeibizhi.js
+^https:\/\/api\.fzxhmy\.com\/(?:unique\/(?:backgrounds|landinginitialize|division\/material)|image\/fetch|avatar\/landing|background\/overview|member\/details|creator\/newcomers|np\/overview) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/Yu9191/Rewrite/zuimeibizhi.js
 
 hostname = api.fzxhmy.com
 
