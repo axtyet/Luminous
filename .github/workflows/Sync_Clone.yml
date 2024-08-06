@@ -125,38 +125,6 @@ jobs:
             fi
           done
 
-      # Fork Yu9191 重写脚本
-    - name: Fork Yu9191 Script
-      run: |
-        mkdir -p Luminous-repo/Yu9191/Script
-        git clone -b main https://github.com/Yu9191/Script.git  das_Tmp
-        cp -r das_Tmp/* Luminous-repo/Yu9191/Script
-        rm -rf das_Tmp
-      # 修改脚本链接
-    - name: Edit Yu9191/Script
-      run: |
-        cd Luminous-repo/Yu9191/Script
-        for file in *.sgmodule; do
-            if [ "$file" ] ; then
-              # 修改脚本链接
-              sed -i 's/raw\.githubusercontent\.com\/Yu9191\/Script\/main/raw.githubusercontent\.com\/axtyet\/Luminous\/main\/Yu9191\/Script/g' "$file"
-            else
-              echo "$file not found."
-            fi
-          done
-      # 修改脚本链接
-    - name: Edit Yu9191/Script
-      run: |
-        cd Luminous-repo/Yu9191/Script
-        for file in *.js; do
-            if [ "$file" ] ; then
-              # 修改脚本链接
-              sed -i 's/raw\.githubusercontent\.com\/Yu9191\/Script\/main/raw.githubusercontent\.com\/axtyet\/Luminous\/main\/Yu9191\/Script/g' "$file"
-            else
-              echo "$file not found."
-            fi
-          done
-
       # Fork Yu9191 图标
     - name: Fork Yu9191 -
       run: |
