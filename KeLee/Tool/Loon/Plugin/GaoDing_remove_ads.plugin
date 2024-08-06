@@ -5,7 +5,7 @@
 #!keyword = 去广告, 可莉
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/GaoDing.png
-#!date = 2024-08-07 00:50:47
+#!date = 2024-08-07 02:07:02
 
 [Rewrite]
 # 开屏广告
@@ -24,8 +24,7 @@
 ^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/app_mine\/resources$ response-body-json-del pits[2].delivery_materials
 
 # 移除功能入口角标
-# ^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/(templates|all_editor_tools)\/resources$ response-body-replace-regex "badge_img_url":"https:\/\/(gaoding-market|st\d)\.dancf\.com\/market-operations\/market\/side\/([a-z0-9]+\/)?\d+\.png", "badge_img_url":"",
-^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/(templates|all_editor_tools)\/resources$ response-body-json-replace $.pits[0].materials[?(@.material.badge_img_url)].material.badge_img_url null
+^https:\/\/www\.gaoding\.com\/api\/v\d\/oc\/exhibitions\/(templates|all_editor_tools)\/resources$ response-body-replace-regex "badge_img_url":"https:\/\/(gaoding-market|st\d)\.dancf\.com\/market-operations\/market\/side\/([a-z0-9]+\/)?\d+\.png", "badge_img_url":"",
 
 [Mitm]
 hostname = www.gaoding.com

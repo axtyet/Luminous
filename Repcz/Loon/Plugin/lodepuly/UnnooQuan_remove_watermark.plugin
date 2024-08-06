@@ -1,0 +1,14 @@
+#!name = 知识星球去水印
+#!desc = 移除内容水印编号
+#!openUrl = https://apps.apple.com/app/id1039749242
+#!author = 可莉🅥
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/tree/master/Tool/Loon/Plugin
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/UnnooQuan.png
+#!date = 2024-08-07 00:34:59
+
+[Rewrite]
+# 移除知识星球水印
+^https:\/\/api\.zsxq\.com\/v2\/groups\/\d+$ response-body-json-replace resp_data.group.policies.enable_watermark false
+
+[Mitm]
+hostname = api.zsxq.com
