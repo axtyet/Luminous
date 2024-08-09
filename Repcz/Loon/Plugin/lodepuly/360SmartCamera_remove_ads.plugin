@@ -6,6 +6,9 @@
 #!system = iOS
 #!system_version = 
 #!loon_version = 3.2.1(372)
+#!system = iOS
+#!system_version = 
+#!loon_version = 3.2.1(372)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/360SmartCamera.png
 #!date = 2024-08-09 22:17:30
@@ -17,9 +20,6 @@ DOMAIN, ad.iot.360.cn, REJECT
 [Rewrite]
 # 删除 - 底栏商城入口、首页视频教程、广告配置、我的页面推广语
 ^https:\/\/jia\.360\.cn\/conf\/v1\.json response-body-json-del tab_conf ad_conf activity
-
-# [Script]
-# http-response ^https:\/\/jia\.360\.cn\/conf\/v1\.json script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/360SmartCamera/360SmartCamera_remove_ads.js, requires-body = true, tag = 360摄像机去广告
-  
+ 
 [Mitm]
 hostname = jia.360.cn
