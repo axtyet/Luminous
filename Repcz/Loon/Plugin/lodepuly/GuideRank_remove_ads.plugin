@@ -1,5 +1,5 @@
 #!name = 盖得排行去广告
-#!desc = 移除开屏广告、应用内悬浮窗，精简我的页面。
+#!desc = 精简首页、移除分类横幅推广、单单返猜你喜欢和编辑精选，移除我的页面推广。
 #!openUrl = https://apps.apple.com/app/id1129695874
 #!author = 可莉🅥
 #!tag = 去广告, 可莉
@@ -8,7 +8,7 @@
 #!loon_version = 3.2.1(372)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/GuideRank.png
-#!date = 2024-08-10 02:32:25
+#!date = 2024-08-10 02:46:03
 
 [Rewrite]
 # 首页AI推广 - 恐一回龙
@@ -29,13 +29,13 @@
 ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/common\/getInitData\.do response-body-json-del data.SpecialSalePageMidTabConfig
 
 # 单单返 - 好物推荐
-# ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/pageRecommendedItems reject-dict
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/pageRecommendedItems reject-dict
 
 # 单单返 - 小编精选
-# ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/manualOperationGoods\/pageManualOperationGoods reject-dict
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/manualOperationGoods\/pageManualOperationGoods reject-dict
 
 # 单单返 - 轮播图
-# ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/listSpecialSalePageBanner reject-dict
+^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/specialSale\/listSpecialSalePageBanner reject-dict
 
 # 我的 - 横幅推广
 ^https:\/\/zone\.guiderank-app\.com\/guiderank-web\/app\/personal\/getPersonPageInfo\.do reject-dict
