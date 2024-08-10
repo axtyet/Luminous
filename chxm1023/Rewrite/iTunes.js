@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-08-06
+更新日期：2024-08-10
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,6 +29,8 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
+  'darkWeb': { cm: 'timea', hx: 'hxpda', id: "dforce_unlock_all_functions", latest: "chxm1023" }, //DForce-Safari扩展
+  'BookReader': { cm: 'timea', hx: 'hxpda', id: "com.reader.1year", latest: "chxm1023" }, //阅读器-小说阅读器
   'BeatStation': { cm: 'timea', hx: 'hxpda', id: "BS_Pro_Yearly", latest: "chxm1023" }, //BeatStation-节奏工作站
   'FastPlayer': { cm: 'timea', hx: 'hxpda', id: "VideoPlayer_ProVersion", latest: "chxm1023" }, //万能播放器
   'SimpleNotation': { cm: 'timeb', hx: 'hxpda', id: "com.xinlin.notation.once", latest: "chxm1023" }, //简谱大师
@@ -75,8 +77,8 @@ const list = {
   'POPOLockScreenWidgetable': { cm: 'timea', hx: 'hxpda', id: "com.widget.fightenegery.yearly", latest: "chxm1023" },  //多彩壁纸
   'GreetingScanner': { cm: 'timea', hx: 'hxpda', id: "com.alphaplus.greetingscaner.w.b", latest: "chxm1023" },  //扫描识别王
   'FancyCamPlus': { cm: 'timea', hx: 'hxpda', id: "com.alphaplus.fancycam.year.198", latest: "chxm1023" },  //悦颜相机
-  'Again': { cm: 'timeb', hx: 'hxpda', id: "com.owen.again.profession", latest: "chxm1023" },  //Again
-  'remotelg': { cm: 'timeb', hx: 'hxpda', id: "com.gqp.remotelg.lifetime", latest: "chxm1023" },  //UniversalRemoteTV+
+  'Again': { cm: 'timeb', hx: 'hxpda', id: "com.owen.again.profession", latest: "chxm1023" },  //Again-稍后阅读器
+  'remotelg': { cm: 'timeb', hx: 'hxpda', id: "com.gqp.remotelg.lifetime", latest: "chxm1023" },  //UniversalRemoteTV+ 遥控器
   'Notebook': { cm: 'timea', hx: 'hxpda', id: "com.zoho.notebook.ios.personal.yearly", latest: "chxm1023" },  //Notebook
   'com.damon.dubbing': { cm: 'timea', hx: 'hxpda', id: "com.damon.dubbing.vip12", latest: "chxm1023" },  //有声英语绘本
   'ZHUBEN': { cm: 'timea', hx: 'hxpda', id: "com.xiaoyu.yue", latest: "chxm1023" },  //有声英语绘本
