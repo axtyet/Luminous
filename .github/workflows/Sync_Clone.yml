@@ -92,47 +92,6 @@ jobs:
         cp -r yzc_Tmp/* Luminous-repo/chxm1023/Script_X
         rm -rf yzc_Tmp   
 
-
-      # Fork Yu9191 重写规则
-    - name: Fork Yu9191 Rewrite
-      run: |
-        mkdir -p Luminous-repo/Yu9191/Rewrite
-        git clone -b main https://github.com/Yu9191/Rewrite.git  asd_Tmp
-        cp -r asd_Tmp/* Luminous-repo/Yu9191/Rewrite
-        rm -rf asd_Tmp
-      # 修改脚本链接
-    - name: Edit Yu9191/Rewrite
-      run: |
-        cd Luminous-repo/Yu9191/Rewrite
-        for file in *.js; do
-            if [ "$file" ] ; then
-              # 修改脚本链接
-              sed -i 's/raw\.githubusercontent\.com\/Yu9191\/Rewrite\/main/raw.githubusercontent\.com\/axtyet\/Luminous\/main\/Yu9191\/Rewrite/g' "$file"
-            else
-              echo "$file not found."
-            fi
-          done
-      # 修改脚本链接
-    - name: Edit Yu9191/Rewrite/itunes
-      run: |
-        cd Luminous-repo/Yu9191/Rewrite/itunes
-        for file in *.js; do
-            if [ "$file" ] ; then
-              # 修改脚本链接
-              sed -i 's/raw\.githubusercontent\.com\/Yu9191\/Rewrite\/main\/itunes/raw.githubusercontent\.com\/axtyet\/Luminous\/main\/Yu9191\/Rewrite\/itunes/g' "$file"
-            else
-              echo "$file not found."
-            fi
-          done
-
-      # Fork Yu9191 图标
-    - name: Fork Yu9191 -
-      run: |
-        mkdir -p Luminous-repo/Yu9191/-
-        git clone -b main https://github.com/Yu9191/-.git  sad_Tmp
-        cp -r sad_Tmp/* Luminous-repo/Yu9191/-
-        rm -rf sad_Tmp
- 
       # Fork RuCu6 分流规则&重写规则
     - name: Fork RuCu6 Rules
       run: |
