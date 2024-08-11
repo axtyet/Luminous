@@ -46,11 +46,11 @@ if (/api\/douyin\/GetLiveInfo/.test(url)) {
   }
   banner && FeedTypes.push(10002); //轮播
   tops && FeedTypes.push(10003); //置顶
+  FeedTypes.push(10004); // 信息流红包广告
   i.data.list = i.data.list.filter((i) => {
     return (
       !FeedTypes.includes(i.feedType) &&
-      !i.feedContent.smallTags?.[0]?.text?.includes("广告")
-    );
+      !i.feedContent.smallTags?.[0]?.text?.includes("广告"));
   });
 }
 $done({ body: JSON.stringify(i) });
