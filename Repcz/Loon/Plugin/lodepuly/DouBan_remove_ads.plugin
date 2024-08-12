@@ -8,7 +8,7 @@
 #!loon_version = 3.2.1(372)
 #!homepage = https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/DouBan.png
-#!date = 2024-08-04 22:43:14
+#!date = 2024-08-12 18:15:29
 
 [Rule]
 # 拦截HTTPDNS
@@ -29,7 +29,7 @@ DOMAIN, mi.gdt.qq.com, REJECT
 DOMAIN, otheve.beacon.qq.com, REJECT
 DOMAIN, pgdt.gtimg.cn, REJECT
 DOMAIN, pgdt.ugdtimg.com, REJECT
-DOMAIN, qzonestyle.gtimg.cn, REJECT
+# DOMAIN, qzonestyle.gtimg.cn, REJECT // 误杀
 DOMAIN, qzs.gdtimg.com, REJECT
 DOMAIN, qzs.qq.com, REJECT
 DOMAIN, rmonitor.qq.com, REJECT
@@ -124,6 +124,8 @@ DOMAIN-KEYWORD, asiad.byteactivity, REJECT
 
 # 信息流广告
 ^https:\/\/frodo\.douban\.com\/api\/v\d\/erebor\/feed_ad reject-dict
+# 电影板块广告
+^https:\/\/m\.douban\.com\/rexxar\/api\/v2\/market\/products\/ reject-dict
 
 # 首页横幅
 ^https:\/\/frodo\.douban\.com\/api\/v\d\/home_banner reject-dict
@@ -132,4 +134,4 @@ DOMAIN-KEYWORD, asiad.byteactivity, REJECT
 ^https:\/\/frodo\.douban\.com\/api\/v2\/search\/found_words reject-dict
 
 [Mitm]
-hostname = api.douban.com, frodo.douban.com
+hostname = api.douban.com, frodo.douban.com, m.douban.com
