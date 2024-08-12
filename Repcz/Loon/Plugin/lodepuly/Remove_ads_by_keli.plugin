@@ -8,7 +8,7 @@
 #!loon_version = 3.2.1(372)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/Other_icon/120px/KeLee.png
-#!date = 2024-08-12 19:32:49
+#!date = 2024-08-12 21:58:45
 
 [Rule]
 # Outlook
@@ -227,6 +227,11 @@ DOMAIN, mallapi2.qinlinkeji.com, REJECT // 商城页面
 
 # 设备页面横幅推广
 ^https:\/\/watch\.iot\.mi\.com\/cgi-op\/api\/v1\/watch\/health\/resource\?business=MI_HEALTH_DEVICE_TAB_PAGE reject-dict
+
+# 淘票票 - 开屏广告
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.mtopadvertiseapi\.queryloadingbanner\/ reject-dict
+# 淘票票 - 弹窗
+^https:\/\/acs\.m\.taobao\.com\/gw\/mtop\.film\.life\.popup\.get\/ reject-dict
 
 [Script]
 
