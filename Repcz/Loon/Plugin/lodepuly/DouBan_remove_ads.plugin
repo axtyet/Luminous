@@ -8,7 +8,7 @@
 #!loon_version = 3.2.1(372)
 #!homepage = https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/DouBan.png
-#!date = 2024-08-12 18:15:29
+#!date = 2024-08-13 03:27:06
 
 [Rule]
 # 拦截HTTPDNS
@@ -125,13 +125,14 @@ DOMAIN-KEYWORD, asiad.byteactivity, REJECT
 # 信息流广告
 ^https:\/\/frodo\.douban\.com\/api\/v\d\/erebor\/feed_ad reject-dict
 # 电影板块广告
-^https:\/\/m\.douban\.com\/rexxar\/api\/v2\/market\/products\/ reject-dict
+^https:\/\/m\.douban\.com\/rexxar\/api\/v\d\/market\/products\/ reject-dict
+^https:\/\/frodo\.douban\.com\/api\/v\d\/movie\/ad reject-dict
 
 # 首页横幅
 ^https:\/\/frodo\.douban\.com\/api\/v\d\/home_banner reject-dict
 
 # 搜索填充词
-^https:\/\/frodo\.douban\.com\/api\/v2\/search\/found_words reject-dict
+^https:\/\/frodo\.douban\.com\/api\/v\d\/search\/found_words reject-dict
 
 [Mitm]
 hostname = api.douban.com, frodo.douban.com, m.douban.com
