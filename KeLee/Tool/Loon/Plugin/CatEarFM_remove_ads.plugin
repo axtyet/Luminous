@@ -1,0 +1,24 @@
+#!name = 猫耳FM去广告
+#!desc = 移除开屏广告、横幅广告、精简首页标签。
+#!openUrl = https://apps.apple.com/app/id1148465254
+#!author = 可莉🅥
+#!tag = 去广告, 可莉
+#!system = iOS
+#!system_version = 
+#!loon_version = 3.2.1(372)
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/CatEarFM.png
+#!date = 2024-08-12 19:34:13
+
+[Rewrite]
+# 开屏广告
+^https:\/\/app\.missevan\.com\/site\/launch reject-dict
+
+# 首页标签 - 直播、周边商城
+^https:\/\/app\.missevan\.com\/site\/icons\? response-body-json-del info.icons[0] info.icons[4]
+
+# 热门搜索词、轮播图推广
+^https:\/\/app\.missevan\.com\/site\/get-top response-body-json-replace info.search_words [] info.banners [] info.extra_banners {} info.weeklydrama []
+
+[Mitm]
+hostname = app.missevan.com
