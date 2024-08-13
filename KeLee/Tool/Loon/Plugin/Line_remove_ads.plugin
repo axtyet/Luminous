@@ -1,14 +1,14 @@
 #!name = Line去广告
 #!desc = 移除Line各类广告
 #!openUrl = https://apps.apple.com/app/id443904275
-#!author = jkgtw
+#!author = jkgtw[https://github.com/jkgtw]
 #!tag = 去广告, jkgtw
 #!system = iOS
 #!system_version = 
 #!loon_version = 3.2.1(372)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/Line.png
-#!date = 2024-06-20 22:35:09
+#!date = 2024-08-13 22:57:37
 
 [Rewrite]
 ^https:\/\/a\.line\.me\/er\/lads\/v\d\/ei\? reject-img
@@ -20,9 +20,11 @@
 ^https:\/\/gw\.line\.naver\.jp\/ext\/lgfp\/lad\/v1$ reject
 ^https:\/\/gw\.line\.naver\.jp\/lass\/api\/v1\/ads$ reject
 ^https:\/\/gw\.line\.naver\.jp\/tr\/event$ reject
+^https:\/\/lan\.line\.me\/v1\/line\/ios reject
 ^https:\/\/legy\.line-apps\.com\/ext\/lgfp\/lad\/v1$ reject
 ^https:\/\/legy\.line-apps\.com\/ext\/smartch\/banner\/sch\/v1$ reject
 ^https:\/\/legy\.line-apps\.com\/tr\/event$ reject
+^https:\/\/web-mmap-pay\.line-apps\.com\/tw\/liff\/campaign\/v1\/aggregate\/ad\/banner\/ reject-img
 ^https:\/\/w\.line\.me\/adp\/api\/ad\/v\d\/ reject
 ^https:\/\/buy\.line\.me\/api\/graphql\?variables reject
 ^https:\/\/crs-event\.line\.me\/v\d\/imp reject
@@ -42,4 +44,4 @@
 ^https:\/\/nelo2-col\.linecorp\.com\/_store$ reject
 
 [Mitm]
-hostname = a.line.me, ad.line-scdn.net, buy.line.me, cix.line-apps.com, crs-event.line.me, d.line-scdn.net, gw.line.naver.jp, legy.line-apps.com, nelo2-col.linecorp.com, obs.line-scdn.net, scdn.line-apps.com, sch.line.me, static.line-scdn.net, uts-front.line-apps.com, w.line.me
+hostname = a.line.me, ad.line-scdn.net, w.line.me, gw.line.naver.jp, lan.line.me, legy.line-apps.com, buy.line.me, crs-event.line.me, obs.line-scdn.net, cix.line-apps.com, d.line-scdn.net, scdn.line-apps.com, web-mmap-pay.line-apps.com, sch.line.me, uts-front.line-apps.com, static.line-scdn.net, nelo2-col.linecorp.com

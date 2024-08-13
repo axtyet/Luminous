@@ -4,7 +4,7 @@
 #
 # Clash Verg Rev Version ≥ 1.6.2
 #
-# 最后更新时间: 2024-8-13 21:30
+# 最后更新时间: 2024-8-13 22:40
 #
 # ================
 
@@ -78,8 +78,8 @@ dns:
   nameserver: [223.5.5.5, 119.29.29.29]
   # 指定域名查询的解析服务器，可使用 geosite, 优先于 nameserver/fallback 查询
   nameserver-policy:
-  'geosite:cn': system
-  'geosite:gfw,geolocation-!cn': [quic://223.5.5.5, quic://223.6.6.6, https://1.12.12.12/dns-query, https://120.53.53.53/dns-query]
+    'geosite:cn': system
+    'geosite:gfw,geolocation-!cn': [quic://223.5.5.5, quic://223.6.6.6, https://1.12.12.12/dns-query, https://120.53.53.53/dns-query]
 
 # 策略组引用相关参数
 pg: &pg {type: select, proxies: [手动切换, 香港节点, 美国节点, 狮城节点, 日本节点, 台湾节点, DIRECT]}
