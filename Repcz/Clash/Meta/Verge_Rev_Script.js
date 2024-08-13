@@ -2,7 +2,7 @@
 //
 // Clash Verg Rev Version ≥ 1.7.2
 //
-// 最后更新时间: 2024-07-31 23:00
+// 最后更新时间: 2024-08-13 21:30
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -104,6 +104,7 @@ function main(config) {
       "*.pingan.com.cn",
       "*.cmbchina.com",
       "*.10099.com.cn",
+      "*.microdone.cn",
       "pool.ntp.org",
       "*.pool.ntp.org",
       "ntp.*.com",
