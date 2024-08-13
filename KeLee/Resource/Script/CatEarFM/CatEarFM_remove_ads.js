@@ -1,4 +1,4 @@
-// 2024-08-13 15:50:56
+// 2024-08-13 19:38:42
 const url = $request.url;
 if (url.includes("/site/icons")) {
     let obj = JSON.parse($response.body);
@@ -8,9 +8,9 @@ if (url.includes("/site/icons")) {
     $done({ body: JSON.stringify(obj) });
 } else if (url.includes("/discovery/list")) {
     let obj = JSON.parse($response.body);
-    for (var info of obj.info) {
-        info = info.filter(item => {
-            return item.title === '直播间' || item.title === '广播剧' || item.title === '免流服务'
+    for (const index in obj.info) {
+        obj.info[index] = obj.info[index].filter(item => {
+          return !(item.title === '直播间' || item.title === '广播剧' || item.title === '免流服务')
         })
     }
     $done({body:obj})
