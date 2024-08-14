@@ -294,7 +294,7 @@ class $Storage {
 
 class ENV {
 	static name = "ENV"
-	static version = '1.8.2'
+	static version = '1.8.3'
 	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) }
 
 	constructor(name, opts) {
@@ -421,10 +421,10 @@ class ENV {
 		// 初始化参数
 		switch (request.constructor) {
 			case Object:
-				request = { ...request, ...option };
+				request = { ...option, ...request };
 				break;
 			case String:
-				request = { "url": request, ...option };
+				request = { ...option, "url": request };
 				break;
 		}		// 自动判断请求方法
 		if (!request.method) {
@@ -13490,6 +13490,16 @@ var Configs$2 = {
 						identifier: 1
 					}
 				]
+			}
+		],
+		dataSet: [
+			{
+				identifier: 0,
+				dataSetDescription: "TomTom"
+			},
+			{
+				identifier: 1,
+				dataSetDescription: "KittyHawk"
 			}
 		],
 		urlInfoSet: [

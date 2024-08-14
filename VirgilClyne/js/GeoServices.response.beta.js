@@ -11,7 +11,7 @@ class Lodash {
 		if (!Array.isArray(path)) path = this.toPath(path);
 
 		const result = path.reduce((previousValue, currentValue) => {
-			return Object(previousValue)[currentValue]; // null undefined get attribute will throwError, Object() can return a object
+			return Object(previousValue)[currentValue]; // null undefined get attribute will throwError, Object() can return a object 
 		}, object);
 		return (result === undefined) ? defaultValue : result;
 	}
@@ -294,7 +294,7 @@ class $Storage {
 
 class ENV {
 	static name = "ENV"
-	static version = '1.8.2'
+	static version = '1.8.3'
 	static about() { return console.log(`\n🟧 ${this.name} v${this.version}\n`) }
 
 	constructor(name, opts) {
@@ -309,7 +309,7 @@ class ENV {
 		Object.assign(this, opts);
 		this.log(`\n🚩 开始!\n${name}\n`);
 	}
-
+	
 	environment() {
 		switch (this.platform()) {
 			case 'Surge':
@@ -421,10 +421,10 @@ class ENV {
 		// 初始化参数
 		switch (request.constructor) {
 			case Object:
-				request = { ...request, ...option };
+				request = { ...option, ...request };
 				break;
 			case String:
-				request = { "url": request, ...option };
+				request = { ...option, "url": request };
 				break;
 		}		// 自动判断请求方法
 		if (!request.method) {
@@ -751,7 +751,7 @@ class XML {
 	static name = "XML";
 	static version = "0.4.2";
 	static about = () => console.log(`\n🟧 ${this.name} v${this.version}\n`);
-
+	
 	static #ATTRIBUTE_KEY = "@";
 	static #CHILD_NODE_KEY = "#";
 	static #UNESCAPE = {
@@ -944,7 +944,7 @@ class XML {
 			}
 			return object;
 
-			/**
+			/** 
 			 * Chunk Array
 			 * @author VirgilClyne
 			 * @param {Array} source - source
@@ -13859,6 +13859,16 @@ var Configs$2 = {
 				]
 			}
 		],
+		dataSet: [
+			{
+				identifier: 0,
+				dataSetDescription: "TomTom"
+			},
+			{
+				identifier: 1,
+				dataSetDescription: "KittyHawk"
+			}
+		],
 		urlInfoSet: [
 			{
 				backgroundRevGeoURL: {
@@ -15840,7 +15850,7 @@ class BinaryWriter {
      * Write a `sint64` value, a signed, zig-zag-encoded 64-bit varint.
      */
     sint64(value) {
-        let long = PbLong.from(value),
+        let long = PbLong.from(value), 
         // zigzag encode
         sign = long.hi >> 31, lo = (long.lo << 1) ^ sign, hi = ((long.hi << 1) | (long.lo >>> 31)) ^ sign;
         varint64write(lo, hi, this.buf);
@@ -17647,7 +17657,7 @@ class MessageType {
     }
 }
 
-const $ = new ENV(" iRingo: 📍 GeoServices.framework v3.5.0(2) response.beta");
+const $ = new ENV(" iRingo: 📍 GeoServices.framework v3.5.0(3) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -19014,14 +19024,14 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 											switch (url.searchParams.get("country_code")) {
 												case "CN":
 													setCache(Caches, "CN", body);
-													if (!Caches.XX) Caches.XX = Configs.XX;
+													Caches.XX = Caches.XX || Configs.XX;
 													// announcementsSupportedLanguage
 													//body.announcementsSupportedLanguage?.push?.("zh-CN");
 													//body.announcementsSupportedLanguage?.push?.("zh-TW");
 													break;
 												default:
 													setCache(Caches, "XX", body);
-													if (!Caches.CN) Caches.CN = Configs.CN;
+													Caches.CN = Caches.CN || Configs.CN;
 													// resource
 													body.resource.push({ "resourceType": 7, "filename": "POITypeMapping-CN-1.json", "checksum": { "0": 242, "1": 10, "2": 179, "3": 107, "4": 214, "5": 41, "6": 50, "7": 223, "8": 62, "9": 204, "10": 134, "11": 7, "12": 103, "13": 206, "14": 96, "15": 242, "16": 24, "17": 42, "18": 79, "19": 223 }, "region": [], "filter": [], "validationMethod": 0, "updateMethod": 0 });
 													body.resource.push({ "resourceType": 7, "filename": "China.cms-lpr", "checksum": { "0": 196, "1": 139, "2": 158, "3": 17, "4": 250, "5": 132, "6": 138, "7": 10, "8": 138, "9": 38, "10": 96, "11": 130, "12": 82, "13": 80, "14": 4, "15": 239, "16": 11, "17": 107, "18": 183, "19": 236 }, "region": [{ "minX": 1, "minY": 0, "maxX": 1, "maxY": 0, "minZ": 1, "maxZ": 25 }], "filter": [{ "scale": [], "scenario": [4] }], "connectionType": 0, "preferWiFiAllowedStaleThreshold": 0, "validationMethod": 1, "alternateResourceURLIndex": 1, "updateMethod": 1, "timeToLiveSeconds": 0 });
@@ -19029,6 +19039,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 											}											body.tileSet = tileSets(body.tileSet, Settings, Caches);
 											body.attribution = attributions(body.attribution, url, Caches);
 											//body.dataSet = dataSets(body.dataSet, Settings, Caches);
+											body.dataSet = body.dataSet || Caches.XX?.dataSet || Configs.XX?.dataSet;
 											body.urlInfoSet = urlInfoSets(body.urlInfoSet, url, Settings, Caches);
 											body.muninBucket = muninBuckets(body.muninBucket, Settings, Caches);
 											// releaseInfo
@@ -19244,17 +19255,6 @@ function tileSets(tileSets = [], settings = {}, caches = {}) {
 				};
 				break;
 				*/
-			case 83: // VECTOR_TOPOGRAPHIC
-				// TODO
-				// tileSet = caches?.CN?.tileSet?.find(i => i.style === tileSet.style);
-				break;
-			case 91: // UNUSED_91
-			case 92: // UNUSED_92
-			case 94: // UNUSED_94
-			case 95: // UNUSED_95
-				// TODO
-				// tileSet = caches?.CN?.tileSet?.find(i => i.style === tileSet.style);
-				break;
 		}		return tileSet;
 	}).flat(Infinity).filter(Boolean);
 	$.log(`✅ Set TileSets`, "");
