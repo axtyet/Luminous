@@ -8,11 +8,11 @@
 #!loon_version = 3.2.1(732)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/XiaoCan.png
-#!date = 2024-08-15 23:50:12
+#!date = 2024-08-16 00:46:03
 
 [Rewrite]
 # 红包推广
-^https:\/\/gw\.xiaocantech\.com\/rpc header-replace-regex methodname SilkwormService\.GetBannerList null
+^https:\/\/gw\.xiaocantech\.com\/rpc header-replace-regex methodname .*(GetBannerList|IsShowOrderAwardPopup|UserLifeShopList|BrandBannerList|GetPromotionGlobalCfg) null
 
 # 首页横幅推广
 ^https:\/\/web2\.realtech-inc\.com\/oss\/xc-app-assets\/configs\/common\/theme\.json reject-dict
