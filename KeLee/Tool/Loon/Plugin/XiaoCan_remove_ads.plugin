@@ -1,5 +1,5 @@
 #!name = 小蚕霸王餐去广告
-#!desc = 移除开屏广告、应用内悬浮窗，精简我的页面。
+#!desc = 移除开屏广告、首页横幅推广、红包推广、更新弹窗。
 #!open= https://apps.apple.com/app/id1618414236
 #!author = Sliverkiss[https://github.com/Sliverkiss], 可莉🅥[https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md]
 #!tag = 去广告, 可莉
@@ -8,7 +8,7 @@
 #!loon_version = 3.2.1(732)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/XiaoCan.png
-#!date = 2024-08-15 23:28:39
+#!date = 2024-08-15 23:50:12
 
 [Rewrite]
 # 红包推广
@@ -20,8 +20,8 @@
 # 开屏广告
 ^https:\/\/sdk\.1rtb\.net\/sdk\/req_ad\? reject-dict
 
-#更新弹窗
+# 更新弹窗
 ^https:\/\/gw\.xiaocantech\.com\/g\/pa reject-dict
 
 [Mitm]
-hostname = gw.xiaocantech.com, web2.realtech-inc.com
+hostname = gw.xiaocantech.com, web2.realtech-inc.com, sdk.1rtb.net
