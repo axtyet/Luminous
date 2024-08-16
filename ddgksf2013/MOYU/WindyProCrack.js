@@ -6,7 +6,7 @@ tg频道：https://t.me/ddgksf2021
 
 [rewrite_local]
 
-^https?:\/\/account\.windy\.com\/api\/info url script-response-body https://github.com/ddgksf2013/MoYu/raw/main/WindyProCrack.js
+^https?:\/\/account\.windy\.com\/api\/info url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/ddgksf2013/MOYU/WindyProCrack.js
 
 [mitm]
 
