@@ -151,7 +151,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="91"><strong>去广告插件</strong></td>
+    <td rowspan="92"><strong>去广告插件</strong></td>
   <tr>
     <td>001</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
@@ -512,6 +512,10 @@ Plus 流量 1024G 月付 120
     <td>090</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/XiaoCan_remove_ads.plugin">小蚕霸王餐去广告</a></td>
   </tr>
+  <tr>
+    <td>091</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BooHee_remove_ads.plugin">薄荷健康去广告</a></td>
+  </tr>
     <td></td>
     <td></td>
     <td></td>
@@ -539,7 +543,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="27"><strong>功能插件</strong></td>
+    <td rowspan="26"><strong>功能插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/LoonGallery.plugin">插件仓库</a></td>
@@ -558,90 +562,86 @@ Plus 流量 1024G 月付 120
   </tr>
   <tr>
     <td>05</td>
-    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BingAI.plugin">Bing AI</a></td>
-  </tr>
-  <tr>
-    <td>06</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/1.1.1.1.plugin">1.1.1.1配置管理</a></td>
   </tr>
   <tr>
-    <td>07</td>
+    <td>06</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BoxJs.plugin">BoxJs</a></td>
   </tr>
   <tr>
-    <td>08</td>
+    <td>07</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/WARP_Node_Query.plugin">WARP节点查询</a></td>
   </tr>
   <tr>
-    <td>09</td>
+    <td>08</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/JD_Price.plugin">京东比价</a></td>
   </tr>
   <tr>
-    <td>10</td>
+    <td>09</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/YouTubeSubtitlesTranslation.plugin">YouTube翻译</a></td>
   </tr>
   <tr>
-    <td>11</td>
+    <td>10</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Auto_Join_TF.plugin">自动加入TF</a></td>
   </tr>
   <tr>
-    <td>12</td>
+    <td>11</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/VVebo_repair.plugin">VVebo时间线修复</a></td>
   </tr>
   <tr>
-    <td>13</td>
+    <td>12</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/TestFlight.plugin">TestFlight解锁</a></td>
   </tr>
   <tr>
-    <td>14</td>
+    <td>13</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Switch_github_mirror.plugin">GitHub加速</a></td>
   </tr>
   <tr>
-    <td>15</td>
+    <td>14</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Node_detection_tool.plugin">节点检测工具</a></td>
   </tr>
   <tr>
-    <td>16</td>
+    <td>15</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/QQ_Redirect.plugin">QQ链接解锁</a></td>
   </tr>
   <tr>
-    <td>17</td>
+    <td>16</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Fileball_mount.plugin">Fileball网盘挂载</a></td>
   </tr>
   <tr>
-    <td>18</td>
+    <td>17</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Block_HTTPDNS.plugin">拦截HTTPDNS</a></td>
   </tr>
   <tr>
-    <td>19</td>
+    <td>18</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Weixin_external_links_unlock.plugin">微信外部链接解锁</a></td>
   </tr>
   <tr>
-    <td>20</td>
+    <td>19</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Switch_repository_source.plugin">可莉仓库源切换</a></td>
   </tr>
   <tr>
-    <td>21</td>
+    <td>20</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/TikTok_redirect.plugin">TikTok多地区解锁</a></td>
   </tr>
   <tr>
-    <td>22</td>
+    <td>21</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Spotify_lyrics_translation.plugin">Spotify歌词翻译</a></td>
   </tr>
   <tr>
-    <td>23</td>
+    <td>22</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://raw.githubusercontent.com/ClydeTime/BiliBili/master/modules/BiliBiliDailyBonus.plugin">BiliBili每日等级任务</a></td>
   </tr>
   <tr>
-    <td>24</td>
+    <td>23</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/NodeLinkCheck.Plugin">代理链路检测</a></td>
   </tr>
   <tr>
-    <td>25</td>
+    <td>24</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/QuickSearch.plugin">快捷搜索</a></td>
   </tr>
   <tr>
-    <td>26</td>
+    <td>25</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/UnnooQuan_remove_watermark.plugin">知识星球去水印</a></td>
   </tr>
 </table>
