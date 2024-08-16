@@ -1,0 +1,39 @@
+#!name = 薄荷健康去广告
+#!desc = 移除记录页大家都在看、移除各类弹窗，移除广场横幅推广，精简代谢中心页面。
+#!openUrl = https://apps.apple.com/app/id457856023
+#!author = 可莉🅥[https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md]
+#!tag = 去广告, 可莉
+#!system = 
+#!system_version = 
+#!loon_version = 3.2.1(732)
+#!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
+#!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/BooHee.png
+#!date = 2024-08-16 15:29:35
+
+[Rewrite]
+# 记录 - 大家都在看data.recom_cards / 底部按钮data.recom_btns
+^https:\/\/api\.boohee\.com\/meta-interface\/v2\/index\? response-body-json-del data.recom_cards data.recom_btns
+
+# 记录 - 悬浮部件
+^https:\/\/api\.boohee\.com\/meta-interface\/v1\/index\/page_float_bubbles\? reject-dict
+
+# 记录 - 发布
+^https:\/\/api\.boohee\.com\/meta-interface\/v1\/index\/tool_buttons\? reject-dict
+
+# 弹窗配置
+^https:\/\/bohe\.sfo-tx-shanghai-01\.saas\.sensorsdata\.cn\/api\/v2\/sfo\/user_popup_configs\? reject-dict
+
+# 广场 - 推荐 - 轮播图
+^https:\/\/api\.boohee\.com\/meta-interface\/v1\/index\/plaza\? response-body-json-del data.recommend_ads
+
+# 广场 - 推荐 - 横幅
+^https:\/\/api\.boohee\.com\/meta-interface\/v1\/index\/plaza-flow\? response-body-json-del data.contents[2]
+
+# 代谢中心 - 顶部轮播图top_banner / 免费问诊推广diagnos_config / 合作医疗机构partner_hospital / 医患问答question_answer / 热门商品product / 品牌大事件brand_story
+^https:\/\/api\.boohee\.com\/open-interface\/v1\/string\/market_page\?title=metabolism_config$ response-body-json-del top_banner diagnos_config partner_hospital question_answer product brand_story
+
+# 绑定设备 - 横幅推广
+^https:\/\/api\.boohee\.com\/meta-interface\/v1\/index\/sensor-banners\? reject-dict
+
+[Mitm]
+hostname = api.boohee.com, bohe.sfo-tx-shanghai-01.saas.sensorsdata.cn, lego.boohee.com
