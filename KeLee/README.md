@@ -529,7 +529,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="3"><strong>自签插件</strong></td>
+    <td rowspan="4"><strong>自签插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/UnionPay_remove_ads_with_ssl_unpinning.plugin">云闪付去广告</a></td>
@@ -537,6 +537,10 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>02</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/DouBan_remove_ads.plugin">豆瓣去广告</a></td>
+  <tr>
+  <tr>
+    <td>03</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BaiduMap_remove_ads.plugin">百度地图去广告</a></td>
   <tr>
     <td></td>
     <td></td>
