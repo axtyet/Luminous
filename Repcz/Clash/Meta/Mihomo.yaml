@@ -7,7 +7,7 @@
 #
 # Mihomo Version ≥ 1.8.4
 #
-# 最后更新时间: 2024-8-17 19:10
+# 最后更新时间: 2024-8-17 19:55
 #
 # ================
 
@@ -39,15 +39,14 @@ profile:
   store-selected: true 
   store-fake-ip: true  
 
-sniffer:               
+sniffer:
   enable: true
-  parse-pure-ip: true  
   sniff:
-    TLS:
-      ports: [443, 8443]
     HTTP:
       ports: [80, 8080-8880]
       override-destination: true
+    TLS:
+      ports: [443, 8443]
     QUIC:
       ports: [443, 8443]
 
@@ -62,7 +61,7 @@ dns:
   enhanced-mode: fake-ip
   listen: :1053
   fake-ip-range: 198.18.0.1/16
-  fake-ip-filter: ['*.lan','*.direct', cable.auth.com, '*.msftconnecttest.com', '*.msftncsi.com', network-test.debian.org, detectportal.firefox.com, resolver1.opendns.com, '*.srv.nintendo.net', '*.stun.playstation.net', 'xbox.*.microsoft.com', '*.xboxlive.com', 'stun.*', global.turn.twilio.com, global.stun.twilio.com, app.yinxiang.com, injections.adguard.org, local.adguard.org, cable.auth.com, 'localhost.*.qq.com', 'localhost.*.weixin.qq.com', '*.logon.battlenet.com.cn', '*.logon.battle.net', '*.blzstatic.cn', 'music.163.com', '*.music.163.com', '*.126.net', musicapi.taihe.com, music.taihe.com, songsearch.kugou.com, trackercdn.kugou.com, '*.kuwo.cn', api-jooxtt.sanook.com, api.joox.com, joox.com, y.qq.com, '*.y.qq.com', streamoc.music.tc.qq.com, mobileoc.music.tc.qq.com, isure.stream.qqmusic.qq.com, dl.stream.qqmusic.qq.com, aqqmusic.tc.qq.com, amobile.music.tc.qq.com, '*.xiami.com', '*.music.migu.cn', music.migu.cn, proxy.golang.org, '*.mcdn.bilivideo.cn', '*.cmpassport.com', id6.me, 'open.e.189.cn', mdn.open.wo.cn, opencloud.wostore.cn, auth.wosms.cn, '*.jegotrip.com.cn', '*.icitymobile.mobi', '*.pingan.com.cn', '*.cmbchina.com', '*.10099.com.cn', '*.microdone.cn', pool.ntp.org, '*.pool.ntp.org', 'ntp.*.com', 'time.*.com', 'ntp?.*.com', 'time?.*.com', 'time.*.gov', 'time.*.edu.cn', '*.ntp.org.cn', 'PDC._msDCS.*.*', 'DC._msDCS.*.*', 'GC._msDCS.*.*']
+  fake-ip-filter: ['+.lan', '*', '+.local']
   default-nameserver: [223.5.5.5, 119.29.29.29, system]
   nameserver: [223.5.5.5, 119.29.29.29]
   nameserver-policy:
