@@ -24,10 +24,10 @@
 ^https:\/\/(h3\.)?open\.taou\.com\/maimai\/feed\/v6\/detail_recommend_feeds\? response-body-json-del feeds
 
 [Script]
-# 信息流广告卡片推广、文末推广卡片
-http-response ^https:\/\/(h3\.)?open\.taou\.com\/maimai\/feed\/v\d\/(feed_detail_header|focus_feed)\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/MaiMai/MaiMai_remove_ads.js, requires-body = true, tag = 移除信息流和评论区广告
-# 移除评论区广告
-http-response ^https:\/\/(h3\.)?open\.taou\.com\/maimai\/(gossip|feed)\/v\d\/(gossip_detail_comment|feed_detail_comment)\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/MaiMai/MaiMai_remove_ads.js, requires-body = true, tag = 移除评论区广告
+# 信息流和文末推广小卡片推广
+http-response ^https:\/\/(h3\.)?open\.taou\.com\/maimai\/feed\/v\d\/(feed_detail_header|focus_feed)\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/MaiMai/MaiMai_remove_ads.js, requires-body = true, tag = 移除信息流和文末推广小卡片推广
+# 移除信息流和评论区大块广告
+http-response ^https:\/\/(h3\.)?open\.taou\.com\/maimai\/(gossip|feed)\/v\d\/(gossip_detail_comment|feed_detail_comment)\? script-path = https://raw.githubusercontent.com/Repcz/Tool/X/Loon/Script/lodepuly/MaiMai/MaiMai_remove_ads.js, requires-body = true, tag = 移除信息流和评论区大块广告
 
 [Mitm]
-hostname = open.taou.com, h3.open.taou.com
+hostname = open.taou.com, h3.open.taou.com 

@@ -2,7 +2,7 @@
 //
 // Clash Verg Rev Version ≥ 1.7.2
 //
-// 最后更新时间: 2024-08-13 21:30
+// 最后更新时间: 2024-08-17 18:52
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -118,7 +118,7 @@ function main(config) {
       "DC._msDCS.*.*",
       "GC._msDCS.*.*"
     ],
-    "default-nameserver": ["223.5.5.5", "119.29.29.29"],
+    "default-nameserver": ["223.5.5.5", "119.29.29.29", "system"],
     "nameserver": ["223.5.5.5", "119.29.29.29"],
     "nameserver-policy":{
       "geosite:cn": "system",
@@ -131,7 +131,8 @@ function main(config) {
   config["geox-url"] = {
     "geoip": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat",
     "geosite": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat",
-    "mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb"
+    "mmdb": "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/country-lite.mmdb",
+    "asn": "https://mirror.ghproxy.com/https://github.com/xishang0128/geoip/releases/download/latest/GeoLite2-ASN.mmdb"
   };
 
   // 覆盖 sniffer 配置
