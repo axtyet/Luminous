@@ -1,14 +1,14 @@
 #!name = 百度地图去广告
 #!desc = 移除开屏广告、出行页面推广、周边页面推广、打车页面推广，精简我的页面。
 #!openUrl = https://apps.apple.com/app/id452186370
-#!author = 可莉🅥[https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md]
+#!author = 可莉🅥[https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/34bf3aad-7872-497d-b239-198e27e8c84c]
 #!tag = 去广告, 可莉
 #!system = 
 #!system_version = 
 #!loon_version = 3.2.1(732)
 #!homepage = https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md
 #!icon = https://gitlab.com/lodepuly/iconlibrary/-/raw/main/App_icon/120px/BaiduMap.png
-#!date = 2024-08-18 01:30:40
+#!date = 2024-08-18 01:36:08
 
 [Rule]
 # 拦截HTTPDNS
@@ -24,7 +24,7 @@ IP-CIDR, 186.76.76.200/32, REJECT, no-resolve
 # ^https:\/\/newclient\.map\.baidu\.com\/client\/imap\/dl\/s\/UpdateInfo\.php\? reject-dict
 
 # 出行 - 文字横幅
-^https:\/\/newclient\.map\.baidu\.com\/client\/noticebar\/get\? reject-dict
+^https:\/\/newclient\.map\.baidu\.com\/client\/noticebar\/get\? response-body-json-del content.multi_data
 
 # 我的 - 语音包、活动专区
 ^https:\/\/newclient\.map\.baidu\.com\/(client\/)?usersystem\/mine\/page\? response-body-json-replace data {}
