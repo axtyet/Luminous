@@ -85,6 +85,43 @@
 > [!TIP]
 > 可莉的主力机场
 
+------
+
+**CornSS - 全 IEPL 专线机场**
+
+> 线路
+
+1. 全站采用优质 IEPL 专线；
+2. 全节点 SS 协议，无设备数限制，无软件兼容性担忧；
+3. 全节点提供流媒体解锁及 AI 服务解锁（Netflix /  Disney+ / ChatGPT / MyTVSuper / HBO / BiliBili / Bahamut / ChatGPT 等）；
+4. 全节点支持 UDP 转发；
+5. 目前提供香港、台湾、日本、韩国、新加坡、美国六个地区的节点；
+6. 全天速率保证，无惧晚高峰和高墙期。
+
+> 价格
+
+• Seedling 套餐 - 77 GB 流量 /￥10 每月
+
+• Stalks 套餐 - 300 GB 流量 /￥25 每月
+
+• Ears 套餐 - 1024 GB 流量 /￥70 每月
+
+> 优惠
+
+可莉的个人永久九折优惠码：`iKeLee `
+
+优惠码续费可用
+
+> 购买
+
+点击[此处](https://www.cornss.com/#/register?code=06H97Dhm)前往购买
+
+> 官方群组
+
+@cornss_c
+
+------
+
 **ENET - 全专线 IEPL/UDPN IPLC 专线机场**
 全部采用高品质专线，无惧晚高峰以及高墙期，高稳定性以及速率保证；
 主打高稳定性和高用户体验评价。
@@ -120,6 +157,8 @@ Plus 流量 1024G 月付 120
 **购买方式**
 点击[此处](https://www.easy2023.com/#/register?code=sH2tNXOa)购买，输入永久不限时专属优惠码 `ikelee` 即可获得九折优惠。
 
+优惠码续费可用
+
 **联系方式**
 官方群组 [@enet_group](https://t.me/enet_group)
 
@@ -138,7 +177,7 @@ Plus 流量 1024G 月付 120
 > 如果你点击下面的链接发现跳转到了空白页面，建议恢复 Safari 为默认浏览器后重启设备。待网络完全恢复到正常状态之后，再打开 Loon，以重新下载统一链接的配置文件。
 
 > [!WARNING]
-> 此处的所有插件可直接点击链接一键添加，不要复制链接手动安装。
+> 下面的所有插件可直接点击链接一键添加，不要复制链接手动安装。
 
 > [!NOTE]
 > 遇到插件失效的，请先阅读[知识库](https://getupnote.com/share/notes/zSn1ShBmzNYISKcTgjXE5oHMrNf2/b6047d8b-621c-44af-bfa6-a28d35bcf928)排查。
