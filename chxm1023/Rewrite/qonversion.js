@@ -2,7 +2,7 @@
 
 项目名称：Qonversion-合集
 下载地址：https://t.cn/A68lP8qz
-更新日期：2024-08-16
+更新日期：2024-08-19
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -24,6 +24,7 @@ const ua = headers['User-Agent'] || headers['user-agent'];
 const times = Math.floor(Date.now() / 1000);  // 获取当前时间戳
 
 const list = {
+  'AnkiPro': { name: "Premium", id: "com.ankipro.app.lifetime", store_id: "com.ankipro.app.lifetime" },  //AnkiPro
   'SwiftCompiler': { name: "premium", id: "premium.forever", store_id: "com.hassantaleb.SwiftCompiler.premium.forever" }  //Swift Compiler
 };
 
@@ -36,7 +37,6 @@ for (const key in list) {
       "store_id": store_id,
       "duration": 99999
     };
-    if (!chxm1023.data.hasOwnProperty("products")) {  chxm1023.data["products"] = [];}
     chxm1023.data["products"].push(data);
     chxm1023.data["user_products"] = [data];
     chxm1023.data["permissions"] = [
