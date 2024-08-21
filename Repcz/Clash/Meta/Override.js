@@ -46,10 +46,10 @@ function main(config) {
     "ipv6": false,
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
-    "fake-ip-filter":["+.lan", "*", "+.local"],
+    "fake-ip-filter": ["+.lan", "*", "+.local"],
     "default-nameserver": ["223.5.5.5", "119.29.29.29", "system"],
     "nameserver": ["223.5.5.5", "119.29.29.29"],
-    "nameserver-policy":{
+    "nameserver-policy": {
       "geosite:cn": "system",
       "geosite:gfw,geolocation-!cn": ["quic://223.5.5.5", "quic://223.6.6.6", "https://1.12.12.12/dns-query", "https://120.53.53.53/dns-query"]
     }
@@ -154,14 +154,14 @@ function main(config) {
       "type": "select",
       "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png"
-    },    
+    },
     {
       ...groupBaseOption,
       "name": "游戏平台",
       "type": "select",
       "proxies": ["手动切换", "香港节点", "美国节点", "狮城节点", "日本节点", "台湾节点", "DIRECT"],
       "icon": "https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/Game.png"
-    },    
+    },
     {
       ...groupBaseOption,
       "name": "Emby",
