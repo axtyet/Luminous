@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-08-10
+更新日期：2024-08-22
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,6 +29,7 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
+  'CodeSnippet': { cm: 'timea', hx: 'hxpda', id: "it.beatcode.codesnippetpro.annualSubscription", latest: "chxm1023" }, //CodeSnippet
   'darkWeb': { cm: 'timea', hx: 'hxpda', id: "dforce_unlock_all_functions", latest: "chxm1023" }, //DForce-Safari扩展
   'BookReader': { cm: 'timea', hx: 'hxpda', id: "com.reader.1year", latest: "chxm1023" }, //阅读器-小说阅读器
   'BeatStation': { cm: 'timea', hx: 'hxpda', id: "BS_Pro_Yearly", latest: "chxm1023" }, //BeatStation-节奏工作站
