@@ -2,7 +2,7 @@
 //
 // Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 0.5.8)
 //
-// 最后更新时间: 2024-08-17 20:10
+// 最后更新时间: 2024-8-22 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -14,7 +14,7 @@ const ruleProviderCommon = {
 // 策略组通用配置
 const groupBaseOption = {
   "interval": 300,
-  "url": "http://latency-test.skk.moe/endpoint",
+  "url": "http://connectivitycheck.gstatic.com/generate_204",
   "max-failed-times": 3,
 };
 
