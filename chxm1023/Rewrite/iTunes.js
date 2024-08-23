@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-08-22
+更新日期：2024-08-23
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,6 +29,7 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
+  'VDIT': { cm: 'timea', hx: 'hxpda', id: "me.imgbase.videoday.profeaturesYearly", latest: "chxm1023" }, //VDIT-视频转换
   'CodeSnippet': { cm: 'timea', hx: 'hxpda', id: "it.beatcode.codesnippetpro.annualSubscription", latest: "chxm1023" }, //CodeSnippet
   'darkWeb': { cm: 'timea', hx: 'hxpda', id: "dforce_unlock_all_functions", latest: "chxm1023" }, //DForce-Safari扩展
   'BookReader': { cm: 'timea', hx: 'hxpda', id: "com.reader.1year", latest: "chxm1023" }, //阅读器-小说阅读器
@@ -66,7 +67,6 @@ const list = {
   'OneExtractor': { cm: 'timeb', hx: 'hxpda', id: "com.OneExtractor.Video.Forever", latest: "chxm1023" }, //视频提取器
   'com.Colin.Colors': { cm: 'timea', hx: 'hxpda', id: "com.colin.colors.annualVIP", latest: "chxm1023" }, //搜图
   'PhotosSorter': { cm: 'timeb', hx: 'hxpda', id: "sorter.pro.ipa", latest: "chxm1023" }, //Sorter-相册整理
-  'VDIT': { cm: 'timea', hx: 'hxpda', id: "me.imgbase.videoday.yearly", latest: "chxm1023" }, //VDIT(未完成)
   'intolive': { cm: 'timea', hx: 'hxpda', id: "me.imgbase.intolive.proSubYearly", latest: "chxm1023" }, //intolive-实况壁纸制作器
   'MyAlbum': { cm: 'timeb', hx: 'hxpda', id: "com.colin.myalbum.isUpgradeVip", latest: "chxm1023" }, //Cleaner-照片管理
   'VideoEditor': { cm: 'timeb', hx: 'hxpda', id: "com.god.videohand.alwaysowner", latest: "chxm1023" }, //VideoShot
