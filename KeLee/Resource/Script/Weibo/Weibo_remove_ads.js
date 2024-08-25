@@ -1,7 +1,7 @@
 /*
 引用地址：https://raw.githubusercontent.com/RuCu6/QuanX/main/Scripts/weibo.js
 */
-// 2024-08-17 13:30
+// 2024-08-23 10:35
 
 const url = $request.url;
 if (!$response) $done({});
@@ -1108,7 +1108,7 @@ if (url.includes("/interface/sdk/sdkad.php")) {
     }
     if (obj.trend?.titles) {
       let title = obj.trend.titles.title;
-      if (["博主好物种草", "相关推荐"]?.includes(title)) {
+      if (/(博主好物种草|相关推荐|专区)/?.test(title)) {
         delete obj.trend;
       }
     }
