@@ -185,7 +185,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="94"><strong>去广告插件</strong></td>
+    <td rowspan="95"><strong>去广告插件</strong></td>
   <tr>
     <td>001</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
@@ -557,6 +557,10 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>093</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/YoudaoDict_remove_ads.plugin">网易有道词典去广告</a></td>
+  </tr>
+  <tr>
+    <td>094</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/MeiTu_remove_ads.plugin">美图秀秀去广告</a></td>
   </tr>
     <td></td>
     <td></td>
