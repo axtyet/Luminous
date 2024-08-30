@@ -745,10 +745,10 @@ class ENV {
 	}
 }
 
-var Settings$7 = {
+var Settings$8 = {
 	Switch: true
 };
-var Configs$3 = {
+var Configs$4 = {
 	Storefront: [
 		[
 			"AE",
@@ -1465,34 +1465,34 @@ var Configs$3 = {
 	]
 };
 var Default = {
-	Settings: Settings$7,
-	Configs: Configs$3
+	Settings: Settings$8,
+	Configs: Configs$4
 };
 
 var Default$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$3,
-	Settings: Settings$7,
+	Configs: Configs$4,
+	Settings: Settings$8,
 	default: Default
 });
 
-var Settings$6 = {
+var Settings$7 = {
 	Switch: true,
 	PEP: {
 		GCC: "US"
 	}
 };
 var Location = {
-	Settings: Settings$6
+	Settings: Settings$7
 };
 
 var Location$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$6,
+	Settings: Settings$7,
 	default: Location
 });
 
-var Settings$5 = {
+var Settings$6 = {
 	Switch: true,
 	UrlInfoSet: {
 		Dispatcher: "AutoNavi",
@@ -1533,7 +1533,7 @@ var Settings$5 = {
 		}
 	}
 };
-var Configs$2 = {
+var Configs$3 = {
 	CN: {
 		attribution: [
 			{
@@ -13666,48 +13666,48 @@ var Configs$2 = {
 	}
 };
 var Maps = {
-	Settings: Settings$5,
-	Configs: Configs$2
+	Settings: Settings$6,
+	Configs: Configs$3
 };
 
 var Maps$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$2,
-	Settings: Settings$5,
+	Configs: Configs$3,
+	Settings: Settings$6,
 	default: Maps
 });
 
-var Settings$4 = {
+var Settings$5 = {
 	Switch: true,
 	CountryCode: "US",
 	NewsPlusUser: true
 };
 var News = {
-	Settings: Settings$4
+	Settings: Settings$5
 };
 
 var News$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$4,
+	Settings: Settings$5,
 	default: News
 });
 
-var Settings$3 = {
+var Settings$4 = {
 	Switch: true,
 	CountryCode: "US",
 	canUse: true
 };
 var PrivateRelay = {
-	Settings: Settings$3
+	Settings: Settings$4
 };
 
 var PrivateRelay$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$3,
+	Settings: Settings$4,
 	default: PrivateRelay
 });
 
-var Settings$2 = {
+var Settings$3 = {
 	Switch: true,
 	CountryCode: "SG",
 	Domains: [
@@ -13731,7 +13731,7 @@ var Settings$2 = {
 	],
 	Safari_Smart_History: true
 };
-var Configs$1 = {
+var Configs$2 = {
 	VisualIntelligence: {
 		enabled_domains: [
 			"pets",
@@ -13768,34 +13768,34 @@ var Configs$1 = {
 	}
 };
 var Siri = {
-	Settings: Settings$2,
-	Configs: Configs$1
+	Settings: Settings$3,
+	Configs: Configs$2
 };
 
 var Siri$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$1,
-	Settings: Settings$2,
+	Configs: Configs$2,
+	Settings: Settings$3,
 	default: Siri
 });
 
-var Settings$1 = {
+var Settings$2 = {
 	Switch: "true",
 	CountryCode: "US",
 	MultiAccount: "false",
 	Universal: "true"
 };
 var TestFlight = {
-	Settings: Settings$1
+	Settings: Settings$2
 };
 
 var TestFlight$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$1,
+	Settings: Settings$2,
 	default: TestFlight
 });
 
-var Settings = {
+var Settings$1 = {
 	Switch: true,
 	"Third-Party": false,
 	HLSUrl: "play-edge.itunes.apple.com",
@@ -13833,7 +13833,7 @@ var Settings = {
 		Others: "AUTO"
 	}
 };
-var Configs = {
+var Configs$1 = {
 	Locale: [
 		[
 			"AU",
@@ -14182,15 +14182,154 @@ var Configs = {
 	}
 };
 var TV = {
-	Settings: Settings,
-	Configs: Configs
+	Settings: Settings$1,
+	Configs: Configs$1
 };
 
 var TV$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
+	Configs: Configs$1,
+	Settings: Settings$1,
+	default: TV
+});
+
+var Settings = {
+	Switch: true,
+	NextHour: {
+		Provider: "ColorfulClouds"
+	},
+	AQI: {
+		Provider: "WAQI",
+		Location: "Station",
+		ReplaceProviders: [
+			"QWeather"
+		],
+		Token: "EPA_NowCast.2302"
+	},
+	API: {
+		WAQI: {
+			Token: null,
+			Header: null
+		},
+		QWeather: {
+			Token: null,
+			Header: null
+		},
+		ColorfulClouds: {
+			Token: null,
+			Header: null
+		}
+	}
+};
+var Configs = {
+	Availability: {
+		v1: [
+			"currentWeather",
+			"dailyForecast",
+			"hourlyForecast",
+			"minuteForecast",
+			"weatherAlerts"
+		],
+		v2: [
+			"airQuality",
+			"currentWeather",
+			"forecastDaily",
+			"forecastHourly",
+			"forecastNextHour",
+			"news",
+			"trendComparison",
+			"weatherAlerts",
+			"weatherChange"
+		]
+	},
+	Pollutants: {
+		co: "CO",
+		no: "NO",
+		no2: "NO2",
+		so2: "SO2",
+		o3: "OZONE",
+		nox: "NOX",
+		pm25: "PM2_5",
+		pm10: "PM10",
+		other: "NOT_AVAILABLE"
+	},
+	Status: {
+		clear: "CLEAR",
+		sleet: "SLEET",
+		drizzle: "RAIN",
+		rain: "RAIN",
+		heavy_rain: "RAIN",
+		flurries: "SNOW",
+		snow: "SNOW",
+		heavy_snow: "SNOW"
+	},
+	Precipitation: {
+		Level: {
+			INVALID: -1,
+			NO: 0,
+			LIGHT: 1,
+			MODERATE: 2,
+			HEAVY: 3,
+			STORM: 4
+		},
+		Range: {
+			RADAR: {
+				NO: [
+					0,
+					0.031
+				],
+				LIGHT: [
+					0.031,
+					0.25
+				],
+				MODERATE: [
+					0.25,
+					0.35
+				],
+				HEAVY: [
+					0.35,
+					0.48
+				],
+				STORM: [
+					0.48,
+					1
+				]
+			},
+			MMPERHR: {
+				NO: [
+					0,
+					0.08
+				],
+				LIGHT: [
+					0.08,
+					3.44
+				],
+				MODERATE: [
+					3.44,
+					11.33
+				],
+				HEAVY: [
+					11.33,
+					51.3
+				],
+				STORM: [
+					51.3,
+					100
+				]
+			}
+		}
+	}
+};
+var WeatherKit = {
+	Settings: Settings,
+	Configs: Configs
+};
+
+var WeatherKit$1 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	Configs: Configs,
 	Settings: Settings,
-	default: TV
+	default: WeatherKit
 });
 
 var Database$1 = Database = {
@@ -14202,6 +14341,7 @@ var Database$1 = Database = {
 	"Siri": Siri$1,
 	"TestFlight": TestFlight$1,
 	"TV": TV$1,
+	"WeatherKit": WeatherKit$1
 };
 
 /**
@@ -14269,7 +14409,12 @@ function setENV(name, platforms, database) {
 	console.log(`☑️ Set Environment Variables`, "");
 	let { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
-	if (Settings?.Tabs && !Array.isArray(Settings?.Tabs)) Lodash.set(Settings, "Tabs", (Settings?.Tabs) ? [Settings.Tabs.toString()] : []);
+	if (Settings?.AQI?.ReplaceProviders) {
+		if (!Array.isArray(Settings?.AQI?.ReplaceProviders)) Settings.AQI.ReplaceProviders = (Settings?.AQI?.ReplaceProviders) ? [Settings.AQI.ReplaceProviders] : []; // 只有一个选项时，无逗号分隔
+		if (Settings.AQI.ReplaceProviders.includes("TWC")) Settings.AQI.ReplaceProviders.push("The Weather Channel");
+		if (Settings.AQI.ReplaceProviders.includes("QWeather")) Settings.AQI.ReplaceProviders.push("和风天气");
+		Settings.AQI.ReplaceProviders.push(undefined);
+	}	if (Settings?.Tabs && !Array.isArray(Settings?.Tabs)) Lodash.set(Settings, "Tabs", (Settings?.Tabs) ? [Settings.Tabs.toString()] : []);
 	if (Settings?.Domains && !Array.isArray(Settings?.Domains)) Lodash.set(Settings, "Domains", (Settings?.Domains) ? [Settings.Domains.toString()] : []);
 	if (Settings?.Functions && !Array.isArray(Settings?.Functions)) Lodash.set(Settings, "Functions", (Settings?.Functions) ? [Settings.Functions.toString()] : []);
 	console.log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
@@ -21186,235 +21331,6 @@ function addgRPCHeader({ header, body }, encoding = undefined) {
 		view.setUint32(0, num, false); // byteOffset = 0; litteEndian = false
 		return new Uint8Array(arr);
 	}}
-
-// lookup table from base64 character to byte
-let encTable = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'.split('');
-// lookup table from base64 character *code* to byte because lookup by number is fast
-let decTable = [];
-for (let i = 0; i < encTable.length; i++)
-    decTable[encTable[i].charCodeAt(0)] = i;
-// support base64url variants
-decTable["-".charCodeAt(0)] = encTable.indexOf("+");
-decTable["_".charCodeAt(0)] = encTable.indexOf("/");
-
-/**
- * This handler implements the default behaviour for unknown fields.
- * When reading data, unknown fields are stored on the message, in a
- * symbol property.
- * When writing data, the symbol property is queried and unknown fields
- * are serialized into the output again.
- */
-var UnknownFieldHandler;
-(function (UnknownFieldHandler) {
-    /**
-     * The symbol used to store unknown fields for a message.
-     * The property must conform to `UnknownFieldContainer`.
-     */
-    UnknownFieldHandler.symbol = Symbol.for("protobuf-ts/unknown");
-    /**
-     * Store an unknown field during binary read directly on the message.
-     * This method is compatible with `BinaryReadOptions.readUnknownField`.
-     */
-    UnknownFieldHandler.onRead = (typeName, message, fieldNo, wireType, data) => {
-        let container = is(message) ? message[UnknownFieldHandler.symbol] : message[UnknownFieldHandler.symbol] = [];
-        container.push({ no: fieldNo, wireType, data });
-    };
-    /**
-     * Write unknown fields stored for the message to the writer.
-     * This method is compatible with `BinaryWriteOptions.writeUnknownFields`.
-     */
-    UnknownFieldHandler.onWrite = (typeName, message, writer) => {
-        for (let { no, wireType, data } of UnknownFieldHandler.list(message))
-            writer.tag(no, wireType).raw(data);
-    };
-    /**
-     * List unknown fields stored for the message.
-     * Note that there may be multiples fields with the same number.
-     */
-    UnknownFieldHandler.list = (message, fieldNo) => {
-        if (is(message)) {
-            let all = message[UnknownFieldHandler.symbol];
-            return fieldNo ? all.filter(uf => uf.no == fieldNo) : all;
-        }
-        return [];
-    };
-    /**
-     * Returns the last unknown field by field number.
-     */
-    UnknownFieldHandler.last = (message, fieldNo) => UnknownFieldHandler.list(message, fieldNo).slice(-1)[0];
-    const is = (message) => message && Array.isArray(message[UnknownFieldHandler.symbol]);
-})(UnknownFieldHandler || (UnknownFieldHandler = {}));
-/**
- * Protobuf binary format wire types.
- *
- * A wire type provides just enough information to find the length of the
- * following value.
- *
- * See https://developers.google.com/protocol-buffers/docs/encoding#structure
- */
-var WireType;
-(function (WireType) {
-    /**
-     * Used for int32, int64, uint32, uint64, sint32, sint64, bool, enum
-     */
-    WireType[WireType["Varint"] = 0] = "Varint";
-    /**
-     * Used for fixed64, sfixed64, double.
-     * Always 8 bytes with little-endian byte order.
-     */
-    WireType[WireType["Bit64"] = 1] = "Bit64";
-    /**
-     * Used for string, bytes, embedded messages, packed repeated fields
-     *
-     * Only repeated numeric types (types which use the varint, 32-bit,
-     * or 64-bit wire types) can be packed. In proto3, such fields are
-     * packed by default.
-     */
-    WireType[WireType["LengthDelimited"] = 2] = "LengthDelimited";
-    /**
-     * Used for groups
-     * @deprecated
-     */
-    WireType[WireType["StartGroup"] = 3] = "StartGroup";
-    /**
-     * Used for groups
-     * @deprecated
-     */
-    WireType[WireType["EndGroup"] = 4] = "EndGroup";
-    /**
-     * Used for fixed32, sfixed32, float.
-     * Always 4 bytes with little-endian byte order.
-     */
-    WireType[WireType["Bit32"] = 5] = "Bit32";
-})(WireType || (WireType = {}));
-
-function detectBi() {
-    const dv = new DataView(new ArrayBuffer(8));
-    const ok = globalThis.BigInt !== undefined
-        && typeof dv.getBigInt64 === "function"
-        && typeof dv.getBigUint64 === "function"
-        && typeof dv.setBigInt64 === "function"
-        && typeof dv.setBigUint64 === "function";
-    ok ? {
-        MIN: BigInt("-9223372036854775808"),
-        MAX: BigInt("9223372036854775807"),
-        UMIN: BigInt("0"),
-        UMAX: BigInt("18446744073709551615"),
-        C: BigInt,
-        V: dv,
-    } : undefined;
-}
-detectBi();
-
-/**
- * Scalar value types. This is a subset of field types declared by protobuf
- * enum google.protobuf.FieldDescriptorProto.Type The types GROUP and MESSAGE
- * are omitted, but the numerical values are identical.
- */
-var ScalarType;
-(function (ScalarType) {
-    // 0 is reserved for errors.
-    // Order is weird for historical reasons.
-    ScalarType[ScalarType["DOUBLE"] = 1] = "DOUBLE";
-    ScalarType[ScalarType["FLOAT"] = 2] = "FLOAT";
-    // Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT64 if
-    // negative values are likely.
-    ScalarType[ScalarType["INT64"] = 3] = "INT64";
-    ScalarType[ScalarType["UINT64"] = 4] = "UINT64";
-    // Not ZigZag encoded.  Negative numbers take 10 bytes.  Use TYPE_SINT32 if
-    // negative values are likely.
-    ScalarType[ScalarType["INT32"] = 5] = "INT32";
-    ScalarType[ScalarType["FIXED64"] = 6] = "FIXED64";
-    ScalarType[ScalarType["FIXED32"] = 7] = "FIXED32";
-    ScalarType[ScalarType["BOOL"] = 8] = "BOOL";
-    ScalarType[ScalarType["STRING"] = 9] = "STRING";
-    // Tag-delimited aggregate.
-    // Group type is deprecated and not supported in proto3. However, Proto3
-    // implementations should still be able to parse the group wire format and
-    // treat group fields as unknown fields.
-    // TYPE_GROUP = 10,
-    // TYPE_MESSAGE = 11,  // Length-delimited aggregate.
-    // New in version 2.
-    ScalarType[ScalarType["BYTES"] = 12] = "BYTES";
-    ScalarType[ScalarType["UINT32"] = 13] = "UINT32";
-    // TYPE_ENUM = 14,
-    ScalarType[ScalarType["SFIXED32"] = 15] = "SFIXED32";
-    ScalarType[ScalarType["SFIXED64"] = 16] = "SFIXED64";
-    ScalarType[ScalarType["SINT32"] = 17] = "SINT32";
-    ScalarType[ScalarType["SINT64"] = 18] = "SINT64";
-})(ScalarType || (ScalarType = {}));
-/**
- * JavaScript representation of 64 bit integral types. Equivalent to the
- * field option "jstype".
- *
- * By default, protobuf-ts represents 64 bit types as `bigint`.
- *
- * You can change the default behaviour by enabling the plugin parameter
- * `long_type_string`, which will represent 64 bit types as `string`.
- *
- * Alternatively, you can change the behaviour for individual fields
- * with the field option "jstype":
- *
- * ```protobuf
- * uint64 my_field = 1 [jstype = JS_STRING];
- * uint64 other_field = 2 [jstype = JS_NUMBER];
- * ```
- */
-var LongType;
-(function (LongType) {
-    /**
-     * Use JavaScript `bigint`.
-     *
-     * Field option `[jstype = JS_NORMAL]`.
-     */
-    LongType[LongType["BIGINT"] = 0] = "BIGINT";
-    /**
-     * Use JavaScript `string`.
-     *
-     * Field option `[jstype = JS_STRING]`.
-     */
-    LongType[LongType["STRING"] = 1] = "STRING";
-    /**
-     * Use JavaScript `number`.
-     *
-     * Large values will loose precision.
-     *
-     * Field option `[jstype = JS_NUMBER]`.
-     */
-    LongType[LongType["NUMBER"] = 2] = "NUMBER";
-})(LongType || (LongType = {}));
-/**
- * Protobuf 2.1.0 introduced packed repeated fields.
- * Setting the field option `[packed = true]` enables packing.
- *
- * In proto3, all repeated fields are packed by default.
- * Setting the field option `[packed = false]` disables packing.
- *
- * Packed repeated fields are encoded with a single tag,
- * then a length-delimiter, then the element values.
- *
- * Unpacked repeated fields are encoded with a tag and
- * value for each element.
- *
- * `bytes` and `string` cannot be packed.
- */
-var RepeatType;
-(function (RepeatType) {
-    /**
-     * The field is not repeated.
-     */
-    RepeatType[RepeatType["NO"] = 0] = "NO";
-    /**
-     * The field is repeated and should be packed.
-     * Invalid for `bytes` and `string`, they cannot be packed.
-     */
-    RepeatType[RepeatType["PACKED"] = 1] = "PACKED";
-    /**
-     * The field is repeated but should not be packed.
-     * The only valid repeat type for repeated `bytes` and `string`.
-     */
-    RepeatType[RepeatType["UNPACKED"] = 2] = "UNPACKED";
-})(RepeatType || (RepeatType = {}));
 
 const $ = new ENV(" iRingo: 🔍 Siri & Search v4.0.0(4001) response.beta");
 

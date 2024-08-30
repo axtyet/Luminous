@@ -745,10 +745,10 @@ class ENV {
 	}
 }
 
-var Settings$7 = {
+var Settings$8 = {
 	Switch: true
 };
-var Configs$3 = {
+var Configs$4 = {
 	Storefront: [
 		[
 			"AE",
@@ -1465,34 +1465,34 @@ var Configs$3 = {
 	]
 };
 var Default = {
-	Settings: Settings$7,
-	Configs: Configs$3
+	Settings: Settings$8,
+	Configs: Configs$4
 };
 
 var Default$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$3,
-	Settings: Settings$7,
+	Configs: Configs$4,
+	Settings: Settings$8,
 	default: Default
 });
 
-var Settings$6 = {
+var Settings$7 = {
 	Switch: true,
 	PEP: {
 		GCC: "US"
 	}
 };
 var Location = {
-	Settings: Settings$6
+	Settings: Settings$7
 };
 
 var Location$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$6,
+	Settings: Settings$7,
 	default: Location
 });
 
-var Settings$5 = {
+var Settings$6 = {
 	Switch: true,
 	UrlInfoSet: {
 		Dispatcher: "AutoNavi",
@@ -1533,7 +1533,7 @@ var Settings$5 = {
 		}
 	}
 };
-var Configs$2 = {
+var Configs$3 = {
 	CN: {
 		attribution: [
 			{
@@ -13666,48 +13666,48 @@ var Configs$2 = {
 	}
 };
 var Maps = {
-	Settings: Settings$5,
-	Configs: Configs$2
+	Settings: Settings$6,
+	Configs: Configs$3
 };
 
 var Maps$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$2,
-	Settings: Settings$5,
+	Configs: Configs$3,
+	Settings: Settings$6,
 	default: Maps
 });
 
-var Settings$4 = {
+var Settings$5 = {
 	Switch: true,
 	CountryCode: "US",
 	NewsPlusUser: true
 };
 var News = {
-	Settings: Settings$4
+	Settings: Settings$5
 };
 
 var News$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$4,
+	Settings: Settings$5,
 	default: News
 });
 
-var Settings$3 = {
+var Settings$4 = {
 	Switch: true,
 	CountryCode: "US",
 	canUse: true
 };
 var PrivateRelay = {
-	Settings: Settings$3
+	Settings: Settings$4
 };
 
 var PrivateRelay$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$3,
+	Settings: Settings$4,
 	default: PrivateRelay
 });
 
-var Settings$2 = {
+var Settings$3 = {
 	Switch: true,
 	CountryCode: "SG",
 	Domains: [
@@ -13731,7 +13731,7 @@ var Settings$2 = {
 	],
 	Safari_Smart_History: true
 };
-var Configs$1 = {
+var Configs$2 = {
 	VisualIntelligence: {
 		enabled_domains: [
 			"pets",
@@ -13768,34 +13768,34 @@ var Configs$1 = {
 	}
 };
 var Siri = {
-	Settings: Settings$2,
-	Configs: Configs$1
+	Settings: Settings$3,
+	Configs: Configs$2
 };
 
 var Siri$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Configs: Configs$1,
-	Settings: Settings$2,
+	Configs: Configs$2,
+	Settings: Settings$3,
 	default: Siri
 });
 
-var Settings$1 = {
+var Settings$2 = {
 	Switch: "true",
 	CountryCode: "US",
 	MultiAccount: "false",
 	Universal: "true"
 };
 var TestFlight = {
-	Settings: Settings$1
+	Settings: Settings$2
 };
 
 var TestFlight$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
-	Settings: Settings$1,
+	Settings: Settings$2,
 	default: TestFlight
 });
 
-var Settings = {
+var Settings$1 = {
 	Switch: true,
 	"Third-Party": false,
 	HLSUrl: "play-edge.itunes.apple.com",
@@ -13833,7 +13833,7 @@ var Settings = {
 		Others: "AUTO"
 	}
 };
-var Configs = {
+var Configs$1 = {
 	Locale: [
 		[
 			"AU",
@@ -14182,15 +14182,154 @@ var Configs = {
 	}
 };
 var TV = {
-	Settings: Settings,
-	Configs: Configs
+	Settings: Settings$1,
+	Configs: Configs$1
 };
 
 var TV$1 = /*#__PURE__*/Object.freeze({
 	__proto__: null,
+	Configs: Configs$1,
+	Settings: Settings$1,
+	default: TV
+});
+
+var Settings = {
+	Switch: true,
+	NextHour: {
+		Provider: "ColorfulClouds"
+	},
+	AQI: {
+		Provider: "WAQI",
+		Location: "Station",
+		ReplaceProviders: [
+			"QWeather"
+		],
+		Token: "EPA_NowCast.2302"
+	},
+	API: {
+		WAQI: {
+			Token: null,
+			Header: null
+		},
+		QWeather: {
+			Token: null,
+			Header: null
+		},
+		ColorfulClouds: {
+			Token: null,
+			Header: null
+		}
+	}
+};
+var Configs = {
+	Availability: {
+		v1: [
+			"currentWeather",
+			"dailyForecast",
+			"hourlyForecast",
+			"minuteForecast",
+			"weatherAlerts"
+		],
+		v2: [
+			"airQuality",
+			"currentWeather",
+			"forecastDaily",
+			"forecastHourly",
+			"forecastNextHour",
+			"news",
+			"trendComparison",
+			"weatherAlerts",
+			"weatherChange"
+		]
+	},
+	Pollutants: {
+		co: "CO",
+		no: "NO",
+		no2: "NO2",
+		so2: "SO2",
+		o3: "OZONE",
+		nox: "NOX",
+		pm25: "PM2_5",
+		pm10: "PM10",
+		other: "NOT_AVAILABLE"
+	},
+	Status: {
+		clear: "CLEAR",
+		sleet: "SLEET",
+		drizzle: "RAIN",
+		rain: "RAIN",
+		heavy_rain: "RAIN",
+		flurries: "SNOW",
+		snow: "SNOW",
+		heavy_snow: "SNOW"
+	},
+	Precipitation: {
+		Level: {
+			INVALID: -1,
+			NO: 0,
+			LIGHT: 1,
+			MODERATE: 2,
+			HEAVY: 3,
+			STORM: 4
+		},
+		Range: {
+			RADAR: {
+				NO: [
+					0,
+					0.031
+				],
+				LIGHT: [
+					0.031,
+					0.25
+				],
+				MODERATE: [
+					0.25,
+					0.35
+				],
+				HEAVY: [
+					0.35,
+					0.48
+				],
+				STORM: [
+					0.48,
+					1
+				]
+			},
+			MMPERHR: {
+				NO: [
+					0,
+					0.08
+				],
+				LIGHT: [
+					0.08,
+					3.44
+				],
+				MODERATE: [
+					3.44,
+					11.33
+				],
+				HEAVY: [
+					11.33,
+					51.3
+				],
+				STORM: [
+					51.3,
+					100
+				]
+			}
+		}
+	}
+};
+var WeatherKit = {
+	Settings: Settings,
+	Configs: Configs
+};
+
+var WeatherKit$1 = /*#__PURE__*/Object.freeze({
+	__proto__: null,
 	Configs: Configs,
 	Settings: Settings,
-	default: TV
+	default: WeatherKit
 });
 
 var Database$1 = Database = {
@@ -14202,6 +14341,7 @@ var Database$1 = Database = {
 	"Siri": Siri$1,
 	"TestFlight": TestFlight$1,
 	"TV": TV$1,
+	"WeatherKit": WeatherKit$1
 };
 
 /**
@@ -14269,7 +14409,12 @@ function setENV(name, platforms, database) {
 	console.log(`☑️ Set Environment Variables`, "");
 	let { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
-	if (Settings?.Tabs && !Array.isArray(Settings?.Tabs)) Lodash.set(Settings, "Tabs", (Settings?.Tabs) ? [Settings.Tabs.toString()] : []);
+	if (Settings?.AQI?.ReplaceProviders) {
+		if (!Array.isArray(Settings?.AQI?.ReplaceProviders)) Settings.AQI.ReplaceProviders = (Settings?.AQI?.ReplaceProviders) ? [Settings.AQI.ReplaceProviders] : []; // 只有一个选项时，无逗号分隔
+		if (Settings.AQI.ReplaceProviders.includes("TWC")) Settings.AQI.ReplaceProviders.push("The Weather Channel");
+		if (Settings.AQI.ReplaceProviders.includes("QWeather")) Settings.AQI.ReplaceProviders.push("和风天气");
+		Settings.AQI.ReplaceProviders.push(undefined);
+	}	if (Settings?.Tabs && !Array.isArray(Settings?.Tabs)) Lodash.set(Settings, "Tabs", (Settings?.Tabs) ? [Settings.Tabs.toString()] : []);
 	if (Settings?.Domains && !Array.isArray(Settings?.Domains)) Lodash.set(Settings, "Domains", (Settings?.Domains) ? [Settings.Domains.toString()] : []);
 	if (Settings?.Functions && !Array.isArray(Settings?.Functions)) Lodash.set(Settings, "Functions", (Settings?.Functions) ? [Settings.Functions.toString()] : []);
 	console.log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
