@@ -1,7 +1,7 @@
 
 export default class ForecastNextHour {
     Name = "forecastNextHour";
-    Version = "v1.0.4";
+    Version = "v1.1.6";
     Author = "iRingo";
 
     static #Configs = {
@@ -241,6 +241,34 @@ export default class ForecastNextHour {
                 default:
                     switch (minute?.precipitationType) {
                         case previousMinute?.precipitationType: // ✅与前次相同
+                            switch (minute?.condition) {
+                                case previousMinute?.condition: // ✅与前次相同
+                                    break;
+                                default: // ✅与前次不同
+                                    switch (Condition.forecastToken) {
+                                        case "CONSTANT":
+                                            Condition.endTime = minute.startTime; // ✅更新结束时间
+                                            switch (Condition.beginCondition) {
+                                                case Condition.endCondition: // ✅与begin相同
+                                                    Condition.parameters = [];
+                                                    Conditions.push({ ...Condition });
+                                                    // ✅CONSTANT
+                                                    Condition.endCondition = minute.condition;
+                                                    break;
+                                                default: // ✅与begin不同
+                                                    Condition.endCondition = minute.condition;
+                                                    Condition.parameters = [{ "date": Condition.endTime, "type": "FIRST_AT" }];
+                                                    Conditions.push({ ...Condition });
+                                                    // ✅CONSTANT
+                                                    Condition.beginCondition = minute.condition;
+                                                    break;
+                                            };
+                                            Condition.startTime = Condition.endTime; // ✅更新开始时间
+                                            Condition.parameters = [];
+                                            break;
+                                    };
+                                    break;
+                            };
                             break;
                         default: // 与前次不同
                             switch (Condition.forecastToken) {
@@ -250,14 +278,16 @@ export default class ForecastNextHour {
                                     Condition.endCondition = minute.condition;
                                     Condition.forecastToken = "START"; // ✅不推送，可能变为START_STOP
                                     Condition.endTime = minute.startTime; // ✅更新结束时间
-                                    Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
+                                    Condition.parameters = [{ "date": Condition.endTime, "type": "FIRST_AT" }];
                                     break;
                                 case "CONSTANT": // ✅当前CLEAR
+                                    Conditions.length = 0; // ✅清空
                                     // ✅STOP
+                                    Condition.beginCondition = minutes[0].condition; // ✅更新结束条件
                                     Condition.endCondition = previousMinute.condition; // ✅更新结束条件
                                     Condition.forecastToken = "STOP"; // ✅不推送，可能变为STOP_START
                                     Condition.endTime = minute.startTime; // ✅更新结束时间
-                                    Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
+                                    Condition.parameters = [{ "date": Condition.endTime, "type": "FIRST_AT" }];
                                     break;
                                 case "START": // ✅当前CLEAR
                                     // ✅START_STOP
@@ -277,9 +307,10 @@ export default class ForecastNextHour {
                                     // ✅STOP_START
                                     Condition.forecastToken = "STOP_START";
                                     Condition.parameters.push({ "date": minute.startTime, "type": "SECOND_AT" });
+                                    Conditions.push({ ...Condition });
                                     // ✅START
-                                    Condition.beginCondition = previousMinute.condition;
-                                    Condition.endCondition = previousMinute.condition;
+                                    Condition.beginCondition = minute.condition;
+                                    Condition.endCondition = minute.condition;
                                     Condition.forecastToken = "START"; // ✅不推送，可能变为START_STOP
                                     Condition.startTime = Condition.endTime;
                                     Condition.endTime = minute.startTime; // ✅更新结束时间

@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-08-28
+更新日期：2024-08-31
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -30,7 +30,8 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
   'Period': { cm: 'timeb', hx: 'hxpda', id: "com.hanchongzan.book.vip", latest: "chxm1023" }, //闪电记账
-  'EarthSpirit': { cm: 'timeb', hx: 'hxpda', id: "Facey_Forever", latest: "chxm1023" }, //Facey-专业彩妆P图神器
+  'com.alphamobiletech.bodyApp': { cm: 'timeb', hx: 'hxpda', id: "Bodyapp_Forever", latest: "chxm1023" }, //Bodyapp-身材修图软件
+  'com.alphamobiletech.facey': { cm: 'timeb', hx: 'hxpda', id: "Facey_Forever", latest: "chxm1023" }, //Facey-专业彩妆P图神器
   'Packet': { cm: 'timeb', hx: 'hxpda', id: "com.aaaalab.nepacket.iap.full", latest: "chxm1023" }, //HTTPS抓包
   'AllMyBatteries': { cm: 'timeb', hx: 'hxpda', id: "AllMyBatteries_Ultimate", latest: "chxm1023" }, //AllMyBatteries-电池管家
   'VDIT': { cm: 'timea', hx: 'hxpda', id: "me.imgbase.videoday.profeaturesYearly", latest: "chxm1023" }, //VDIT-视频转换
