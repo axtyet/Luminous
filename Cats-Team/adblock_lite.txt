@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2024-08-30 17:35:30(GMT+8) 
-! Total count: 34134
+! ! Version: 2024-08-31 08:03:25(GMT+8) 
+! Total count: 34152
  
 ###ADtip
 ###AdBlockDialog
@@ -6846,7 +6846,8 @@ anisearch.com#@#.adsbygoogle
 anisubsia.com###de13
 anitube.be,anitube.cx,anitube.cz#$#abort-on-property-write _pop
 aniwatch.to#$#abort-current-inline-script XMLHttpRequest
-aniwatchtv.to,kunmanga.com#$#abort-current-inline-script document.createElement /break|case/
+aniwatchtv.*#$#hide-if-matches-xpath './/a[@href][@target="_blank"]/img[@alt][@style]/ancestor::div[contains(@style," text-align")]'
+aniwatchtv.*,kunmanga.com#$#abort-current-inline-script document.createElement /break|case/
 aniworld.to#$#abort-current-inline-script JSON.parse /atob|break/
 anjia365.com#@#.adv_bg
 anjian.com##.ImgTop
@@ -9149,6 +9150,7 @@ ebay.*#$#hide-if-matches-computed-xpath './/style[contains(text(),"data:image")]
 ebay.*#$#hide-if-matches-computed-xpath '//span[@aria-hidden="true" and ancestor::span[@role="text" and @aria-labelledby = //div[@aria-hidden="true"]/span[@class="clipped"]/@id]][1]/ancestor::li[@data-viewport]' './*' '/./' 'auxclick'; hide-if-matches-computed-xpath './/head/style[1]' './*' '/./' load; simulate-mouse-event 'style[style]$event=auxclick,delay=500'
 ebay.*#$#hide-if-matches-xpath './/div[@class="srp-1p__ad-column"]/ancestor-or-self::a[@class="srp-1p__link"]'
 ebay.*#$#hide-if-matches-xpath './/div[contains(@class,"sponsored-infotip")]/parent::div[starts-with(@class,"ads")]/parent::div[contains(@class,"ads")]/ancestor::div[@id and @aria-label="Advertisement"]'
+ebay.*#$#hide-if-matches-xpath './/section[@data-marko-key][@data-view]//ul[@class]//span[@aria-hidden="true"]/ancestor::div[contains(@class,"__bottom-one-row")]/preceding::a[contains(@data-track,"checksum")]/ancestor-or-self::li[contains(@class,"s-item")][1]'
 ebay.*#$#hide-if-matches-xpath '//a[contains(@href,"promoted_items")][@target="_blank"][@data-click]/ancestor-or-self::div[@data-viewport][1]'
 ebay.*#$#hide-if-matches-xpath '//script[contains(text(),"amclksrc")][@type="module"]/preceding::a[contains(@href,"APL_CLK")]/ancestor-or-self::div[@id="cGxhY2VtZW50MTAxMTk2"]'
 ebay.*#$#hide-if-matches-xpath '//script[contains(text(),"amclksrc")][@type="module"]/preceding::a[contains(@href,"APL_CLK")]/ancestor-or-self::div[@id="cGxhY2VtZW50MTAxODc1"]'
@@ -9272,6 +9274,10 @@ emule-island.ru##.newsgroup
 emumax.com##.tbanner
 en8848.com.cn##.list_adv
 en8848.com.cn#@#.adcenter
+enews.tw##.divADFrame
+enews.tw##.gadRightP
+enews.tw##.newsCardForLeftAdGadCode
+enews.tw##div[id^="adFrame"]
 engadget.com#?#.Py\(40px\):-abp-has(> article > .D\(f\) > .Pos\(r\)[data-ylk*=":AD;"])
 engvideo.net,hianime.to,hollymoviehd.cc,ling-online.net#$#abort-current-inline-script document.documentElement break;case
 enigmaboard.com##.no
@@ -13914,6 +13920,7 @@ play/safety=^$xmlhttprequest,domain=ahaonline.cz|info.cz|onetv.cz
 play/safety=^$xmlhttprequest,domain=auto.cz|autorevue.cz|maminka.cz|reflex.cz|blesk.cz|dama.cz|e15.cz|mojezdravi.cz|zeny.cz|zive.cz
 play44.net,videobug.net,videofun.me,vidzur.com,yucache.net##[style^="position: absolute; width: 100%;"]
 playallvideos.com,pron.co##.rmedia
+player.fm#$#hide-if-contains-visible-text /SPONSORED|SPONSORERET|GESPENSERT|PATROCINADO|SPONSORISÉ|DISPONSORI|DITAJA|SPONSOR|SPONSORIZZATO|SZPONZORÁLT|SPONSOROWANY|SPONSORIZAT|ΕΠΙΧΟΡΗΓΟΎΜΕΝΟ|РЕКЛАМА|РЕКЛАМА/ 'div[data-style]' 'div.sponsored-content p.subtitle'
 player.hboav.com#%#//scriptlet('set-constant', 'player.VastADPlugin', 'noopFunc')
 playerapp1.pw###divPanel
 playerapp1.pw##[id^="total"]
@@ -14858,8 +14865,9 @@ skyqzone.com###pop_art
 skyroad.downallbook.com##IMG[height='60'][width='98%']
 skyrock.com##IMG[src*="adblock/megabanner.png"]
 skyrock.com##IMG[src*="adblock/pave.png"]
-skyscanner.*#$#hide-if-matches-xpath './/button[contains(@class,"SponsoredInfoButton_adInfoBtn")]/ancestor-or-self::a[contains(@href,"sponsored")][@data-testid]/parent::div[1]'
+skyscanner.*,tianxun.com#$#hide-if-matches-xpath './/button[contains(@class,"SponsoredInfoButton_adInfoBtn")]/ancestor-or-self::a[contains(@href,"sponsored")][@data-testid]/parent::div[1]'
 skyscanner.*,tianxun.com#$#hide-if-matches-xpath './/button[contains(@class,"SponsoredInfoButton_adInfoBtn")]/ancestor-or-self::div[@aria-label]/parent::div[1]'
+skyscanner.*,tianxun.com#$#hide-if-matches-xpath './/button[contains(@class,"SponsoredInfoButton_adInfoBtn")]/preceding::div[contains(@class,"ItineraryInlinePlusWrapperHeader_header")][@role="group"][@aria-label]/parent::div[1]'
 slashlook.com###AdvertisementBottom
 slashlook.com###AdvertismentInline
 slashlook.com#$##mdAdsAnnouncement { display: none!important; }
@@ -20397,6 +20405,7 @@ zzzyk.com###Tinfo
 ||bnds6.site^
 ||bnds7.site^
 ||bnds8.site^
+||bndxrr.xyz^
 ||bnextmedia.com.tw/feed/fetch.js
 ||bnextmedia.s3.hicloud.net.tw/dp_cp/cp_prebid
 ||bnextmedia.s3.hicloud.net.tw/dp_cp/mt_programmatic_ad.js
@@ -22010,6 +22019,7 @@ zzzyk.com###Tinfo
 ||dibaiweiai.com^
 ||dicancele.fun^
 ||diccsbhij.com^
+||dict.youdao.com/vip/privilege/show/V*?bannerType=fanyiTop$domain=fanyi.youdao.com
 ||dididy.xyz^
 ||dieka888.com/app_ad/
 ||dieka888.com^
@@ -23525,6 +23535,7 @@ zzzyk.com###Tinfo
 ||gdz0cqs.icu^
 ||gdzshoes.com^
 ||ged46.xyz^
+||gedashb112.fun^
 ||gedu.org/js/meiqia_pc_groupmarket.
 ||geekbang.org/public/serving/
 ||geekpark.net/api/v1/ads
@@ -23631,6 +23642,7 @@ zzzyk.com###Tinfo
 ||gjipd.xyz^
 ||gjjskhdnm.top^
 ||gjkame6.com^
+||gjmedashb0.fun^
 ||gjwind.com/xxmh.gif
 ||gjwxy.cn^
 ||gk1.582582.com^
@@ -24542,6 +24554,7 @@ zzzyk.com###Tinfo
 ||httpwwwdcom.com/js/aaa/
 ||htubzpb.cn^
 ||htvixv.xyz^
+||htxwzp.xyz^
 ||hty9m.cn^
 ||htyusiu.top^
 ||huaerdadi.com^$third-party
@@ -24741,6 +24754,7 @@ zzzyk.com###Tinfo
 ||identify.hotjar.com^
 ||idffhq.cn^
 ||idipsumo.top^
+||iditero.top^
 ||idns.online^
 ||idoshbo.top^
 ||idubwz.cn^
@@ -26058,6 +26072,7 @@ zzzyk.com###Tinfo
 ||knpkxgfp.xyz^
 ||knuinws.icu^
 ||ko2v.eiya.net^
+||koauq.top^
 ||kocpc.com.tw/adsbyso.js
 ||kodfn.xyz^
 ||kogtrmjz.xyz^
@@ -30120,6 +30135,7 @@ zzzyk.com###Tinfo
 ||sjks88.com/templets/default/js/mydata4.js
 ||sjoy7rq.cn^
 ||skads.gxsky.com^$script
+||skaumbp.icu^
 ||skdaj.cn^
 ||skdncksklsv.com^
 ||skdunkig.xyz^
@@ -32702,6 +32718,7 @@ zzzyk.com###Tinfo
 ||wxdqgmr.cn^
 ||wxfdmri.xyz^
 ||wxl0gfw.icu^
+||wxsicu.xyz^
 ||wxsignin.top^
 ||wxymag.xyz^
 ||wy213.com^$popup,third-party
@@ -34015,6 +34032,7 @@ zzzyk.com###Tinfo
 ||zrblog.net/zanzhu/virpus.gif
 ||zrdga.cn^
 ||zrgbh6bm.icu^
+||zrkksps.icu^
 ||zrljzgs.xyz^
 ||zs.rzijjeb.cn^
 ||zsjjob.com/user/member/google.htm
