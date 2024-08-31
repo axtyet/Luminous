@@ -1,7 +1,7 @@
 
 export default class ForecastNextHour {
     Name = "forecastNextHour";
-    Version = "v1.0.2";
+    Version = "v1.0.4";
     Author = "iRingo";
 
     static #Configs = {
@@ -143,7 +143,7 @@ export default class ForecastNextHour {
             "startTime": 0,
             "precipitationIntensity": 0
         };
-        const Length = Math.min(60, minutes.length);
+        const Length = Math.min(71, minutes.length);
         for (let i = 0; i < Length; i++) {
             const minute = minutes[i];
             const previousMinute = minutes[i - 1];
@@ -159,7 +159,6 @@ export default class ForecastNextHour {
                     };
                     break;
                 default:
-                    /******** Summary ********/
                     if (minute?.precipitationType !== previousMinute?.precipitationType) {
                         Summary.endTime = minute.startTime;
                         switch (Summary.condition) {
@@ -217,13 +216,14 @@ export default class ForecastNextHour {
             "parameters": [],
             "startTime": 0
         };
-        const Length = Math.min(60, minutes.length);
+        const Length = Math.min(71, minutes.length);
         for (let i = 0; i < Length; i++) {
             const minute = minutes[i];
             const previousMinute = minutes[i - 1];
-            console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+            //console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
             switch (i) {
                 case 0:
+                    console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     Condition.beginCondition = minute.condition;
                     Condition.endCondition = minute.condition;
                     Condition.startTime = minute.startTime;
@@ -236,6 +236,7 @@ export default class ForecastNextHour {
                             break;
                     };
                     Condition.parameters = [];
+                    console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     break;
                 default:
                     switch (minute?.precipitationType) {
@@ -307,13 +308,13 @@ export default class ForecastNextHour {
                             break;
                         case "CONSTANT": // ✅当前RAIN
                             // ✅确定CONSTANT
-                            Condition.endTime = minute.startTime; // ✅更新结束时间
-                            Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
-                            Conditions.push({ ...Condition });
+                            //Condition.endTime = minute.startTime; // ✅更新结束时间
+                            //Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
+                            //Conditions.push({ ...Condition });
                             // ✅补充CONSTANT
-                            Condition.beginCondition = minute.condition;
+                            //Condition.beginCondition = minute.condition;
                             Condition.endCondition = minute.condition;
-                            Condition.startTime = Condition.endTime;
+                            //Condition.startTime = Condition.endTime;
                             delete Condition.endTime;
                             Condition.parameters = [];
                             Conditions.push({ ...Condition });
@@ -349,7 +350,7 @@ export default class ForecastNextHour {
                     };
                     break;
             };
-            console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+            //console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
         };
         console.log(`✅ Condition`, "");
         return Conditions;
@@ -384,7 +385,7 @@ export default class ForecastNextHour {
                 perceivedPrecipitationIntensity = Math.min(10, precipitationIntensity) / 3 * level;
                 break;
         };
-        perceivedPrecipitationIntensity = Math.round(perceivedPrecipitationIntensity * 1000) / 1000; // 三位小数
+        perceivedPrecipitationIntensity = Math.round(Math.min(3, perceivedPrecipitationIntensity) * 1000) / 1000; // 三位小数
         return perceivedPrecipitationIntensity;
     };
 };

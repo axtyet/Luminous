@@ -15338,12 +15338,8 @@ class Metadata {
         const offset = this.bb.__offset(this.bb_pos, 24);
         return offset ? this.bb.readInt8(this.bb_pos + offset) : SourceType.APPLE_INTERNAL;
     }
-    unknown11() {
-        const offset = this.bb.__offset(this.bb_pos, 26);
-        return offset ? this.bb.readInt32(this.bb_pos + offset) : 0;
-    }
     static startMetadata(builder) {
-        builder.startObject(12);
+        builder.startObject(11);
     }
     static addAttributionUrl(builder, attributionUrlOffset) {
         builder.addFieldOffset(0, attributionUrlOffset, 0);
@@ -15378,14 +15374,11 @@ class Metadata {
     static addSourceType(builder, sourceType) {
         builder.addFieldInt8(10, sourceType, SourceType.APPLE_INTERNAL);
     }
-    static addUnknown11(builder, unknown11) {
-        builder.addFieldInt32(11, unknown11, 0);
-    }
     static endMetadata(builder) {
         const offset = builder.endObject();
         return offset;
     }
-    static createMetadata(builder, attributionUrlOffset, expireTime, languageOffset, latitude, longitude, providerLogoOffset, providerNameOffset, readTime, reportedTime, temporarilyUnavailable, sourceType, unknown11) {
+    static createMetadata(builder, attributionUrlOffset, expireTime, languageOffset, latitude, longitude, providerLogoOffset, providerNameOffset, readTime, reportedTime, temporarilyUnavailable, sourceType) {
         Metadata.startMetadata(builder);
         Metadata.addAttributionUrl(builder, attributionUrlOffset);
         Metadata.addExpireTime(builder, expireTime);
@@ -15398,7 +15391,6 @@ class Metadata {
         Metadata.addReportedTime(builder, reportedTime);
         Metadata.addTemporarilyUnavailable(builder, temporarilyUnavailable);
         Metadata.addSourceType(builder, sourceType);
-        Metadata.addUnknown11(builder, unknown11);
         return Metadata.endMetadata(builder);
     }
 }
@@ -15730,7 +15722,7 @@ var BaselineType;
 var Certainty;
 (function (Certainty) {
     Certainty[Certainty["UNKNOWN"] = 0] = "UNKNOWN";
-    Certainty[Certainty["UNKNOWN1"] = 1] = "UNKNOWN1";
+    Certainty[Certainty["OBSERVED"] = 1] = "OBSERVED";
     Certainty[Certainty["LIKELY"] = 2] = "LIKELY";
     Certainty[Certainty["POSSIBLE"] = 3] = "POSSIBLE";
     Certainty[Certainty["UNKNOWN4"] = 4] = "UNKNOWN4";
@@ -18096,7 +18088,7 @@ var ResponseType;
     ResponseType[ResponseType["UNKNOWN1"] = 1] = "UNKNOWN1";
     ResponseType[ResponseType["UNKNOWN2"] = 2] = "UNKNOWN2";
     ResponseType[ResponseType["UNKNOWN3"] = 3] = "UNKNOWN3";
-    ResponseType[ResponseType["UNKNOWN4"] = 4] = "UNKNOWN4";
+    ResponseType[ResponseType["EXECUTE"] = 4] = "EXECUTE";
     ResponseType[ResponseType["UNKNOWN5"] = 5] = "UNKNOWN5";
     ResponseType[ResponseType["MONITOR"] = 6] = "MONITOR";
     ResponseType[ResponseType["UNKNOWN7"] = 7] = "UNKNOWN7";
@@ -18628,7 +18620,7 @@ class Weather {
 class WeatherKit2 {
 	constructor(options = {}) {
 		this.Name = "weatherKit2";
-		this.Version = "1.0.4";
+		this.Version = "1.0.5";
 		console.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
 		Object.assign(this, options);
 		this.weatherData = Weather.getRootAsWeather(this.bb);
@@ -19166,8 +19158,7 @@ class WeatherKit2 {
 					"temporarilyUnavailable": metadata?.temporarilyUnavailable(),
 					//"unknown9": metadata?.unknown9(),
 					"sourceType": SourceType[metadata?.sourceType()],
-					"unknown11": metadata?.unknown11(),
-					//"temporarilyUnavailable": metadata?.temporarilyUnavailable(),
+					//"unknown11": metadata?.unknown11(),
 					//"unknown12": metadata?.unknown12(),
 					//"unknown13": metadata?.unknown13(),
 					//"unknown14": metadata?.unknown14(),
@@ -19570,7 +19561,7 @@ class WAQI {
 
 class ForecastNextHour {
     Name = "forecastNextHour";
-    Version = "v1.0.2";
+    Version = "v1.0.4";
     Author = "iRingo";
 
     static #Configs = {
@@ -19707,7 +19698,7 @@ class ForecastNextHour {
             "startTime": 0,
             "precipitationIntensity": 0
         };
-        const Length = Math.min(60, minutes.length);
+        const Length = Math.min(71, minutes.length);
         for (let i = 0; i < Length; i++) {
             const minute = minutes[i];
             const previousMinute = minutes[i - 1];
@@ -19721,7 +19712,6 @@ class ForecastNextHour {
                         Summary.precipitationChance = maxPrecipitationChance;
                         Summary.precipitationIntensity = maxPrecipitationIntensity;                    }                    break;
                 default:
-                    /******** Summary ********/
                     if (minute?.precipitationType !== previousMinute?.precipitationType) {
                         Summary.endTime = minute.startTime;
                         switch (Summary.condition) {
@@ -19773,13 +19763,14 @@ class ForecastNextHour {
             "parameters": [],
             "startTime": 0
         };
-        const Length = Math.min(60, minutes.length);
+        const Length = Math.min(71, minutes.length);
         for (let i = 0; i < Length; i++) {
             const minute = minutes[i];
             const previousMinute = minutes[i - 1];
-            console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+            //console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
             switch (i) {
                 case 0:
+                    console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     Condition.beginCondition = minute.condition;
                     Condition.endCondition = minute.condition;
                     Condition.startTime = minute.startTime;
@@ -19791,6 +19782,7 @@ class ForecastNextHour {
                             Condition.forecastToken = "CONSTANT";
                             break;
                     }                    Condition.parameters = [];
+                    console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     break;
                 default:
                     switch (minute?.precipitationType) {
@@ -19860,13 +19852,13 @@ class ForecastNextHour {
                             break;
                         case "CONSTANT": // ✅当前RAIN
                             // ✅确定CONSTANT
-                            Condition.endTime = minute.startTime; // ✅更新结束时间
-                            Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
-                            Conditions.push({ ...Condition });
+                            //Condition.endTime = minute.startTime; // ✅更新结束时间
+                            //Condition.parameters.push({ "date": Condition.endTime, "type": "FIRST_AT" });
+                            //Conditions.push({ ...Condition });
                             // ✅补充CONSTANT
-                            Condition.beginCondition = minute.condition;
+                            //Condition.beginCondition = minute.condition;
                             Condition.endCondition = minute.condition;
-                            Condition.startTime = Condition.endTime;
+                            //Condition.startTime = Condition.endTime;
                             delete Condition.endTime;
                             Condition.parameters = [];
                             Conditions.push({ ...Condition });
@@ -19900,7 +19892,7 @@ class ForecastNextHour {
                             console.log(`⚠️ STOP_START\nminute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`);
                             break;
                     }                    break;
-            }            console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+            }            //console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
         }        console.log(`✅ Condition`, "");
         return Conditions;
     };
@@ -19933,7 +19925,7 @@ class ForecastNextHour {
                 level = 2.5;
                 perceivedPrecipitationIntensity = Math.min(10, precipitationIntensity) / 3 * level;
                 break;
-        }        perceivedPrecipitationIntensity = Math.round(perceivedPrecipitationIntensity * 1000) / 1000; // 三位小数
+        }        perceivedPrecipitationIntensity = Math.round(Math.min(3, perceivedPrecipitationIntensity) * 1000) / 1000; // 三位小数
         return perceivedPrecipitationIntensity;
     };
 }
@@ -19941,7 +19933,7 @@ class ForecastNextHour {
 class ColorfulClouds {
     constructor($ = new ENV("ColorfulClouds"), options = { "url": new URL() }) {
         this.Name = "ColorfulClouds";
-        this.Version = "1.6.10";
+        this.Version = "1.6.12";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
         this.url = $request.url;
         const RegExp = /^\/api\/(?<version>v1|v2|v3)\/(availability|weather)\/(?<language>[\w-_]+)\/(?<latitude>-?\d+\.\d+)\/(?<longitude>-?\d+\.\d+).*(?<countryCode>country=[A-Z]{2})?.*/i;
@@ -19972,7 +19964,7 @@ class ColorfulClouds {
                         case "ok":
                             body.result.minutely.probability = body.result.minutely.probability.map(probability => Math.round(probability * 100));
                             let minuteStemp = new Date(body?.server_time * 1000).setSeconds(0, 0);
-                            minuteStemp = minuteStemp.valueOf() / 1000;
+                            minuteStemp = minuteStemp.valueOf() / 1000 - 60;
                             forecastNextHour = {
                                 "metadata": {
                                     "attributionUrl": "https://www.caiyunapp.com/h5",
@@ -20005,7 +19997,7 @@ class ColorfulClouds {
                                 }),
                                 "summary": []
                             };
-                            forecastNextHour.minutes.length = 90;
+                            forecastNextHour.minutes.length = 85;
                             forecastNextHour.forecastEnd = minuteStemp + 60 * forecastNextHour.minutes.length;
                             forecastNextHour.minutes = ForecastNextHour.Minute(forecastNextHour.minutes, body?.result?.minutely?.description);
                             forecastNextHour.summary = ForecastNextHour.Summary(forecastNextHour.minutes);
