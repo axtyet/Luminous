@@ -648,7 +648,7 @@ Plus 流量 1024G 月付 120
   </tr>
   <tr>
     <td>12</td>
-    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/TestFlight.plugin">TestFlight解锁</a></td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/TestFlightRegionUnlock.plugin">TestFlight地区解锁</a></td>
   </tr>
   <tr>
     <td>13</td>
