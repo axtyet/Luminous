@@ -30,6 +30,7 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
   'Period': { cm: 'timeb', hx: 'hxpda', id: "com.hanchongzan.book.vip", latest: "chxm1023" }, //闪电记账
+  'TypeOn%20Keyboard': { cm: 'timeb', hx: 'hxpda', id: "com.hanchongzan.book.vip", latest: "chxm1023" }, //TypeOn
   'com.alphamobiletech.bodyApp': { cm: 'timeb', hx: 'hxpda', id: "Bodyapp_Forever", latest: "chxm1023" }, //Bodyapp-身材修图软件
   'com.alphamobiletech.facey': { cm: 'timeb', hx: 'hxpda', id: "Facey_Forever", latest: "chxm1023" }, //Facey-专业彩妆P图神器
   'Packet': { cm: 'timeb', hx: 'hxpda', id: "com.aaaalab.nepacket.iap.full", latest: "chxm1023" }, //HTTPS抓包
