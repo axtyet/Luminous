@@ -1,7 +1,7 @@
 export default class AirQuality {
     constructor(options = {}) {
 		this.Name = "AirQuality";
-        this.Version = "1.0.3";
+        this.Version = "1.0.4";
         this.Author = "Wordless Echo";
 		console.log(`\n🟧 ${this.Name} v${this.Version} by ${this.Author}\n`, "");
         Object.assign(this, options);
@@ -385,19 +385,16 @@ export default class AirQuality {
         }
     };
 
-    toWAQIInstantCast(pollutants) {
+    toWAQIInstantCast(pollutants = []) {
         console.log(`☑️ toWAQIInstantCast`, "");
         // Convert unit based on standard
-        const convertedPollutants = pollutants.map(({ units, amount, pollutantType }) => {
-            const pollutantStandard = this.Configs.WAQI_InstantCast.pollutants[pollutantType];
-
-            return {
-                amount: units !== pollutantStandard.UNIT
-                    ? this.PollutantUnitConverter(units, pollutantStandard.UNIT, amount, pollutantStandard.PPX_TO_XGM3)
-                    : amount,
-                units: pollutantStandard.UNIT,
-                pollutantType,
+        const convertedPollutants = pollutants.map(pollutant => {
+            const pollutantStandard = this.Configs.WAQI_InstantCast.pollutants[pollutant.pollutantType];
+            if (pollutant.units !== pollutantStandard.UNIT) {
+                pollutant.amount = this.PollutantUnitConverter(pollutant.units, pollutantStandard.UNIT, pollutant.amount, pollutantStandard.PPX_TO_XGM3);
+                pollutant.units = pollutantStandard.UNIT;
             };
+            return pollutant;
         });
 
         // Calculate AQI for each pollutant
@@ -441,10 +438,9 @@ export default class AirQuality {
                 primaryAqi.aqi >= category.RANGE.LOWER && primaryAqi.aqi <= category.RANGE.UPPER,
         );
 
-        console.log(`✅ toWAQIInstantCast`, "");
-        return  {
-            index: primaryAqi.aqi,
-            pollutants: convertedPollutants.map((pollutant) => {
+        let airQuality = {
+            "index": primaryAqi.aqi,
+            "pollutants": convertedPollutants.map((pollutant) => {
                 // Convert unit that does not supported in Apple Weather
                 switch (pollutant.units) {
                     case 'PARTS_PER_MILLION':
@@ -475,11 +471,14 @@ export default class AirQuality {
                         return pollutant;
                 }
             }),
-            scale: this.Configs.WAQI_InstantCast.scale,
-            primaryPollutant: primaryAqi.pollutantType,
-            categoryIndex: aqiCategory.CATEGORY_INDEX,
-            isSignificant: aqiCategory.CATEGORY_INDEX >= this.Configs.WAQI_InstantCast.SIGNIFICANT_LEVEL,
+            "scale": this.Configs.WAQI_InstantCast.scale,
+            "primaryPollutant": primaryAqi.pollutantType,
+            "categoryIndex": aqiCategory.CATEGORY_INDEX,
+            "isSignificant": aqiCategory.CATEGORY_INDEX >= this.Configs.WAQI_InstantCast.SIGNIFICANT_LEVEL,
         };
+        console.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+        console.log(`✅ toWAQIInstantCast`, "");
+        return airQuality;
     };
 
     static PollutantUnitConverter(unit, unitToConvert, amount, ppxToXGM3Value) {
@@ -569,7 +568,7 @@ export default class AirQuality {
             default:
                 amount = -1;
                 break;
-        }
+        };
         console.log(`✅ PollutantUnitConverter, amount: ${amount}`, "");
         return amount;
     };
