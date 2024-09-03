@@ -4,20 +4,25 @@ import ForecastNextHour from "./ForecastNextHour.mjs";
 import providerNameToLogo from "../function/providerNameToLogo.mjs";
 
 export default class QWeather {
-    constructor($ = new ENV("QWeather"), options = { "url": new URL($request.url), "host": "devapi.qweather.com", "version": "v7" }) {
+    constructor($ = new ENV("QWeather"), options) {
         this.Name = "QWeather";
-        this.Version = "1.0.4";
+        this.Version = "1.0.7";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        const Parameters = parseWeatherKitURL(options.url);
-        Object.assign(this, Parameters, options, $);
+        this.url = options.url || new URL($request.url);
+        this.host = options.host || "devapi.qweather.com";
+        this.token = options.token;
+        this.header = options.header || { "Content-Type": "application/json" };
+        this.convertUnits = options.convertUnits || false;
+        const Parameters = parseWeatherKitURL(this.url);
+        Object.assign(this, Parameters);
         this.$ = $;
     };
 
-    async Minutely(token = "", header = { "Content-Type": "application/json" }) {
-        this.$.log(`☑️ Minutely, token: ${token}, host: ${this.host}, version: ${this.version}`, "");
+    async Minutely(token = this.token, version = "v7") {
+        this.$.log(`☑️ Minutely, token: ${token}, host: ${this.host}, version: ${version}`, "");
         const request = {
-            "url": `https://${this.host}/${this.version}/minutely/5m?location=${this.longitude},${this.latitude}&key=${token}`,
-            "header": header,
+            "url": `https://${this.host}/${version}/minutely/5m?location=${this.longitude},${this.latitude}&key=${token}`,
+            "header": this.header,
         };
         let forecastNextHour;
         try {

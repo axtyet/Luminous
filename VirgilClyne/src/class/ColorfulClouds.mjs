@@ -1,23 +1,78 @@
 import ENV from "../ENV/ENV.mjs";
-import parseWeatherKitURL from "../function/parseWeatherKitURL.mjs"
+import AirQuality from "../class/AirQuality.mjs";
 import ForecastNextHour from "./ForecastNextHour.mjs";
+import parseWeatherKitURL from "../function/parseWeatherKitURL.mjs"
 import providerNameToLogo from "../function/providerNameToLogo.mjs";
 
 export default class ColorfulClouds {
-    constructor($ = new ENV("ColorfulClouds"), options = { "url": new URL($request.url) }) {
+    constructor($ = new ENV("ColorfulClouds"), options) {
         this.Name = "ColorfulClouds";
-        this.Version = "1.7.4";
+        this.Version = "2.1.3";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        const Parameters = parseWeatherKitURL(options.url);
-        Object.assign(this, Parameters, options, $);
+        this.url = options.url || new URL($request.url);
+        this.token = options.token || "Y2FpeXVuX25vdGlmeQ==";
+        this.header = options.header || { "Content-Type": "application/json" };
+        this.convertUnits = options.convertUnits || false;
+        const Parameters = parseWeatherKitURL(this.url);
+        Object.assign(this, Parameters);
         this.$ = $;
     };
 
-    async Minutely(token = "Y2FpeXVuX25vdGlmeQ==", version = "v2.6", header = { "Content-Type": "application/json" }) {
+    async AQI(token = this.token, version = "v2.6", convertUnits = this.convertUnits) {
+        this.$.log(`☑️ AQI, token: ${token}, version: ${version}`, "");
+        const request = {
+            "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/realtime`,
+            "header": this.header,
+        };
+        let airQuality;
+        try {
+            const body = await this.$.fetch(request).then(response => JSON.parse(response?.body ?? "{}"));
+            const timeStamp = Math.round(Date.now() / 1000);
+            switch (body?.status) {
+                case "ok":
+                    switch (body?.result?.realtime?.status) {
+                        case "ok":
+                            const pollutant = AirQuality.CreatePollutants(body?.result?.realtime?.air_quality);
+                            airQuality = AirQuality.ConvertScale(pollutant, "EPA_NowCast");
+                            if (!convertUnits) airQuality.pollutants = pollutant;
+                            airQuality.metadata = {
+                                "attributionUrl": "https://www.caiyunapp.com/h5",
+                                "expireTime": timeStamp + 60 * 60,
+                                "language": `${this.language}-${this.country}`,
+                                "latitude": body?.location?.[0],
+                                "longitude": body?.location?.[1],
+                                "providerLogo": providerNameToLogo("彩云天气", this.version),
+                                "providerName": "彩云天气",
+                                "readTime": timeStamp,
+                                "reportedTime": body?.server_time,
+                                "temporarilyUnavailable": false,
+                                "sourceType": "STATION",
+                            };
+                            break;
+                        case "error":
+                        case undefined:
+                            throw JSON.stringify({ "status": body?.result?.realtime?.status, "reason": body?.result?.realtime });
+                    };
+                    break;
+                case "error":
+                case "failed":
+                case undefined:
+                    throw JSON.stringify({ "status": body?.status, "reason": body?.error });
+            };
+        } catch (error) {
+            this.logErr(error);
+        } finally {
+            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            this.$.log(`✅ AQI`, "");
+            return airQuality;
+        };
+    };
+
+    async Minutely(token = this.token, version = "v2.6") {
         this.$.log(`☑️ Minutely, token: ${token}, version: ${version}`, "");
         const request = {
             "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/minutely?unit=metric:v2`,
-            "header": header,
+            "header": this.header,
         };
         let forecastNextHour;
         try {
