@@ -19219,7 +19219,7 @@ class WeatherKit2 {
 class AirQuality {
     constructor(options = {}) {
 		this.Name = "AirQuality";
-        this.Version = "2.0.0";
+        this.Version = "2.0.4";
         this.Author = "Virgil Clyne & Wordless Echo";
 		console.log(`\n🟧 ${this.Name} v${this.Version} by ${this.Author}\n`, "");
         Object.assign(this, options);
@@ -19452,10 +19452,10 @@ class AirQuality {
             // Convert unit based on standard
             const PollutantStandard = AirQuality.#Config.Scales[scale].pollutants[pollutant.pollutantType];
             if (pollutant.units !== PollutantStandard.units) {
-                pollutant.amount = AirQuality.ConvertUnit(pollutant.units, PollutantStandard.units, pollutant.amount, PollutantStandard.ppxToXGM3);
+                pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, PollutantStandard.units, PollutantStandard.ppxToXGM3);
                 pollutant.units = PollutantStandard.units;
             }            // Calculate AQI for each pollutant
-            const PollutantData = AirQuality.PollutantRanges(pollutant.amount, pollutant.pollutantType, scale);
+            const PollutantData = AirQuality.PollutantRange(pollutant.amount, pollutant.pollutantType, scale);
             pollutant.aqi = Math.round(
                 ((PollutantData.category[1] - PollutantData.category[0]) * (pollutant.amount - PollutantData.range[0])) / (PollutantData.range[1] - PollutantData.range[0])
                 + PollutantData.category[0],
@@ -19463,11 +19463,11 @@ class AirQuality {
             // Convert unit that does not supported in Apple Weather
             switch (pollutant.units) {
                 case "PARTS_PER_MILLION":
-                    pollutant.amount = AirQuality.ConvertUnit(pollutant.units, "PARTS_PER_BILLION", pollutant.amount, -1); // Will not convert to Xg/m3
+                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "PARTS_PER_BILLION"); // Will not convert to Xg/m3
                     pollutant.units = "PARTS_PER_BILLION";
                     break
                 case 'MILLIGRAMS_PER_CUBIC_METER':
-                    pollutant.amount = AirQuality.ConvertUnit(pollutant.units, "MICROGRAMS_PER_CUBIC_METER", pollutant.amount, -1); // Will not convert to Xg/m3
+                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "MICROGRAMS_PER_CUBIC_METER"); // Will not convert to Xg/m3
                     pollutant.units = "MICROGRAMS_PER_CUBIC_METER";
                     break;
             }            return pollutant;
@@ -19477,8 +19477,8 @@ class AirQuality {
         return convertedPollutants;
     };
 
-    static AQI(pollutants = [], scale = "WAQI_InstantCast") {
-        console.log(`☑️ AQI`, "");
+    static ConvertScale(pollutants = [], scale = "WAQI_InstantCast") {
+        console.log(`☑️ ConvertScale`, "");
         pollutants = this.Pollutants(pollutants, scale);
         const { aqi: index, pollutantType: primaryPollutant } = pollutants.reduce((previous, current) => previous.aqi > current.aqi ? previous : current);
         let airQuality = {
@@ -19490,16 +19490,16 @@ class AirQuality {
         };
         airQuality.isSignificant = airQuality.categoryIndex >= AirQuality.#Config.Scales[scale].significant,
         //console.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
-        console.log(`✅ AQI`, "");
+        console.log(`✅ ConvertScale`, "");
         return airQuality;
     };
 
-    static ConvertUnit(unit, unitToConvert, amount = new Number, ppxToXGM3Value = new Number) {
-        console.log(`☑️ ConvertUnit\nunit: ${unit}\nunitToConvert: ${unitToConvert}\namount: ${amount}\nppxToXGM3Value: ${ppxToXGM3Value}`, "");
+    static ConvertUnit(amount = new Number, unitFrom, unitTo, ppxToXGM3Value = -1) {
+        console.log(`☑️ ConvertUnit\namount: ${amount}   ppxToXGM3Value: ${ppxToXGM3Value}\nunitFrom: ${unitFrom}   unitTo: ${unitTo}`, "");
         if (amount < 0) amount = -1;
-        else switch (unit) {
+        else switch (unitFrom) {
             case 'PARTS_PER_MILLION':
-                switch (unitToConvert) {
+                switch (unitTo) {
                     case 'PARTS_PER_MILLION':
                         break;
                     case 'PARTS_PER_BILLION':
@@ -19509,7 +19509,7 @@ class AirQuality {
                         amount = amount * ppxToXGM3Value;
                         break;
                     case 'MICROGRAMS_PER_CUBIC_METER': {
-                        const inPpb = AirQuality.ConvertUnit(unit, 'PARTS_PER_BILLION', amount, ppxToXGM3Value);
+                        const inPpb = AirQuality.ConvertUnit(amount, unitFrom, 'PARTS_PER_BILLION', ppxToXGM3Value);
                         amount = inPpb * ppxToXGM3Value;
                         break;
                     }                    default:
@@ -19517,14 +19517,14 @@ class AirQuality {
                         break;
                 }                break;
             case 'PARTS_PER_BILLION':
-                switch (unitToConvert) {
+                switch (unitTo) {
                     case 'PARTS_PER_BILLION':
                         break;
                     case 'PARTS_PER_MILLION':
                         amount = amount * 0.001;
                         break;
                     case 'MILLIGRAMS_PER_CUBIC_METER': {
-                        const inPpm = AirQuality.ConvertUnit(unit, 'PARTS_PER_MILLION', amount, ppxToXGM3Value);
+                        const inPpm = AirQuality.ConvertUnit(amount, unitFrom, 'PARTS_PER_MILLION', ppxToXGM3Value);
                         amount = inPpm * ppxToXGM3Value;
                         break;
                     }                    case 'MICROGRAMS_PER_CUBIC_METER':
@@ -19535,7 +19535,7 @@ class AirQuality {
                         break;
                 }                break;
             case 'MILLIGRAMS_PER_CUBIC_METER':
-                switch (unitToConvert) {
+                switch (unitTo) {
                     case 'MILLIGRAMS_PER_CUBIC_METER':
                         break;
                     case 'MICROGRAMS_PER_CUBIC_METER':
@@ -19545,7 +19545,7 @@ class AirQuality {
                         amount = amount / ppxToXGM3Value;
                         break;
                     case 'PARTS_PER_BILLION': {
-                        const inUgM3 = AirQuality.ConvertUnit(unit, 'MICROGRAMS_PER_CUBIC_METER', amount, ppxToXGM3Value);
+                        const inUgM3 = AirQuality.ConvertUnit(amount, unitFrom, 'MICROGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
                         amount = inUgM3 / ppxToXGM3Value;
                         break;
                     }                    default:
@@ -19553,14 +19553,14 @@ class AirQuality {
                         break;
                 }                break;
             case 'MICROGRAMS_PER_CUBIC_METER':
-                switch (unitToConvert) {
+                switch (unitTo) {
                     case 'MICROGRAMS_PER_CUBIC_METER':
                         break;
                     case 'MILLIGRAMS_PER_CUBIC_METER':
                         amount = amount * 0.001;
                         break;
                     case 'PARTS_PER_MILLION': {
-                        const inMgM3 = AirQuality.ConvertUnit(unit, 'MILLIGRAMS_PER_CUBIC_METER', amount, ppxToXGM3Value);
+                        const inMgM3 = AirQuality.ConvertUnit(amount, unitFrom, 'MILLIGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
                         amount = inMgM3 / ppxToXGM3Value;
                         break;
                     }                    case 'PARTS_PER_BILLION':
@@ -19594,26 +19594,24 @@ class AirQuality {
         return categoryIndex;
     };
 
-    static PollutantRanges(amount = new Number, pollutantType = new String, scale = "EPA_NowCast") {
+    static PollutantRange(amount = new Number, pollutantType = new String, scale = "EPA_NowCast") {
         switch (typeof amount) {
             case "number":
                 break;
             case "string":
                 amount = parseFloat(amount);
                 break;
-        }        console.log(`☑️ PollutantRanges, amount: ${amount}, pollutantType: ${pollutantType}, scale: ${scale}`, "");
+        }        console.log(`☑️ PollutantRange, amount: ${amount}, pollutantType: ${pollutantType}, scale: ${scale}`, "");
+        const PollutantData = AirQuality.#Config.Scales[scale].pollutants[pollutantType];
         let categoryIndexKey;
-        for (const [key, value] of Object.entries(AirQuality.#Config.Scales[scale].pollutants[pollutantType].ranges)) {
-            if (amount >= value[0] && amount <= value[1]) {
-                categoryIndexKey = parseInt(key, 10);
-                break;
-            }        }        const PollutantData = {
-            "range": AirQuality.#Config.Scales[scale].pollutants[pollutantType].ranges[categoryIndexKey],
-            "categoryIndex": parseInt(categoryIndexKey, 10),
-            "category": AirQuality.#Config.Scales[scale].categoryIndex[categoryIndexKey],
-        };
-        console.log(`🚧 PollutantData: ${JSON.stringify(PollutantData, null, 2)}`, "");
-        console.log(`✅ PollutantRanges, categoryIndex: ${PollutantData.categoryIndex}`, "");
+        for (const [key, value] of Object.entries(PollutantData.ranges)) {
+            categoryIndexKey = parseInt(key, 10);
+            if (amount >= value[0] && amount <= value[1]) break;
+        }        PollutantData.range = PollutantData.ranges[categoryIndexKey];
+        PollutantData.categoryIndex = parseInt(categoryIndexKey, 10);
+        PollutantData.category = AirQuality.#Config.Scales[scale].categoryIndex[categoryIndexKey];
+        console.log(`🚧 PollutantData: ${JSON.stringify(PollutantData)}`, "");
+        console.log(`✅ PollutantRange, categoryIndex: ${PollutantData.categoryIndex}`, "");
         return PollutantData;
     };
 }
@@ -19641,7 +19639,7 @@ function parseWeatherKitURL(url = $request.url) {
 class WAQI {
     constructor($ = new ENV("WAQI"), options = { "url": new URL($request.url) }) {
         this.Name = "WAQI";
-        this.Version = "1.3.1";
+        this.Version = "1.3.2";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
         const Parameters = parseWeatherKitURL(options.url);
         Object.assign(this, Parameters, options);
@@ -19703,7 +19701,7 @@ class WAQI {
                             };
                             break;
                         case "error":
-                            throw { "status": body?.status, "reason": body?.message };
+                            throw JSON.stringify({ "status": body?.status, "reason": body?.message });
                     };
                     break;
                 case "mapq2":
@@ -19734,7 +19732,7 @@ class WAQI {
                             break;
                         case "error":
                         case undefined:
-                            throw { "status": body?.status, "reason": body?.reason };
+                            throw JSON.stringify({ "status": body?.status, "reason": body?.reason });
                     };
                     break;
                 default:
@@ -19760,7 +19758,7 @@ class WAQI {
             const timeStamp = Math.round(Date.now() / 1000);
             switch (body?.status) {
                 case "error":
-                    throw { "status": body?.status, "reason": body?.data };
+                    throw JSON.stringify({ "status": body?.status, "reason": body?.data });
                 default:
                     switch (body?.rxs?.status) {
                         case "ok":
@@ -19770,12 +19768,12 @@ class WAQI {
                                     //uid = body?.rxs?.obs?.[0]?.uid;
                                     break;
                                 case "error":
-                                    throw { "status": body?.rxs?.obs?.[0]?.status, "reason": body?.rxs?.obs?.[0]?.msg };
+                                    throw JSON.stringify({ "status": body?.rxs?.obs?.[0]?.status, "reason": body?.rxs?.obs?.[0]?.msg });
                             };
                             break;
                         case "error":
                         case undefined:
-                            throw { "status": body?.rxs?.status, "reason": body?.rxs };
+                            throw JSON.stringify({ "status": body?.rxs?.status, "reason": body?.rxs });
                     };
                     break;
             };
@@ -19800,7 +19798,7 @@ class WAQI {
             const timeStamp = Math.round(Date.now() / 1000);
             switch (body?.status) {
                 case "error":
-                    throw { "status": body?.status, "reason": body?.data };
+                    throw JSON.stringify({ "status": body?.status, "reason": body?.data });
                 default:
                 case undefined:
                     switch (body?.rxs?.status) {
@@ -19832,12 +19830,12 @@ class WAQI {
                                     break;
                                 case "error":
                                 case undefined:
-                                    throw { "status": body?.rxs?.[0]?.status, "reason": body?.rxs?.obs?.[0]?.msg };
+                                    throw JSON.stringify({ "status": body?.rxs?.[0]?.status, "reason": body?.rxs?.obs?.[0]?.msg });
                             };
                             break;
                         case "error":
                         case undefined:
-                            throw { "status": body?.rxs?.status, "reason": body?.rxs };
+                            throw JSON.stringify({ "status": body?.rxs?.status, "reason": body?.rxs });
                     };
                     break;
             };
@@ -19887,7 +19885,7 @@ class WAQI {
                     break;
                 case "error":
                 case undefined:
-                    throw { "status": body?.status, "reason": body?.data };
+                    throw JSON.stringify({ "status": body?.status, "reason": body?.data });
             };
         } catch (error) {
             this.$.logErr(error);
@@ -20294,7 +20292,7 @@ class ForecastNextHour {
 class ColorfulClouds {
     constructor($ = new ENV("ColorfulClouds"), options = { "url": new URL($request.url) }) {
         this.Name = "ColorfulClouds";
-        this.Version = "1.7.2";
+        this.Version = "1.7.3";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
         const Parameters = parseWeatherKitURL(options.url);
         Object.assign(this, Parameters, options, $);
@@ -20359,13 +20357,13 @@ class ColorfulClouds {
                         case "error":
                         case "failed":
                         case undefined:
-                            throw { "status": body?.result?.minutely?.status, "reason": body?.result?.minutely };
+                            throw JSON.stringify({ "status": body?.result?.minutely?.status, "reason": body?.result?.minutely });
                     };
                     break;
                 case "error":
                 case "failed":
                 case undefined:
-                    throw { "status": body?.status, "reason": body?.error };
+                    throw JSON.stringify({ "status": body?.status, "reason": body?.error });
             };
         } catch (error) {
             this.$.logErr(error);
@@ -20379,7 +20377,7 @@ class ColorfulClouds {
 class QWeather {
     constructor($ = new ENV("QWeather"), options = { "url": new URL($request.url), "host": "devapi.qweather.com", "version": "v7" }) {
         this.Name = "QWeather";
-        this.Version = "1.0.2";
+        this.Version = "1.0.3";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
         const Parameters = parseWeatherKitURL(options.url);
         Object.assign(this, Parameters, options, $);
@@ -20448,7 +20446,7 @@ class QWeather {
                 case "429":
                 case "500":
                 case undefined:
-                    throw { "status": body?.code, "reason": body?.error };
+                    throw JSON.stringify({ "status": body?.code, "reason": body?.error });
             };
         } catch (error) {
             this.$.logErr(error);
@@ -20459,7 +20457,7 @@ class QWeather {
         }    };
 }
 
-const $ = new ENV(" iRingo: 🌤 WeatherKit v1.5.3(4145) response.beta");
+const $ = new ENV(" iRingo: 🌤 WeatherKit v1.5.3(4147) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -20555,7 +20553,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 													if (body?.airQuality?.pollutants) body.airQuality.pollutants = body.airQuality.pollutants.map((pollutant) => {
 														switch (pollutant.pollutantType) {
 															case "CO": // Fix CO amount from QWeather
-																pollutant.amount = AirQuality.ConvertUnit("MILLIGRAMS_PER_CUBIC_METER", "MICROGRAMS_PER_CUBIC_METER", pollutant.amount, -1);
+																pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, "MILLIGRAMS_PER_CUBIC_METER", "MICROGRAMS_PER_CUBIC_METER");
 																break;
 														}														return pollutant;
 													});
@@ -20642,7 +20640,7 @@ function ConvertAirQuality(body, Settings) {
 			break;
 		case 'WAQI_InstantCast':
 		default:
-			airQuality = AirQuality.AQI(body?.airQuality?.pollutants);
+			airQuality = AirQuality.ConvertScale(body?.airQuality?.pollutants);
 			if (!Settings?.AQI?.Local?.UseConvertedUnit) delete airQuality.pollutants;
 			break;
 	}	if (airQuality.index) {
