@@ -2,7 +2,7 @@
 
 项目名称：bending合集
 下载地址：https://t.cn/AiE8fHDr
-更新日期：2024-06-27
+更新日期：2024-09-04
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -23,6 +23,7 @@ const headers = $request.headers;
 const ua = headers['User-Agent'] || headers['user-agent'];
 
 const list = {
+  'CLIME': { id: "com.apalonapps.radarfree.01y_CLIME00001_d50" },  //CLIME-天气预报
   'SpeakTranslate': { id: "com.speakandtranslate.premium.69_99.yearly.7dtrial.groupa" },  //SpeakTranslate-说话与翻译-翻译器
   'splice': { id: "com.path36.SpliceFree.1y_t150_bundle" },  //Splice-视频编辑
   'filmicpro': { id: "com.cinegenix.filmic.pro.1y_t130_bundle_creator" },  //Filmicpro-专业级摄影机
