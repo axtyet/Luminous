@@ -1,27 +1,38 @@
 import ENV from "../ENV/ENV.mjs";
+import { parseWeatherKitURL, providerNameToLogo } from "../function/WeatherKitUtils.mjs";
 import AirQuality from "../class/AirQuality.mjs";
 import ForecastNextHour from "./ForecastNextHour.mjs";
-import parseWeatherKitURL from "../function/parseWeatherKitURL.mjs"
-import providerNameToLogo from "../function/providerNameToLogo.mjs";
 
 export default class ColorfulClouds {
     constructor($ = new ENV("ColorfulClouds"), options) {
         this.Name = "ColorfulClouds";
-        this.Version = "2.1.3";
+        this.Version = "2.3.1";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        this.url = options.url || new URL($request.url);
-        this.token = options.token || "Y2FpeXVuX25vdGlmeQ==";
-        this.header = options.header || { "Content-Type": "application/json" };
-        this.convertUnits = options.convertUnits || false;
+        this.url = new URL($request.url);
+        this.header = { "Content-Type": "application/json" };
         const Parameters = parseWeatherKitURL(this.url);
-        Object.assign(this, Parameters);
+        Object.assign(this, Parameters, options);
         this.$ = $;
     };
 
-    async AQI(token = this.token, version = "v2.6", convertUnits = this.convertUnits) {
-        this.$.log(`☑️ AQI, token: ${token}, version: ${version}`, "");
+    #Config = {
+        "Pollutants": {
+            "co": "CO",
+            "no": "NO",
+            "no2": "NO2",
+            "so2": "SO2",
+            "o3": "OZONE",
+            "nox": "NOX",
+            "pm25": "PM2_5",
+            "pm10": "PM10",
+            "other": "NOT_AVAILABLE"
+        },
+    };
+
+    async RealTime(token = this.token) {
+        this.$.log(`☑️ RealTime`, "");
         const request = {
-            "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/realtime`,
+            "url": `https://api.caiyunapp.com/v2.6/${token}/${this.longitude},${this.latitude}/realtime`,
             "header": this.header,
         };
         let airQuality;
@@ -32,21 +43,26 @@ export default class ColorfulClouds {
                 case "ok":
                     switch (body?.result?.realtime?.status) {
                         case "ok":
-                            const pollutant = AirQuality.CreatePollutants(body?.result?.realtime?.air_quality);
-                            airQuality = AirQuality.ConvertScale(pollutant, "EPA_NowCast");
-                            if (!convertUnits) airQuality.pollutants = pollutant;
-                            airQuality.metadata = {
-                                "attributionUrl": "https://www.caiyunapp.com/h5",
-                                "expireTime": timeStamp + 60 * 60,
-                                "language": `${this.language}-${this.country}`,
-                                "latitude": body?.location?.[0],
-                                "longitude": body?.location?.[1],
-                                "providerLogo": providerNameToLogo("彩云天气", this.version),
-                                "providerName": "彩云天气",
-                                "readTime": timeStamp,
-                                "reportedTime": body?.server_time,
-                                "temporarilyUnavailable": false,
-                                "sourceType": "STATION",
+                            airQuality = {
+                                "metadata": {
+                                    "attributionUrl": "https://www.caiyunapp.com/h5",
+                                    "expireTime": timeStamp + 60 * 60,
+                                    "language": `${this.language}-${this.country}`,
+                                    "latitude": body?.location?.[0],
+                                    "longitude": body?.location?.[1],
+                                    "providerLogo": providerNameToLogo("彩云天气", this.version),
+                                    "providerName": "彩云天气",
+                                    "readTime": timeStamp,
+                                    "reportedTime": body?.server_time,
+                                    "temporarilyUnavailable": false,
+                                    "sourceType": "STATION",
+                                },
+                                "categoryIndex": AirQuality.CategoryIndex(body?.result?.realtime?.air_quality?.aqi.chn, "HJ_633"),
+                                "index": parseInt(body?.result?.realtime?.air_quality?.aqi.chn, 10),
+                                "pollutants": this.#CreatePollutants(body?.result?.realtime?.air_quality),
+                                "previousDayComparison": "UNKNOWN",
+                                "primaryPollutant": "NOT_AVAILABLE",
+                                "scale": "HJ6332012"
                             };
                             break;
                         case "error":
@@ -62,16 +78,16 @@ export default class ColorfulClouds {
         } catch (error) {
             this.logErr(error);
         } finally {
-            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
-            this.$.log(`✅ AQI`, "");
+            //this.$.log(`🚧 RealTime airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            this.$.log(`✅ RealTime`, "");
             return airQuality;
         };
     };
 
-    async Minutely(token = this.token, version = "v2.6") {
-        this.$.log(`☑️ Minutely, token: ${token}, version: ${version}`, "");
+    async Minutely(token = this.token) {
+        this.$.log(`☑️ Minutely`, "");
         const request = {
-            "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/minutely?unit=metric:v2`,
+            "url": `https://api.caiyunapp.com/v2.6/${token}/${this.longitude},${this.latitude}/minutely?unit=metric:v2`,
             "header": this.header,
         };
         let forecastNextHour;
@@ -141,5 +157,37 @@ export default class ColorfulClouds {
             this.$.log(`✅ Minutely`, "");
             return forecastNextHour;
         };
+    };
+
+    #CreatePollutants(pollutantsObj = {}) {
+        console.log(`☑️ CreatePollutants`, "");
+        let pollutants = [];
+        for (const [key, value] of Object.entries(pollutantsObj)) {
+            switch (key) {
+                case "co":
+                    pollutants.push({
+                        "amount": value ?? -1,
+                        "pollutantType": this.#Config.Pollutants[key],
+                        "units": "MILLIGRAMS_PER_CUBIC_METER",
+                    });
+                    break;
+                case "no":
+                case "no2":
+                case "so2":
+                case "o3":
+                case "nox":
+                case "pm25":
+                case "pm10":
+                    pollutants.push({
+                        "amount": value ?? -1,
+                        "pollutantType": this.#Config.Pollutants[key],
+                        "units": "MICROGRAMS_PER_CUBIC_METER",
+                    });
+                    break;
+            };
+        };
+        //console.log(`🚧 CreatePollutants, pollutants: ${JSON.stringify(pollutants, null, 2)}`, "");
+        console.log(`✅ CreatePollutants`, "");
+        return pollutants;
     };
 };

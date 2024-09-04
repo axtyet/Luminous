@@ -14199,31 +14199,36 @@ var Settings = {
 		Provider: "ColorfulClouds"
 	},
 	AQI: {
-		Provider: "WAQI",
-		Location: "Station",
+		Provider: "ColorfulClouds",
 		ReplaceProviders: [
 		],
 		Local: {
-			Standard: "WAQI_InstantCast",
+			Scale: "WAQI_InstantCast",
 			ReplaceScales: [
 				"HJ6332012"
 			],
-			UseConvertedUnit: false
+			ConvertUnits: false
 		}
 	},
 	API: {
 		WAQI: {
 			Token: null,
-			Header: null
+			Header: {
+				"Content-Type": "application/json"
+			}
 		},
 		QWeather: {
 			Token: null,
-			Header: null,
+			Header: {
+				"Content-Type": "application/json"
+			},
 			Host: "devapi.qweather.com"
 		},
 		ColorfulClouds: {
 			Token: null,
-			Header: null
+			Header: {
+				"Content-Type": "application/json"
+			}
 		}
 	}
 };

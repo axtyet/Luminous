@@ -14199,31 +14199,36 @@ var Settings = {
 		Provider: "ColorfulClouds"
 	},
 	AQI: {
-		Provider: "WAQI",
-		Location: "Station",
+		Provider: "ColorfulClouds",
 		ReplaceProviders: [
 		],
 		Local: {
-			Standard: "WAQI_InstantCast",
+			Scale: "WAQI_InstantCast",
 			ReplaceScales: [
 				"HJ6332012"
 			],
-			UseConvertedUnit: false
+			ConvertUnits: false
 		}
 	},
 	API: {
 		WAQI: {
 			Token: null,
-			Header: null
+			Header: {
+				"Content-Type": "application/json"
+			}
 		},
 		QWeather: {
 			Token: null,
-			Header: null,
+			Header: {
+				"Content-Type": "application/json"
+			},
 			Host: "devapi.qweather.com"
 		},
 		ColorfulClouds: {
 			Token: null,
-			Header: null
+			Header: {
+				"Content-Type": "application/json"
+			}
 		}
 	}
 };
@@ -14363,6 +14368,26 @@ function setENV(name, platforms, database) {
 	if (Configs.Locale) Configs.Locale = new Map(Configs.Locale);
 	if (Configs.i18n) for (let type in Configs.i18n) Configs.i18n[type] = new Map(Configs.i18n[type]);
 	return { Settings, Caches, Configs };
+}
+
+function parseWeatherKitURL(url = $request.url) {
+    console.log(`☑️ parseWeatherKitURL`, "");
+    const RegExp = /^\/api\/(?<version>v1|v2|v3)\/(availability|weather)\/(?<language>[\w-_]+)\/(?<latitude>-?\d+\.?\d*)\/(?<longitude>-?\d+\.?\d*)(\?.*(?<country>country=[A-Z]{2})?.*)?/i;
+    const LanguageRegExp = /^(?<language>\w{2})(-\w+)?-(?<country>[A-Z]{2})$/i;
+    const Parameters = (url?.pathname || url).match(RegExp)?.groups;
+    let result = {
+        "version": Parameters?.version,
+        "language": Parameters?.language,
+        "latitude": Parameters?.latitude,
+        "longitude": Parameters?.longitude,
+        "country": Parameters?.country || url?.searchParams?.get("country")
+    };
+    //console.log(JSON.stringify(result, null, 2), "");
+    const LanguageParameters = result.language.match(LanguageRegExp)?.groups;
+    result.language = LanguageParameters.language;
+    result.country = result.country || LanguageParameters.country;
+    console.log(`✅ parseWeatherKitURL\n🟧version: ${result.version} 🟧language: ${result.language} 🟧country: ${result.country}\n🟧latitude: ${result.latitude} 🟧longitude: ${result.longitude}\n`, "");
+    return result;
 }
 
 function providerNameToLogo(providerName, version) {
@@ -19228,7 +19253,7 @@ class WeatherKit2 {
 class AirQuality {
     constructor(options = {}) {
 		this.Name = "AirQuality";
-        this.Version = "2.0.4";
+        this.Version = "2.2.3";
         this.Author = "Virgil Clyne & Wordless Echo";
 		console.log(`\n🟧 ${this.Name} v${this.Version} by ${this.Author}\n`, "");
         Object.assign(this, options);
@@ -19236,6 +19261,154 @@ class AirQuality {
 
     static #Config = {
         "Scales": {
+            "HJ_633": {
+                /**
+                 * China AQI standard.
+                 * [环境空气质量指数（AQI）技术规定（试行）]{@link https://www.mee.gov.cn/ywgz/fgbz/bz/bzwb/jcffbz/201203/W020120410332725219541.pdf}
+                 * @type aqiStandard
+                 */
+                "scale": 'HJ6332012',
+                "categoryIndex": {
+                    "-1": [Number.MIN_VALUE, -1], // INVALID
+                    "1": [0, 50], // GOOD
+                    "2": [51, 100], // MODERATE
+                    "3": [101, 150], // UNHEALTHY_FOR_SENSITIVE
+                    "4": [151, 200], // UNHEALTHY
+                    "5": [201, 300], // VERY_UNHEALTHY
+                    "6": [301, 500], // HAZARDOUS
+                    "7": [500, Number.MAX_VALUE], // OVER_RANGE
+                },
+                "significant": 3,
+                "pollutants": {
+                    "SO2_24H": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 50], // GOOD
+                            "2": [51, 150], // MODERATE
+                            "3": [151, 475], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [476, 800], // UNHEALTHY
+                            "5": [801, 1600], // VERY_UNHEALTHY
+                            "6": [1601, 2100], // HAZARDOUS
+                            "7": [2101, 2602], // OVER_RANGE
+                        },
+                    },
+                    "SO2": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 150], // GOOD
+                            "2": [151, 500], // MODERATE
+                            "3": [501, 650], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [651, 800], // UNHEALTHY
+                            // 二氧化硫（SO2）1小时平均浓度高于800 ug/m3的，不再进行其空气质量分指数计算，二氧化硫（SO2）空气质量分指数按24小时平均浓度计算的分指数报告。
+                        },
+                    },
+                    "NO2_24H": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 40], // GOOD
+                            "2": [41, 80], // MODERATE
+                            "3": [81, 180], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [181, 280], // UNHEALTHY
+                            "5": [281, 565], // VERY_UNHEALTHY
+                            "6": [566, 750], // HAZARDOUS
+                            "7": [751, 940], // OVER_RANGE
+                        },
+                    },
+                    "NO2": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 100], // GOOD
+                            "2": [101, 200], // MODERATE
+                            "3": [201, 700], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [701, 1200], // UNHEALTHY
+                            "5": [1201, 2340], // VERY_UNHEALTHY
+                            "6": [2341, 3090], // HAZARDOUS
+                            "7": [3091, 3840], // OVER_RANGE
+                        },
+                    },
+                    "PM10_24H": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 50], // GOOD
+                            "2": [51, 150], // MODERATE
+                            "3": [151, 250], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [251, 350], // UNHEALTHY
+                            "5": [351, 420], // VERY_UNHEALTHY
+                            "6": [421, 500], // HAZARDOUS
+                            "7": [501, 600], // OVER_RANGE
+                        },
+                    },
+                    "CO_24H": {
+                        "units": 'MILLIGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 2], // GOOD
+                            "2": [3, 4], // MODERATE
+                            "3": [5, 14], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [15, 24], // UNHEALTHY
+                            "5": [25, 36], // VERY_UNHEALTHY
+                            "6": [37, 48], // HAZARDOUS
+                            "7": [49, 60], // OVER_RANGE
+                        },
+                    },
+                    "CO": {
+                        "units": 'MILLIGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 5], // GOOD
+                            "2": [6, 10], // MODERATE
+                            "3": [11, 35], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [36, 60], // UNHEALTHY
+                            "5": [61, 90], // VERY_UNHEALTHY
+                            "6": [91, 120], // HAZARDOUS
+                            "7": [121, 150], // OVER_RANGE
+                        },
+                    },
+                    "OZONE": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 160], // GOOD
+                            "2": [161, 200], // MODERATE
+                            "3": [201, 300], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [301, 400], // UNHEALTHY
+                            "5": [401, 800], // VERY_UNHEALTHY
+                            "6": [801, 1000], // HAZARDOUS
+                            "7": [1001, 1200], // OVER_RANGE
+                        },
+                    },
+                    "OZONE_8H": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 100], // GOOD
+                            "2": [101, 160], // MODERATE
+                            "3": [161, 215], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [216, 265], // UNHEALTHY
+                            "5": [266, 800], // VERY_UNHEALTHY
+                            // 臭氧（O3）8小时平均浓度值高于800 ug/m3的，不再进行其空气质量分指数计算，臭氧（O3）空气质量分指数按1小时平均浓度计算的分指数报告。
+                        },
+                    },
+                    "PM2_5_24H": {
+                        "units": 'MICROGRAMS_PER_CUBIC_METER',
+                        "ppxToXGM3": -1,
+                        "ranges": {
+                            "1": [0, 35], // GOOD
+                            "2": [36, 75], // MODERATE
+                            "3": [76, 115], // UNHEALTHY_FOR_SENSITIVE
+                            "4": [116, 150], // UNHEALTHY
+                            "5": [151, 250], // VERY_UNHEALTHY
+                            "6": [251, 350], // HAZARDOUS
+                            "7": [351, 500], // OVER_RANGE
+                        },
+                    },
+                },
+            },
             "EPA_NowCast": {
                 "scale": 'EPA_NowCast',
                 "categoryIndex": {
@@ -19457,54 +19630,56 @@ class AirQuality {
 
     static Pollutants(pollutants = [], scale = "WAQI_InstantCast") {
         console.log(`☑️ Pollutants, scale: ${scale}`, "");
-        const convertedPollutants = pollutants.map(pollutant => {
+        pollutants = pollutants.map(pollutant => {
             // Convert unit based on standard
-            const PollutantStandard = AirQuality.#Config.Scales[scale].pollutants[pollutant.pollutantType];
-            if (pollutant.units !== PollutantStandard.units) {
-                pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, PollutantStandard.units, PollutantStandard.ppxToXGM3);
-                pollutant.units = PollutantStandard.units;
-            }            // Calculate AQI for each pollutant
-            const PollutantData = AirQuality.PollutantRange(pollutant.amount, pollutant.pollutantType, scale);
-            pollutant.aqi = Math.round(
-                ((PollutantData.category[1] - PollutantData.category[0]) * (pollutant.amount - PollutantData.range[0])) / (PollutantData.range[1] - PollutantData.range[0])
-                + PollutantData.category[0],
+            const PollutantStandard = this.#Config.Scales[scale].pollutants[pollutant.pollutantType];
+            pollutant.convertedAmount = this.ConvertUnit(pollutant.amount, pollutant.units, PollutantStandard.units, PollutantStandard.ppxToXGM3);
+            pollutant.convertedUnits = PollutantStandard.units;
+            pollutant = { ...PollutantStandard, ...pollutant };
+            // Calculate AQI for each pollutant
+            let categoryIndexKey;
+            for (const [key, value] of Object.entries(pollutant.ranges)) {
+                categoryIndexKey = parseInt(key, 10);
+                if (pollutant.convertedAmount >= value[0] && pollutant.convertedAmount <= value[1]) break;
+            }            pollutant.range = pollutant.ranges[categoryIndexKey];
+            pollutant.categoryIndex = parseInt(categoryIndexKey, 10);
+            pollutant.category = this.#Config.Scales[scale].categoryIndex[categoryIndexKey];
+            pollutant.AQI = Math.round(
+                ((pollutant.category[1] - pollutant.category[0]) * (pollutant.convertedAmount - pollutant.range[0])) / (pollutant.range[1] - pollutant.range[0])
+                + pollutant.category[0],
             );
-            // Convert unit that does not supported in Apple Weather
-            switch (pollutant.units) {
-                case "PARTS_PER_MILLION":
-                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "PARTS_PER_BILLION"); // Will not convert to Xg/m3
-                    pollutant.units = "PARTS_PER_BILLION";
-                    break
-                case 'MILLIGRAMS_PER_CUBIC_METER':
-                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "MICROGRAMS_PER_CUBIC_METER"); // Will not convert to Xg/m3
-                    pollutant.units = "MICROGRAMS_PER_CUBIC_METER";
-                    break;
-            }            return pollutant;
+            return pollutant;
         });
-        //console.log(`🚧 pollutants: ${JSON.stringify(pollutants, null, 2)}`, "");
+        //console.log(`🚧 Pollutants, pollutants: ${JSON.stringify(pollutants, null, 2)}`, "");
         console.log(`✅ Pollutants`, "");
-        return convertedPollutants;
+        return pollutants;
     };
 
-    static ConvertScale(pollutants = [], scale = "WAQI_InstantCast") {
+    static ConvertScale(pollutants = [], scale = "WAQI_InstantCast", convertUnits = false) {
         console.log(`☑️ ConvertScale`, "");
         pollutants = this.Pollutants(pollutants, scale);
-        const { aqi: index, pollutantType: primaryPollutant } = pollutants.reduce((previous, current) => previous.aqi > current.aqi ? previous : current);
+        const { AQI: index, pollutantType: primaryPollutant } = pollutants.reduce((previous, current) => previous.AQI > current.AQI ? previous : current);
         let airQuality = {
             "index": index,
             "pollutants": pollutants,
-            "scale": AirQuality.#Config.Scales[scale].scale,
+            "scale": this.#Config.Scales[scale].scale,
             "primaryPollutant": primaryPollutant,
-            "categoryIndex": AirQuality.CategoryIndex(index, scale),
+            "categoryIndex": this.CategoryIndex(index, scale),
         };
-        airQuality.isSignificant = airQuality.categoryIndex >= AirQuality.#Config.Scales[scale].significant,
-        //console.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+        airQuality.isSignificant = airQuality.categoryIndex >= this.#Config.Scales[scale].significant;
+        if (convertUnits) airQuality.pollutants = airQuality.pollutants.map(pollutant => {
+            pollutant.amount = pollutant.convertedAmount;
+            pollutant.units = pollutant.convertedUnits;
+            return pollutant;
+        });
+        //console.log(`🚧 ConvertScale, airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
         console.log(`✅ ConvertScale`, "");
         return airQuality;
     };
 
-    static ConvertUnit(amount = new Number, unitFrom, unitTo, ppxToXGM3Value = -1) {
-        console.log(`☑️ ConvertUnit\namount: ${amount}   ppxToXGM3Value: ${ppxToXGM3Value}\nunitFrom: ${unitFrom}   unitTo: ${unitTo}`, "");
+    static ConvertUnit(amount = Number(), unitFrom, unitTo, ppxToXGM3Value = -1) {
+        //console.log(`☑️ ConvertUnit`, "");
+        //console.log(`☑️ ConvertUnit\namount: ${amount}   ppxToXGM3Value: ${ppxToXGM3Value}\nunitFrom: ${unitFrom}   unitTo: ${unitTo}`, "");
         if (amount < 0) amount = -1;
         else switch (unitFrom) {
             case 'PARTS_PER_MILLION':
@@ -19518,7 +19693,7 @@ class AirQuality {
                         amount = amount * ppxToXGM3Value;
                         break;
                     case 'MICROGRAMS_PER_CUBIC_METER': {
-                        const inPpb = AirQuality.ConvertUnit(amount, unitFrom, 'PARTS_PER_BILLION', ppxToXGM3Value);
+                        const inPpb = this.ConvertUnit(amount, unitFrom, 'PARTS_PER_BILLION', ppxToXGM3Value);
                         amount = inPpb * ppxToXGM3Value;
                         break;
                     }                    default:
@@ -19533,7 +19708,7 @@ class AirQuality {
                         amount = amount * 0.001;
                         break;
                     case 'MILLIGRAMS_PER_CUBIC_METER': {
-                        const inPpm = AirQuality.ConvertUnit(amount, unitFrom, 'PARTS_PER_MILLION', ppxToXGM3Value);
+                        const inPpm = this.ConvertUnit(amount, unitFrom, 'PARTS_PER_MILLION', ppxToXGM3Value);
                         amount = inPpm * ppxToXGM3Value;
                         break;
                     }                    case 'MICROGRAMS_PER_CUBIC_METER':
@@ -19554,7 +19729,7 @@ class AirQuality {
                         amount = amount / ppxToXGM3Value;
                         break;
                     case 'PARTS_PER_BILLION': {
-                        const inUgM3 = AirQuality.ConvertUnit(amount, unitFrom, 'MICROGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
+                        const inUgM3 = this.ConvertUnit(amount, unitFrom, 'MICROGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
                         amount = inUgM3 / ppxToXGM3Value;
                         break;
                     }                    default:
@@ -19569,7 +19744,7 @@ class AirQuality {
                         amount = amount * 0.001;
                         break;
                     case 'PARTS_PER_MILLION': {
-                        const inMgM3 = AirQuality.ConvertUnit(amount, unitFrom, 'MILLIGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
+                        const inMgM3 = this.ConvertUnit(amount, unitFrom, 'MILLIGRAMS_PER_CUBIC_METER', ppxToXGM3Value);
                         amount = inMgM3 / ppxToXGM3Value;
                         break;
                     }                    case 'PARTS_PER_BILLION':
@@ -19582,145 +19757,54 @@ class AirQuality {
             default:
                 amount = -1;
                 break;
-        }        console.log(`✅ ConvertUnit, amount: ${amount}`, "");
+        }        //console.log(`✅ ConvertUnit, amount: ${amount}`, "");
         return amount;
     };
 
-    static CategoryIndex(aqi = new Number, scale = "EPA_NowCast") {
+    static CategoryIndex(aqi = Number(), scale = "WAQI_InstantCast") {
         switch (typeof aqi) {
             case "number":
                 break;
             case "string":
                 aqi = parseInt(aqi, 10);
                 break;
-        }        console.log(`☑️ calculateCategoryIndex, aqi: ${aqi}`, "");
+        }        console.log(`☑️ CategoryIndex, aqi: ${aqi}`, "");
         let categoryIndex;
-        for (const [key, value] of Object.entries(AirQuality.#Config.Scales[scale].categoryIndex)) {
-            if (aqi >= value[0] && aqi <= value[1]) {
-                categoryIndex = parseInt(key, 10);
-                break;
-            }        }        console.log(`✅ calculateCategoryIndex, categoryIndex: ${categoryIndex}`, "");
+        for (const [key, value] of Object.entries(this.#Config.Scales[scale].categoryIndex)) {
+            categoryIndex = parseInt(key, 10);
+            if (aqi >= value[0] && aqi <= value[1]) break;
+        }        console.log(`✅ CategoryIndex, categoryIndex: ${categoryIndex}`, "");
         return categoryIndex;
     };
 
-    static PollutantRange(amount = new Number, pollutantType = new String, scale = "EPA_NowCast") {
-        switch (typeof amount) {
-            case "number":
-                break;
-            case "string":
-                amount = parseFloat(amount);
-                break;
-        }        console.log(`☑️ PollutantRange, amount: ${amount}, pollutantType: ${pollutantType}, scale: ${scale}`, "");
-        const PollutantData = AirQuality.#Config.Scales[scale].pollutants[pollutantType];
-        let categoryIndexKey;
-        for (const [key, value] of Object.entries(PollutantData.ranges)) {
-            categoryIndexKey = parseInt(key, 10);
-            if (amount >= value[0] && amount <= value[1]) break;
-        }        PollutantData.range = PollutantData.ranges[categoryIndexKey];
-        PollutantData.categoryIndex = parseInt(categoryIndexKey, 10);
-        PollutantData.category = AirQuality.#Config.Scales[scale].categoryIndex[categoryIndexKey];
-        console.log(`🚧 PollutantData: ${JSON.stringify(PollutantData)}`, "");
-        console.log(`✅ PollutantRange, categoryIndex: ${PollutantData.categoryIndex}`, "");
-        return PollutantData;
+    static FixUnits(pollutants = []) {
+        console.log(`☑️ FixUnits`, "");
+        return pollutants.map(pollutant => {
+            switch (pollutant.units) {
+                case "PARTS_PER_MILLION":
+                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "PARTS_PER_BILLION"); // Will not convert to Xg/m3
+                    pollutant.units = "PARTS_PER_BILLION";
+                    break
+                case 'MILLIGRAMS_PER_CUBIC_METER':
+                    pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, pollutant.units, "MICROGRAMS_PER_CUBIC_METER"); // Will not convert to Xg/m3
+                    pollutant.units = "MICROGRAMS_PER_CUBIC_METER";
+                    break;
+            }            //console.log(`🚧 FixUnits, pollutant: ${JSON.stringify(pollutant, null, 2)}`, "");
+            console.log(`✅ FixUnits`, "");
+            return pollutant;
+        });
     };
-
-    static CreatePollutants(pollutantsObj = {}) {
-        console.log(`☑️ CreatePollutants`, "");
-        const pollutantsArray = [];
-        for (const [key, value] of Object.entries(pollutantsObj)) {
-            switch (key) {
-                case "co":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MILLIGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "no":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "no2":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "so2":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "o3":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "nox":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "pm25":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-                case "pm10":
-                    pollutantsArray.push({
-                        "amount": value?.v ?? value ?? -1,
-                        "pollutantType": AirQuality.#Config.Pollutants[key],
-                        "units": "MICROGRAMS_PER_CUBIC_METER",
-                    });
-                    break;
-            }        }        console.log(`✅ CreatePollutants`, "");
-        return pollutantsArray;
-    };
-}
-
-function parseWeatherKitURL(url = $request.url) {
-    console.log(`☑️ parseWeatherKitURL`, "");
-    const RegExp = /^\/api\/(?<version>v1|v2|v3)\/(availability|weather)\/(?<language>[\w-_]+)\/(?<latitude>-?\d+\.?\d*)\/(?<longitude>-?\d+\.?\d*)(\?.*(?<country>country=[A-Z]{2})?.*)?/i;
-    const LanguageRegExp = /^(?<language>\w{2})(-\w+)?-(?<country>[A-Z]{2})$/i;
-    const Parameters = (url?.pathname || url).match(RegExp)?.groups;
-    let result = {
-        "version": Parameters?.version,
-        "language": Parameters?.language,
-        "latitude": Parameters?.latitude,
-        "longitude": Parameters?.longitude,
-        "country": Parameters?.country || url?.searchParams?.get("country")
-    };
-    //console.log(JSON.stringify(result, null, 2), "");
-    const LanguageParameters = result.language.match(LanguageRegExp)?.groups;
-    result.language = LanguageParameters.language;
-    result.country = result.country || LanguageParameters.country;
-    console.log(`✅ parseWeatherKitURL\n🟧version: ${result.version} 🟧language: ${result.language} 🟧country: ${result.country}\n🟧latitude: ${result.latitude} 🟧longitude: ${result.longitude}\n`, "");
-    return result;
 }
 
 class WAQI {
     constructor($ = new ENV("WAQI"), options) {
         this.Name = "WAQI";
-        this.Version = "1.3.5";
+        this.Version = "1.3.8";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        this.url = options.url || new URL($request.url);
-        this.token = options.token;
-        this.header = options.header || { "Content-Type": "application/json" };
-        this.convertUnits = options.convertUnits || false;
+        this.url = new URL($request.url);
+        this.header = { "Content-Type": "application/json" };
         const Parameters = parseWeatherKitURL(this.url);
-        Object.assign(this, Parameters);
+        Object.assign(this, Parameters, options);
         this.$ = $;
     };
 
@@ -19819,12 +19903,12 @@ class WAQI {
         } catch (error) {
             this.logErr(error);
         } finally {
-            this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
             this.$.log(`✅ Nearest`, "");
             return airQuality;
         }    };
 
-    async Token(stationId = new Number) {
+    async Token(stationId = Number()) {
         this.$.log(`☑️ Token, stationId: ${stationId}`, "");
         const request = {
             "url": `https://api.waqi.info/api/token/${stationId}`,
@@ -19858,12 +19942,12 @@ class WAQI {
         } catch (error) {
             this.logErr(error);
         } finally {
-            this.$.log(`🚧 token: ${token}`, "");
+            //this.$.log(`🚧 token: ${token}`, "");
             this.$.log(`✅ Token`, "");
             return token;
         }    };
 
-    async AQI(stationId = new Number, token = this.token) {
+    async AQI(stationId = Number(), token = this.token) {
         this.$.log(`☑️ AQI, stationId: ${stationId}, token: ${token}`, "");
         const request = {
             "url": `https://api.waqi.info/api/feed/@${stationId}/aqi.json`,
@@ -19920,13 +20004,13 @@ class WAQI {
         } catch (error) {
             this.logErr(error);
         } finally {
-            this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
             this.$.log(`✅ AQI`, "");
             return airQuality;
         }    };
 
-    async AQI2(stationId = new Number, token = this.token) {
-        this.$.log(`☑️ AQI2, token: ${token}, stationId: ${stationId}`, "");
+    async AQI2(stationId = Number(), token = this.token) {
+        this.$.log(`☑️ AQI2, stationId: ${stationId}`, "");
         const request = {
             "url": `https://api2.waqi.info/feed/geo:${this.latitude};${this.longitude}/?token=${token}`,
             "header": this.header,
@@ -19968,7 +20052,7 @@ class WAQI {
         } catch (error) {
             this.$.logErr(error);
         } finally {
-            this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
             this.$.log(`✅ AQI2`, "");
             return airQuality;
         }    };
@@ -19976,7 +20060,7 @@ class WAQI {
 
 class ForecastNextHour {
     Name = "forecastNextHour";
-    Version = "v1.2.3";
+    Version = "v1.2.4";
     Author = "iRingo";
 
 	static #Configs = {
@@ -20117,7 +20201,7 @@ class ForecastNextHour {
     };
 
     static Minute(minutes = [], description = "", units = "mmph") {
-        console.log(`☑️ #Minute`, "");
+        console.log(`☑️ Minute`, "");
         const PrecipitationType = this.PrecipitationType(description);
         minutes = minutes.map(minute => {
             //minute.precipitationIntensity = Math.round(minute.precipitationIntensity * 1000000) / 1000000; // 六位小数
@@ -20212,7 +20296,7 @@ class ForecastNextHour {
             //console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
             switch (i) {
                 case 0:
-                    console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+                    //console.log(`⚠️ ${i}, before, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     Condition.beginCondition = minute.condition;
                     Condition.endCondition = minute.condition;
                     Condition.startTime = minute.startTime;
@@ -20224,7 +20308,7 @@ class ForecastNextHour {
                             Condition.forecastToken = "CONSTANT";
                             break;
                     }                    Condition.parameters = [];
-                    console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
+                    //console.log(`⚠️ ${i}, after, minute: ${JSON.stringify(minute, null, 2)}\nCondition: ${JSON.stringify(Condition, null, 2)}`, "");
                     break;
                 default:
                     switch (minute?.precipitationType) {
@@ -20402,21 +20486,33 @@ class ForecastNextHour {
 class ColorfulClouds {
     constructor($ = new ENV("ColorfulClouds"), options) {
         this.Name = "ColorfulClouds";
-        this.Version = "2.1.3";
+        this.Version = "2.3.1";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        this.url = options.url || new URL($request.url);
-        this.token = options.token || "Y2FpeXVuX25vdGlmeQ==";
-        this.header = options.header || { "Content-Type": "application/json" };
-        this.convertUnits = options.convertUnits || false;
+        this.url = new URL($request.url);
+        this.header = { "Content-Type": "application/json" };
         const Parameters = parseWeatherKitURL(this.url);
-        Object.assign(this, Parameters);
+        Object.assign(this, Parameters, options);
         this.$ = $;
     };
 
-    async AQI(token = this.token, version = "v2.6", convertUnits = this.convertUnits) {
-        this.$.log(`☑️ AQI, token: ${token}, version: ${version}`, "");
+    #Config = {
+        "Pollutants": {
+            "co": "CO",
+            "no": "NO",
+            "no2": "NO2",
+            "so2": "SO2",
+            "o3": "OZONE",
+            "nox": "NOX",
+            "pm25": "PM2_5",
+            "pm10": "PM10",
+            "other": "NOT_AVAILABLE"
+        },
+    };
+
+    async RealTime(token = this.token) {
+        this.$.log(`☑️ RealTime`, "");
         const request = {
-            "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/realtime`,
+            "url": `https://api.caiyunapp.com/v2.6/${token}/${this.longitude},${this.latitude}/realtime`,
             "header": this.header,
         };
         let airQuality;
@@ -20427,21 +20523,26 @@ class ColorfulClouds {
                 case "ok":
                     switch (body?.result?.realtime?.status) {
                         case "ok":
-                            const pollutant = AirQuality.CreatePollutants(body?.result?.realtime?.air_quality);
-                            airQuality = AirQuality.ConvertScale(pollutant, "EPA_NowCast");
-                            if (!convertUnits) airQuality.pollutants = pollutant;
-                            airQuality.metadata = {
-                                "attributionUrl": "https://www.caiyunapp.com/h5",
-                                "expireTime": timeStamp + 60 * 60,
-                                "language": `${this.language}-${this.country}`,
-                                "latitude": body?.location?.[0],
-                                "longitude": body?.location?.[1],
-                                "providerLogo": providerNameToLogo("彩云天气", this.version),
-                                "providerName": "彩云天气",
-                                "readTime": timeStamp,
-                                "reportedTime": body?.server_time,
-                                "temporarilyUnavailable": false,
-                                "sourceType": "STATION",
+                            airQuality = {
+                                "metadata": {
+                                    "attributionUrl": "https://www.caiyunapp.com/h5",
+                                    "expireTime": timeStamp + 60 * 60,
+                                    "language": `${this.language}-${this.country}`,
+                                    "latitude": body?.location?.[0],
+                                    "longitude": body?.location?.[1],
+                                    "providerLogo": providerNameToLogo("彩云天气", this.version),
+                                    "providerName": "彩云天气",
+                                    "readTime": timeStamp,
+                                    "reportedTime": body?.server_time,
+                                    "temporarilyUnavailable": false,
+                                    "sourceType": "STATION",
+                                },
+                                "categoryIndex": AirQuality.CategoryIndex(body?.result?.realtime?.air_quality?.aqi.chn, "HJ_633"),
+                                "index": parseInt(body?.result?.realtime?.air_quality?.aqi.chn, 10),
+                                "pollutants": this.#CreatePollutants(body?.result?.realtime?.air_quality),
+                                "previousDayComparison": "UNKNOWN",
+                                "primaryPollutant": "NOT_AVAILABLE",
+                                "scale": "HJ6332012"
                             };
                             break;
                         case "error":
@@ -20457,15 +20558,15 @@ class ColorfulClouds {
         } catch (error) {
             this.logErr(error);
         } finally {
-            //this.$.log(`🚧 airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
-            this.$.log(`✅ AQI`, "");
+            //this.$.log(`🚧 RealTime airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            this.$.log(`✅ RealTime`, "");
             return airQuality;
         }    };
 
-    async Minutely(token = this.token, version = "v2.6") {
-        this.$.log(`☑️ Minutely, token: ${token}, version: ${version}`, "");
+    async Minutely(token = this.token) {
+        this.$.log(`☑️ Minutely`, "");
         const request = {
-            "url": `https://api.caiyunapp.com/${version}/${token}/${this.longitude},${this.latitude}/minutely?unit=metric:v2`,
+            "url": `https://api.caiyunapp.com/v2.6/${token}/${this.longitude},${this.latitude}/minutely?unit=metric:v2`,
             "header": this.header,
         };
         let forecastNextHour;
@@ -20535,27 +20636,55 @@ class ColorfulClouds {
             this.$.log(`✅ Minutely`, "");
             return forecastNextHour;
         }    };
+
+    #CreatePollutants(pollutantsObj = {}) {
+        console.log(`☑️ CreatePollutants`, "");
+        let pollutants = [];
+        for (const [key, value] of Object.entries(pollutantsObj)) {
+            switch (key) {
+                case "co":
+                    pollutants.push({
+                        "amount": value ?? -1,
+                        "pollutantType": this.#Config.Pollutants[key],
+                        "units": "MILLIGRAMS_PER_CUBIC_METER",
+                    });
+                    break;
+                case "no":
+                case "no2":
+                case "so2":
+                case "o3":
+                case "nox":
+                case "pm25":
+                case "pm10":
+                    pollutants.push({
+                        "amount": value ?? -1,
+                        "pollutantType": this.#Config.Pollutants[key],
+                        "units": "MICROGRAMS_PER_CUBIC_METER",
+                    });
+                    break;
+            }        }        //console.log(`🚧 CreatePollutants, pollutants: ${JSON.stringify(pollutants, null, 2)}`, "");
+        console.log(`✅ CreatePollutants`, "");
+        return pollutants;
+    };
 }
 
 class QWeather {
     constructor($ = new ENV("QWeather"), options) {
         this.Name = "QWeather";
-        this.Version = "1.0.7";
+        this.Version = "1.0.9";
         $.log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
-        this.url = options.url || new URL($request.url);
-        this.host = options.host || "devapi.qweather.com";
-        this.token = options.token;
-        this.header = options.header || { "Content-Type": "application/json" };
-        this.convertUnits = options.convertUnits || false;
+        this.url = new URL($request.url);
+        this.host = "devapi.qweather.com";
+        this.header = { "Content-Type": "application/json" };
         const Parameters = parseWeatherKitURL(this.url);
-        Object.assign(this, Parameters);
+        Object.assign(this, Parameters, options);
         this.$ = $;
     };
 
-    async Minutely(token = this.token, version = "v7") {
-        this.$.log(`☑️ Minutely, token: ${token}, host: ${this.host}, version: ${version}`, "");
+    async Minutely(token = this.token) {
+        this.$.log(`☑️ Minutely, host: ${this.host}`, "");
         const request = {
-            "url": `https://${this.host}/${version}/minutely/5m?location=${this.longitude},${this.latitude}&key=${token}`,
+            "url": `https://${this.host}/v7/minutely/5m?location=${this.longitude},${this.latitude}&key=${token}`,
             "header": this.header,
         };
         let forecastNextHour;
@@ -20625,7 +20754,7 @@ class QWeather {
         }    };
 }
 
-const $ = new ENV(" iRingo: 🌤 WeatherKit v1.6.3(4152) response.beta");
+const $ = new ENV(" iRingo: 🌤 WeatherKit v1.6.8(4161) response.beta");
 
 /***************** Processing *****************/
 // 解构URL
@@ -20714,22 +20843,24 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 										body = weatherKit2.decode("all");
 										if (url.searchParams.get("dataSets").includes("airQuality")) {
 											$.log(`🚧 body.airQuality: ${JSON.stringify(body?.airQuality, null, 2)}`, "");
+											// InjectAirQuality
+											if (Settings?.AQI?.ReplaceProviders?.includes(body?.airQuality?.metadata?.providerName)) body = await InjectAirQuality(url, body, Settings);
 											// PollutantUnitConverter
-											switch (body?.airQuality?.metadata?.providerName) {
+											switch (body?.airQuality?.metadata?.providerName?.split("\n")?.[0]) {
 												case "和风天气":
 												case "QWeather":
 													if (body?.airQuality?.pollutants) body.airQuality.pollutants = body.airQuality.pollutants.map((pollutant) => {
 														switch (pollutant.pollutantType) {
-															case "CO": // Fix CO amount from QWeather
-																pollutant.amount = AirQuality.ConvertUnit(pollutant.amount, "MILLIGRAMS_PER_CUBIC_METER", "MICROGRAMS_PER_CUBIC_METER");
+															case "CO": // Fix CO amount units
+																pollutant.units = "MILLIGRAMS_PER_CUBIC_METER";
 																break;
 														}														return pollutant;
 													});
 													break;
-											}											// InjectAirQuality
-											if (Settings?.AQI?.ReplaceProviders?.includes(body?.airQuality?.metadata?.providerName)) body = await InjectAirQuality(url, body, Settings);
-											// ConvertAirQuality
+											}											// ConvertAirQuality
 											if (Settings?.AQI?.Local?.ReplaceScales.includes(body?.airQuality?.scale.split(".")?.[0])) body = ConvertAirQuality(body, Settings);
+											// Fix Convert units that does not supported in Apple Weather
+											if (body?.airQuality?.pollutants) body.airQuality.pollutants = AirQuality.FixUnits(body.airQuality.pollutants);
 											// ProviderLogo
 											if (body?.airQuality?.metadata?.providerName && !body?.airQuality?.metadata?.providerLogo) body.airQuality.metadata.providerLogo = providerNameToLogo(body?.airQuality?.metadata?.providerName, "v2");
 										}										if (url.searchParams.get("dataSets").includes("currentWeather")) {
@@ -20774,13 +20905,13 @@ async function InjectAirQuality(url, body, Settings) {
 		case "QWeather":
 			break;
 		case "ColorfulClouds":
-			const colorfulClouds = new ColorfulClouds($, { "url": url, "header": Settings?.API?.ColorfulClouds?.Header, "token": Settings?.API?.ColorfulClouds?.Token, "convertUnits": Settings?.AQI?.Local?.UseConvertedUnit });
-			airQuality = await colorfulClouds.AQI();
+			const colorfulClouds = new ColorfulClouds($, { "url": url, "header": Settings?.API?.ColorfulClouds?.Header, "token": Settings?.API?.ColorfulClouds?.Token || "Y2FpeXVuX25vdGlmeQ==" });
+			airQuality = await colorfulClouds.RealTime();
 			metadata = airQuality?.metadata;
 			break;
 		case "WAQI":
 		default:
-			const Waqi = new WAQI($, { "url": url, "header": Settings?.API?.WAQI?.Header, "token": Settings?.API?.WAQI?.Token, "convertUnits": Settings?.AQI?.Local?.UseConvertedUnit });
+			const Waqi = new WAQI($, { "url": url, "header": Settings?.API?.WAQI?.Header, "token": Settings?.API?.WAQI?.Token });
 			if (Settings?.API?.WAQI?.Token) {
 				airQuality = await Waqi.AQI2();
 				metadata = airQuality?.metadata;
@@ -20798,25 +20929,26 @@ async function InjectAirQuality(url, body, Settings) {
 		body.airQuality = { ...body?.airQuality, ...airQuality };
 		body.airQuality.metadata = metadata;
 		if (!body?.airQuality?.pollutants) body.airQuality.pollutants = [];
-		//$.log(`🚧 body.airQuality: ${JSON.stringify(body?.airQuality, null, 2)}`, "");
+		$.log(`🚧 body.airQuality: ${JSON.stringify(body?.airQuality, null, 2)}`, "");
 	}	$.log(`✅ InjectAirQuality`, "");
 	return body;
 }
 function ConvertAirQuality(body, Settings) {
 	$.log(`☑️ ConvertAirQuality`, "");
 	let airQuality;
-	switch (Settings?.AQI?.Local?.Standard) {
+	switch (Settings?.AQI?.Local?.Scale) {
 		case "NONE":
 			break;
+		case 'HJ_633':
+		case 'EPA_NowCast':
 		case 'WAQI_InstantCast':
 		default:
-			airQuality = AirQuality.ConvertScale(body?.airQuality?.pollutants);
-			if (!Settings?.AQI?.Local?.UseConvertedUnit) delete airQuality.pollutants;
+			airQuality = AirQuality.ConvertScale(body?.airQuality?.pollutants, Settings?.AQI?.Local?.Scale, Settings?.AQI?.Local?.ConvertUnits);
 			break;
 	}	if (airQuality.index) {
 		body.airQuality = { ...body.airQuality, ...airQuality };
-		body.airQuality.metadata.providerName += `\nConverted using ${Settings?.AQI?.Local?.Standard}`;
-		$.log(`🚧 body.airQuality.pollutants: ${JSON.stringify(body.airQuality.pollutants, null, 2)}`, "");
+		body.airQuality.metadata.providerName += `\nConverted using ${Settings?.AQI?.Local?.Scale}`;
+		$.log(`🚧 body.airQuality: ${JSON.stringify(body.airQuality, null, 2)}`, "");
 	}	$.log(`✅ ConvertAirQuality`, "");
 	return body;
 }
@@ -20833,7 +20965,7 @@ async function InjectForecastNextHour(url, body, Settings) {
 			break;
 		case "ColorfulClouds":
 		default:
-			const colorfulClouds = new ColorfulClouds($, { "url": url, "header": Settings?.API?.ColorfulClouds?.Header, "token": Settings?.API?.ColorfulClouds?.Token });
+			const colorfulClouds = new ColorfulClouds($, { "url": url, "header": Settings?.API?.ColorfulClouds?.Header, "token": Settings?.API?.ColorfulClouds?.Token || "Y2FpeXVuX25vdGlmeQ==" });
 			forecastNextHour = await colorfulClouds.Minutely();
 			break;
 	}	metadata = forecastNextHour?.metadata;
