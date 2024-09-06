@@ -609,7 +609,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="26"><strong>功能插件</strong></td>
+    <td rowspan="27"><strong>功能插件</strong></td>
   <tr>
     <td>01</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/LoonGallery.plugin">插件仓库</a></td>
@@ -709,5 +709,9 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>25</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/UnnooQuan_remove_watermark.plugin">知识星球去水印</a></td>
+  </tr>
+  <tr>
+    <td>26</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/AppleWeatherEnhancer.plugin">Apple天气增强</a></td>
   </tr>
 </table>
