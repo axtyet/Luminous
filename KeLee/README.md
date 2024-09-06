@@ -185,7 +185,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="98"><strong>去广告插件</strong></td>
+    <td rowspan="99"><strong>去广告插件</strong></td>
   <tr>
     <td>001</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
@@ -573,6 +573,10 @@ Plus 流量 1024G 月付 120
   <tr>
     <td>097</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/Keep_remove_ads.plugin">Keep去广告</a></td>
+  </tr>
+  <tr>
+    <td>098</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/123NetWorkDisk_remove_ads.plugin">123云盘去广告</a></td>
   </tr>
     <td></td>
     <td></td>
