@@ -5,7 +5,7 @@ import setENV from "./function/setENV.mjs";
 import GEOResourceManifest from "./class/GEOResourceManifest.mjs";
 import GEOResourceManifestDownload from "./class/GEOResourceManifestDownload.mjs";
 import { BinaryReader, UnknownFieldHandler } from "@protobuf-ts/runtime";
-log("v4.0.2(1012)");
+log("v4.0.4(1016)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
@@ -162,23 +162,29 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 											const ETag = $response.headers?.["Etag"] ?? $response.headers?.["etag"];
 											switch (CountryCode) {
 												case "CN":
-													GEOResourceManifest.cacheResourceManifest(body, Caches, "CN", ETag);
+													//GEOResourceManifest.cacheResourceManifest(body, Caches, "CN", ETag);
+													Caches.CN = body;
 													const { ETag: XXETag, body: XXBody } = await GEOResourceManifest.downloadResourceManifest($request, "US");
-													GEOResourceManifest.cacheResourceManifest(XXBody, Caches, "XX", XXETag);
+													Caches.XX = XXBody;
+													//GEOResourceManifest.cacheResourceManifest(XXBody, Caches, "XX", XXETag);
 													// announcementsSupportedLanguage
 													//body.announcementsSupportedLanguage?.push?.("zh-CN");
 													//body.announcementsSupportedLanguage?.push?.("zh-TW");
 													break;
 												case "KR": {
-													GEOResourceManifest.cacheResourceManifest(body, Caches, "KR", ETag);
+													//GEOResourceManifest.cacheResourceManifest(body, Caches, "KR", ETag);
+													Caches.KR = body;
 													const { ETag: CNETag, body: CNBody } = await GEOResourceManifest.downloadResourceManifest($request, "CN");
-													GEOResourceManifest.cacheResourceManifest(CNBody, Caches, "CN", CNETag);
+													Caches.CN = CNBody;
+													//GEOResourceManifest.cacheResourceManifest(CNBody, Caches, "CN", CNETag);
 													break;
 												};
 												default: {
-													GEOResourceManifest.cacheResourceManifest(body, Caches, "XX", ETag);
+													//GEOResourceManifest.cacheResourceManifest(body, Caches, "XX", ETag);
+													Caches.XX = body;
 													const { ETag: CNETag, body: CNBody } = await GEOResourceManifest.downloadResourceManifest($request, "CN");
-													GEOResourceManifest.cacheResourceManifest(CNBody, Caches, "CN", CNETag);
+													Caches.CN = CNBody;
+													//GEOResourceManifest.cacheResourceManifest(CNBody, Caches, "CN", CNETag);
 													break;
 												};
 											};
@@ -188,6 +194,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 											body.dataSet = GEOResourceManifest.dataSets(body.dataSet, Caches, Settings);
 											body.urlInfoSet = GEOResourceManifest.urlInfoSets(body.urlInfoSet, Caches, Settings, CountryCode);
 											body.muninBucket = GEOResourceManifest.muninBuckets(body.muninBucket, Caches, Settings);
+											body.displayString = GEOResourceManifest.displayStrings(body.displayString, Caches, CountryCode);
 											// releaseInfo
 											//body.releaseInfo = body.releaseInfo.replace(/(\d+\.\d+)/, `$1.${String(Date.now()/1000)}`);
 											log(`🚧 releaseInfo: ${body.releaseInfo}`, "");
