@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-09-07
+更新日期：2024-09-08
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -253,7 +253,7 @@ const list = {
   'IconChange': { cm: 'timea', hx: 'hxpda', id: "iconeryearvip", latest: "chxm1023" },  //iconser图标更换
   'life.journal.diary': { cm: 'timeb', hx: 'hxpda', id: "life.journal.diary.lifetime", latest: "chxm1023" },  //Today日记
   'com.floatcamellia.motionninja': { cm: 'timea', hx: 'hxpda', id: "com.floatcamellia.motionninja.yearlyvip", latest: "chxm1023" },  //MotionNinja
-  'com.iuuapp.audiomaker': { cm: 'timea', hx: 'hxpda', id: "com.iuuapp.audiomaker.removeads.year", latest: "chxm1023" },  //音频剪辑
+  'com.iuuapp.audiomaker': { cm: 'timed', hx: 'hxpda', id: "com.iuuapp.audiomaker.cloud.year", ids: "com.iuuapp.audiomaker.removeads", latest: "chxm1023" },  //音频剪辑
   'com.biggerlens.photoretouch': { cm: 'timeb', hx: 'hxpda', id: "com.photoretouch.SVIP", latest: "chxm1023" },  //PhotoRetouch消除笔P图
   'com.macpaw.iosgemini': { cm: 'timea', hx: 'hxpda', id: "com.macpaw.iosgemini.month.trial", latest: "chxm1023" },  //GeminiPhotos
   'com.mematom.ios': { cm: 'timea', hx: 'hxpda', id: "MMYear", latest: "chxm1023" },  //年轮3
@@ -335,7 +335,7 @@ for (const i in list) {
         break;
       case 'timed':
         data = [
-          Object.assign({}, receiptdata, { "product_id": ids }),
+          Object.assign({}, receiptdata, expirestime, { "product_id": ids }),
           Object.assign({}, receiptdata, expirestime, { "product_id": id })
         ];
         break;
