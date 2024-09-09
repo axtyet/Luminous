@@ -3,7 +3,7 @@ import GEOResourceManifestDownload from "./GEOResourceManifestDownload.mjs";
 
 export default class GEOResourceManifest {
     static Name = "GEOResourceManifest";
-    static Version = "1.2.1";
+    static Version = "1.2.2";
     static Author = "Virgil Clyne";
 
     static async downloadResourceManifest(request = $request, countryCode = "CN") {
@@ -243,7 +243,8 @@ export default class GEOResourceManifest {
                 case "UNUSED_94": // 94 未使用
                 case "UNUSED_95": // 95 未使用
                 case "UNUSED_99": // 99 未使用
-                    //log(`⚠️ Others style: ${tile?.style}`, "");
+                default:
+                    log(`⚠️ default style: ${tile?.style}`, "");
                     /*
                     switch (countryCode) {
                         case "CN":
@@ -255,10 +256,6 @@ export default class GEOResourceManifest {
                             break;
                     };
                     */
-                    //log(`⚠️ Others baseURL: ${tile?.baseURL}`, "");
-                    break;
-                default:
-                    log(`⚠️ default style: ${tile?.style}`, "");
                     log(`⚠️ default baseURL: ${tile?.baseURL}`, "");
                     break;
             };

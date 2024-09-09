@@ -193,7 +193,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 											body.tileSet = GEOResourceManifest.tileSets(body.tileSet, Caches, Settings, CountryCode);
 											body.attribution = GEOResourceManifest.attributions(body.attribution, Caches, CountryCode);
 											body.resource = GEOResourceManifest.resources(body.resource, Caches, CountryCode);
-											body.dataSet = GEOResourceManifest.dataSets(body.dataSet, Caches, CountryCode);
+											//body.dataSet = GEOResourceManifest.dataSets(body.dataSet, Caches, CountryCode);
 											body.urlInfoSet = GEOResourceManifest.urlInfoSets(body.urlInfoSet, Caches, Settings, CountryCode);
 											body.muninBucket = GEOResourceManifest.muninBuckets(body.muninBucket, Caches, Settings);
 											//body.displayString = GEOResourceManifest.displayStrings(body.displayString, Caches, CountryCode);
