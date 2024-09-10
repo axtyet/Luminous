@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-09-08
+更新日期：2024-09-10
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,7 +29,7 @@ const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
-  'one%20sec': { cm: 'timeb', hx: 'hxpda', id: "wtf.riedel.onesec.lifetime", latest: "chxm1023" }, //onesec
+  'ProREC': { cm: 'timea', hx: 'hxpda', id: "ProAudioCamera_Annual", latest: "chxm1023" }, //ProREC-相机
   'Period': { cm: 'timeb', hx: 'hxpda', id: "com.hanchongzan.book.vip", latest: "chxm1023" }, //闪电记账
   'TypeOn%20Keyboard': { cm: 'timeb', hx: 'hxpda', id: "com.hanchongzan.book.vip", latest: "chxm1023" }, //TypeOn
   'PhotoCollagePro': { cm: 'timeb', hx: 'hxpda', id: "PHOTABLE_PREMIUM", latest: "chxm1023" }, //Photable-腹肌P图神器
@@ -162,7 +162,7 @@ const list = {
   'com.lockwidt.cn': { cm: 'timea', hx: 'hxpda', id: "com.lockwidt.cn.member", latest: "chxm1023" },  //壁纸16
   'Utsuki': { cm: 'timea', hx: 'hxpda', id: "KameePro", latest: "chxm1023" },  //梦见账本
   'Processing': { cm: 'timeb', hx: 'hxpda', id: "wtf.riedel.processing.lifetime", latest: "chxm1023" },  //Processing-软件开发工具
-  'one%20sec': { cm: 'timea', hx: 'hxpda', id: "wtf.riedel.one_sec.pro.annual.individual", latest: "chxm1023" },  //one sec-番茄钟
+  'one%20sec': { cm: 'timeb', hx: 'hxpda', id: "wtf.riedel.onesec.lifetime", latest: "chxm1023" },  //onesec-番茄钟
   'com.skysoft.pencilsketch': { cm: 'timea', hx: 'hxpda', id: "com.skysoft.pencilsketch.subscription.yearly", latest: "chxm1023" },  //铅笔画(需试用)
   'com.instagridpost.rsigp': { cm: 'timea', hx: 'hxpda', id: "com.GridPost.oneyearplus", latest: "chxm1023" },  //九宫格切图
   'com.skysoft.picsqueen': { cm: 'timea', hx: 'hxpda', id: "com.skysoft.picsqueen.subscription.yearly", latest: "chxm1023" },  //PicsQueen-AI绘图
