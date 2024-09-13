@@ -1,5 +1,5 @@
 /* README: https://github.com/VirgilClyne/iRingo */
-console.log(' iRingo: 🔍 Siri β Request')
+console.log(' iRingo: ⭕ Siri β Request')
 const $platform = platform();
 function platform() {
     if ("undefined" !== typeof $environment && $environment["surge-version"])
@@ -1263,6 +1263,7 @@ var PrivateRelay$1 = /*#__PURE__*/Object.freeze({
 var Settings$3 = {
 	Switch: true,
 	CountryCode: "SG",
+	Region: "AUTO",
 	Domains: [
 		"web",
 		"itunes",
@@ -8838,8 +8839,13 @@ function modifyPegasusQueryContext(queryContext, Settings) {
         //break;
         default:
             if (queryContext?.countryCode) queryContext.countryCode = Settings.CountryCode;
-            //if (queryContext?.region) queryContext.region = `${Language}_${Settings.CountryCode}`;
             //if (data?.siriPegasusContext?.conversationContext?.cc) data.siriPegasusContext.conversationContext.cc = Settings.CountryCode;
+            break;
+    }    switch (Settings.Region) {
+        case "AUTO":
+            break;
+        default:
+            if (queryContext?.region) queryContext.region = Settings.Region;
             break;
     }    if (queryContext?.skuRegion === "CH") queryContext.skuRegion = "LL";
     //delete queryContext?.location;

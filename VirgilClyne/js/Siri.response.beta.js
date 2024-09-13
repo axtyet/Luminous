@@ -1,5 +1,5 @@
 /* README: https://github.com/VirgilClyne/iRingo */
-console.log(' iRingo: 🔍 Siri β Response')
+console.log(' iRingo: ⭕ Siri β Response')
 const $platform = platform();
 function platform() {
     if ("undefined" !== typeof $environment && $environment["surge-version"])
@@ -1263,6 +1263,7 @@ var PrivateRelay$1 = /*#__PURE__*/Object.freeze({
 var Settings$3 = {
 	Switch: true,
 	CountryCode: "SG",
+	Region: "AUTO",
 	Domains: [
 		"web",
 		"itunes",
