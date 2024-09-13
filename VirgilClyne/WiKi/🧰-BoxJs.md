@@ -20,8 +20,15 @@
     * `覆写`链接: [boxjs.rewrite.stash.stoverride](https://github.com/chavyleung/scripts/raw/master/box/rewrite/boxjs.rewrite.stash.stoverride "🧰 BoxJs")
 
 # 订阅链接
+## iOS 18、macOS 15、watchOS 11 及以上
   * 方法一: 🆕点击一键订阅(推荐，安装BoxJs后点击)
     * [ iRingo](http://boxjs.com/#/sub/add/https%3A%2F%2Fgithub.com%2FVirgilClyne%2FiRingo%2Fraw%2Fmain%2FBoxJs%2FiRingo.BoxJs.json " iRingo")
   * 方法二: 复制粘贴导入(传统，安装BoxJs后导入)
     * 浏览器访问[BoxJs.com](http://boxjs.com)，在[`订阅`](http://boxjs.com/#/sub)页面点击`+`复制粘贴添加本项目订阅链接
     * [iRingo.boxjs.json](../raw/main/BoxJs/iRingo.BoxJs.json " iRingo")
+## iOS 17、macOS 14、watchOS 10 及以下
+  * 方法一: 🆕点击一键订阅(推荐，安装BoxJs后点击)
+    * [ iRingo (iOS 17)](http://boxjs.com/#/sub/add/https%3A%2F%2Fgithub.com%2FVirgilClyne%2FiRingo%2Fraw%2Fmain%2FBoxJs%2FiRingo.17.BoxJs.json " iRingo (iOS 17)")
+  * 方法二: 复制粘贴导入(传统，安装BoxJs后导入)
+    * 浏览器访问[BoxJs.com](http://boxjs.com)，在[`订阅`](http://boxjs.com/#/sub)页面点击`+`复制粘贴添加本项目订阅链接
+    * [iRingo.17.boxjs.json](../raw/main/BoxJs/iRingo.17.BoxJs.json " iRingo (iOS 17)")
