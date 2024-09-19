@@ -444,25 +444,29 @@ function logError(error) {
     }}
 
 function done(object = {}) {
-    log("", `🚩 执行结束!`, "");
     switch ($platform) {
         case "Surge":
             if (object.policy) Lodash.set(object, "headers.X-Surge-Policy", object.policy);
+            log("", `🚩 执行结束! 🕛 ${(new Date().getTime() / 1000 - $script.startTime)} 秒`, "");
             $done(object);
             break;
         case "Loon":
             if (object.policy) object.node = object.policy;
+            log("", `🚩 执行结束! 🕛 ${(new Date() - $script.startTime) / 1000} 秒`, "");
             $done(object);
             break;
         case "Stash":
             if (object.policy) Lodash.set(object, "headers.X-Stash-Selected-Proxy", encodeURI(object.policy));
+            log("", `🚩 执行结束! 🕛 ${(new Date() - $script.startTime) / 1000} 秒`, "");
             $done(object);
             break;
         case "Egern":
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Shadowrocket":
         default:
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Quantumult X":
@@ -490,9 +494,11 @@ function done(object = {}) {
                 object.bodyBytes = object.body.buffer.slice(object.body.byteOffset, object.body.byteLength + object.body.byteOffset);
                 delete object.body;
             } else if (object.body) delete object.bodyBytes;
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Node.js":
+            log("", `🚩 执行结束!`, "");
             process.exit(1);
             break;
     }
@@ -1993,26 +1999,6 @@ function setENV(name, platforms, database) {
 	if (Configs.Locale) Configs.Locale = new Map(Configs.Locale);
 	if (Configs.i18n) for (let type in Configs.i18n) Configs.i18n[type] = new Map(Configs.i18n[type]);
 	return { Settings, Caches, Configs };
-}
-
-function parseWeatherKitURL(url = new URL($request.url)) {
-    console.log(`☑️ parseWeatherKitURL`, "");
-    const RegExp = /^\/api\/(?<version>v1|v2|v3)\/(availability|weather)\/(?<language>\w+)(?:-\w+)?(-(?<country>[A-Z]{2}))?\/(?<latitude>-?\d+\.?\d*)\/(?<longitude>-?\d+\.?\d*)$/i;
-    //const LanguageRegExp = /^(?<language>\w+(-\w+)?)-(?<country>[A-Z]{2})$/i;
-    const Parameters = url?.pathname.match(RegExp)?.groups;
-    let result = {
-        "version": Parameters?.version,
-        "language": Parameters?.language,
-        "latitude": Parameters?.latitude,
-        "longitude": Parameters?.longitude,
-        "country": Parameters?.country || url?.searchParams?.get("country")
-    };
-    //console.log(JSON.stringify(result, null, 2), "");
-    //const LanguageParameters = result.language.match(LanguageRegExp)?.groups;
-    //result.language = LanguageParameters.language;
-    //result.country = result.country || LanguageParameters.country
-    console.log(`✅ parseWeatherKitURL\n🟧version: ${result.version} 🟧language: ${result.language} 🟧country: ${result.country}\n🟧latitude: ${result.latitude} 🟧longitude: ${result.longitude}\n`, "");
-    return result;
 }
 
 function providerNameToLogo(providerName, version) {
@@ -6860,6 +6846,26 @@ class WeatherKit2 {
 
 }
 
+function parseWeatherKitURL(url = new URL($request.url)) {
+    console.log(`☑️ parseWeatherKitURL`, "");
+    const RegExp = /^\/api\/(?<version>v1|v2|v3)\/(availability|weather)\/(?<language>\w+)(?:-\w+)?(-(?<country>[A-Z]{2}))?\/(?<latitude>-?\d+\.?\d*)\/(?<longitude>-?\d+\.?\d*)$/i;
+    //const LanguageRegExp = /^(?<language>\w+(-\w+)?)-(?<country>[A-Z]{2})$/i;
+    const Parameters = url?.pathname.match(RegExp)?.groups;
+    let result = {
+        "version": Parameters?.version,
+        "language": Parameters?.language,
+        "latitude": Parameters?.latitude,
+        "longitude": Parameters?.longitude,
+        "country": Parameters?.country || url?.searchParams?.get("country")
+    };
+    //console.log(JSON.stringify(result, null, 2), "");
+    //const LanguageParameters = result.language.match(LanguageRegExp)?.groups;
+    //result.language = LanguageParameters.language;
+    //result.country = result.country || LanguageParameters.country
+    console.log(`✅ parseWeatherKitURL\n🟧version: ${result.version} 🟧language: ${result.language} 🟧country: ${result.country}\n🟧latitude: ${result.latitude} 🟧longitude: ${result.longitude}\n`, "");
+    return result;
+}
+
 class AirQuality {
 	static Name = "AirQuality";
 	static Version = "2.2.5";
@@ -8520,7 +8526,6 @@ class QWeather {
 }
 
 log("v1.7.2(4164)");
-
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);

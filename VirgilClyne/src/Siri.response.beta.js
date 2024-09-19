@@ -1,19 +1,15 @@
 import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
-
+import GRPC from "./utils/GRPC.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
-import pako from "./pako/dist/pako.esm.mjs";
-import addgRPCHeader from "./function/addgRPCHeader.mjs";
-
-log("v4.0.1(4002)");
-
+log("v4.0.2(4003)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
 log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname, PATHs = url.pathname.split("/").filter(Boolean);
-log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
+log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}`, "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -189,18 +185,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 							break;
 						case "application/grpc":
 						case "application/grpc+proto":
-							// 先拆分B站gRPC校验头和protobuf数据体
-							let header = rawBody.slice(0, 5);
-							body = rawBody.slice(5);
-							// 处理response压缩protobuf数据体
-							switch (header?.[0]) {
-								case 0: // unGzip
-									break;
-								case 1: // Gzip
-									body = pako.ungzip(body);
-									header[0] = 0; // unGzip
-									break;
-							};
+							rawBody = GRPC.decode(rawBody);
 							// 解析链接并处理protobuf数据
 							// 主机判断
 							switch (HOST) {
@@ -223,8 +208,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									};
 									break;
 							};
-							rawBody = addgRPCHeader({ header, body }); // gzip压缩有问题，别用
-							//rawBody = body;
+							rawBody = GRPC.encode(rawBody);
 							break;
 					};
 					// 写入二进制数据

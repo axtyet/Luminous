@@ -1,29 +1,23 @@
 import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
-
+import GRPC from "./utils/GRPC.mjs";
 import Database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
-import pako from "./pako/dist/pako.esm.mjs";
-import addgRPCHeader from "./function/addgRPCHeader.mjs";
 import modifyPegasusQueryContext from "./function/modifyPegasusQueryContext.mjs";
-
 import { MESSAGE_TYPE, reflectionMergePartial, BinaryReader, WireType, UnknownFieldHandler, isJsonObject, typeofJsonValue, jsonWriteOptions, MessageType } from "@protobuf-ts/runtime";
 import { SiriPegasusRequest } from "./protobuf/apple.parsec.siri.v2alpha.SiriPegasusRequest";
 import { LookupSearchRequest } from "./protobuf/apple.parsec.lookup.v1alpha.LookupSearchRequest";
-import { SiriPegasusContext } from "./protobuf/apple.parsec.siri.v2alpha.SiriPegasusContext";
+import { VisualSearchRequest } from "./protobuf/apple.parsec.visualsearch.v2.VisualSearchRequest";
 import { PegasusQueryContext } from "./protobuf/apple.parsec.search.PegasusQueryContext";
-
-log("v4.1.3(4043)");
-
+log("v4.2.2(4047)");
 // 构造回复数据
 let $response = undefined;
-
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
 log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname, PATHs = url.pathname.split("/").filter(Boolean);
-log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
+log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}`, "");
 // 解析格式
 const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 log(`⚠ FORMAT: ${FORMAT}`, "");
@@ -97,18 +91,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									break;
 								case "application/grpc":
 								case "application/grpc+proto":
-									// 先拆分B站gRPC校验头和protobuf数据体
-									let header = rawBody.slice(0, 5);
-									body = rawBody.slice(5);
-									// 处理request压缩protobuf数据体
-									switch (header?.[0]) {
-										case 0: // unGzip
-											break;
-										case 1: // Gzip
-											body = pako.ungzip(body);
-											header[0] = 0; // unGzip
-											break;
-									};
+									rawBody = GRPC.decode(rawBody);
 									// 解析链接并处理protobuf数据
 									// 主机判断
 									switch (HOST) {
@@ -118,24 +101,12 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 										default:
 											// 路径判断
 											switch (PATH) {
-												case "/apple.parsec.siri.v2alpha.SiriSearch/SiriSearch": { // Siri搜索
-													let data = SiriPegasusRequest.fromBinary(body);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													let UF = UnknownFieldHandler.list(data);
-													//log(`🚧 UF: ${JSON.stringify(UF)}`, "");
-													if (UF) {
-														UF = UF.map(uf => {
-															//uf.no; // 22
-															//uf.wireType; // WireType.Varint
-															// use the binary reader to decode the raw data:
-															let reader = new BinaryReader(uf.data);
-															let addedNumber = reader.int32(); // 7777
-															log(`🚧 no: ${uf.no}, wireType: ${uf.wireType}, addedNumber: ${addedNumber}`, "");
-														});
-													};
-													data.queryContext = modifyPegasusQueryContext(data.queryContext, Settings);
+												case "/apple.parsec.siri.v2alpha.SiriSearch/SiriSearch": // Siri搜索
+													body = SiriPegasusRequest.fromBinary(rawBody);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													body.queryContext = modifyPegasusQueryContext(body.queryContext, Settings);
 													let fixLocation = true;
-													data?.queries?.[0]?.unknown2002.forEach((unknown2002, index) => {
+													body?.queries?.[0]?.unknown2002.forEach((unknown2002, index) => {
 														switch (unknown2002?.n2?.supplement?.typeUrl) {
 															case "type.googleapis.com/apple.parsec.siri.v2alpha.AppInfo":
 																/******************  initialization start  *******************/
@@ -175,32 +146,26 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 																break;
 														};
 													});
-													if (fixLocation) delete data?.queryContext?.location;
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													body = SiriPegasusRequest.toBinary(data);
+													if (fixLocation) delete body?.queryContext?.location;
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													rawBody = SiriPegasusRequest.toBinary(body);
+													break;
+												case "/apple.parsec.lookup.v1alpha.LookupSearch/LookupSearch": // 查询搜索
+													body = LookupSearchRequest.fromBinary(rawBody);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													body.queryContext = modifyPegasusQueryContext(body.queryContext, Settings);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													rawBody = LookupSearchRequest.toBinary(body);
+													break;
+												case "/apple.parsec.visualsearch.v2.VisualSearch/VisualSearch": { // 视觉搜索
+													body = VisualSearchRequest.fromBinary(rawBody);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													body.queryContext = modifyPegasusQueryContext(body.queryContext, Settings);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													rawBody = VisualSearchRequest.toBinary(body);
 													break;
 												};
-												case "/apple.parsec.lookup.v1alpha.LookupSearch/LookupSearch": { // 查询搜索
-													let data = LookupSearchRequest.fromBinary(body);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													let UF = UnknownFieldHandler.list(data);
-													//log(`🚧 UF: ${JSON.stringify(UF)}`, "");
-													if (UF) {
-														UF = UF.map(uf => {
-															//uf.no; // 22
-															//uf.wireType; // WireType.Varint
-															// use the binary reader to decode the raw data:
-															let reader = new BinaryReader(uf.data);
-															let addedNumber = reader.int32(); // 7777
-															log(`🚧 no: ${uf.no}, wireType: ${uf.wireType}, addedNumber: ${addedNumber}`, "");
-														});
-													};
-													data.queryContext = modifyPegasusQueryContext(data.queryContext, Settings);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													body = LookupSearchRequest.toBinary(data);
-													break;
-												};
-												case "/apple.parsec.responseframework.engagement.v1alpha.EngagementSearch/EngagementSearch": { //
+												case "/apple.parsec.responseframework.engagement.v1alpha.EngagementSearch/EngagementSearch": //
 													/******************  initialization start  *******************/
 													class EngagementRequest$Type extends MessageType {
 														constructor() {
@@ -211,26 +176,13 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 													}
 													const EngagementRequest = new EngagementRequest$Type();
 													/******************  initialization finish  *******************/
-													let data = EngagementRequest.fromBinary(body);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													let UF = UnknownFieldHandler.list(data);
-													//log(`🚧 UF: ${JSON.stringify(UF)}`, "");
-													if (UF) {
-														UF = UF.map(uf => {
-															//uf.no; // 22
-															//uf.wireType; // WireType.Varint
-															// use the binary reader to decode the raw data:
-															let reader = new BinaryReader(uf.data);
-															let addedNumber = reader.int32(); // 7777
-															log(`🚧 no: ${uf.no}, wireType: ${uf.wireType}, addedNumber: ${addedNumber}`, "");
-														});
-													};
-													data.queryContext = modifyPegasusQueryContext(data.queryContext, Settings);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													body = EngagementRequest.toBinary(data);
+													body = EngagementRequest.fromBinary(rawBody);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													body.queryContext = modifyPegasusQueryContext(body.queryContext, Settings);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													rawBody = EngagementRequest.toBinary(body);
 													break;
-												};
-												case "/apple.parsec.spotlight.v1alpha.ZkwSuggestService/Suggest": { // 新闻建议
+												case "/apple.parsec.spotlight.v1alpha.ZkwSuggestService/Suggest": // 新闻建议
 													/******************  initialization start  *******************/
 													class ZkwSuggestRequest$Type extends MessageType {
 														constructor() {
@@ -242,30 +194,16 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 													}
 													const ZkwSuggestRequest = new ZkwSuggestRequest$Type();
 													/******************  initialization finish  *******************/
-													let data = ZkwSuggestRequest.fromBinary(body);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													let UF = UnknownFieldHandler.list(data);
-													//log(`🚧 UF: ${JSON.stringify(UF)}`, "");
-													if (UF) {
-														UF = UF.map(uf => {
-															//uf.no; // 22
-															//uf.wireType; // WireType.Varint
-															// use the binary reader to decode the raw data:
-															let reader = new BinaryReader(uf.data);
-															let addedNumber = reader.int32(); // 7777
-															log(`🚧 no: ${uf.no}, wireType: ${uf.wireType}, addedNumber: ${addedNumber}`, "");
-														});
-													};
-													data.queryContext = modifyPegasusQueryContext(data.queryContext, Settings);
-													log(`🚧 data: ${JSON.stringify(data)}`, "");
-													body = ZkwSuggestRequest.toBinary(data);
+													body = ZkwSuggestRequest.fromBinary(rawBody);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													body.queryContext = modifyPegasusQueryContext(body.queryContext, Settings);
+													log(`🚧 body: ${JSON.stringify(body)}`, "");
+													rawBody = ZkwSuggestRequest.toBinary(body);
 													break;
-												};
 											};
 											break;
 									};
-									rawBody = addgRPCHeader({ header, body }); // gzip压缩有问题，别用
-									//rawBody = body;
+									rawBody = GRPC.encode(rawBody);
 									break;
 							};
 							// 写入二进制数据
@@ -409,14 +347,14 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				if ($response.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
 				switch ($platform) {
 					default:
-						done($response);
+						done({ response: $response });
 						break;
 					case "Quantumult X":
-						if (!$response.status) $response.status = 200;
+						if (!$response.status) $response.status = "HTTP/1.1 200 OK";
 						delete $response.headers?.["Content-Length"];
 						delete $response.headers?.["content-length"];
 						delete $response.headers?.["Transfer-Encoding"];
-						done({ response: $response });
+						done($response);
 						break;
 				};
 				break;

@@ -372,25 +372,29 @@ function logError(error) {
     }}
 
 function done(object = {}) {
-    log("", `🚩 执行结束!`, "");
     switch ($platform) {
         case "Surge":
             if (object.policy) Lodash.set(object, "headers.X-Surge-Policy", object.policy);
+            log("", `🚩 执行结束! 🕛 ${(new Date().getTime() / 1000 - $script.startTime)} 秒`, "");
             $done(object);
             break;
         case "Loon":
             if (object.policy) object.node = object.policy;
+            log("", `🚩 执行结束! 🕛 ${(new Date() - $script.startTime) / 1000} 秒`, "");
             $done(object);
             break;
         case "Stash":
             if (object.policy) Lodash.set(object, "headers.X-Stash-Selected-Proxy", encodeURI(object.policy));
+            log("", `🚩 执行结束! 🕛 ${(new Date() - $script.startTime) / 1000} 秒`, "");
             $done(object);
             break;
         case "Egern":
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Shadowrocket":
         default:
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Quantumult X":
@@ -418,9 +422,11 @@ function done(object = {}) {
                 object.bodyBytes = object.body.buffer.slice(object.body.byteOffset, object.body.byteLength + object.body.byteOffset);
                 delete object.body;
             } else if (object.body) delete object.bodyBytes;
+            log("", `🚩 执行结束!`, "");
             $done(object);
             break;
         case "Node.js":
+            log("", `🚩 执行结束!`, "");
             process.exit(1);
             break;
     }
@@ -5996,7 +6002,7 @@ class GEOPDPlaceRequest {
     };
 }
 
-log("v3.2.5(1016)");
+log("v3.2.6(1017)");
 // 构造回复数据
 let $response = undefined;
 /***************** Processing *****************/
@@ -6224,14 +6230,18 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 				//log(`🚧 finally`, `echo $response: ${JSON.stringify($response, null, 2)}`, "");
 				if ($response.headers?.["Content-Encoding"]) ;
 				if ($response.headers?.["content-encoding"]) ;			
-				if ($platform === "Quantumult X") {
-					if (!$response.status) $response.status = "HTTP/1.1 200 OK";
-					delete $response.headers?.["Content-Length"];
-					delete $response.headers?.["content-length"];
-					delete $response.headers?.["Transfer-Encoding"];
-					done($response);
-				} else done({ response: $response });
-				break;
+				switch ($platform) {
+					default:
+						done({ response: $response });
+						break;
+					case "Quantumult X":
+						if (!$response.status) $response.status = "HTTP/1.1 200 OK";
+						delete $response.headers?.["Content-Length"];
+						delete $response.headers?.["content-length"];
+						delete $response.headers?.["Transfer-Encoding"];
+						done($response);
+						break;
+				}				break;
 			case undefined: // 无构造回复数据，发送修改的请求数据
 				//log(`🚧 finally`, `$request: ${JSON.stringify($request, null, 2)}`, "");
 				done($request);
