@@ -7,12 +7,13 @@ Siri 区分「询问 Siri」和「Siri 建议」两部分
 
 # 询问 Siri (Ask Siri)
 ```
-⚠️「询问 Siri」的网络请求使用`guzzoni.apple.com`，不可以通过 MitM 改写请求。
+⚠️「询问 Siri」的网络请求使用的`guzzoni.apple.com`，不可以通过 MitM 改写请求。
 ```
 
 # Siri 建议 (Siri Suggestions)
 ```
-⚠️从 iOS 17.6 开始，苹果已禁止直接修改「搜索 (聚焦)」中的「Siri建议」配置文件，此模块已暂停更新。
+⚠️从 iOS 17.6 开始，「Siri 建议」的网络请求使用的`api.smoot.apple.com`，不可以通过 MitM 改写请求。
+⚠️此模块已暂停更新。
 ⚠️低于 iOS 17.6 仍可正常使用。
 ```
 ```
