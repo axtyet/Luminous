@@ -1,21 +1,25 @@
-## 简介
+```
+⚠️从 2024.5.13 开始，Apple 升级了 TestFlight API 鉴权方式，「多账户保存及切换」功能已失效
+```
+
+# 简介
   * 全面自定义「TestFlight」。
 
   * 注:
     * 
 
-## 使用说明
-### 🆕V3版
+# 使用说明
+## 🆕V3版
 * 🚧施工中
 
-## 功能列表
-### 🆕V3版
+# 功能列表
+## 🆕V3版
   * 自定义TestFlight登录商店地区
-  * 多账户保存及切换（默认关闭，需要在[🧰 BoxJs](./🧰-BoxJs)中保存和切换账号信息）
+  * ~~多账户保存及切换~~（默认关闭，需要在[🧰 BoxJs](./🧰-BoxJs)中保存和切换账号信息）
   * 强制启用通用应用支持（测试中，默认开启，解除开发者对TF中app的iOS/iPadOS/macOS(AppleSilicon)平台限制）
 
-## 安装链接
-### 🆕V3版
+# 安装链接
+## 🆕V3版
   * Loon:
     * 🆕点击一键安装: [TestFlight.plugin](https://api.boxjs.app/loon/import?plugin=https://github.com/VirgilClyne/iRingo/raw/main/plugin/TestFlight.plugin " iRingo: ✈ TestFlight") 
     * `插件`链接: [TestFlight.plugin](../raw/main/plugin/TestFlight.plugin " iRingo: ✈ TestFlight")
@@ -30,7 +34,7 @@
     * 🆕点击一键安装: [TestFlight.stoverride](https://link.stash.ws/install-override/github.com/VirgilClyne/iRingo/raw/main/stoverride/TestFlight.stoverride " iRingo: ✈ TestFlight")
     * `覆写`链接: [TestFlight.stoverride](../raw/main/stoverride/TestFlight.stoverride " iRingo: ✈ TestFlight")
 
-## 更新日志
+# 更新日志
   * v3.0.0
     * 优化与修复
       1. 重构代码
