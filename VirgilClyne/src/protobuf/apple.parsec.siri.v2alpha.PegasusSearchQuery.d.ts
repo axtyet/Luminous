@@ -4,19 +4,24 @@
 import { MessageType } from "@protobuf-ts/runtime";
 import { Any } from "./google/protobuf/any";
 /**
+ * @interface POMMESSchemaPOMMESPegasusSearchQuery : SISchemaInstrumentationMessage
+ *
  * @generated from protobuf message PegasusSearchQuery
  */
 export interface PegasusSearchQuery {
     /**
-     * @generated from protobuf field: string query = 1;
+     * @generated from protobuf field: string queryString = 1;
      */
-    query: string;
+    queryString: string;
     /**
      * @generated from protobuf field: string queryID = 2;
      */
     queryID: string;
     /**
-     * repeated Unknown6 unknown6 = 6;
+     * _searchStatus
+     * _error
+     * _queryConfidenceScore
+     * repeated SiriInstruction siriInstruction = 6;
      *
      * @generated from protobuf field: repeated Unknown2002 unknown2002 = 2002;
      */
