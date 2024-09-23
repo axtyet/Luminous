@@ -1,4 +1,4 @@
-import { fetch, log, logError } from "../utils/utils.mjs";
+import { fetch, log, logError, time } from "../utils/utils.mjs";
 import { parseWeatherKitURL, providerNameToLogo } from "../function/WeatherKitUtils.mjs";
 import AirQuality from "../class/AirQuality.mjs";
 import ForecastNextHour from "./ForecastNextHour.mjs";
@@ -6,7 +6,7 @@ import ForecastNextHour from "./ForecastNextHour.mjs";
 export default class QWeather {
     constructor(options) {
         this.Name = "QWeather";
-        this.Version = "2.0.3";
+        this.Version = "4.1.4";
         log(`\n🟧 ${this.Name} v${this.Version}\n`, "");
         this.url = new URL($request.url);
         this.host = "devapi.qweather.com";
@@ -27,8 +27,47 @@ export default class QWeather {
             "pm2p5": "PM2_5",
             "pm10": "PM10",
             "other": "NOT_AVAILABLE",
-            "na": "NOT_AVAILABLE"
+            "na": "NOT_AVAILABLE",
+            undefined: "NOT_AVAILABLE",
+            null: "NOT_AVAILABLE",
         },
+        "Units": {
+            "μg/m3": "MICROGRAMS_PER_CUBIC_METER",
+            "ug/m3": "MILLIGRAMS_PER_CUBIC_METER",
+            "ppb": "PARTS_PER_BILLION",
+            "ppm": "PARTS_PER_MILLION",
+        }
+    };
+
+    async GeoAPI(token = this.token, path = "city/lookup") {
+        log(`☑️ GeoAPI`, "");
+        const request = {
+            "url": `https://geoapi.qweather.com/v2/${path}?location=${this.longitude},${this.latitude}&key=${token}`,
+            "header": this.header,
+        };
+        let metadata;
+        try {
+            const body = await fetch(request).then(response => JSON.parse(response?.body ?? "{}"));
+            switch (body?.code) {
+                case "200":
+                    metadata = {
+                        "attributionUrl": body?.location?.[0]?.fxLink,
+                        "latitude": body?.location?.[0]?.lat,
+                        "longitude": body?.location?.[0]?.lon,
+                        "providerName": "和风天气",
+                        "locationID": body?.location?.[0]?.id,
+                    };
+                    break;
+                default:
+                    throw Error(body?.code);
+            };
+        } catch (error) {
+            logError(error);
+        } finally {
+            log(`🚧 GeoAPI metadata: ${JSON.stringify(metadata, null, 2)}`, "");
+            log(`✅ GeoAPI`, "");
+            return metadata;
+        };
     };
 
     async AirNow(token = this.token) {
@@ -59,6 +98,7 @@ export default class QWeather {
                         },
                         "categoryIndex": parseInt(body?.now?.level, 10),
                         "index": parseInt(body?.now?.aqi, 10),
+                        "isSignificant": true,
                         "pollutants": this.#CreatePollutants(body?.now),
                         "previousDayComparison": "UNKNOWN",
                         "primaryPollutant": this.#Config.Pollutants[body?.now?.primary] || "NOT_AVAILABLE",
@@ -75,13 +115,67 @@ export default class QWeather {
                 case "429":
                 case "500":
                 case undefined:
-                    throw JSON.stringify({ "status": body?.status, "reason": body?.error });
+                    throw Error(body?.code);
             };
         } catch (error) {
             logError(error);
         } finally {
             //log(`🚧 AirNow airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
             log(`✅ AirNow`, "");
+            return airQuality;
+        };
+    };
+
+    async AirQualityCurrent(token = this.token) {
+        log(`☑️ AirQualityCurrent`, "");
+        const request = {
+            "url": `https://${this.host}/airquality/v1/current/${this.latitude}/${this.longitude}?key=${token}`,
+            "header": this.header,
+        };
+        let airQuality;
+        try {
+            const body = await fetch(request).then(response => JSON.parse(response?.body ?? "{}"));
+            const timeStamp = Math.round(Date.now() / 1000);
+            switch (body?.error) {
+                case undefined:
+                    airQuality = {
+                        "metadata": {
+                            "attributionUrl": request.url,
+                            "expireTime": timeStamp + 60 * 60,
+                            "language": `${this.language}-${this.country}`,
+                            "latitude": this.latitude,
+                            "longitude": this.longitude,
+                            "providerLogo": providerNameToLogo("和风天气", this.version),
+                            "providerName": "和风天气",
+                            "readTime": timeStamp,
+                            "reportedTime": timeStamp,
+                            "temporarilyUnavailable": false,
+                            "sourceType": "STATION",
+                            "stationID": body?.stations?.[0]?.id,
+                        },
+                        "categoryIndex": parseInt(body?.indexes?.[0]?.level, 10),
+                        "index": body?.indexes?.[0]?.aqi,
+                        "isSignificant": true,
+                        "pollutants": body?.pollutants?.map(pollutant => {
+                            pollutant.pollutantType = this.#Config.Pollutants[pollutant?.code];
+                            pollutant.amount = pollutant?.concentration?.value;
+                            pollutant.units = this.#Config.Units[pollutant?.concentration?.unit];
+                            return pollutant;
+                        }),
+                        "previousDayComparison": "UNKNOWN",
+                        "primaryPollutant": this.#Config.Pollutants[body?.indexes?.[0]?.primaryPollutant?.code] || "NOT_AVAILABLE",
+                        "scale": "HJ6332012"
+                    };
+                    if (body?.stations?.[0]?.name) airQuality.metadata.providerName += `\n数据源: ${body?.stations?.[0]?.name}检测站`;
+                    break;
+                default:
+                    throw Error(JSON.stringify(body?.error, null, 2));
+            };
+        } catch (error) {
+            logError(error);
+        } finally {
+            //log(`🚧 AirQualityCurrent airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            log(`✅ AirQualityCurrent`, "");
             return airQuality;
         };
     };
@@ -148,7 +242,7 @@ export default class QWeather {
                 case "429":
                 case "500":
                 case undefined:
-                    throw JSON.stringify({ "status": body?.code, "reason": body?.error });
+                    throw Error(body?.code);
             };
         } catch (error) {
             logError(error);
@@ -156,6 +250,52 @@ export default class QWeather {
             //log(`🚧 forecastNextHour: ${JSON.stringify(forecastNextHour, null, 2)}`, "");
             log(`✅ Minutely`, "");
             return forecastNextHour;
+        };
+    };
+
+    async HistoricalAir(token = this.token, locationID = new Number, date = time("yyyyMMdd", Date.now() - 24 * 60 * 60 * 1000)) {
+        log(`☑️ HistoricalAir, locationID:${locationID}, date: ${date}`, "");
+        const request = {
+            "url": `https://${this.host}/v7/historical/air/?location=${locationID}&date=${date}&key=${token}`,
+            "header": this.header,
+        };
+        let airQuality;
+        try {
+            const body = await fetch(request).then(response => JSON.parse(response?.body ?? "{}"));
+            const Hour = new Date().getHours();
+            switch (body?.code) {
+                case "200":
+                    airQuality = {
+                        "metadata": {
+                            "attributionUrl": body?.fxLink,
+                            "providerLogo": providerNameToLogo("和风天气", this.version),
+                            "providerName": "和风天气",
+                            "sourceType": "STATION",
+                        },
+                        "categoryIndex": parseInt(body?.airHourly?.[Hour]?.level, 10),
+                        "index": parseInt(body?.airHourly?.[Hour]?.aqi, 10),
+                        "pollutants": this.#CreatePollutants(body?.airHourly?.[Hour]),
+                        "primaryPollutant": this.#Config.Pollutants[body?.airHourly?.[Hour]?.primary] || "NOT_AVAILABLE",
+                        "scale": "HJ6332012"
+                    };
+                    break;
+                case "204":
+                case "400":
+                case "401":
+                case "402":
+                case "403":
+                case "404":
+                case "429":
+                case "500":
+                case undefined:
+                    throw Error(body?.code);
+            };
+        } catch (error) {
+            logError(error);
+        } finally {
+            log(`🚧 HistoricalAir airQuality: ${JSON.stringify(airQuality, null, 2)}`, "");
+            log(`✅ HistoricalAir`, "");
+            return airQuality;
         };
     };
 
@@ -174,7 +314,7 @@ export default class QWeather {
                 case "pm2p5":
                 case "pm10":
                     pollutants.push({
-                        "amount": value ?? -1,
+                        "amount": parseFloat(value ?? -1),
                         "pollutantType": this.#Config.Pollutants[key],
                         "units": "MICROGRAMS_PER_CUBIC_METER",
                     });
