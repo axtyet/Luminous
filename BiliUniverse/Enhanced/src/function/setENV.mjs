@@ -1,5 +1,5 @@
-import getStorage from '../ENV/getStorage.mjs'
-import _ from '../ENV/Lodash.mjs'
+import getStorage from '../utils/getStorage.mjs'
+import { _, log } from "../utils/utils.mjs";
 
 /**
  * Set Environment Variables
@@ -10,7 +10,7 @@ import _ from '../ENV/Lodash.mjs'
  * @return {Object} { Settings, Caches, Configs }
  */
 export default function setENV(name, platforms, database) {
-	console.log(`☑️ Set Environment Variables`, "");
+	log(`☑️ Set Environment Variables`, "");
 	let { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
@@ -26,9 +26,9 @@ export default function setENV(name, platforms, database) {
 	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) _.set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.More)) _.set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More] : []);
 	if (!Array.isArray(Settings?.Region?.Index)) _.set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index] : []);
-	console.log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
+	log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
 	/***************** Caches *****************/
-	//console.log(`✅ Set Environment Variables, Caches: ${typeof Caches}, Caches内容: ${JSON.stringify(Caches)}`, "");
+	//log(`✅ Set Environment Variables, Caches: ${typeof Caches}, Caches内容: ${JSON.stringify(Caches)}`, "");
 	/***************** Configs *****************/
 	return { Settings, Caches, Configs };
 };

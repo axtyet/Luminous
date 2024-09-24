@@ -1,27 +1,21 @@
-import _ from './ENV/Lodash.mjs'
-import $Storage from './ENV/$Storage.mjs'
-import ENV from "./ENV/ENV.mjs";
-import URL from "./URL/URL.mjs";
-
+import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import Database from "./database/BiliIntl.mjs";
 import setENV from "./function/setENV.mjs";
-
-const $ = new ENV("📺 BiliIntl: ⚙️ Enhanced v0.2.0(1) response.beta");
-
+log("v0.3.0(1002)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
-$.log(`⚠ url: ${url.toJSON()}`, "");
+log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
-$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
+log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
-$.log(`⚠ FORMAT: ${FORMAT}`, "");
+log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
 	// 读取设置
 	const { Settings, Caches, Configs } = setENV("BiliIntl", "Enhanced", Database);
-	$.log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
+	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
 		default:
@@ -40,7 +34,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/vnd.apple.mpegurl":
 				case "audio/mpegurl":
 					//body = M3U8.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = M3U8.stringify(body);
 					break;
 				case "text/xml":
@@ -50,13 +44,13 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/plist":
 				case "application/x-plist":
 					//body = XML.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = XML.stringify(body);
 					break;
 				case "text/vtt":
 				case "application/vtt":
 					//body = VTT.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = VTT.stringify(body);
 					break;
 				case "text/json":
@@ -68,11 +62,11 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							// 先保存一下AccessKey
 							/*
 							if (url.searchParams.has("access_key")) {
-								let newCaches = $Storage.getItem("@BiliIntl.Global.Caches", {});
+								let newCaches = Storage.getItem("@BiliIntl.Global.Caches", {});
 								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
-								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
-								let isSave = $.setjson(newCaches, "@BiliIntl.Global.Caches");
-								$.log(`$.setjson ? ${isSave}`);
+								log(`newCaches = ${JSON.stringify(newCaches)}`);
+								let isSave = Storage.setItem(newCaches, "@BiliIntl.Global.Caches");
+								log(`Storage.setItem ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
@@ -108,21 +102,20 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "application/octet-stream":
-					//$.log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
-					let rawBody = $.isQuanX() ? new Uint8Array($response?.bodyBytes ?? []) : $response?.body ?? new Uint8Array();
-					//$.log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
+					//log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
+					let rawBody = ($platform === "Quantumult X") ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
+					//log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
 					/******************  initialization start  *******************/
 					/******************  initialization finish  *******************/
 					// 写入二进制数据
-					if ($.isQuanX()) $response.bodyBytes = rawBody
-					else $response.body = rawBody;
+					$response.body = rawBody;
 					break;
 			};
 			break;
 		case false:
-			$.log(`⚠ 功能关闭`, "");
+			log(`⚠ 功能关闭`, "");
 			break;
 	};
 })()
-	.catch((e) => $.logErr(e))
-	.finally(() => $.done($response))
+	.catch((e) => logError(e))
+	.finally(() => done($response))

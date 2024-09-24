@@ -1,27 +1,21 @@
-import _ from './ENV/Lodash.mjs'
-import $Storage from './ENV/$Storage.mjs'
-import ENV from "./ENV/ENV.mjs";
-import URL from "./URL/URL.mjs";
-
+import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import Database from "./database/BiliBili.mjs";
 import setENV from "./function/setENV.mjs";
-
-const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.4.0(1) response.beta");
-
+log("v0.5.0(1001)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
-$.log(`⚠ url: ${url.toJSON()}`, "");
+log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
-$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
+log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
-$.log(`⚠ FORMAT: ${FORMAT}`, "");
+log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
 	// 读取设置
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", Database);
-	$.log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
+	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
 		default:
@@ -40,7 +34,7 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/vnd.apple.mpegurl":
 				case "audio/mpegurl":
 					//body = M3U8.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = M3U8.stringify(body);
 						break;
 				case "text/xml":
@@ -50,13 +44,13 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/plist":
 				case "application/x-plist":
 					//body = XML.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = XML.stringify(body);
 					break;
 				case "text/vtt":
 				case "application/vtt":
 					//body = VTT.parse($response.body);
-					//$.log(`🚧 body: ${JSON.stringify(body)}`, "");
+					//log(`🚧 body: ${JSON.stringify(body)}`, "");
 					//$response.body = VTT.stringify(body);
 					break;
 				case "text/json":
@@ -71,11 +65,11 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							// 先保存一下AccessKey
 							/*
 							if (url.searchParams.has("access_key")) {
-								let newCaches = $.getjson("@BiliBili.Global.Caches", {});
+								let newCaches = Storage.getItem("@BiliBili.Global.Caches", {});
 								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
-								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
-								let isSave = $.setjson(newCaches, "@BiliBili.Global.Caches");
-								$.log(`$.setjson ? ${isSave}`);
+								log(`newCaches = ${JSON.stringify(newCaches)}`);
+								let isSave = Storage.setItem(newCaches, "@BiliBili.Global.Caches");
+								log(`Storage.setItem ? ${isSave}`);
 							};
 							*/
 							switch (PATH) {
@@ -109,24 +103,24 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 									break;
 								case "/x/v2/account/mine": // 账户信息-我的
 									body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
-										$.log(`e.title = ${e.title}`)
-										//$.log(`e.items = ${JSON.stringify(e.items)}`);
+										log(`e.title = ${e.title}`)
+										//log(`e.items = ${JSON.stringify(e.items)}`);
 										switch (e.title) {
 											case "创作中心":
 												e.items = e.items.map(item => {
-													//$.log(`item.id = ${item.id}`);
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.CreatorCenter.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "推荐服务":
 												e.items = e.items.map(item => {
-													//$.log(`item.id = ${item.id}`);
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.Recommend.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
 											case "更多服务":
 												e.items = e.items.map(item => {
-													//$.log(`item.id = ${item.id}`);
+													//log(`item.id = ${item.id}`);
 													if (Settings.Mine.More.includes(item.id)) return item;
 												}).filter(Boolean);
 												break;
@@ -149,15 +143,15 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								case "/x/v2/region/index":
 								case "/x/v2/channel/region/list": // 分区页面-索引
 									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
-									//$.log(JSON.stringify(body.data));
+									//log(JSON.stringify(body.data));
 									body.data = uniqueFunc(body.data, "tid"); // 去重
-									//$.log(JSON.stringify(body.data));
+									//log(JSON.stringify(body.data));
 									body.data = body.data.sort(compareFn("tid")); // 排序
-									//$.log(JSON.stringify(body.data));
+									//log(JSON.stringify(body.data));
 									body.data = body.data.map(e => { // 过滤
 										if (Settings.Region.Index.includes(e.tid)) return e;
 									}).filter(Boolean);
-									//$.log(JSON.stringify(data));
+									//log(JSON.stringify(data));
 
 									switch (PATH) { // 特殊处理
 										case "/x/v2/region/index":
@@ -199,21 +193,20 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "application/octet-stream":
-					//$.log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
-					let rawBody = $.isQuanX() ? new Uint8Array($response?.bodyBytes ?? []) : $response?.body ?? new Uint8Array();
-					//$.log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
+					//log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
+					let rawBody = ($platform === "Quantumult X") ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
+					//log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");					
 					/******************  initialization start  *******************/
 					/******************  initialization finish  *******************/
 					// 写入二进制数据
-					if ($.isQuanX()) $response.bodyBytes = rawBody
-					else $response.body = rawBody;
+					$response.body = rawBody;
 					break;
 			};
 			break;
 		case false:
-			$.log(`⚠ 功能关闭`, "");
+			log(`⚠ 功能关闭`, "");
 			break;
 	};
 })()
-	.catch((e) => $.logErr(e))
-	.finally(() => $.done($response))
+	.catch((e) => logError(e))
+	.finally(() => done($response))

@@ -1,27 +1,21 @@
-import _ from './ENV/Lodash.mjs'
-import $Storage from './ENV/$Storage.mjs'
-import ENV from "./ENV/ENV.mjs";
-import URL from "./URL/URL.mjs";
-
+import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import Database from "./database/BiliBili.mjs";
 import setENV from "./function/setENV.mjs";
-
-const $ = new ENV("📺 BiliBili: ⚙️ Enhanced v0.4.0(1) response");
-
+log("v0.5.0(1001)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
-$.log(`⚠ url: ${url.toJSON()}`, "");
+log(`⚠ url: ${url.toJSON()}`, "");
 // 获取连接参数
 const METHOD = $request.method, HOST = url.hostname, PATH = url.pathname;
-$.log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
+log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}` , "");
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
-$.log(`⚠ FORMAT: ${FORMAT}`, "");
+log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
 	// 读取设置
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", Database);
-	$.log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
+	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
 		default:
@@ -59,16 +53,6 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 							break;
 						case "app.bilibili.com":
 						case "app.biliapi.net":
-							// 先保存一下AccessKey
-							/*
-							if (url.searchParams.has("access_key")) {
-								let newCaches = $.getjson("@BiliBili.Global.Caches", {});
-								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
-								$.log(`newCaches = ${JSON.stringify(newCaches)}`);
-								let isSave = $.setjson(newCaches, "@BiliBili.Global.Caches");
-								$.log(`$.setjson ? ${isSave}`);
-							};
-							*/
 							switch (PATH) {
 								case "/x/resource/show/tab/v2": // 首页-Tab
 									// 顶栏-左侧
@@ -135,15 +119,11 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 								case "/x/v2/region/index":
 								case "/x/v2/channel/region/list": // 分区页面-索引
 									body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
-									//$.log(JSON.stringify(body.data));
 									body.data = uniqueFunc(body.data, "tid"); // 去重
-									//$.log(JSON.stringify(body.data));
 									body.data = body.data.sort(compareFn("tid")); // 排序
-									//$.log(JSON.stringify(body.data));
 									body.data = body.data.map(e => { // 过滤
 										if (Settings.Region.Index.includes(e.tid)) return e;
 									}).filter(Boolean);
-									//$.log(JSON.stringify(data));
 
 									switch (PATH) { // 特殊处理
 										case "/x/v2/region/index":
@@ -185,17 +165,16 @@ $.log(`⚠ FORMAT: ${FORMAT}`, "");
 				case "application/grpc":
 				case "application/grpc+proto":
 				case "application/octet-stream":
-					let rawBody = $.isQuanX() ? new Uint8Array($response?.bodyBytes ?? []) : $response?.body ?? new Uint8Array();
+					let rawBody = ($platform === "Quantumult X") ? new Uint8Array($response.bodyBytes ?? []) : $response.body ?? new Uint8Array();
 					// 写入二进制数据
-					if ($.isQuanX()) $response.bodyBytes = rawBody
-					else $response.body = rawBody;
+					$response.body = rawBody;
 					break;
 			};
 			break;
 		case false:
-			$.log(`⚠ 功能关闭`, "");
+			log(`⚠ 功能关闭`, "");
 			break;
 	};
 })()
-	.catch((e) => $.logErr(e))
-	.finally(() => $.done($response))
+	.catch((e) => logError(e))
+	.finally(() => done($response))

@@ -1,6 +1,7 @@
 import json from '@rollup/plugin-json';
 import commonjs from "@rollup/plugin-commonjs";
 import terser from '@rollup/plugin-terser';
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 
 export default [
 	{
@@ -8,9 +9,9 @@ export default [
 		output: {
 			file: 'js/BiliBili.Enhanced.response.js',
 			format: 'es',
-			banner: '/* README: https://github.com/BiliUniverse */',
+			banner: "/* README: https://github.com/BiliUniverse */\nconsole.log('📺 BiliBili: ⚙️ Enhanced Response')",
 		},
-		plugins: [json(), commonjs(), terser()]
+		plugins: [json(), commonjs(), nodeResolve(), terser()]
 	},
 	/*
 	{
@@ -19,7 +20,7 @@ export default [
 			file: 'js/BiliIntl.Enhanced.response.js',
 			format: 'es',
 		},
-		plugins: [json(), commonjs(), terser()]
+		plugins: [json(), commonjs(), nodeResolve(), terser()]
 	},
 	*/
 ];
