@@ -2,77 +2,69 @@
 
 项目名称：彩云天气-净化/解锁SVIP
 下载地址：https://t.cn/A66d95hV
-更新日期：2024-04-12
+更新日期：2024-09-28
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
 
+[filter_local]
+# 禁用上传信息 - 来源: @苍井灰灰
+host, gather.colorfulclouds.net ,reject
+
 [rewrite_local]
-^https?:\/\/(biz|wrapper|starplucker)\.(cyapi|caiyunapp)\.(cn|com)\/(.+\/(user\?app_name|activity\?app_name|visitors|operation\/banners|operation\/homefeatures|config)|p\/v\d\/(vip_info|user_info|entries|privileges|trial_card\/info)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/caiyuntianqi.js
-^https?:\/\/(api|wrapper)\.(cyapi|caiyunapp)\.(cn|com)\/v\d\/(satellite|nafp\/origin_images) url script-request-header https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/caiyuntianqi.js
+# 广告净化/弹窗AD/去除亲友卡/去除悬浮模块
+^https?:\/\/(ad|biz|wrapper|starplucker)\.cyapi\.cn\/.+\/((activity\?app_name|operation|config|req\?app_name=weather)|v\d\/(trial_card\/info|entries|friend_cards|token\/device)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/caiyuntianqi.js
+# VIP信息
+^https?:\/\/(biz|wrapper|starplucker)\.cyapi\.cn\/(v\d\/user\?app_name|.+\/v\d\/(vip_info|user_detail)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/caiyuntianqi.js
+# SVIP地图-48小时预报
+^https?:\/\/(api|wrapper)\.cyapi\.cn\/v\d\/(satellite|nafp\/origin_images) url script-request-header https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/caiyuntianqi.js
 
 [mitm]
-hostname = *.cyapi.cn, *.caiyunapp.com
+hostname = *.cyapi.cn
 
 *************************************/
 
 
-const chxm1024 = {};
-const chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || null);
+let chxm1024 = {}, chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || null);
 const url = $request.url;
-const adUrl = /(activity\?app_name|operation\/banners)/;
-const tcUrl = /conditions/;
-const vipUrl = /https:\/\/biz\.(cyapi\.cn|caiyunapp\.com)\/p\/v\d\/vip_info/;
-const userUrl = /https:\/\/biz\.(cyapi\.cn|caiyunapp\.com)\/v\d\/user\?app_name/;
-const syUrl = /trial_card\/info/;
-const qyUrl = /entries/;
-const peUrl = /privileges/;
-const topUrl = /operation\/homefeatures/;
+const headers = Object.fromEntries(Object.entries($request.headers).map(([k, v]) => [k.toLowerCase(), v]));
 
 if (typeof $response == "undefined") {
-  chxm1024.headers = $request.headers;
-  chxm1024.headers['device-token'] = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZXNzaW9uIjoiNjYyNzQxMzVkYWM3MGMwMDE4YzFlNDBmIiwidXNlcl9pZCI6IjVmNWJmYzU3ZDJjNjg5MDAxNGUyNmJiOCIsInZlcnNpb24iOjIsImV4cCI6MTcyMTYyNDYyOSwidmlwX2V4cGlyZWRfYXQiOjAsImlzcyI6IndlYXRoZXIiLCJpYXQiOjE3MTM4NDg2MjksInN2aXBfZXhwaXJlZF9hdCI6MTg1NjY4NTAzMSwicHJpbWFyeSI6dHJ1ZX0.bBT3vbfATa-LF1G34j4VjPTYtwcKHfG3oHIkFlmg1dY';
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ2ZXJzaW9uIjoxLCJ1c2VyX2lkIjoiNWY1YmZjNTdkMmM2ODkwMDE0ZTI2YmI4Iiwic3ZpcF9leHBpcmVkX2F0IjoxNzA1MzMxMTY2LjQxNjc3MSwidmlwX2V4cGlyZWRfYXQiOjB9.h_Cem89QarTXxVX9Z_Wt-Mak6ZHAjAJqgv3hEY6wpps';
+  chxm1024.headers = { ...headers, 'device-token': token };
+  if (headers['app-version'] > '7.19.0') { chxm1024.headers['authorization'] = `Bearer ${token}`; }
 } else {
-  switch (true) {
-    case adUrl.test(url):
-      chxm1023.status = "ok";
-      chxm1023.activities = [{"items":[{}]}];
-      chxm1023.data = [];
-      break;
-    case tcUrl.test(url):
-      chxm1023.actions = [];
-      chxm1023.popups = [];
-      break;
-    case vipUrl.test(url):
-      chxm1023.vip = {  ...chxm1023.vip,
-  "expires_time" : "4092599349",  "is_auto_renewal" : true  };
-      chxm1023.svip =  {  ...chxm1023.svip,  "expires_time" : "4092599349",  "is_auto_renewal" : true  };
-      chxm1023.show_upcoming_renewal = false;
-      break;
-    case userUrl.test(url):
-      chxm1023.result = { ...chxm1023.result,  is_vip: true,  vip_expired_at: 4092599349,  svip_given: 1,  is_xy_vip: true,  xy_svip_expire: 4092599349,  wt: {  ...chxm1023.result.wt,  vip: {  ...chxm1023.result.wt.vip,  "expired_at" : 0,  "enabled" : true,  "svip_apple_expired_at" : 4092599349,  "is_auto_renewal" : true,  "svip_expired_at" : 4092599349    },    svip_given: 1,  },  is_phone_verified: true,  vip_take_effect: 1,  is_primary: true,  xy_vip_expire: 4092599349,  svip_expired_at: 4092599349,  svip_take_effect: 1,  vip_type: "s",  };
-      break;
-    case syUrl.test(url):
-      chxm1023.receive_status = 0;
-      chxm1023.vip_type = "svip";
-      chxm1023.activated_at = 1712600671;
-      chxm1023.vip_duration = "999";
-      chxm1023.expired_at = 4092599349;
-      chxm1023.has_valid_card = 0;
-      break;
-    case qyUrl.test(url):
-      chxm1023["entries"] = [{  "url" : "https://t.me/chxm1023",  "id" : 1,  "name" : "叮当猫",  "type" : 1,  "pos" : 2  }];
-      break;
-    case peUrl.test(url):
-      chxm1023["privileges"] = [{  "vip_type" : "svip",  "subscription_chat_quota" : 999  }];
-      break;
-    case topUrl.test(url):
-      chxm1023["data"] = [{  "badge_type" : "",  "title" : "叮当猫",  "url" : "https://t.me/chxm1023",  "feature_type" : "",  "avatar" : "https://raw.githubusercontent.com/chxm1023/Script_X/main/icon/ddm2.png"  },...chxm1023.data];
-      break;
-    }
+  const data = { "is_auto_renewal": true, "expires_time": 4092599349 };
+  //净化广告
+  if (/banners|entries|friend_cards|trial_card\/info|req\?app_name=weather|conditions/.test(url)) {
+    chxm1023 = {};
+  }
+  //旧版数据
+  if (/user\?app_name/.test(url)) {
+    chxm1023.result = { ...chxm1023.result, "is_vip": true, "vip_expired_at": 4092599349, "svip_given": 1, "is_xy_vip": true, "xy_svip_expire": 4092599349, "wt": { ...chxm1023.result.wt, "vip": { ...chxm1023.result.wt.vip, "expired_at": 0, "enabled": true, "svip_apple_expired_at": 4092599349, "is_auto_renewal": true, "svip_expired_at": 4092599349 }, "svip_given": 1 }, "vip_take_effect": 1, "xy_vip_expire": 4092599349, "svip_expired_at": 4092599349, "svip_take_effect": 1, "vip_type": "s" };
+  }
+  //新版数据
+  if (/user_detail/.test(url)) {
+    chxm1023.vip_info.show_upcoming_renewal = false;
+    chxm1023.vip_info.svip = data;
+  }
+  //VIP信息
+  if (/vip_info/.test(url)) {
+    chxm1023.show_upcoming_renewal = false;
+    chxm1023.svip = data;
+  }
+  //添加一个哆啦A梦
+  if (/features|homefeatures/.test(url)) {
+    chxm1023["data"] = [{  "badge_type" : "",  "title" : "叮当猫",  "url" : "https://t.me/chxm1023",  "feature_type" : "",  "avatar" : "https://raw.githubusercontent.com/chxm1023/Script_X/main/icon/ddm2.png"  },...chxm1023.data];
+  }
   chxm1024.body = JSON.stringify(chxm1023);
+}
+
+//去除悬浮模块
+if (/activity\?app_name/.test(url)) {
+  chxm1024.body = headers['app-version'] < '7.20.0'  ? '{"status":"ok","activities":[{"items":[{}]}]}'  : '{"status":"ok","activities":[]}';
 }
 
 $done(chxm1024);
