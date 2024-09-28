@@ -1,14 +1,20 @@
-name: " iRingo: ⭕ Siri & Search"
+name: " iRingo: ⭕ Siri & Spotlight"
 desc: |-
   V1️⃣ & iOS 17.6⬇️
-  全面自定义「Siri与搜索」中的「Siri 建议」功能。
-  本模块不含自定义「Siri与搜索」中的「询问 Siri」功能。
+  全面自定义「Siri与聚焦」中的「Siri 建议」功能。
+  本模块不含自定义「Siri与聚焦」中的「询问 Siri」功能。
+  注：该覆写包含代理规则。"
 openUrl: "http://boxjs.com/#/app/iRingo.Siri"
 author: "VirgilClyne[https://github.com/VirgilClyne]"
 homepage: "https://github.com/NSRingo"
 manual: "https://github.com/NSRingo/Siri/wiki/⭕-Siri与搜索"
 icon: "https://raw.githubusercontent.com/NSRingo/Siri/main/images/icon/v1/Siri%20-%20Icon.png"
 category: " iRingo"
+
+rules:
+  - DOMAIN,lookup-api.apple.com,PROXY
+  - DOMAIN,lookup-api.apple.com.edgekey.net,PROXY
+  - DOMAIN,e16991.b.akamaiedge.net,PROXY
 
 http:
   mitm:

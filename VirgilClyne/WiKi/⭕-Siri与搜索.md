@@ -124,40 +124,44 @@ Switch=true&CountryCode=TW&Domains="web,itunes,app_store,movies,restaurants,maps
   * 需要2.1.18(377)及以上版本
   * `插件`内置代理规则
   * iOS 专用：
-    * 🆕点击一键安装: [Siri.plugin](https://api.boxjs.app/loon/import?plugin=https://github.com/VirgilClyne/iRingo/raw/main/plugin/Siri.plugin " iRingo: ⭕ Siri & Search") 
-    * `插件`链接: [Siri.plugin](../raw/main/plugin/Siri.plugin " iRingo: ⭕ Siri & Search")
+    * 🆕点击一键安装: [Siri.plugin](https://api.boxjs.app/loon/import?plugin=https://github.com/NSRingo/Siri/releases/latest/download/Siri.plugin " iRingo: ⭕ Siri & Search") 
+    * `插件`链接: [Siri.plugin](https://github.com/NSRingo/Siri/releases/latest/download/Siri.plugin " iRingo: ⭕ Siri & Search")
   * macOS 专用：
-    * 🆕点击一键安装: [Siri.macOS.plugin](https://api.boxjs.app/loon/import?plugin=https://github.com/VirgilClyne/iRingo/raw/main/plugin/Siri.macOS.plugin " iRingo: ⭕ Siri & Spotlight") 
-    * `插件`链接: [Siri.macOS.plugin](../raw/main/plugin/Siri.macOS.plugin " iRingo: ⭕ Siri & Spotlight")
+    * 🆕点击一键安装: [Siri.macOS.plugin](https://api.boxjs.app/loon/import?plugin=https://github.com/NSRingo/Siri/releases/latest/download/Siri.macOS.plugin " iRingo: ⭕ Siri & Spotlight") 
+    * `插件`链接: [Siri.macOS.plugin](https://github.com/NSRingo/Siri/releases/latest/download/Siri.macOS.plugin " iRingo: ⭕ Siri & Spotlight")
 * Quantumult X:
   * 需要1.0.29(656)及以上版本
   * 不含`规则集`，需要自行添加`规则集`至`设置`-`分流`-`引用`并设置`策略偏好`
-  * 🆕点击一键安装: [Siri.snippet](https://api.boxjs.app/quanx/add-resource?remote-resource=%7B%22rewrite_remote%22%3A%5B%22https%3A%2F%2Fgithub.com%2FVirgilClyne%2FiRingo%2Fraw%2Fmain%2Fsnippet%2FSiri.snippet%2Ctag%3D%EF%A3%BF%20iRingo%3A%20Siri%20%26%20Search%22%5D%7D " iRingo: ⭕ Siri & Search")
-  * `重写`链接: [Siri.snippet](../raw/main/snippet/Siri.snippet " iRingo: ⭕ Siri & Search")
-    * macOS用`规则集`:[Look_Up.Wikipedia.list](../raw/main/RuleSet/Look_Up.Wikipedia.list "Wikipedia for Look Up")
-    * 此域名集只作用于macOS的`词典`和维基百科搜索集成，iOS/iPadOS不需要此域名集，运行于M1处理器的Mac设备上的Loon与Quantumult X可能有效。
+  * 🆕点击一键安装: [Siri.snippet](https://api.boxjs.app/quanx/add-resource?remote-resource=%7B%22rewrite%5Fremote%22%3A%5B%22https%3A%2F%2Fgithub%2Ecom%2FNSRingo%2FSiri%2Freleases%2Flatest%2Fdownload%2FSiri%2Esnippet%2Ctag%3D%EF%A3%BF%20iRingo%3A%20%E2%AD%95%20Siri%20%26%20Search%22%5D%7D " iRingo: ⭕ Siri & Search")
+  * `重写`链接: [Siri.snippet](https://github.com/NSRingo/Siri/releases/releases/latest/download/Siri.snippet " iRingo: ⭕ Siri & Search")
+    * macOS用`规则集`:[LookUp.Wikipedia.list](https://github.com/NSRingo/Siri/releases/releases/latest/download/LookUp.Wikipedia.list "Look Up - Wikipedia")
+    * 此域名集只作用于macOS的`词典`和维基百科搜索集成，iOS/iPadOS不需要此域名集。
 * Surge:
   * iOS 专用：
       * 需要5.9.0及以上版本
-      * 🆕点击一键安装: [Siri.sgmodule](https://api.boxjs.app/surge/install-module?url=https://github.com/VirgilClyne/iRingo/raw/main/sgmodule/Siri.sgmodule " iRingo: ⭕ Siri & Search")
-      * `模块`链接: [Siri.sgmodule](../raw/main/sgmodule/Siri.sgmodule " iRingo: ⭕ Siri & Search")
+      * 🆕点击一键安装: [Siri.sgmodule](https://api.boxjs.app/surge/install-module?url=https://github.com/NSRingo/Siri/releases/latest/download/Siri.sgmodule " iRingo: ⭕ Siri & Search")
+      * `模块`链接: [Siri.sgmodule](https://github.com/NSRingo/Siri/releases/latest/download/Siri.sgmodule " iRingo: ⭕ Siri & Search")
   * macOS 专用：
       * 需要5.5.0(2589)及以上版本
       * 可通过`模块`的`编辑参数…`功能自定义内置`策略组`名称
       * 默认`策略组`名为`🌑Proxy`
-      * 内置 macOS 用`域名集`:[Look_Up.Wikipedia.list](../raw/main/RuleSet/Look_Up.Wikipedia.list "Wikipedia for Look Up")
+      * 内置 macOS 用`域名集`:[LookUp.Wikipedia.list](https://github.com/NSRingo/Siri/releases/latest/download/LookUp.Wikipedia.list "Look Up - Wikipedia")
         * 此`域名集`只作用于macOS的`词典`的维基百科与`查询`的维基百科搜索集成
       * 需要开启Surge的`增强模式`
-      * 🆕点击一键安装: [Siri.macOS.sgmodule](https://api.boxjs.app/surge/install-module?url=https://github.com/VirgilClyne/iRingo/raw/main/sgmodule/Siri.macOS.sgmodule " iRingo: ⭕ Siri & Spotlight")
-      * `模块`链接:[Siri.macOS.sgmodule](../raw/main/sgmodule/Siri.macOS.sgmodule " iRingo: ⭕ Siri & Spotlight")
+      * 🆕点击一键安装: [Siri.macOS.sgmodule](https://api.boxjs.app/surge/install-module?url=https://github.com/NSRingo/Siri/releases/latest/download/Siri.macOS.sgmodule " iRingo: ⭕ Siri & Spotlight")
+      * `模块`链接:[Siri.macOS.sgmodule](https://github.com/NSRingo/Siri/releases/latest/download/Siri.macOS.sgmodule " iRingo: ⭕ Siri & Spotlight")
 * Stash:
-  * 需要1.6.2(309)及以上版本
-  * `覆写`内置代理规则
-  * 🆕点击一键安装: [Siri.stoverride](https://link.stash.ws/install-override/github.com/VirgilClyne/iRingo/raw/main/stoverride/Siri.stoverride " iRingo: ⭕ Siri & Search")
-  * `覆写`链接: [Siri.stoverride](../raw/main/stoverride/Siri.stoverride " iRingo: ⭕ Siri & Search")
+  * iOS 专用：
+    * 需要1.6.2(309)及以上版本
+    * 🆕点击一键安装: [Siri.stoverride](https://link.stash.ws/install-override/github.com/NSRingo/Siri/releases/latest/download/Siri.stoverride " iRingo: ⭕ Siri & Search")
+    * `覆写`链接: [Siri.stoverride](https://github.com/NSRingo/Siri/releases/latest/download/Siri.stoverride " iRingo: ⭕ Siri & Search")
+  * macOS 专用：
+    * `覆写`内置代理规则
+    * 🆕点击一键安装: [Siri.macOS.stoverride](https://link.stash.ws/install-override/github.com/NSRingo/WeatherKit/releases/latest/download/Siri.macOS.stoverride " iRingo: ⭕ Siri & Spotlight")
+    * `覆写`链接: [Siri.macOS.stoverride](https://github.com/NSRingo/Siri/releases/latest/download/Siri.macOS.stoverride " iRingo: ⭕ Siri & Spotlight")
 * Shadowrocket:
-  * 🆕点击一键安装(Shadowrocket): [Siri.srmodule](https://api.boxjs.app/shadowrocket/install?module=https://github.com/VirgilClyne/iRingo/raw/main/modules/Siri.srmodule " iRingo: ⭕ Siri & Search")
-  * `模块`链接: [Siri.srmodule](../raw/main/modules/Siri.srmodule " iRingo: ⭕ Siri & Search")
+  * 🆕点击一键安装(Shadowrocket): [Siri.srmodule](https://api.boxjs.app/shadowrocket/install?module=https://github.com/NSRingo/Siri/releases/latest/download/Siri.srmodule " iRingo: ⭕ Siri & Search")
+  * `模块`链接: [Siri.srmodule](https://github.com/NSRingo/Siri/releases/latest/download/Siri.srmodule " iRingo: ⭕ Siri & Search")
 
 ### V1.5版
 * V1.5版，用脚本(Script)功能自动自动修改「来自APPLE的内容\来自APPLE的建议\Siri建议」的地区与语言设置为`设置`-`通用`-`语言与地区`相同设置的语言及地区（中国大陆地区无此服务，所以默认修改为台湾地区）。
