@@ -10,7 +10,7 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/api\.adapty\.io\/api\/v\d\/sdk\/(analytics\/profiles\/.+$|in-apps\/(apple\/receipt\/validate|purchase-containers\/.+$)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/adapty.js
+^https?:\/\/api\.adapty\.io\/api\/v\d\/sdk\/(analytics\/profiles|in-apps\/(apple\/receipt\/validate|purchase-containers)|purchase\/app-store) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/adapty.js
 
 [mitm]
 hostname = api.adapty.io
