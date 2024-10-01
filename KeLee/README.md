@@ -414,11 +414,11 @@ Plus 流量 1024G 月付 120
   </tr>
   <tr>
     <td>057</td>
-    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/MailMaster_remove_ads.plugin">网易邮箱大师</a></td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/MailMaster_remove_ads.plugin">网易邮箱大师去广告</a></td>
   </tr>
   <tr>
     <td>058</td>
-    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/MiaoRead_remove_ads.plugin">小喵看书</a></td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/MiaoRead_remove_ads.plugin">小喵看书去广告</a></td>
   </tr>
   <tr>
     <td>059</td>
