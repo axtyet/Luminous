@@ -73,13 +73,11 @@
 #### 仓库地址
 
 > [!TIP]
-> 以下三个仓库内容完全一致，根据自己的网络情况择一即可。
+> 以下两个仓库内容完全一致，根据自己的网络情况择一即可。
 
 [GitHub 仓库](https://github.com/luestr/ProxyResource/blob/main/README.md) - 需要代理访问
 
 [GitLab 仓库](https://gitlab.com/lodepuly/vpn_tool/-/blob/master/README.md/) - 电信联通可直连访问
-
-[Gitea 仓库](https://gitea.com/latick/ProxyResource/src/branch/main/README.md) - 电信、联通、移动、广电可直连
 
 ------
 
