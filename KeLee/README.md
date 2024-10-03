@@ -1,6 +1,6 @@
 ### 可莉的 Loon 资源
 
-插件列表在页面下方
+插件列表在页面下方，末尾附有新手配置图解。
 
 ------
 
@@ -755,3 +755,8 @@ Plus 流量 1024G 月付 120
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/AppleWeatherEnhancer.plugin">Apple天气增强</a></td>
   </tr>
 </table>
+
+------
+
+#### 配置图解
+![ConfigurationDiagram](https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Config/zh-CN/Resource/ConfigurationDiagram.png)
