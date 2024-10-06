@@ -6,7 +6,7 @@
   * Telegram讨论组:[🍟 整点薯条 - 群组](https://t.me/GetSomeFries)
 
 ---
-## 广而告之
+# 广而告之
   * 如果您觉得本项目便捷好用
   * 请通过我的爱发电打赏：https://afdian.com/a/HashBrown
   * ~~欢迎关注我的B站直播间支持工作~~
@@ -45,7 +45,7 @@
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 
 # iOS 17、macOS 14、watchOS 10 及以下
-| [🌤<br>天气](../../wiki/🌤-天气) | [📍<br>定位服务](../../wiki/📍-定位服务) | [🗺️<br>地图](../../wiki/🗺-地图) | [⭕<br>Siri与搜索](../../wiki/⭕-Siri与搜索) | [📺<br>TV](../../wiki/📺-TV) | [📰<br>News](../../wiki/📰-News) | [🌐<br>专用代理](../../wiki/🌐-专用代理) | [✈<br>TestFlight](../../wiki/✈-TestFlight) | [⌚️<br>WATCH](../../wiki/⌚️-WATCH) | [🧰<br>BoxJs](../../wiki/🧰-BoxJs) |
+| [~~🌤<br>天气~~](../../wiki/🌤-天气) | [📍<br>定位服务](../../wiki/📍-定位服务) | [🗺️<br>地图](../../wiki/🗺-地图) | [~~⭕<br>Siri与搜索~~](../../wiki/⭕-Siri与搜索) | [📺<br>TV](../../wiki/📺-TV) | [📰<br>News](../../wiki/📰-News) | [~~🌐<br>专用代理~~](../../wiki/🌐-专用代理) | [✈<br>TestFlight](../../wiki/✈-TestFlight) | [⌚️<br>WATCH](../../wiki/⌚️-WATCH) | [🧰<br>BoxJs](../../wiki/🧰-BoxJs) |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 
 ---
