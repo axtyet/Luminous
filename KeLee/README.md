@@ -758,7 +758,22 @@ Plus 流量 1024G 月付 120
     <td>25</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/AppleWeatherEnhancer.plugin">Apple天气增强</a></td>
   </tr>
+    <td></td>
+    <td></td>
+    <td></td>
+  <tr>
+    <th>类别</th>
+    <th>序号</th>
+    <th>名称</th>
+  </tr>
+  <tr>
+    <td rowspan="2"><strong>签到插件</strong></td>
+  <tr>
+    <td>01</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/WPS_checkin.plugin">WPS每日签到</a></td>
+  </tr>
 </table>
+
 
 ------
 
