@@ -185,7 +185,7 @@ Plus 流量 1024G 月付 120
     <th>名称</th>
   </tr>
   <tr>
-    <td rowspan="109"><strong>去广告插件</strong></td>
+    <td rowspan="110"><strong>去广告插件</strong></td>
   <tr>
     <td>001</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/BlockAdvertisers.plugin">广告平台拦截器</a></td>
@@ -616,6 +616,10 @@ Plus 流量 1024G 月付 120
   </tr>
   <tr>
     <td>108</td>
+    <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/FC_Box_remove_ads.plugin">丰巢去广告</a></td>
+  </tr>
+  <tr>
+    <td>109</td>
     <td><a href="https://www.nsloon.com/openloon/import?plugin=https://gitlab.com/lodepuly/vpn_tool/-/raw/master/Tool/Loon/Plugin/KGRing_remove_ads.plugin">酷狗铃声去广告</a></td>
   </tr>
     <td></td>
