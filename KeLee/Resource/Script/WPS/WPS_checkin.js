@@ -1,12 +1,16 @@
 // 脚本作者：小白脸
+// 2024-10-11 14:45:01
 const $ = new ToolClient();
 $.getScript`https://cdn.jsdelivr.net/npm/fabric@latest/dist/fabric.min.js`;
 
-const {
-  AK,
-  SK,
-  MAX_RETRIES = 5,
-} = $.parseArgument();
+var AK = null;
+var SK = null;
+var MAX_RETRIES = null;
+if ($argument) {
+  AK = $argument.AK;
+  SK = $argument.SK;
+  MAX_RETRIES = $argument.MAX_RETRIES;
+}
 
 const captureRequest = () => {
   const parse = (delimiter) => (str) =>
@@ -20,7 +24,7 @@ const captureRequest = () => {
 
   isInfo && $.writeJson({ userid, cookie: { wps_sids } }, "WPS_info");
 
-  const message = isInfo ? "成功捕获Cookie，请前往WPS每日签到插件详情页面关闭捕获Cookie" : "捕获Cookie失败，请检查请求内容。";
+  const message = isInfo ? "已成功捕获Cookie,,请前往WPS每日签到插件详情页面关闭捕获Cookie" : "捕获Cookie失败,,请检查请求内容";
 
   $.msg(...message.split(","));
 };
@@ -205,7 +209,7 @@ class Wps {
 //主逻辑
 const main = async () => {
   const WPS_info = $.readJson("WPS_info");
-  if (!WPS_info) throw new Error("尚未捕获Cookie，请前往WPS每日签到插件详情页面打开捕获Cookie再重新打开WPS应用。");
+  if (!WPS_info) throw new Error("尚未捕获Cookie,,请前往WPS每日签到插件详情页面打开捕获Cookie后再重新打开WPS应用以捕获Cookie");
   const wps = new Wps(WPS_info);
 
   const checkinAttempt = async (retryCount = 0) => {
