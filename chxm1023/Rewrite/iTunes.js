@@ -30,7 +30,7 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 
 const list = {
   'co.vulcanlabs': { cm: 'timeb', hx: 'hxpda', id: lifetimeid, latest: "chxm1023" },  //vulcanlabs合集
-  'CHAT%20AI': { cm: 'timea', hx: 'hxpda', id: "com.chatgpt.yearly", latest: "chxm1023" }, //ChatAI
+  'com.eleven.chatgpt': { cm: 'timea', hx: 'hxpda', id: "com.chatgpt.yearly", latest: "chxm1023" },  //ChatAI
   'com.casttv.remotetv': { cm: 'timeb', hx: 'hxpda', id: "liftetime2", latest: "chxm1023" }, //TVRemote电视遥控器
   'WallpaperWidget': { cm: 'timea', hx: 'hxpda', id: "com.widget.theme.yearly.3dayfree", latest: "chxm1023" }, //壁纸主题(需试用)
   'ProREC': { cm: 'timea', hx: 'hxpda', id: "ProAudioCamera_Annual", latest: "chxm1023" }, //ProREC-相机
