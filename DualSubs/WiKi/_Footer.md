@@ -1,2 +1,2 @@
-| [🍿️ DualSubs:<br>🔣 Universal](../../Universal/wiki) | [🍿️ DualSubs:<br>🇳 Netflix](../../Netflix/wiki) | [🍿️ DualSubs:<br>▶️ YouTube (Music)](../../YouTube/wiki) | [🍿️ DualSubs:<br>🎵 Spotify](../../Spotify/wiki) | | [🍿️ DualSubs:<br>➕ AddOn](../../AddOn/wiki) |
-| :---: | :---: | :---: | :---: | :---: | :---: |
+| [🍿️ DualSubs:<br>🎦 Universal](../../Universal/wiki) | [🍿️ DualSubs:<br>🇳 Netflix](../../Netflix/wiki) | [🍿️ DualSubs:<br>▶️ YouTube (Music)](../../YouTube/wiki) | [🍿️ DualSubs:<br>🎵 Spotify](../../Spotify/wiki) | | [🍿️ DualSubs:<br>➕ AddOn](../../AddOn/wiki) | [🍿️ DualSubs:<br>🧰 BoxJs](../../BoxJs/wiki) |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
