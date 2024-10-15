@@ -1,14 +1,13 @@
-# 简介
+## 简介
 * 保持模块开启，即可去除`哔哩哔哩`app内广告元素
-
 * 注：
   * 版本不同，功能会有些许差异
 
-# 功能列表
-  * 自定义开启`推荐及广告`菜单选项
+## 功能列表
+* 自定义开启`推荐及广告`菜单选项
 
-# 使用方式
-## 配置方法
+## 使用方式
+### 配置方法
 * 方法1: 直接使用
   * 采用默认配置
 * 方法2: 配合`BoxJs`及订阅使用
@@ -19,7 +18,7 @@
     2. 在[`应用`](http://boxjs.com/#/app)页面点开`📺 BiliBili`折叠
     3. 在[`📺 BiliBili: 🛡️ ADBlock`](http://boxjs.com/#/app/BiliBili.ADBlock)根据需要填写您的设置信息
 
-# 默认设置
+## 默认设置
 - [x] 总功能开关
 - [x] [开屏]去广告
 - [x] [推荐]去广告
@@ -39,8 +38,8 @@
 - [x] [动态]去除广告动态
 - [x] [推荐]屏蔽UP主直播推广
 
-# 安装链接
-## 正式版
+## 安装链接
+### 正式版
 * Loon:
   * 🆕点击一键安装: [BiliBili.ADBlock.plugin](https://api.boxjs.app/loon/import?plugin=https://raw.githubusercontent.com/BiliUniverse/ADBlock/main/modules/BiliBili.ADBlock.plugin "📺 BiliBili: 🛡️ ADBlock") 
   * `插件`链接: [BiliBili.ADBlock.plugin](https://github.com/BiliUniverse/ADBlock/raw/main/modules/BiliBili.ADBlock.plugin "📺 BiliBili: 🛡️ ADBlock")
@@ -57,7 +56,7 @@
   * 🆕点击一键安装: [BiliBili.ADBlock.srmodule](https://api.boxjs.app/shadowrocket/install?module=https://raw.githubusercontent.com/BiliUniverse/ADBlock/main/modules/BiliBili.ADBlock.srmodule "📺 BiliBili: 🛡️ ADBlock")
   * `模块`链接: [BiliBili.ADBlock.srmodule](https://github.com/BiliUniverse/ADBlock/raw/main/modules/BiliBili.ADBlock.srmodule "📺 BiliBili: 🛡️ ADBlock")
 
-## 🧪测试版
+### 🧪测试版
 * Loon:
   * `插件`链接: [BiliBili.ADBlock.plugin](https://github.com/BiliUniverse/ADBlock/raw/beta/modules/BiliBili.ADBlock.beta.plugin "📺 BiliBili: 🛡️ ADBlock β")
 * Quantumult X:

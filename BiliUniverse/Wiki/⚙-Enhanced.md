@@ -1,10 +1,9 @@
-# 简介
+## 简介
 * 保持模块开启，即可全面自定义`哔哩哔哩`app主界面
-
 * 注：
   * 版本不同，功能会有些许差异
 
-# 功能列表
+## 功能列表
 * `首页`页面
   * `标签页`: 自定义启用的首页标签页，建议不超过7个
   * 默认`标签页`: 选择启动APP时默认展示的标签页
@@ -19,8 +18,8 @@
 * `分类`页面
   * 自定义启用的`分类`菜单选项
 
-# 使用方式
-## 配置方法
+## 使用方式
+### 配置方法
 * 方法1: 直接使用
   * 采用默认配置
 * 方法2: 配合`BoxJs`及订阅使用
@@ -31,7 +30,7 @@
     2. 在[`应用`](http://boxjs.com/#/app)页面点开`📺 BiliBili`折叠
     3. 在[`📺 BiliBili: Enhanced`](http://boxjs.com/#/app/BiliBili.Enhanced)根据需要填写您的设置信息
 
-# 默认设置
+## 默认设置
 - [x] 总功能开关
 - [首页：标签页]
   - [x] 直播
@@ -72,8 +71,8 @@
   - [ ] 消息
   - [x] 我的
 
-# 安装链接
-## 正式版
+## 安装链接
+### 正式版
 * Loon:
   * 🆕点击一键安装: [BiliBili.Enhanced.plugin](https://api.boxjs.app/loon/import?plugin=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/modules/BiliBili.Enhanced.plugin "📺 BiliBili: ⚙ Enhanced") 
   * `插件`链接: [BiliBili.Enhanced.plugin](https://github.com/BiliUniverse/Enhanced/raw/main/modules/BiliBili.Enhanced.plugin "📺 BiliBili: ⚙ Enhanced")
@@ -90,6 +89,6 @@
   * 🆕点击一键安装: [BiliBili.Enhanced.srmodule](https://api.boxjs.app/shadowrocket/install?module=https://raw.githubusercontent.com/BiliUniverse/Enhanced/main/modules/BiliBili.Enhanced.srmodule "📺 BiliBili: ⚙ Enhanced")
   * `模块`链接: [BiliBili.Enhanced.srmodule](https://github.com/BiliUniverse/Enhanced/raw/main/modules/BiliBili.Enhanced.srmodule "📺 BiliBili: ⚙ Enhanced")
 
-## 🧪测试版
+### 🧪测试版
 * Surge:
   * `模块`链接: [BiliBili.Enhanced.beta.sgmodule](https://github.com/BiliUniverse/Enhanced/raw/beta/modules/BiliBili.Enhanced.beta.sgmodule "📺 BiliBili: ⚙ Enhanced β")

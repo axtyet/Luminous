@@ -1,20 +1,17 @@
-```
-⚠️Bilibili app所使用的gRPC接口已移除HTTP/1.1兼容性，仅保留HTTP/2协议支持
-因为Shadowrocket，Quantumult X不支持MitM over HTTP/2
-此模块已不再支持Shadowrocket，Quantumult X，其余模块不受影响
-```
-```
-⚠️注意：使用前请务必检查`默认配置`是否与您的实际情况相符
-如不符,请使用`BoxJs`正确填写要`启用的地区`和对应`策略组或节点`名称
-```
+> ⚠️ Bilibili app所使用的gRPC接口已移除HTTP/1.1兼容性，仅保留HTTP/2协议支持  
+> 因为Shadowrocket，Quantumult X不支持MitM over HTTP/2  
+> 此模块已不再支持Shadowrocket，Quantumult X，其余模块不受影响  
 
-# 简介
+> ⚠️注意：使用前请务必检查`默认配置`是否与您的实际情况相符  
+> 如不符,请使用`BoxJs`正确填写要`启用的地区`和对应`策略组或节点`名称  
+
+## 简介
 * 自动识别番剧影视内容地区限制并切换线路至对应地区
   * 点开任意地区限制的番剧或影视内容，直接播放，无需配置文件内置策略与规则组
   * 局域网环境下，多设备同时观看不同地区内容，互不影响
 * 自定义搜索地区，快捷返回各区搜索结果
 
-# 功能列表
+## 功能列表
 * 强制返回的CDN主机名类型    
   * IP: 返回远端DNS解析地址（强烈不推荐！严重影响域名分流规则与CDN重定向）
   * HTTP: 返回HTTP域名（推荐，免去重定向时MitM操作）
@@ -35,8 +32,8 @@
       * ~~东南亚（国际版）未来可能细分~~
       * 国际版已拆分独立
 
-# 使用方式
-## 配置方法
+## 使用方式
+### 配置方法
 * 方法1: 直接使用
   * 采用默认配置
     * 默认配置的地区识别与分流为`中国大陆`,`中国香港`,`中国台湾`
@@ -53,8 +50,8 @@
     2. 在[`应用`](http://boxjs.com/#/app)页面点开`📺 BiliBili`折叠
     3. 在[`📺 BiliBili: Global`](http://boxjs.com/#/app/BiliBili.Global)根据需要填写您的设置信息
 
-# 安装链接
-## 正式版
+## 安装链接
+### 正式版
 * Loon:
   * ✅需要[3.0.8 (542)](https://t.me/LoonNews/948)及以上版本
   * 🆕点击一键安装: [BiliBili.Global.plugin](https://api.boxjs.app/loon/import?plugin=https://raw.githubusercontent.com/BiliUniverse/Global/main/modules/BiliBili.Global.plugin "📺 BiliBili: 🌐 Global") 
@@ -84,6 +81,6 @@
   * ~~🆕点击一键安装: [BiliBili.Global.srmodule](https://api.boxjs.app/shadowrocket/install?module=https://raw.githubusercontent.com/BiliUniverse/Global/main/modules/BiliBili.Global.srmodule "📺 BiliBili: 🌐 Global")~~
   * `模块`链接: [BiliBili.Global.srmodule](https://github.com/BiliUniverse/Global/raw/main/modules/BiliBili.Global.srmodule "📺 BiliBili: 🌐 Global")
 
-## 🧪测试版
+### 🧪测试版
 * Surge:
   * `模块`链接: [BiliBili.Global.beta.sgmodule](https://github.com/BiliUniverse/Global/raw/beta/modules/BiliBili.Global.beta.sgmodule "📺 BiliBili: Global")
