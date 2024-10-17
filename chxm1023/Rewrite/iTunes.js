@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-10-14
+更新日期：2024-10-17
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -27,6 +27,7 @@ const bundle_id = chxm1023.receipt["bundle_id"] || chxm1023.receipt["Bundle_Id"]
 const yearid = `${bundle_id}.year`;
 const yearlyid = `${bundle_id}.yearly`;
 const yearlysubscription = `${bundle_id}.yearlysubscription`;
+const lifetimeid = `${bundle_id}.lifetime`;
 
 const list = {
   'co.vulcanlabs': { cm: 'timeb', hx: 'hxpda', id: lifetimeid, latest: "chxm1023" },  //vulcanlabs合集
