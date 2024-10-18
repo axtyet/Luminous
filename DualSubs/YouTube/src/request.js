@@ -2,8 +2,8 @@ import { $platform, _, Storage, fetch, notification, log, logError, wait, done, 
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
 import setCache from "./function/setCache.mjs";
-import { PlayerRequest } from "./protobuf/player.request.js";
-import { Browse } from "./protobuf/browse.request.js";
+import { PlayerRequest } from "./protobuf/youtubei/v1/player.request.js";
+import { Browse } from "./protobuf/youtubei/v1/browse.request.js";
 // 构造回复数据
 let $response = undefined;
 /***************** Processing *****************/
