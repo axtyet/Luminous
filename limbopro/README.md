@@ -19,8 +19,6 @@
 
 ### 其他注意事项
 
-> ⚠️ **注意事项**！为应对广告屏蔽插件如Adguard等插件浏览器扩展对网站广告的屏蔽，大多数网站都会不定期更新网站页面结构包括但不限于DIV元素位置，类，内容等等；而这些更新极有可能会导出本计划部分屏蔽规则失效，这也正是本计划持续更新的原因，所以请大家务必加入电报讨论群组，适时为我们提供使用反馈；
-
 > 🈲️ 另外，按教程配置好后，如若仍发现广告，请按以下方式进行重试：1.清理浏览器缓存 2.在无痕模式下打开该页面，如若仍有广告请优先 [提交issue](https://github.com/limbopro/Adblock4limbo/issues)  反馈（附上该页面截图和链接/18🈲图片注意打码处理）；3.请确保你的浏览器没有自带广告屏蔽功能（如Alook浏览器），其内置的过滤器将导致一些冲突；4.建议使用谷歌浏览器，~~Safari~~；
 
 ### 目前在维护的网站目录
@@ -29,10 +27,10 @@
 | --- | --- | --- | --- |
 | [低端影视](https://ddys.pro/) | 在线影视 | Surge/QuantumultX/小火箭/油猴 | 图片/跳过视频广告倒计时 |
 | [小宝影视](https://xiaoheimi.net/index.php) | 在线影视 | 同上  | 图片  |
-| [泥巴影视](https://www.nivod8.tv/) | 在线影视 | 同上  | 播放页片头20秒广告加速移除 |
+| ~~[泥巴影视](https://www.nivod8.tv/)~~| 在线影视 | 同上  | 播放页片头20秒广告加速移除 |
 | [CN影视](https://cnys.tv/) | 在线影视 | 同上  | 图片广告/片头广告 |
 | [剧迷网](https://gimy.ai/) | 在线影视 | 同上  | 图片  |
-| [哔嘀影视](https://www.bdys10.com/) | 在线影视 | 同上  | 图片/跳过片头视频广告倒计时 |
+| ~~[哔嘀影视](https://www.bdys10.com/)~~ | 在线影视 | 同上  | 图片/跳过片头视频广告倒计时 |
 | [独播库](https://www.duboku.tv/) | 在线影视 | 同上  | 图片  |
 | [欧乐影院](https://www.olevod.tv/index.html) | 在线影视 | 同上  | XHR |
 | ~~555影院~~ | 在线影视 | 同上  | 图片  |
@@ -63,7 +61,7 @@
 | [知乎](https://www.zhihu.com/knowledge-plan/hot-question/hot/0/hour) | 问答  | 油猴  | PC端未登录状态浏览知乎体验优化 |
 
 > 目前去网页广告计划支持约30+网站：涵盖**在线影视**/**电子漫画**/XXXX；  
-参阅完整的：[在维护的网站列表](https://github.com/limbopro/Adblock4limbo/blob/main/Adblock4limbo.weblist)；如果其中没有你 **希望支持去广告的网站**，可以在本文 **反馈问题/提交新网站** 部分，按要求 **反馈问题/提交新网站**；  
+参阅完整的：[在维护的网站列表](https://github.com/limbopro/Adblock4limbo/blob/main/Adblock4limbo.weblist)；如果其中没有你 **希望支持去广告的网站**或在维护的网站换了域名，或又出现了广告，可以在本文 **反馈问题/提交新网站** 部分，按要求 **反馈问题/提交新网站**；
 
 > 如无特别说明，【毒奶去网页广告计划】在对以上网站网页广告去除过程中，代理软件（如Surge、QuantumultX、Shadowrocket）将优先支持，油猴用户次之或不完美支持，PC、Mac等桌面浏览器用户优先推荐安装 [ublock origin](https://limbopro.com/archives/1098.html) 等浏览器扩展，Android 用户推荐安装 [Firefox 浏览器 + ublock origin 组合](https://limbopro.com/archives/26805.html) 以屏蔽网页广告。
 
