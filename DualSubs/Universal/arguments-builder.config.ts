@@ -22,7 +22,7 @@ export default defineConfig({
 				template: "./template/quantumultx.handlebars",
 			},
 			{
-				path: "./dist/Universal.snippet",
+				path: "./dist/Universal.srmodule",
 				template: "./template/shadowrocket.handlebars",
 			},
 		],
