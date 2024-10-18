@@ -1,13 +1,11 @@
 import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import LRC from "./LRC/LRC.mjs";
-import Database from "./database/index.mjs";
+import database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 import detectPlatform from "./function/detectPlatform.mjs";
 import setCache from "./function/setCache.mjs";
-
-import { TextEncoder , TextDecoder } from "./text-encoding/index.js";
+import { TextEncoder , TextDecoder } from "text-encoding";
 import { WireType, UnknownFieldHandler, reflectionMergePartial, MESSAGE_TYPE, MessageType, BinaryReader, isJsonObject, typeofJsonValue, jsonWriteOptions } from "@protobuf-ts/runtime";
-log("v1.7.2(1005)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
@@ -22,8 +20,11 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 	// 获取平台
 	const PLATFORM = detectPlatform($request.url);
 	log(`⚠ PLATFORM: ${PLATFORM}`, "");
-	// 读取设置
-	const { Settings, Caches, Configs } = setENV("DualSubs", [(["YouTube", "Netflix", "BiliBili", "Spotify"].includes(PLATFORM)) ? PLATFORM : "Universal", "External", "API"], Database);
+	/**
+	 * 设置
+	 * @type {{Settings: import('./types').Settings}}
+	 */
+	const { Settings, Caches, Configs } = setENV("DualSubs", [(["YouTube", "Netflix", "BiliBili", "Spotify"].includes(PLATFORM)) ? PLATFORM : "Universal", "External", "API"], database);
 	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:

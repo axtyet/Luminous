@@ -1,16 +1,14 @@
 import { $platform, URL, _, Storage, fetch, notification, log, logError, wait, done, getScript, runScript } from "./utils/utils.mjs";
 import XML from "./XML/XML.mjs";
 import VTT from "./WebVTT/WebVTT.mjs";
-import Database from "./database/index.mjs";
+import database from "./database/index.mjs";
 import setENV from "./function/setENV.mjs";
 import detectFormat from "./function/detectFormat.mjs";
 import detectPlatform from "./function/detectPlatform.mjs";
 import setCache from "./function/setCache.mjs";
 import Translate from "./class/Translate.mjs";
-
-import { TextEncoder , TextDecoder } from "./text-encoding/index.js";
+import { TextEncoder , TextDecoder } from "text-encoding";
 import { WireType, UnknownFieldHandler, reflectionMergePartial, MESSAGE_TYPE, MessageType, BinaryReader, isJsonObject, typeofJsonValue, jsonWriteOptions } from "@protobuf-ts/runtime";
-log("v1.4.0(1003)");
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
@@ -26,8 +24,11 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 	// 获取平台
 	const PLATFORM = detectPlatform($request.url);
 	log(`⚠ PLATFORM: ${PLATFORM}`, "");
-	// 读取设置
-	const { Settings, Caches, Configs } = setENV("DualSubs", [(["YouTube", "Netflix", "BiliBili", "Spotify"].includes(PLATFORM)) ? PLATFORM : "Universal", "Translate", "API"], Database);
+	/**
+	 * 设置
+	 * @type {{Settings: import('./types').Settings}}
+	 */
+	const { Settings, Caches, Configs } = setENV("DualSubs", [(["YouTube", "Netflix", "BiliBili", "Spotify"].includes(PLATFORM)) ? PLATFORM : "Universal", "Translate", "API"], database);
 	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
 		case true:
