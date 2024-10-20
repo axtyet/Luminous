@@ -1,7 +1,7 @@
 /**
  * @author fmz200
  * @function 微博去广告
- * @date 2024-10-20 17:18:00
+ * @date 2024-10-20 19:00:00
  */
 
 let url = $request.url;
@@ -72,7 +72,7 @@ try {
     }
 
     // 8、超话tab页 微博超话tab页 https://api.weibo.cn/2/statuses/container_timeline_topic
-    if (url.includes("/statuses/container_timeline_topic?flowId")) {
+    if (url.includes("/statuses/container_timeline_topic?")) {
       let foundFeed = false;
       for (let i = 0; i < resp_data.items.length; i++) {
         const item = resp_data.items[i];
@@ -82,6 +82,7 @@ try {
         }
         
         const category = item.category;
+        // 第一条微博往下的内容只要不是微博（分类、推广等），全部删除
         if (foundFeed && category !== "feed") {
           resp_data.items[i] = {};
         }
