@@ -2,8 +2,8 @@ import { $platform, _, Storage, fetch, notification, log, logError, wait, done, 
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
 import setCache from "./function/setCache.mjs";
-import { GetWatchResponse } from "./protobuf/youtubei/v1/get_watch.response.js";
-import { PlayerResponse } from "./protobuf/youtubei/v1/player.response.js";
+import { GetWatchResponse } from "./protobuf/google/protos/youtube/api/innertube/GetWatchResponse.js";
+import { PlayerResponse } from "./protobuf/google/protos/youtube/api/innertube/PlayerResponse.js";
 import { WireType, UnknownFieldHandler, reflectionMergePartial, MESSAGE_TYPE, MessageType, BinaryReader, isJsonObject, typeofJsonValue, jsonWriteOptions } from "@protobuf-ts/runtime";
 /***************** Processing *****************/
 // 解构URL
