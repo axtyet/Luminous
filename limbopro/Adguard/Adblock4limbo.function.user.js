@@ -2010,9 +2010,11 @@ function copyText(id1, id2, Text) { // 复制文本按钮
 
     // 复制工作开始
     const input = document.querySelectorAll("input#copy");
-    const range = document.createRange(); range.selectNode(input[0]); const selection = window.getSelection();
-    if (selection.rangeCount > 0) selection.removeAllRanges(); // 判断光标是否复制其他内容 如有则清除
-    selection.addRange(range); document.execCommand('copy');
+    input[0].select()
+    document.execCommand('copy')
+    //const range = document.createRange(); range.selectNode(input[0]); const selection = window.getSelection();
+    //if (selection.rangeCount > 0) selection.removeAllRanges(); // 判断光标是否复制其他内容 如有则清除
+    //selection.addRange(range); document.execCommand('copy');
     // 复制工作结束
 
     ele_2.innerText = "复制成功！";
