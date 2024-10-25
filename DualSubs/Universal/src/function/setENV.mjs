@@ -1,4 +1,4 @@
-import { _, getStorage, log } from '@nsnanocat/util'
+import { Lodash as _, getStorage, log } from '@nsnanocat/util'
 
 /**
  * Set Environment Variables
