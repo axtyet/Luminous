@@ -7,11 +7,11 @@
 #
 # Mihomo Version ≥ 1.8.4
 #
-# 最后更新时间: 2024-10-14 19:00
+# 最后更新时间: 2024-10-26 23:00
 #
 # ================
 
-p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://connectivitycheck.gstatic.com/generate_204, interval: 1800, timeout: 5000}}
+p: &p {type: http, interval: 86400, health-check: {enable: true, url: http://1.1.1.1/generate_204, interval: 1800, timeout: 5000}}
 proxy-providers:
   Subscribe: # 在此将 "http://your-service-provider" 替换为你的机场订阅，推荐使用 base64 或者 node list
     url: http://your-service-provider
@@ -70,10 +70,10 @@ dns:
 
 # 锚点参数
 pg: &pg {type: select, proxies: [手动切换, 香港节点, 美国节点, 狮城节点, 日本节点, 台湾节点, DIRECT]}
-url-test: &url-test {type: url-test, url: http://connectivitycheck.gstatic.com/generate_204, interval: 300, tolerance: 0, include-all: true}
+url-test: &url-test {type: url-test, url: http://1.1.1.1/generate_204, interval: 300, tolerance: 0, include-all: true}
 select: &select {type: select, include-all: true}
-fallback: &fallback {type: fallback, url: http://connectivitycheck.gstatic.com/generate_204, interval: 300, include-all: true}
-load-balance: &load-balance {type: load-balance, strategy: consistent-hashing, url: http://connectivitycheck.gstatic.com/generate_204, interval: 300, include-all: true}
+fallback: &fallback {type: fallback, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
+load-balance: &load-balance {type: load-balance, strategy: consistent-hashing, url: http://1.1.1.1/generate_204, interval: 300, include-all: true}
 c: &c {type: http, behavior: classical, format: text, interval: 86400}
 
 proxy-groups:
