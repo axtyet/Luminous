@@ -2,7 +2,7 @@
 
 项目名称：Revenuecat 系列解锁合集
 下载地址：https://too.st/CollectionsAPP
-更新日期：2024-10-25
+更新日期：2024-10-26
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -19,38 +19,49 @@ hostname = api.revenuecat.com
 *************************************/
 
 
-const chxm1024 = {};
-const headers = $request.headers;
-const chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || null);
-const ua = headers['User-Agent'] || headers['user-agent'];
-const bundle_id = headers['X-Client-Bundle-ID'] || headers['x-client-bundle-id'];
+let chxm1024 = {}, chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || "{}");
+const headers = $request.headers, ua = headers['User-Agent'] || headers['user-agent'], bundle_id = headers['X-Client-Bundle-ID'] || headers['x-client-bundle-id'];
 
-//排除已禁止MITM的APP
-const forbiddenApps = ['Fileball', 'APTV'];
-const forbiddenAppFound = forbiddenApps.find(appName => (ua && ua.includes(appName)) || ($request.body && $request.body.includes(appName)));
-if (forbiddenAppFound) {
-  console.log(`发现禁止MITM的APP: ${forbiddenAppFound}，已停止运行脚本！\n叮当猫の分享频道: https://t.me/chxm1023`);
-  $done({});
+// 删除请求头中的 x-revenuecat-etag 字段
+if (typeof $response == "undefined") {
+  delete headers["x-revenuecat-etag"];
+  delete headers["X-RevenueCat-ETag"];
+  chxm1024.headers = headers;
+  $done(chxm1024);
+  return;
 }
 
-//识别bundle_id
+// 排除已禁止 MITM 的 APP
+const forbiddenApps = ['Fileball', 'APTV'];
+const forbiddenAppFound = forbiddenApps.find(appName => (ua && ua.includes(appName)) || ($request.body && $request.body.includes(appName)));
+
+if (forbiddenAppFound) {
+  console.log(`发现禁止 MITM 的 APP: ${forbiddenAppFound}，已停止运行脚本！`);
+  $done({});
+  return;
+}
+
+// 匹配逻辑
 const bundle = {
   'tech.miidii.MDClock': { name: 'Entitlement.Pro', id: 'tech.miidii.MDClock.pro', cm: 'sjb' },  //谜底时钟
   'com.voicedream.Voic': { name: 'standard', id: 'vd_annual_79_3daytrial', cm: 'sja' },  //声之梦
   'com.laser-focused.focus-ios': { name: 'subscribed', id: 'iap.io.masterbuilders.focus.pro_one_year', cm: 'sja' },  //Focus-专注时间管理
+  'com.roehl': { name: 'Pro', id: 'habitkit_3499_lt', cm: 'sjb' },  //HabitKit/WinDiary-双件套
   'net.tengl.powertimer': { name: 'plus', id: 'powertimer.plus', cm: 'sjb' },  //元气计时-PowerTimer
-  'com.reader.book': { name: 'pro', id: 'com.reader.permanentlyPro', cm: 'sjb' },  //PureLibro
+  'com.reader.book': { name: 'pro', id: 'reader.lifetimeFamily.pro', cm: 'sja' },  //PureLibro
   'app.imone.OneWidget': { name: 'pro', id: 'app.imone.OneWidget.Lifetime', cm: 'sjb' },  //OneWidget-小组件
   'io.innerpeace.yiye': { name: 'Premium', id: 'io.innerpeace.yiye.lifetime.forYearly', cm: 'sja' },  //言外笔记
+  'com.valo.reader': { name: 'com.valo.reader.vip1.forever', id: 'com.valo.reader.vip1.forever', nameb: 'com.valo.reader.vip2.year', idb: 'com.valo.reader.vip2.year', cm: 'sja' },  //读不舍手
   'com.skysoft.removalfree': { name: 'Pro', id: 'com.skysoft.removalfree.subscription.newyearly', cm: 'sja' }  //图片消除
-}
+};
 
-//识别UA
-const list = {
-  'Translate%20-%20Talk%20Translator': { name: 'Premium', id: 'premiumAnnually', cm: 'sja' },  // AITranslator-翻译器
+const listua = {
+  'PicLoom': { id: 'com.efsoft.picloom_nc_lifetime', cm: 'sjc' },  //PicLoom
+  'Translate%20-%20Talk%20Translator': { name: 'Premium', id: 'premiumAnnually', cm: 'sja' },  //AITranslator-翻译器
   'Authenticator': { name: 'premium', id: '2fa_standalone_lifetime', cm: 'sja' },  //Authenticator-密码管理
   'ChatBot': { name: 'chatbot_annual', id: 'chatbot_annual', cm: 'sja' },  //ChatBot-AIChat
   'Chatme': { name: 'premium', id: 'chatme_premium_year_discount', cm: 'sja' },  //ChatMe
+  'Mockview': { name: 'Pro', id: 'kavsoft.dev.yearly', cm: 'sja' },  //Mockview
   'ChatLLM': { name: 'Pro', id: 'com.curiouscreatorsco.ChatLLM.pro.lifetime.notrial.150_00', cm: 'sjb' },  //AItText
   'Binsoo': { name: 'vibe', id: 'annual', cm: 'sja' },  //Binsoo-照片滤镜/编辑
   'Photoooo': { name: 'lifetime', id: 'canoe_28_rnb_forever', cm: 'sjb' },  //Phorase-专业AI消除助手
@@ -64,11 +75,13 @@ const list = {
   'FujiLifeStyle': { name: 'FUJIStyle Pro(Year)', id: 'FujiStyle2024003', cm: 'sja' },  //FUJISTYLE-富士色彩配方
   'Gentler': { name: 'premium', id: 'app.gentler.activity.nonconsumable.onetime1', cm: 'sjb' },  //Gentler Streak-健康助手
   'TuneTally': { name: 'Pro', id: 'tunetally_pro', cm: 'sjb' },  //TuneTally-综合音乐排行
+  'Readle': { name: 'Premium', id: 'com.hello.german.yearly', cm: 'sja' },  //Readle-德语学习
   'Utiful': { name: 'All Access', id: 'All_Access_YR_12M_Free', cm: 'sja' },  //Utiful-相册管家
   'CharingCrossRoad': { name: 'ready_pro', id: 'ready_pro_50_1y', cm: 'sja' },  //读否-稍后阅读
   'ig-bookmarker': { name: 'entitlement', id: 'lifetimeID', cm: 'sjb' },  //instDown-ins下载工具
   'PhotoMapper': { name: 'premium', id: 'photomapper_lifetime_1.99', cm: 'sjb' },  //PhotoMapper-照片位置追改
   'CallAnnie': { name: 'ai.animato.callannie.entitlement.pro0', id: 'ai.animato.callannie.proyearly1', cm: 'sja' },  //CallAnnie
+  'Liftbear': { name: 'Pro', id: 'liftbear_2399_1y', cm: 'sja' },  //Liftbear
   'OneMockup': { name: 'pro', id: 'online.ohwe.onescreen.Lifetime', cm: 'sja' },  //OneMockup-带壳截屏
   'DataCalc': { name: 'datacalc.pro', id: 'datacalc.yearly.12', cm: 'sja' },  //DataCalc-素材容量计算
   'moss-ios': { name: 'prouser', id: 'dpbox_yearly_68', cm: 'sja' },  //DPBOX-摄影机与电影参数参数查询
@@ -79,7 +92,7 @@ const list = {
   'Linearity%20Curve': { name: 'pro', id: 'linearity_curve_pro_yearly_free_trial', cm: 'sja' },  //LinearityCurve-插画/图形处理
   'TQBrowser': { name: 'pro_lt', id: 'com.tk.client.lifetime', cm: 'sjb' },  //Teak浏览器
   'AI%C2%A0Chat': { name: 'AI Plus', id: 'ai_plus_gpt_yearly', cm: 'sja' },  //AIChat
-  'Yosum': { name: 'Premium', id: 'yosum_999_1year', cm: 'sja' },  //Yosum  
+  'Yosum': { name: 'Premium', id: 'yosum_999_1year', cm: 'sja' },  //Yosum
   '%E8%B5%84%E6%BA%90%E6%90%AC%E8%BF%90%E5%A4%A7%E5%B8%88': { name: 'SaveTikYoutu_common', id: 'LifetimeSubscription', cm: 'sjb' },//资源搬运大师
   'DHWaterMarkManager': { name: 'WaterManager_common', id: 'lifetimeVIP_001', cm: 'sjb' },//水印熊
   'iplayTV':{ name: 'com.ll.btplayer.12', id: 'com.ll.btplayer.12', cm: 'sjb'},//ntPlayer
@@ -103,7 +116,7 @@ const list = {
   'ShellBean': { name: 'pro', id: 'com.ningle.shellbean.iap.forever', cm: 'sjb' },  //ShellBean-SSH终端服/Linux监控
   'nPtt': { name: 'vip.yearly', id: 'app.nextptt.vip1.yearly', cm: 'sja' },  //nPtt
   'MagicTiles3': { name: 'VIP', id: 'com.pianoidols.vipsub.year.06', cm: 'sja' },  //MagicTiles3-音乐游戏
-  'Airmail': { name: 'Airmail Premium', id: 'Airmail_iOS_Yearly_P', cm: 'sja' },  //Airmail
+  'Airmail': { name: 'Airmail Premium', id: 'Airmail_iOS_Yearly_P', cm: 'sja' },  //Airmail-邮箱管理
   'ScreenRecordCase': { name: 'Premium', id: 'me.fandong.ScreenRecordCase.Ultra', cm: 'sjb' },  //屏幕套壳
   'opusvpn': { name: 'pro', id: 'yearly_discount', cm: 'sja' },  //Opus-VPN
   'ip_tv_react_native': { name: 'Single', id: 'opus.lifetime', cm: 'sjb' },  //Opus-IPTV
@@ -115,7 +128,7 @@ const list = {
   'FruitMinder': { name: 'Premium', id: 'com.bartozo.FruitMinder.lifetime', cm: 'sjb' },  //FruitMinder-水果提醒
   'PDF_convertor': { name: 'VIP', id: 'com.pdf.convertor.forever', cm: 'sjb' },  //PDF转换器
   'rewritingText': { name: 'AIGrammercheckerProAccess', id: 'sv.aigrammerchecker.com.lifetime', cm: 'sjb' },  //AI Grammar
-  'ShellBoxKit': { name: 'pro', id: 'ShellBoxKit.Lifetime', cm: 'sjb' },  //CareServer-服务器监控
+  'ShellBoxKit': { name: 'ssh_pro', id: 'ShellBoxKit.Year', cm: 'sja' },  //CareServer-服务器监控
   'IDM': { name: 'premium', id: 'sub_yearly_idm', cm: 'sja' },  //IDM-下载
   'Whisper': { name: 'all_features', id: 'whisperai_80_y', cm: 'sja' },  //Whisper
   'Shapy': { name: 'premium', id: 'com.blake.femalefitness.subscription.yearly', cm: 'sja' },  //Shapy-健身
@@ -137,7 +150,6 @@ const list = {
   'PhotoRoom': { name: 'pro', id: 'com.background.pro.yearly', cm: 'sja' },  //PhotoRoom
   'Bg%20Remover': { name: 'Premium', id: 'net.kaleidoscope.cutout.premium1', cm: 'sja' },  //Bg Remover+
   'Sex%20Actions': { name: 'Premium Plus', id: 'ru.sexactions.subscriptionPromo1', cm: 'sja' },  //情侣性爱游戏-Sex Actions
-  'reader': { name: 'vip2', id: 'com.valo.reader.vip2.year', cm: 'sja' },  //读不舍手
   'StarFocus': { name: 'pro', id: 'com.gsdyx.StarFocus.nonConsumable.forever', cm: 'sjb' },  //星垂专注
   'StarDiary': { name: 'pro', id: 'com.gsdyx.StarDiary.nonConsumable.forever', cm: 'sjb' },  //星垂日记
   'CountDuck': { name: 'premium', id: 'Lifetime', cm: 'sjb' },  //倒数鸭
@@ -146,7 +158,7 @@ const list = {
   'TextMask': { name: 'pro', id: 'tm_lifetime', cm: 'sjb' },  //TextMask
   '%E5%96%B5%E7%BB%84%E4%BB%B6': { name: 'MiaoWidgetPro', id: 'MiaoLifeTime', cm: 'sjb' },  //喵组件
   'Chatty': { name: 'pro', id: 'chatty.yearly.1', cm: 'sja' },  //Chatty.AI
-  'ImagineAI': { name: 'pro', id: 'artistai.yearly.1', cm: 'sja' },  //ImagineAI
+  'ImagineAI': { name: 'plus', id: 'artistai.lifetime.1', cm: 'sjb' },  //Artist.AI
   'Langster': { name: 'Premium', id: 'com.langster.universal.lifetime', cm: 'sjb' },  //Langster-学习外语
   'VoiceAI': { name: 'Special Offer', id: 'voiceannualspecial', cm: 'sjb' },  //VoiceAI-配音
   'Rootd': { name: 'pro', id: 'subscription_lifetime', cm: 'sjb' },  //Rootd-情绪引导
@@ -185,7 +197,7 @@ const list = {
   'MyPianist': { name: 'pro', id: 'com.collaparte.mypianist.pro.yearly', cm: 'sja' },  //MyPianist乐谱
   'ProCam': { name: 'pro', id: 'pro_lifetime', cm: 'sjb' },  //ProCam相机
   'Drops': { name: 'premium', id: 'forever_unlimited_time_discounted_80_int', cm: 'sjb' },  //Drops外语
-  'transmission_ui': { name: 'Premium', id: '200002', cm: 'sjb' },  //Transmission服务器
+  'transmission_ui': { name: 'Premium', id: '200002', cm: 'sja' },  //Transmission服务器
   'fastdiet': { name: 'premium', id: 'com.happy.fastdiet.forever', cm: 'sjb' },  //小熊轻断食
   'money_manager': { name: 'premium', id: 'com.happy.money.forever', cm: 'sjb' },  //小熊记账
   'Overdue': { name: 'Pro', id: '1', cm: 'sjb' },  //我的物品
@@ -227,7 +239,7 @@ const list = {
   'Photon': { name: 'photon.paid', id: 'photon.paid.onetime', cm: 'sjb' },  //Photon相机
   'OneTodo': { name: 'pro', id: 'onetodo_lifetime', cm: 'sjb' },  //OneTodo
   'OneFlag': { name: 'pro', id: 'oneflag_lifetime', cm: 'sjb' },  //OneList
-  'OneClear': { name: 'pro', id: 'oneclear_lifetime', cm: 'sjb' },  //OneClear透明小组件
+  'OneClear': { name: 'pro', id: 'app.imone.OneClear.Lifetime', cm: 'sjb' },  //OneClear透明小组件
   'OneScreen': { name: 'pro', id: 'onescreen_lifetime', cm: 'sjb' },  //OneScreen截图带壳
   'Photomator': { name: 'pixelmator_photo_pro_access', id: 'pixelmator_photo_lifetime_v1', cm: 'sjb' },  //Photomator
   'Endel': { name: 'pro', id: 'Lifetime', cm: 'sjb' },  //Endel
@@ -286,7 +298,7 @@ const list = {
   'audiomack-iphone': { name: 'Premium1', id: 'com.audiomack.premium.2022', cm: 'sja' },  //AudioMack-音乐App
   'MallocVPN': { name: 'IOS_PRO', id: 'malloc_yearly_vpn', cm: 'sja' },  //Malloc VPN
   'WhiteCloud': { name: 'allaccess', id: 'wc_pro_1y', cm: 'sja' },  //白云天气
-  'Spark': { name: 'premium', id: 'spark_5999_1y_1w0', cm: 'sja' },  //Spark_Mail-邮箱管理
+  'Spark': { name: 'premium', id: 'spark_6999_1y_1w0', nameb: 'premium', idb: 'spark_openai_tokens_4xt', cm: 'sja' },  //Spark_Mail-邮箱管理
   'Grow': { name: 'grow.pro', id: 'grow_lifetime', cm: 'sjb' },  //Grow-健康运动
   'NotePlan': { name: 'premium', id: 'co.noteplan.subscription.personal.annual', cm: 'sja' },  //NotePlan
   'vibes': { name: 'patron', id: 'com.andyworks.vibes.yearlyPatron', cm: 'sja' },  //NotBoring-Vibes个性化音乐
@@ -304,48 +316,12 @@ const list = {
   'Seamless': { name: 'Seamless.Pro', id: 'net.shinystone.Seamless.Pro', cm: 'sjb' },  //Seamless同步
   'Anybox': { name: 'pro', id: 'cc.anybox.Anybox.annual', cm: 'sja' },  //Anybox-跨平台书签管理
   'ScannerPro': { name: 'plus', id: 'com.chxm1024.premium.yearly', cm: 'sja' },  //Scanner Pro-文档扫描
-  'Pillow': { name: 'premium', id: 'com.neybox.pillow.premium.year', cm: 'sja' },  //Pillow-睡眠周期跟踪
+  'Pillow': { name: 'premium', id: 'com.neybox.pillow.premium.year.v2', cm: 'sja' },  //Pillow-睡眠周期跟踪
   'Taio': { name: 'full-version', id: 'taio_1651_1y_2w0_std_v2', cm: 'sja' },  //Tiao
   'CPUMonitor': { name: 'Pro', id: 'com.mars.cpumonitor_removeAd', cm: 'sjb' },  //手机硬件管家
   'totowallet': { name: 'all', id: 'com.ziheng.totowallet.onetimepurchase', cm: 'sjb' },  //图图记账
   '1Blocker': { name: 'premium', id: 'blocker.ios.iap.lifetime', cm: 'sjb' },  //1Blocker-广告拦截
-  'VSCO': { name: 'pro', id: 'vscopro_global_5999_annual_7D_free', cm: 'sja' }  //VSCO-照片与视频编辑
+  'VSCO': { name: 'pro', id: 'vscopro_global_5999_annual_7D_free', cm: 'sja' }  //VSCO-照片与视频编辑编辑
 };
 
-if (typeof $response == "undefined") {
-  delete headers["x-revenuecat-etag"];
-  delete headers["X-RevenueCat-ETag"];
-  chxm1024.headers = headers;
-} else if (chxm1023 && chxm1023.subscriber) {
-  chxm1023.subscriber.subscriptions = chxm1023.subscriber.subscriptions || {};
-  chxm1023.subscriber.entitlements = chxm1023.subscriber.entitlements || {};
-  let name,nameb,ids,idb,data;
-  for (const src of [list, bundle]) {
-    for (const i in src) {
-      const test = src === list ? ua : bundle_id;
-      if (new RegExp(`^${i}`, `i`).test(test)) {
-      if (src[i].cm.indexOf('sja') != -1) { data = {  "purchase_date" : "2023-09-09T09:09:09Z",  "expires_date" : "2099-09-09T09:09:09Z" };  } else if (src[i].cm.indexOf('sjb') != -1) { data = {  "purchase_date" : "2023-09-09T09:09:09Z" }; }
-      ids = src[i].id;name = src[i].name;idb = src[i].idb;nameb = src[i].nameb;
-      break;
-      }
-    }
-  }
-  if (!name || !ids) {
-    data = {  "purchase_date" : "2023-09-09T09:09:09Z",  "expires_date" : "2099-09-09T09:09:09Z" };
-    name = 'pro';
-    ids = 'com.chxm1023.pro';
-  }
-  chxm1023.subscriber.entitlements[name] = Object.assign({}, data, { product_identifier: ids });
-  if (typeof nameb !== 'undefined' && nameb !== null) {
-    chxm1023.subscriber.entitlements[nameb] = Object.assign({}, data, { product_identifier: idb });
-  }
-  const subData = Object.assign({},data,{  "Author": "chxm1023",  "Telegram": "https://t.me/chxm1023",  "warning": "仅供学习，禁止转载或售卖",  "original_purchase_date": "2023-09-09T09:09:09Z",  "store": "app_store",  "ownership_type": "PURCHASED"  });
-  chxm1023.subscriber.subscriptions[ids] = subData;
-  if (typeof idb !== 'undefined' && idb !== null) {
-    chxm1023.subscriber.subscriptions[idb] = subData;
-  }
-  chxm1024.body = JSON.stringify(chxm1023);
-  console.log('已操作成功🎉🎉🎉\n叮当猫の分享频道: https://t.me/chxm1023');
-}
-
-$done(chxm1024);
+;eval(function(p,a,c,k,e,r){e=function(c){return(c<a?'':e(parseInt(c/a)))+((c=c%a)>35?String.fromCharCode(c+29):c.toString(36))};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('2 B="m://15.16.17/18/C",D={B,19};$1a.1b(D).1c(E=>{2 F=G.1d(E.H);2 I=F.C;1e d,h,e,a,j,o=p;k(2 4 q[J,1f]){k(2 i 1g 4){2 r=4===J?1h:1i;b(1j 1k(`^${i}`,`i`).r(r)){b(4[i].s.K(\'1l\')){j={"f":"c-0-5:0:6","u":"v-0-5:0:6"}}L b(4[i].s.K(\'1m\')){j={"f":"c-0-5:0:6"}}L b(4[i].s.1n(\'1o\')!=-1){o=1p;d="3"}e=4[i].M;d=4[i].d||\'\';a=4[i].a;h=4[i].h;N}}b(d&&e)N}b(o){3.7.O=8.9(3.7.O||{},{[e]:[{"M":"1q","P":p,"f":"c-0-5:0:6","u":"v-0-5:0:6","Q":"c-0-5:0:6","R":"S","T":"U"}]});3.7.w=3.7.w||{};3.7.w[e]={"f":"c-0-5:0:6"}}k(2[1r,x]q 8.1s(I)){2 V=x.y;2 g=x.g;k(2 W q g){2 X=d||W;2 z=e||V;2 l=j||{"f":"c-0-5:0:6","u":"v-0-5:0:6"};8.9(3.7.g||{},{[X]:8.9({},l,{y:z})});2 A=8.9({},l,{"1t":"3","1u":"m://t.Y/3","1v":"仅供学习，禁止转载或售卖","Q":"c-0-5:0:6","P":p,"T":"U","R":"S","1w":"1x"});8.9(3.7.Z||{},{[z]:A});b(1y a!==\'1z\'&&a!==1A){8.9(3.7.g,{[h]:8.9({},l,{y:a})});8.9(3.7.Z,{[a]:A})}}}10.H=G.1B(3);11.12(\'已操作成功🎉🎉🎉\\n叮当猫の分享频道: m://t.Y/3\');$13(10)}).1C(14=>{11.12("1D: "+14);$13({})});',62,102,'09||const|chxm1023|src|09T09|09Z|subscriber|Object|assign|idb|if|2023|name|ids|purchase_date|entitlements|nameb||data|for|finalData|https||anchor|false|of|test|cm||expires_date|2099|other_purchases|productInfo|product_identifier|finalIds|subdata|url|product_entitlement_mapping|options|response|ent|JSON|body|productEntitlementMapping|listua|includes|else|id|break|non_subscriptions|is_sandbox|original_purchase_date|store|app_store|store_transaction_id|490001314520000|productIdentifier|entitlement|finalName|me|subscriptions|chxm1024|console|log|done|error|api|revenuecat|com|v1|headers|task|fetch|then|parse|let|bundle|in|ua|bundle_id|new|RegExp|sja|sjb|indexOf|sjc|true|888888888|entitlementId|entries|Author|Telegram|warning|ownership_type|PURCHASED|typeof|undefined|null|stringify|catch|Error'.split('|'),0,{}));
