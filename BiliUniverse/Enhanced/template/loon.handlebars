@@ -1,0 +1,23 @@
+#!name = {{@package 'displayName'}}
+#!desc = {{inline (@package 'description')}}
+#!openUrl = {{@package 'openUrl'}}
+#!author = {{@package 'contributors'}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!tag = {{@package 'organizationName'}}
+#!system = {{@package 'system'}}
+#!date = {{now "yyyy-MM-dd HH:mm:ss"}}
+#!version = {{@package 'version'}}
+#!system_version = {{ @package 'systemVersion'}}
+
+[Argument]
+{{{arguments}}}
+
+[Script]
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.account.mine, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.region.index, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.channel.region.list, argument={{{scriptParams}}}
+
+[MitM]
+hostname = app.bilibili.com, app.biliapi.net

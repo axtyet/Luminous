@@ -1,0 +1,22 @@
+#!name = {{@package 'displayName'}}
+#!desc = {{inline (@package 'description')}}
+#!openUrl = {{@package 'openUrl'}}
+#!author = {{@package 'contributors'}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!category = {{@package 'organizationName'}}
+#!date = {{now "yyyy-MM-dd HH:mm:ss"}}
+#!version = {{@package 'version'}}
+
+#[rewrite_local]
+# 📺 BiliBili.Enhanced.x.resource.show.tab.v2
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-response-body https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
+# 📺 BiliBili.Enhanced.x.v2.account.mine
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? url script-response-body https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
+# 📺 BiliBili.Enhanced.x.v2.region.index
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? url script-response-body https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
+# 📺 BiliBili.Enhanced.x.v2.channel.region.list
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? url script-response-body https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js
+
+#[mitm]
+hostname = app.bilibili.com, app.biliapi.net

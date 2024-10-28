@@ -1,5 +1,4 @@
-import getStorage from '../utils/getStorage.mjs'
-import { _, log } from "../utils/utils.mjs";
+import { Lodash as _, getStorage, log } from '@nsnanocat/util'
 
 /**
  * Set Environment Variables
@@ -10,8 +9,8 @@ import { _, log } from "../utils/utils.mjs";
  * @return {Object} { Settings, Caches, Configs }
  */
 export default function setENV(name, platforms, database) {
-	log(`☑️ Set Environment Variables`, "");
-	let { Settings, Caches, Configs } = getStorage(name, platforms, database);
+	log("☑️ Set Environment Variables", "");
+	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
 	if (!Array.isArray(Settings?.Home?.Top)) _.set(Settings, "Home.Top", (Settings?.Home?.Top) ? [Settings.Home.Top] : []);
