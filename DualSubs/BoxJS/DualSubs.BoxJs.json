@@ -2,15 +2,15 @@
 	"id": "DualSubs.sub",
 	"name": "🍿️ DualSubs",
 	"author": "@DualSubs",
-	"description": "流媒体平台字幕增强及双语模块，适用于 0.8 版及以上版本",
+	"description": "双语及增强字幕生成工具",
 	"icon": "https://avatars.githubusercontent.com/u/100578089?&v=4",
 	"repo": "https://github.com/DualSubs",
 	"apps": [
 		{
 			"id": "DualSubs.Universal",
-			"name": "🍿️ DualSubs: 🎦 Universal",
+			"name": "🍿️ DualSubs: 🔣 Universal",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs/Universal/wiki/🍿-DualSubs:-🎦-Universal\">🍿 DualSubs: 🎦 Universal</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io/guide/universal\">🍿 DualSubs: 🔣 Universal</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -27,7 +27,7 @@
 				},
 				{
 					"id": "@DualSubs.Universal.Settings.Types",
-					"name": "启用类型",
+					"name": "[字幕] 启用类型",
 					"val": [
 						"Official",
 						"Translate"
@@ -47,7 +47,7 @@
 				},
 				{
 					"id": "@DualSubs.Universal.Settings.Languages[0]",
-					"name": "主字幕语言（源语言）",
+					"name": "[字幕] 主语言（源语言）",
 					"val": "AUTO",
 					"type": "selects",
 					"items": [
@@ -98,13 +98,17 @@
 						{
 							"key": "TR",
 							"label": "Türkçe - 土耳其语"
+						},
+						{
+							"key": "KM",
+							"label": "ភាសាខ្មែរ - 高棉语"
 						}
 					],
 					"desc": "当“主语言”字幕存在时，将生成“主语言/副语言（翻译）”与“主语言（外挂）”的字幕或字幕选项"
 				},
 				{
 					"id": "@DualSubs.Universal.Settings.Languages[1]",
-					"name": "副字幕语言（目标语言）",
+					"name": "[字幕] 副语言（目标语言）",
 					"val": "ZH",
 					"type": "selects",
 					"items": [
@@ -151,6 +155,10 @@
 						{
 							"key": "TR",
 							"label": "Türkçe - 土耳其语"
+						},
+						{
+							"key": "KM",
+							"label": "ភាសាខ្មែរ - 高棉语"
 						}
 					],
 					"desc": "当“副语言”字幕存在时，将生成“副语言/主语言（官方）”的字幕或字幕选项"
@@ -165,9 +173,9 @@
 		},
 		{
 			"id": "DualSubs.YouTube",
-			"name": "🍿️ DualSubs: ▶ YouTube & 🎵 Music",
+			"name": "🍿️ DualSubs: ▶️ YouTube (Music)",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs/YouTube/wiki/🍿-DualSubs:-▶-YouTube\">🍿️ DualSubs: ▶ YouTube</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io/guide/youtube\">▶️ YouTube (Music)</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -187,7 +195,7 @@
 					"name": "[字幕] 启用类型",
 					"val": "Official",
 					"type": "selects",
-					"desc": "请选择要使用的字幕，双语字幕将使用您选择类型呈现",
+					"desc": "请选择要使用的字幕，双语字幕将使用您选择类型呈现。",
 					"items": [
 						{
 							"key": "Official",
@@ -240,7 +248,7 @@
 			"id": "DualSubs.Netflix",
 			"name": "🍿️ DualSubs: 🇳 Netflix",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs/Netflix/wiki/🍿-DualSubs:-🎦-Netflix\">🍿 DualSubs: 🇳 Netflix</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io/guide/netflix\">🍿 DualSubs: 🇳 Netflix</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -257,10 +265,10 @@
 				},
 				{
 					"id": "@DualSubs.Netflix.Settings.Type",
-					"name": "启用类型",
+					"name": "[字幕] 启用类型",
 					"val": "Translate",
 					"type": "selects",
-					"desc": "请选择要添加的字幕选项，如果为标准播放器，则会在字幕选项中新增勾选字幕选项",
+					"desc": "请选择要使用的字幕，双语字幕将使用您选择类型呈现。",
 					"items": [
 						{
 							"key": "Translate",
@@ -270,7 +278,7 @@
 				},
 				{
 					"id": "@DualSubs.Netflix.Settings.Languages[0]",
-					"name": "主字幕语言（源语言）",
+					"name": "[字幕] 主语言（源语言）",
 					"val": "AUTO",
 					"type": "selects",
 					"items": [
@@ -321,13 +329,17 @@
 						{
 							"key": "TR",
 							"label": "Türkçe - 土耳其语"
+						},
+						{
+							"key": "KM",
+							"label": "ភាសាខ្មែរ - 高棉语"
 						}
 					],
 					"desc": "当“主语言”字幕存在时，将生成“主语言/副语言（翻译）”与“主语言（外挂）”的字幕或字幕选项"
 				},
 				{
 					"id": "@DualSubs.Netflix.Settings.Languages[1]",
-					"name": "副字幕语言（目标语言）",
+					"name": "[字幕] 副语言（目标语言）",
 					"val": "ZH",
 					"type": "selects",
 					"items": [
@@ -374,6 +386,10 @@
 						{
 							"key": "TR",
 							"label": "Türkçe - 土耳其语"
+						},
+						{
+							"key": "KM",
+							"label": "ភាសាខ្មែរ - 高棉语"
 						}
 					],
 					"desc": "当“副语言”字幕存在时，将生成“副语言/主语言（官方）”的字幕或字幕选项"
@@ -390,7 +406,7 @@
 			"id": "DualSubs.Spotify",
 			"name": "🍿️ DualSubs: 🎵 Spotify",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs/Spotify/wiki/🍿-DualSubs:-🎵-Spotify\">🍿 DualSubs: 🎵 Spotify</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io/guide/spotify\">🍿 DualSubs: 🎵 Spotify</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -407,7 +423,7 @@
 				},
 				{
 					"id": "@DualSubs.Spotify.Settings.Types",
-					"name": "启用类型",
+					"name": "[歌词] 启用类型",
 					"val": [
 						"Translate",
 						"External"
@@ -511,6 +527,10 @@
 						{
 							"key": "TR",
 							"label": "Türkçe - 土耳其语"
+						},
+						{
+							"key": "KM",
+							"label": "ភាសាខ្មែរ - 高棉语"
 						}
 					],
 					"desc": "副语言（目标语言）选项仅对翻译歌词生效"
@@ -527,7 +547,7 @@
 			"id": "DualSubs.Composite",
 			"name": "🍿️ DualSubs: 合成器（官方&外挂字幕）",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs\">DualSubs</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io\">DualSubs</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -589,7 +609,7 @@
 			"id": "DualSubs.Translate",
 			"name": "🍿️ DualSubs: 翻译器（翻译字幕&歌词）",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs\">DualSubs</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io\">DualSubs</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -697,7 +717,7 @@
 			"id": "DualSubs.External",
 			"name": "🍿️ DualSubs: 外部源（外部歌词）",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs\">DualSubs</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io\">DualSubs</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
@@ -745,7 +765,7 @@
 			"id": "DualSubs.API.Translate",
 			"name": "🍿️ DualSubs: API（翻译器）",
 			"descs_html": [
-				"请参照<a href=\"https://github.com/DualSubs/DualSubs\">DualSubs</a>的使用说明进行配置",
+				"请参照<a href=\"https://DualSubs.github.io\">DualSubs</a>的使用说明进行配置",
 				"填写完成后别忘点击此页面底端右下角的\"保存\"。"
 			],
 			"keys": [
