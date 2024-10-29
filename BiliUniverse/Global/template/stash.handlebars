@@ -1,0 +1,118 @@
+name: "{{@package 'displayName'}}"
+desc: |-
+  {{#each (split (@package 'description') "\n")}}
+  {{{this}}}
+  {{/each}}
+openUrl: "{{@package 'openUrl'}}"
+author: |-
+  {{#each (@package 'contributors')}}
+  {{this}}
+  {{/each}}
+homepage: "{{@package 'homepage'}}"
+icon: "{{@package 'icon'}}"
+category: "{{@package 'organizationName'}}"
+date: "{{now "yyyy-MM-dd HH:mm:ss"}}"
+version: "{{@package 'version'}}"
+
+http:
+  mitm:
+    - "www.bilibili.com"
+    - "search.bilibili.com"
+    - "app.bilibili.com"
+    - "app.biliapi.net"
+    - "api.bilibili.com"
+    - "api.biliapi.net"
+    - "grpc.biliapi.net"
+  script:
+    - match: ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/?
+      name: 📺 BiliBili.Global.request
+      type: request
+      timeout: 15
+      argument:
+    - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.viewunite\.v1\.View\/View$
+      name: 📺 BiliBili.Global.request
+      type: request
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.viewunite\.v1\.View\/View$
+      name: 📺 BiliBili.Global.response
+      type: response
+      require-body: true
+      binary-mode: true
+      max-size: 262144
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\?
+      name: 📺 BiliBili.Global.response
+      type: response
+      require-body: true
+      max-size: 262144
+      argument:
+    - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/(api|web)\/playurl(\/html5)?\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: false
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/web\/v2\/playurl\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/(grpc\.biliapi\.net|app\.bilibili\.com)\/bilibili\.polymer\.app\.search\.v1\.Search\/(SearchAll|SearchByType)$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/search\.bilibili\.com\/all\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: false
+      timeout: 15
+      argument:
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/search(\/type)?\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/wbi\/search\/(all\/v2|type)\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/search\/(all\/v2|type)\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/space\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/wbi\/acc\/info\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/acc\/info\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+
+script-providers:
+  📺 BiliBili.Global.request:
+    url: https://github.com/BiliUniverse/Global/releases/download/v{{@package 'version'}}/request.bundle.js
+    interval: 86400
+  📺 BiliBili.Global.response:
+    url: https://github.com/BiliUniverse/Global/releases/download/v{{@package 'version'}}/response.bundle.js
+    interval: 86400

@@ -3,26 +3,26 @@ import { defineConfig } from "@iringo/arguments-builder";
 export default defineConfig({
 	output: {
 		surge: {
-			path: "./dist/Enhanced.sgmodule",
+			path: "./dist/BiliBili.Enhanced.sgmodule",
 		},
 		loon: {
-			path: "./dist/Enhanced.plugin",
+			path: "./dist/BiliBili.Enhanced.plugin",
 		},
 		customItems: [
 			{
-				path: "./dist/Enhanced.stoverride",
+				path: "./dist/BiliBili.Enhanced.stoverride",
 				template: "./template/stash.handlebars",
 			},
 			{
-				path: "./dist/Enhanced.yaml",
+				path: "./dist/BiliBili.Enhanced.yaml",
 				template: "./template/egern.handlebars",
 			},
 			{
-				path: "./dist/Enhanced.snippet",
+				path: "./dist/BiliBili.Enhanced.snippet",
 				template: "./template/quantumultx.handlebars",
 			},
 			{
-				path: "./dist/Enhanced.srmodule",
+				path: "./dist/BiliBili.Enhanced.srmodule",
 				template: "./template/shadowrocket.handlebars",
 			},
 		],
