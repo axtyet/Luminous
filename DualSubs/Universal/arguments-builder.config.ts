@@ -46,7 +46,7 @@ export default defineConfig({
 		},
 		{
 			key: "Types",
-			name: "[字幕]启用类型",
+			name: "[字幕] 启用类型",
 			defaultValue: ["Official", "Translate"],
 			type: "array",
 			options: [
@@ -63,7 +63,7 @@ export default defineConfig({
 		},
 		{
 			key: "Languages[0]",
-			name: "[字幕]主语言（源语言）",
+			name: "[字幕] 主语言（源语言）",
 			defaultValue: "AUTO",
 			type: "string",
 			boxJsType: "selects",
@@ -125,7 +125,7 @@ export default defineConfig({
 		},
 		{
 			key: "Languages[1]",
-			name: "[字幕]副语言（目标语言）",
+			name: "[字幕] 副语言（目标语言）",
 			defaultValue: "ZH",
 			type: "string",
 			boxJsType: "selects",
@@ -195,7 +195,7 @@ export default defineConfig({
 		},
 		{
 			key: "ShowOnly",
-			name: "[翻译字幕]只显示翻译后字幕",
+			name: "[翻译字幕] 只显示翻译后字幕",
 			defaultValue: false,
 			type: "boolean",
 			description: "开启后仅显示翻译字幕，不做字幕合并操作。",
