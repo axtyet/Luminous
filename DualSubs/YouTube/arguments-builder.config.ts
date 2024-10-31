@@ -3,22 +3,22 @@ import { defineConfig } from "@iringo/arguments-builder";
 export default defineConfig({
 	output: {
 		surge: {
-			path: "./dist/YouTube.sgmodule",
+			path: "./dist/DualSubs.YouTube.sgmodule",
 		},
 		loon: {
-			path: "./dist/YouTube.plugin",
+			path: "./dist/DualSubs.YouTube.plugin",
 		},
 		customItems: [
 			{
-				path: "./dist/YouTube.snippet",
+				path: "./dist/DualSubs.YouTube.snippet",
 				template: "./template/quantumultx.handlebars",
 			},
 			{
-				path: "./dist/YouTube.stoverride",
+				path: "./dist/DualSubs.YouTube.stoverride",
 				template: "./template/stash.handlebars",
 			},
 			{
-				path: "./dist/YouTube.yaml",
+				path: "./dist/DualSubs.YouTube.yaml",
 				template: "./template/egern.handlebars",
 			},
 		],
@@ -42,7 +42,7 @@ export default defineConfig({
 		},
 		{
 			key: "Type",
-			name: "[字幕]启用类型",
+			name: "[字幕] 启用类型",
 			defaultValue: "Official",
 			type: "string",
 			options: [
@@ -59,7 +59,7 @@ export default defineConfig({
 		},
 		{
 			key: "Types",
-			name: "[歌词]启用类型",
+			name: "[歌词] 启用类型",
 			defaultValue: ["Translate"],
 			type: "array",
 			options: [
@@ -73,21 +73,14 @@ export default defineConfig({
 		},
 		{
 			key: "AutoCC",
-			name: "[字幕]自动显示",
+			name: "[字幕] 自动显示",
 			defaultValue: true,
 			type: "boolean",
 			description: "是否总是自动开启字幕显示。",
 		},
 		{
-			key: "ShowOnly",
-			name: "[字幕]只显示“自动翻译”字幕",
-			defaultValue: false,
-			type: "boolean",
-			description: "是否仅显示“自动翻译”后的字幕，不显示源语言字幕。",
-		},
-		{
 			key: "Position",
-			name: "[字幕]主语言（源语言）字幕位置",
+			name: "[字幕] 主语言（源语言）字幕位置",
 			defaultValue: "Forward",
 			type: "string",
 			options: [
@@ -101,6 +94,30 @@ export default defineConfig({
 				},
 			],
 			description: "主语言（源语言）字幕的显示位置。",
+		},
+		{
+			key: "Vendor",
+			name: "[翻译器] 服务商API",
+			defaultValue: "Google",
+			type: "string",
+			description: "请选择翻译器所使用的服务商API，更多翻译选项请使用BoxJs。",
+			options: [
+				{
+					key: "Google",
+					label: "Google Translate",
+				},
+				{
+					key: "Microsoft",
+					label: "Microsoft Translator（需填写API）",
+				},
+			],
+		},
+		{
+			key: "ShowOnly",
+			name: "[翻译器] 只显示“自动翻译”字幕",
+			defaultValue: false,
+			type: "boolean",
+			description: "是否仅显示“自动翻译”后的字幕，不显示源语言字幕。",
 		},
 	],
 });
