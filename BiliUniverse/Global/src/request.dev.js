@@ -2,6 +2,7 @@ import { $platform, Lodash as _, Storage, fetch, notification, log, logError, wa
 import { gRPC } from "@nsnanocat/util";
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
+import isResponseAvailability from "./function/isResponseAvailability.mjs";
 import { WireType, UnknownFieldHandler, reflectionMergePartial, MESSAGE_TYPE, MessageType, BinaryReader, isJsonObject, typeofJsonValue, jsonWriteOptions } from "@protobuf-ts/runtime";
 import { ViewReq } from "./protobuf/bilibili/app/viewunite/v1/viewunite.js";
 import { PlayViewUniteReq } from "./protobuf/bilibili/app/playerunite/v1/playerunite.js";
@@ -23,7 +24,10 @@ log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}`, "");
 const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
 log(`⚠ FORMAT: ${FORMAT}`, "");
 !(async () => {
-	// 读取设置
+	/**
+	 * 设置
+	 * @type {{Settings: import('./types').Settings}}
+	 */
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Global", database);
 	log(`⚠ Settings.Switch: ${Settings?.Switch}`, "");
 	switch (Settings.Switch) {
@@ -224,7 +228,8 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 							switch (PATHs?.[0]) {
 								case "bangumi": // 番剧-web
 									switch (PATHs?.[1]) {
-										case "play": { // 番剧-播放页-web
+										case "play": {
+											// 番剧-播放页-web
 											const URLRegex = /ss(?<seasonId>[0-9]+)|ep(?<epId>[0-9]+)/;
 											({ seasonId: infoGroup.seasonId, epId: infoGroup.epId } = PATHs?.[2].match(URLRegex)?.groups);
 											infoGroup.seasonId = Number.parseInt(infoGroup.seasonId, 10) || infoGroup.seasonId;
@@ -376,7 +381,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 					) {
 						case "Shadowrocket":
 						case "Quantumult X":
-							delete $request.policy;
+							$request.policy = undefined;
 							break;
 					}
 					break;
@@ -407,9 +412,8 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 			}
 			if (!$response) {
 				// 无（构造）回复数据
-				switch (
-					$platform // 已有指定策略的请求，根据策略fetch
-				) {
+				switch ($platform) {
+					// 已有指定策略的请求，根据策略fetch
 					case "Shadowrocket":
 					case "Quantumult X":
 						if ($request.policy) $response = await fetch($request);
@@ -424,9 +428,9 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 })()
 	.catch(e => logError(e))
 	.finally(() => {
-		switch ($response) {
-			default: // 有构造回复数据，返回构造的回复数据
-				//log(`🚧 finally`, `echo $response: ${JSON.stringify($response, null, 2)}`, "");
+		switch (typeof $response) {
+			case "object": // 有构造回复数据，返回构造的回复数据
+				//log("🚧 finally", `echo $response: ${JSON.stringify($response, null, 2)}`, "");
 				if ($response.headers?.["Content-Encoding"]) $response.headers["Content-Encoding"] = "identity";
 				if ($response.headers?.["content-encoding"]) $response.headers["content-encoding"] = "identity";
 				switch ($platform) {
@@ -442,113 +446,17 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 						break;
 				}
 				break;
-			case undefined: // 无构造回复数据，发送修改的请求数据
-				//log(`🚧 finally`, `$request: ${JSON.stringify($request, null, 2)}`, "");
+			case "undefined": // 无构造回复数据，发送修改的请求数据
+				//log("🚧 finally", `$request: ${JSON.stringify($request, null, 2)}`, "");
 				done($request);
+				break;
+			default:
+				logError(`不合法的 $response 类型: ${typeof $response}`, "");
 				break;
 		}
 	});
 
 /***************** Function *****************/
-/**
- * Determine Response Availability
- * @author VirgilClyne
- * @param {Object} response - Original Response Content
- * @return {Boolean} is Available
- */
-function isResponseAvailability(response = {}) {
-	log("☑️ Determine Response Availability", "");
-	log(`statusCode: ${response.statusCode}`, `headers: ${JSON.stringify(response.headers)}`, "");
-	const FORMAT = (response?.headers?.["Content-Type"] ?? response?.headers?.["content-type"])?.split(";")?.[0];
-	log("🚧 Determine Response Availability", `FORMAT: ${FORMAT}`, "");
-	let isAvailable = true;
-	switch (response?.statusCode) {
-		case 200:
-			switch (FORMAT) {
-				case "application/grpc":
-				case "application/grpc+proto":
-					switch (response?.headers?.["Grpc-Message"] ?? response?.headers?.["grpc-message"]) {
-						case "0":
-							isAvailable = true;
-							break;
-						case undefined:
-							if (Number.parseInt(response?.headers?.["content-length"] ?? response?.headers?.["Content-Length"]) < 1200) isAvailable = false;
-							else isAvailable = true;
-							break;
-						case "-404":
-						default:
-							isAvailable = false;
-							break;
-					}
-					break;
-				case "text/json":
-				case "application/json":
-					switch (response?.headers?.["bili-status-code"]) {
-						case "0":
-						case undefined: {
-							const data = JSON.parse(response?.body).data;
-							switch (response?.headers?.idc) {
-								case "sgp001":
-								case "sgp002":
-									switch (data?.limit) {
-										case "":
-										case undefined:
-											isAvailable = true;
-											break;
-										default:
-											isAvailable = false;
-											break;
-									}
-									break;
-								case "shjd":
-								case undefined:
-								default:
-									switch (data?.video_info?.code) {
-										case 0:
-										default:
-											isAvailable = true;
-											break;
-										case undefined:
-											isAvailable = false;
-											break;
-									}
-									switch (data?.dialog?.code) {
-										case undefined:
-											isAvailable = true;
-											break;
-										case 6010001:
-										default:
-											isAvailable = false;
-											break;
-									}
-									break;
-							}
-							break;
-						}
-						case "-404": // 啥都木有
-						case "-10403":
-						case "10015001": // 版权地区受限
-						default:
-							isAvailable = false;
-							break;
-					}
-					break;
-				case "text/html":
-					isAvailable = true;
-					break;
-			}
-			break;
-		case 403:
-		case 404:
-		case 415:
-		default:
-			isAvailable = false;
-			break;
-	}
-	log("✅ Determine Response Availability", `isAvailable:${isAvailable}`, "");
-	return isAvailable;
-}
-
 /**
  * Fetch
  * @author VirgilClyne
@@ -581,11 +489,12 @@ async function mutiFetch(request = {}, proxies = {}, locales = []) {
 	await Promise.allSettled(
 		locales.map(async locale => {
 			request.policy = proxies[locale];
-			if ($platform === "Quantumult X") request.body = request.bodyBytes;
+			if ($platform === "Quantumult X") request.body = undefined;
 			responses[locale] = await fetch(request);
 		}),
 	);
 	for (const locale in responses) {
+		//log("🚧 mutiFetch", `locale: ${locale}`);
 		if (!isResponseAvailability(responses[locale])) delete responses[locale];
 	}
 	const availableLocales = Object.keys(responses);
