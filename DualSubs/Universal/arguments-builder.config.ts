@@ -6,7 +6,7 @@ export default defineConfig({
 			path: "./dist/DualSubs.Universal.sgmodule",
 			transformEgern: {
 				enable: true,
-				path: "./dist/BiliBili.Global.yaml",
+				path: "./dist/DualSubs.Universal.yaml",
 			},
 		},
 		loon: {
