@@ -27,7 +27,7 @@ export class BrowseMessage extends YouTubeMessage {
         this.removeShorts(obj, i)
       }
     })
-    this.removeFrameworkUpdateAd()
+    // this.removeFrameworkUpdateAd()
     await this.translate()
     return this
   }

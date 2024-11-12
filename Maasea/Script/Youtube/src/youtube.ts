@@ -6,10 +6,11 @@ export abstract class YouTubeMessage {
   needProcess: boolean
   needSave: boolean
   message: any
-  whiteNo: number[]
-  blackNo: number[]
-  whiteEml: string[]
-  blackEml: string[]
+  version: string = '1.0'
+  whiteNo: number[] = []
+  blackNo: number[] = []
+  whiteEml: string[] = []
+  blackEml: string[] = ['inline_injection_entrypoint_layout.eml']
   msgType: Message<any>
   argument: Record<string, any>
   decoder = new TextDecoder('utf-8', {
@@ -23,12 +24,13 @@ export abstract class YouTubeMessage {
     this.argument = this.decodeArgument()
     $.isDebug = Boolean(this.argument.debug)
     $.debug(this.name)
-    Object.assign(this, $.getJSON('YouTubeAdvertiseInfo', {
-      whiteNo: [],
-      blackNo: [],
-      whiteEml: [],
-      blackEml: []
-    }))
+
+    const storedData: Record<string, any> = $.getJSON('YouTubeAdvertiseInfo')
+    $.debug(`currentVersion:  ${this.version}`)
+    $.debug(`storedVersion:  ${storedData.version as string}`)
+    if (storedData?.version === this.version) {
+      Object.assign(this, storedData)
+    }
   }
 
   decodeArgument (): Record<string, any> {
@@ -79,11 +81,13 @@ export abstract class YouTubeMessage {
     if (this.needSave) {
       $.debug('Update Config')
       const YouTubeAdvertiseInfo = {
+        version: this.version,
         whiteNo: this.whiteNo,
         blackNo: this.blackNo,
         whiteEml: this.whiteEml,
         blackEml: this.blackEml
       }
+      $.debug(YouTubeAdvertiseInfo)
       $.setJSON(YouTubeAdvertiseInfo, 'YouTubeAdvertiseInfo')
     }
   }
