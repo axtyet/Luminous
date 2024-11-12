@@ -148,8 +148,7 @@ export abstract class YouTubeMessage {
       } else {
         const videoContent = obj?.videoInfo?.videoContext?.videoContent
         if (videoContent) {
-          const unknownField = this.listUnknownFields(videoContent)[0]
-          adFlag = this.checkBufferIsAd(unknownField)
+          adFlag = this.checkUnknownFiled(videoContent)
           adFlag ? this.blackEml.push(eml) : this.whiteEml.push(eml)
           this.needSave = true
         }
@@ -164,6 +163,12 @@ export abstract class YouTubeMessage {
     if (!filed || filed.data.length < 1000) return false
     const rawText = this.decoder.decode(filed.data)
     return rawText.includes('pagead')
+  }
+
+  checkUnknownFiled (unknown): boolean {
+    if (!unknown) return false
+    const unknownFields = this.listUnknownFields(unknown)
+    return unknownFields?.some(field => this.checkBufferIsAd(field)) ?? false
   }
 
   isShorts (field): boolean {
