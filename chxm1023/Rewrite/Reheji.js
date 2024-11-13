@@ -46,10 +46,10 @@ const bundle = {
 };
 
 const listua = {
+  'OneTap': { name: 'pro', id: 'DiscountedProLifetime', cm: 'sjb' },  //OneTap
   'ChatPub': { name: 'Unlimited Access', id: 'conversationai.annual', cm: 'sja' },  //ChatPub
   'Jellycuts': { name: 'pro', id: 'premium', cm: 'sja' },  //Jellycuts
   'quitnow': { name: 'pro_features', id: 'com.eaginsoftware.QuitNow.unlock_all_pro_features', cm: 'sjb' },  //Quitnow
-  'Forward': { name: 'pro', id: 'forward.vip.forever.vvebo', cm: 'sja' },  //Forward
   'Ricoh%20Recipes': { name: 'Patron', id: 'Ricoh_Patron', cm: 'sja' },  //RicohRecipes
   'PixImagine': { id: 'com.efsoft.piximagine_nc_lifetime', cm: 'sjc' },  //PixImagine
   'PicLoom': { id: 'com.efsoft.picloom_nc_lifetime', cm: 'sjc' },  //PicLoom
