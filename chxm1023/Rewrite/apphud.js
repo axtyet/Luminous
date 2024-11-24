@@ -22,7 +22,7 @@ hostname = *.apphud.com
 const chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || "{}");
 
 const list = [
-  "one.time.prremium"
+  "one.time.prremium",
   "ok.annual.sub",
   "AFMS",
   "com.tm.replica.lifetime",
@@ -60,7 +60,7 @@ const processPaywalls = (paywalls) => {
   for (const paywall of paywalls) {
     if (paywall.items) {
       for (const item of paywall.items) {
-        const productId = item.product_id || "com.ddm1024.annual.sub";
+        const productId = item.product_id || "one.time.prremium";
         subscriptions.push(createSubscription(productId));
       }
     } else {
