@@ -2,7 +2,7 @@
 //
 // Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
 //
-// 最后更新时间: 2024-11-24 21:50
+// 最后更新时间: 2024-11-25 07:15
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -229,6 +229,12 @@ function main(config) {
 
   // 覆盖规则集
   config["rule-providers"] = {
+    "AD": {
+      ...ruleProviderCommon,
+      "behavior": "classical",
+      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Reject.list",
+      "path": "./rules/AD.list"
+    },
     "Apple": {
       ...ruleProviderCommon,
       "behavior": "classical",
