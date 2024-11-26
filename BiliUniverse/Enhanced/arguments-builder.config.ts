@@ -4,6 +4,10 @@ export default defineConfig({
 	output: {
 		surge: {
 			path: "./dist/BiliBili.Enhanced.sgmodule",
+			transformEgern: {
+				enable: true,
+				path: "./dist/BiliBili.Enhanced.yaml",
+			},
 		},
 		loon: {
 			path: "./dist/BiliBili.Enhanced.plugin",
@@ -12,10 +16,6 @@ export default defineConfig({
 			{
 				path: "./dist/BiliBili.Enhanced.stoverride",
 				template: "./template/stash.handlebars",
-			},
-			{
-				path: "./dist/BiliBili.Enhanced.yaml",
-				template: "./template/egern.handlebars",
 			},
 			{
 				path: "./dist/BiliBili.Enhanced.snippet",
@@ -36,14 +36,6 @@ export default defineConfig({
 		},
 	},
 	args: [
-		{
-			key: "Switch",
-			name: "总功能开关",
-			defaultValue: true,
-			type: "boolean",
-			description: "是否启用此APP修改",
-			exclude: ["surge", "loon"],
-		},
 		{
 			key: "Home.Tab",
 			name: "[首页]标签页",
