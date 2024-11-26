@@ -2,7 +2,7 @@
 //
 // Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
 //
-// 最后更新时间: 2024-11-25 07:15
+// 最后更新时间: 2024-11-26 22:15
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -378,8 +378,8 @@ function main(config) {
     "GEOSITE,github,微软服务",
     "GEOSITE,microsoft,微软服务",
     "GEOSITE,gfw,国外网站",
-    "GEOIP,lan,DIRECT",
-    "GEOIP,CN,DIRECT",
+    "GEOIP,private,DIRECT",
+    "GEOIP,cn,DIRECT",
     "MATCH,兜底分流"
   ];
 
