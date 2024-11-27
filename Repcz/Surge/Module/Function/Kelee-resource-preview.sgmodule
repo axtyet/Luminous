@@ -1,0 +1,12 @@
+#!name=功能｜Kelee 资源预览
+#!desc=预览资源，而不是下载
+#!category=⚙️ ▸ Function
+
+[Header Rewrite]
+http-response https:\/\/kelee\.one(\/.*)? header-add content-disposition inline
+http-response https:\/\/kelee\.one(\/.*)? header-replace content-type "text/plain; charset=utf-8"
+http-request https:\/\/kelee\.one(\/.*)? header-replace User-Agent "Surge iOS/3367"
+
+
+[MITM]
+hostname = %APPEND% kelee.one
