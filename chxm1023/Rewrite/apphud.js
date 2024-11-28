@@ -3,7 +3,7 @@
 项目名称：apphud多合一
 下载地址：https://t.cn/A6m7WeMH
 下载地址：https://t.cn/A6WlGNDi
-更新日期：2024-11-24
+更新日期：2024-11-28
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -22,29 +22,31 @@ hostname = *.apphud.com
 const chxm1023 = JSON.parse(typeof $response != "undefined" && $response.body || "{}");
 
 const list = [
-  "one.time.prremium",
-  "ok.annual.sub",
-  "AFMS",
-  "com.tm.replica.lifetime",
-  "Plant_1w_7.99_3d"
+  "1year7days80",  //Bright
+  "com.movavi.clips.lifetime",  //Movavi
+  "ok.annual.sub",  //BodyOK
+  "AFMS",  //WatchFace表盘商店
+  "com.tm.replica.lifetime",  //Replica
+  "Plant_1w_7.99_3d",  //PlantMe
+  "one.time.premium"
 ];
 
-const createSubscription = (productId = "one.time.prremium") => {
+const createSubscription = (productId = "one.time.premium", groupid = "1a2b3c4d") => {
   return {
-    "status": "regular",
-    "group_id": "1a2b3c4d",
+    "status": "trial",
+    "group_id": groupid,
     "autorenew_enabled": false,
-    "introductory_activated": false,
+    "introductory_activated": true,
     "cancelled_at": null,
     "kind": "autorenewable",
     "id": "a1234567-b123-c123-d123-e12345678910",
-    "next_check_at": "2024-11-11T11:11:11.000Z",
+    "next_check_at": "2099-09-09T09:09:09.000Z",
     "product_id": productId,
     "platform": "ios",
     "environment": "production",
     "local": false,
     "retries_count": 0,
-    "units_count": 1,
+    "units_count": 7,
     "unit": "day",
     "in_retry_billing": false,
     "started_at": "2024-11-11T11:11:11.000Z",
@@ -60,11 +62,10 @@ const processPaywalls = (paywalls) => {
   for (const paywall of paywalls) {
     if (paywall.items) {
       for (const item of paywall.items) {
-        const productId = item.product_id || "one.time.prremium";
-        subscriptions.push(createSubscription(productId));
+        const productId = item.product_id || "one.time.premium";
+        const groupid = item.id || "1a2b3c4d";
+        subscriptions.push(createSubscription(productId, groupid));
       }
-    } else {
-      subscriptions.push(createSubscription());
     }
   }
   return subscriptions;
@@ -72,14 +73,13 @@ const processPaywalls = (paywalls) => {
 
 if (!chxm1023.data) chxm1023.data = {};
 if (!chxm1023.data.results) chxm1023.data.results = {};
-if (!Array.isArray(chxm1023.data.results.subscriptions)) {
-  chxm1023.data.results.subscriptions = [];
-}
+
+chxm1023.data.results.subscriptions = [];
 
 if (chxm1023.data.results.paywalls) {
   const subscriptions = processPaywalls(chxm1023.data.results.paywalls);
-  if (subscriptions.length > 0) {
-    chxm1023.data.results.subscriptions.push(...subscriptions);
+  for (const sub of subscriptions) {
+    chxm1023.data.results.subscriptions.push(sub);
   }
 }
 
