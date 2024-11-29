@@ -1,19 +1,17 @@
-import { $app, Lodash as _, Storage, fetch, notification, log, logError, wait, done } from "@nsnanocat/util";
+import { $app, Lodash as _, Storage, Console, fetch, notification, wait, done } from "@nsnanocat/util";
 import { URL } from "@nsnanocat/url";
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
-log(`⚠ url: ${url.toJSON()}`, "");
+Console.info(`url: ${url.toJSON()}`);
 // 获取连接参数
-const METHOD = $request.method,
-	HOST = url.hostname,
-	PATH = url.pathname;
-log(`⚠ METHOD: ${METHOD}, HOST: ${HOST}, PATH: ${PATH}`, "");
+const PATHs = url.pathname.split("/").filter(Boolean);
+Console.info(`PATHs: ${PATHs}`);
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
-log(`⚠ FORMAT: ${FORMAT}`, "");
+Console.info(`FORMAT: ${FORMAT}`);
 !(async () => {
 	/**
 	 * 设置
@@ -35,7 +33,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 		case "application/vnd.apple.mpegurl":
 		case "audio/mpegurl":
 			//body = M3U8.parse($response.body);
-			//log(`🚧 body: ${JSON.stringify(body)}`, "");
+			//Console.debug(`body: ${JSON.stringify(body)}`);
 			//$response.body = M3U8.stringify(body);
 			break;
 		case "text/xml":
@@ -45,35 +43,35 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 		case "application/plist":
 		case "application/x-plist":
 			//body = XML.parse($response.body);
-			//log(`🚧 body: ${JSON.stringify(body)}`, "");
+			//Console.debug(`body: ${JSON.stringify(body)}`);
 			//$response.body = XML.stringify(body);
 			break;
 		case "text/vtt":
 		case "application/vtt":
 			//body = VTT.parse($response.body);
-			//log(`🚧 body: ${JSON.stringify(body)}`, "");
+			//Console.debug(`body: ${JSON.stringify(body)}`);
 			//$response.body = VTT.stringify(body);
 			break;
 		case "text/json":
 		case "application/json":
 			body = JSON.parse($response.body ?? "{}");
 			// 解析链接
-			switch (HOST) {
+			switch (url.hostname) {
 				case "www.bilibili.com":
 					break;
 				case "app.bilibili.com":
 				case "app.biliapi.net":
 					// 先保存一下AccessKey
 					/*
-							if (url.searchParams.has("access_key")) {
-								let newCaches = Storage.getItem("@BiliBili.Global.Caches", {});
-								newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
-								log(`newCaches = ${JSON.stringify(newCaches)}`);
-								let isSave = Storage.setItem(newCaches, "@BiliBili.Global.Caches");
-								log(`Storage.setItem ? ${isSave}`);
-							};
-							*/
-					switch (PATH) {
+					if (url.searchParams.has("access_key")) {
+						let newCaches = Storage.getItem("@BiliBili.Global.Caches", {});
+						newCaches.AccessKey = url.searchParams.get("access_key"); // 总是刷新
+						Console.debug(`newCaches = ${JSON.stringify(newCaches)}`);
+						let isSave = Storage.setItem(newCaches, "@BiliBili.Global.Caches");
+						Console.debug(`Storage.setItem ? ${isSave}`);
+					};
+					*/
+					switch (url.pathname) {
 						case "/x/resource/show/tab/v2": // 首页-Tab
 							// 顶栏-左侧
 							body.data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
@@ -113,13 +111,13 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 							break;
 						case "/x/v2/account/mine": // 账户信息-我的
 							body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
-								log(`e.title = ${e.title}`);
-								//log(`e.items = ${JSON.stringify(e.items)}`);
+								Console.debug(`e.title = ${e.title}`);
+								//Console.debug(`e.items = ${JSON.stringify(e.items)}`);
 								switch (e.title) {
 									case "创作中心":
 										e.items = e.items
 											.map(item => {
-												//log(`item.id = ${item.id}`);
+												//Console.debug(`item.id = ${item.id}`);
 												if (Settings.Mine.CreatorCenter.includes(item.id)) return item;
 											})
 											.filter(Boolean);
@@ -127,7 +125,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									case "推荐服务":
 										e.items = e.items
 											.map(item => {
-												//log(`item.id = ${item.id}`);
+												//Console.debug(`item.id = ${item.id}`);
 												if (Settings.Mine.Recommend.includes(item.id)) return item;
 											})
 											.filter(Boolean);
@@ -135,7 +133,7 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 									case "更多服务":
 										e.items = e.items
 											.map(item => {
-												//log(`item.id = ${item.id}`);
+												//Console.debug(`item.id = ${item.id}`);
 												if (Settings.Mine.More.includes(item.id)) return item;
 											})
 											.filter(Boolean);
@@ -166,22 +164,20 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 						case "/x/v2/channel/region/list": {
 							// 分区页面-索引
 							body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
-							//log(JSON.stringify(body.data));
+							//Console.debug(JSON.stringify(body.data));
 							body.data = uniqueFunc(body.data, "tid"); // 去重
-							//log(JSON.stringify(body.data));
+							//Console.debug(JSON.stringify(body.data));
 							body.data = body.data.sort(compareFn("tid")); // 排序
-							//log(JSON.stringify(body.data));
+							//Console.debug(JSON.stringify(body.data));
 							body.data = body.data
 								.map(e => {
 									// 过滤
 									if (Settings.Region.Index.includes(e.tid)) return e;
 								})
 								.filter(Boolean);
-							//log(JSON.stringify(data));
-
-							switch (
-								PATH // 特殊处理
-							) {
+							//Console.debug(JSON.stringify(data));
+							// 特殊处理
+							switch (url.pathname) {
 								case "/x/v2/region/index":
 									break;
 								case "/x/v2/channel/region/list":
@@ -224,9 +220,9 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 		case "application/grpc":
 		case "application/grpc+proto":
 		case "application/octet-stream": {
-			//log(`🚧 $response.body: ${JSON.stringify($response.body)}`, "");
+			//Console.debug(`$response.body: ${JSON.stringify($response.body)}`);
 			let rawBody = $app === "Quantumult X" ? new Uint8Array($response.bodyBytes ?? []) : ($response.body ?? new Uint8Array());
-			//log(`🚧 isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`, "");
+			//Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`);
 			/******************  initialization start  *******************/
 			/******************  initialization finish  *******************/
 			// 写入二进制数据
@@ -235,5 +231,5 @@ log(`⚠ FORMAT: ${FORMAT}`, "");
 		}
 	}
 })()
-	.catch(e => logError(e))
+	.catch(e => Console.error(e))
 	.finally(() => done($response));

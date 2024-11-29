@@ -1,4 +1,4 @@
-import { Lodash as _, getStorage, log } from '@nsnanocat/util'
+import { Lodash as _, getStorage, Console } from '@nsnanocat/util'
 
 /**
  * Set Environment Variables
@@ -9,7 +9,7 @@ import { Lodash as _, getStorage, log } from '@nsnanocat/util'
  * @return {Object} { Settings, Caches, Configs }
  */
 export default function setENV(name, platforms, database) {
-	log("☑️ Set Environment Variables", "");
+	Console.log("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
@@ -25,9 +25,10 @@ export default function setENV(name, platforms, database) {
 	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) _.set(Settings, "Mine.iPad.Recommend", (Settings?.Mine?.iPad?.Recommend) ? [Settings.Mine.iPad.Recommend] : []);
 	if (!Array.isArray(Settings?.Mine?.iPad?.More)) _.set(Settings, "Mine.iPad.More", (Settings?.Mine?.iPad?.More) ? [Settings.Mine.iPad.More] : []);
 	if (!Array.isArray(Settings?.Region?.Index)) _.set(Settings, "Region.Index", (Settings?.Region?.Index) ? [Settings.Region.Index] : []);
-	log(`✅ Set Environment Variables, Settings: ${typeof Settings}, Settings内容: ${JSON.stringify(Settings)}`, "");
+	Console.debug(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings)}`);
 	/***************** Caches *****************/
-	//log(`✅ Set Environment Variables, Caches: ${typeof Caches}, Caches内容: ${JSON.stringify(Caches)}`, "");
+	//Console.debug(`typeof Caches: ${typeof Caches}`, `Caches: ${JSON.stringify(Caches)}`);
 	/***************** Configs *****************/
+	Console.log("✅ Set Environment Variables");
 	return { Settings, Caches, Configs };
 };
