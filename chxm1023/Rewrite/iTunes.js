@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-11-29
+更新日期：2024-11-30
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -30,7 +30,8 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 const lifetimeid = `${bundle_id}.lifetime`;
 
 const list = {
-  'Graphionica': { cm: 'timea', hx: 'hxpda', id: "premium_year", latest: "chxm1023" },  //Graphionica
+  'DeviceFinder': { cm: 'timeb', hx: 'hxpda', id: "com.wonderfind.lifetime", latest: "chxm1023" },  //Wonderfind-设备查找
+  'Graphionica': { cm: 'timea', hx: 'hxpda', id: "premium_year", latest: "chxm1023" },  //Graphionica-限时动态拼版图片
   'AIAssistant': { cm: 'timea', hx: 'hxpda', id: "AIchat_1w_7.99_trial", latest: "chxm1023" },  //AIAssistant
   'MonitorPlus': { cm: 'timeb', hx: 'hxpda', id: "com.unhonin.MonitorPlus.proversion", latest: "chxm1023" },  //Monitor+
   'MessageHold': { cm: 'timeb', hx: 'hxpda', id: "com.messagehold.forever", latest: "chxm1023" },  //拦截盾
