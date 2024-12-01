@@ -6,24 +6,23 @@
 #!homepage = https://github.com/Keywos/rule/blob/main/script/wy
 #!icon = https://raw.githubusercontent.com/Keywos/rule/main/tv/app/144px/Netease.png
 #https://raw.githubusercontent.com/LimeAroma/Loon/main/Plugin/NeteaseCloudMusic_remove_ads.plugin
-#!date = 2024-03-13 17:59:58
+#!date = 2024-12-01 21:16:57
 
 
 [Argument]
-MY = switch,true,tag=[底部标签]漫游标签,desc=
-DT = switch,true,tag=[底部标签]笔记标签,desc=
-TJ = switch,true,tag=[底部标签]推荐标签,desc=
-FX = switch,true,tag=[底部标签]发现标签,desc=
+MY = switch,true,tag=[隐藏底部]漫游标签,desc=
+DT = switch,true,tag=[隐藏底部]笔记标签,desc=
+FX = switch,true,tag=[隐藏底部]发现标签,desc=
 
-PRGG = switch,true,tag=[首页]首页问候语,desc=
-PRRK = switch,true,tag=[首页]首页排行榜,desc=
-PRDRD = switch,true,tag=[首页]首页每日推荐,desc=
-PRSCVPT = switch,true,tag=[首页]首页推荐歌单,desc=
-PRST = switch,true,tag=[首页]首页最近常听,desc=
-PRRR = switch,true,tag=[首页]首页雷达歌单,desc=
-HMPR = switch,true,tag=[首页]首页音乐合伙人,desc=
-PRMST = switch,true,tag=[首页]首页推荐专属歌单,desc=
-PRCN = switch,true,tag=[首页]首页你的专属歌单,desc=
+PRGG = switch,true,tag=[隐藏首页]问候语,desc=
+PRRK = switch,true,tag=[隐藏首页]排行榜,desc=
+PRDRD = switch,true,tag=[隐藏首页]每日推荐,desc=
+PRSCVPT = switch,true,tag=[隐藏首页]推荐歌单,desc=
+PRST = switch,true,tag=[隐藏首页]最近常听,desc=
+PRRR = switch,true,tag=[隐藏首页]雷达歌单,desc=
+HMPR = switch,true,tag=[隐藏首页]音乐合伙人,desc=
+PRMST = switch,true,tag=[隐藏首页]推荐专属歌单,desc=
+PRCN = switch,true,tag=[隐藏首页]你的专属歌单,desc=
 
 [MITM]
 hostname = interface.music.163.com, interface3.music.163.com, ipv4.music.163.com, interface9.music.163.com
@@ -54,7 +53,7 @@ http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(batch|v\
 #http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(music-vip-membership\/client\/vip\/info|vipnewcenter\/app\/resource\/newaccountpage) script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, requires-body=true, binary-body-mode=true, timeout=20, tag=ne_vip
 
 # tab
-http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, requires-body=true, binary-body-mode=true, timeout=20, tag=ne_tab, argument=[{MY},{DT},{TJ},{FX}]
+http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, requires-body=true, binary-body-mode=true, timeout=20, tag=ne_tab, argument=[{MY},{DT},{FX}]
 # 推荐 | home | 主页
 http-response ^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(homepage\/block\/page|link\/page\/rcmd\/(resource\/show|block\/resource\/multi\/refresh)) script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, requires-body=true, binary-body-mode=true, timeout=20, tag=ne_home, argument=[{PRGG},{PRRK},{PRDRD},{PRSCVPT},{PRST},{PRRR},{HMPR},{PRMST},{PRCN}]
 

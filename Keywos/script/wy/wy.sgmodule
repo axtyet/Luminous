@@ -2,9 +2,9 @@
 #!desc= 可自定 - 全面净化
 #!system= ios
 #!category= Key
-#!arguments= 推荐:1,发现:1,漫游:0,笔记:0,以下为首页卡片板块:--,问候语:0,每日推荐:1,推荐歌单:1,最近常听:1,音乐合伙人:1,雷达歌单:0,排行榜:0,推荐专属歌单:0,你的专属歌单:0,脚本伪vip:#
+#!arguments= 发现:1,漫游:0,笔记:0,以下为首页卡片板块:--,问候语:0,每日推荐:1,推荐歌单:1,最近常听:1,音乐合伙人:1,雷达歌单:0,排行榜:0,推荐专属歌单:0,你的专属歌单:0,脚本伪vip:#
 #!arguments-desc= 将 # 改成任意名称即可开启对应脚本\n\n不隐藏为:1  隐藏为:0
-#!date= 2024-03-13 18:00:06
+#!date= 2024-12-01 21:21:50
 #!icon= https://raw.githubusercontent.com/Keywos/rule/main/tv/app/144px/Netease.png
 #Thank RuCu6, kokoryh 
 
@@ -19,7 +19,7 @@ http-request ^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/e?api\/(?:batch
 {{{脚本伪vip}}} = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(music-vip-membership\/client\/vip\/info|vipnewcenter\/app\/resource\/newaccountpage),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js
 
 # tab
-网易云音乐 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, argument="{"MY":"{{{漫游}}}","DT":"{{{笔记}}}","TJ":"{{{推荐}}}","FX":"{{{发现}}}"}"
+网易云音乐 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/link\/home\/framework\/tab,requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, argument="{"MY":"{{{漫游}}}","DT":"{{{笔记}}}","FX":"{{{发现}}}"}"
 
 # 推荐 | home | 主页
 网易云音乐 = type=http-response,pattern=^https?:\/\/(ipv4|interface\d?)\.music\.163\.com\/e?api\/(homepage\/block\/page|link\/page\/rcmd\/(resource\/show|block\/resource\/multi\/refresh)),requires-body=1,max-size=0,timeout=20,binary-body-mode=1,script-path=https://raw.githubusercontent.com/Keywos/rule/main/script/wy/js/wyres.js, argument="{"PRGG":"{{{问候语}}}","PRDRD":"{{{每日推荐}}}","PRSCVPT":"{{{推荐歌单}}}","PRST":"{{{最近常听}}}","HMPR":"{{{音乐合伙人}}}","PRRR":"{{{雷达歌单}}}","PRRK":"{{{排行榜}}}","PRMST":"{{{推荐专属歌单}}}","PRCN":"{{{你的专属歌单}}}"}"
