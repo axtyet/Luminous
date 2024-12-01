@@ -30,6 +30,7 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 const lifetimeid = `${bundle_id}.lifetime`;
 
 const list = {
+  'com.maine.aifill': { cm: 'timeb', hx: 'hxpda', id: "com.maine.aifill.unlimited", latest: "chxm1023" },  //AI FILL-智能填充.换衣/换背景
   'DeviceFinder': { cm: 'timeb', hx: 'hxpda', id: "com.wonderfind.lifetime", latest: "chxm1023" },  //Wonderfind-设备查找
   'Graphionica': { cm: 'timea', hx: 'hxpda', id: "premium_year", latest: "chxm1023" },  //Graphionica-限时动态拼版图片
   'AIAssistant': { cm: 'timea', hx: 'hxpda', id: "AIchat_1w_7.99_trial", latest: "chxm1023" },  //AIAssistant
