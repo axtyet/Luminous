@@ -1,4 +1,4 @@
-import { $app, Console, done, fetch, gRPC, Lodash as _, notification, Storage, wait } from "@nsnanocat/util";
+import { $app, Console, done, fetch, gRPC, Lodash as _, Storage } from "@nsnanocat/util";
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
 import { PlayViewReply } from "./protobuf/bilibili/pgc/gateway/player/v2/playurl.js";
