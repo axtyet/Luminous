@@ -3,10 +3,9 @@
 #!category=⚙️ ▸ Function
 
 [Header Rewrite]
-http-response https:\/\/kelee\.one(\/.*)? header-add content-disposition inline
-http-response https:\/\/kelee\.one(\/.*)? header-replace content-type "text/plain; charset=utf-8"
-http-request https:\/\/kelee\.one(\/.*)? header-replace User-Agent "Surge iOS/3367"
-
+http-response https:\/\/(.*\.)?kelee\.one(\/.*)? header-add content-disposition inline
+http-response https:\/\/(.*\.)?kelee\.one(\/.*)? header-replace content-type "text/plain; charset=utf-8"
+http-request https:\/\/(.*\.)?kelee\.one(\/.*)? header-replace User-Agent "Surge iOS/3367"
 
 [MITM]
-hostname = %APPEND% kelee.one
+hostname = %APPEND% *.kelee.one
