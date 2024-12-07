@@ -2,6 +2,7 @@
 
 项目名称：蜗牛睡眠
 下载地址：https://t.cn/A6NBzdYh
+更新日期：2024-12-07
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -35,14 +36,8 @@ chxm1023 = {
     "unique" : "646195d5bc81021ffed65e71",
     "lifelong" : true,
     "radexpired" : false,
-    "links" : [
-
-    ],
     "dreamsUsed" : 0
-  },
-  "links" : [
-
-  ]
+  }
 };
 
 $done({body : JSON.stringify(chxm1023)});
