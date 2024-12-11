@@ -2,7 +2,6 @@ import { $app, Console, done, Lodash as _ } from "@nsnanocat/util";
 import { URL } from "@nsnanocat/url";
 import database from "./function/database.mjs";
 import setENV from "./function/setENV.mjs";
-Console.logLevel = "DEBUG";
 /***************** Processing *****************/
 // 解构URL
 const url = new URL($request.url);
@@ -13,12 +12,13 @@ Console.info(`PATHs: ${PATHs}`);
 // 解析格式
 const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 Console.info(`FORMAT: ${FORMAT}`);
-!(async () => {
+(async () => {
 	/**
 	 * 设置
 	 * @type {{Settings: import('./types').Settings}}
 	 */
 	const { Settings, Caches, Configs } = setENV("BiliBili", "Enhanced", database);
+	Console.logLevel = Settings.LogLevel;
 	// 创建空数据
 	let body = { code: 0, message: "0", data: {} };
 	// 格式判断

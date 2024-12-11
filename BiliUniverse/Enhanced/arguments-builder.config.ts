@@ -38,7 +38,7 @@ export default defineConfig({
 	args: [
 		{
 			key: "Home.Tab",
-			name: "[首页]标签页",
+			name: "[首页] 标签页",
 			defaultValue: ["直播tab", "推荐tab", "hottopic", "bangumi", "anime", "film", "koreavtw"],
 			type: "array",
 			boxJsType: "checkboxes",
@@ -100,7 +100,7 @@ export default defineConfig({
 		},
 		{
 			key: "Home.Tab_default",
-			name: "[首页]默认标签页",
+			name: "[首页] 默认标签页",
 			defaultValue: "推荐tab",
 			type: "string",
 			boxJsType: "selects",
@@ -162,7 +162,7 @@ export default defineConfig({
 		},
 		{
 			key: "Home.Top_left",
-			name: "[首页]顶栏（左侧）按钮（用户头像）",
+			name: "[首页] 顶栏（左侧）按钮（用户头像）",
 			defaultValue: "mine",
 			type: "string",
 			boxJsType: "selects",
@@ -180,7 +180,7 @@ export default defineConfig({
 		},
 		{
 			key: "Home.Top",
-			name: "[首页]顶栏（右侧）按钮",
+			name: "[首页] 顶栏（右侧）按钮",
 			defaultValue: ["消息Top"],
 			type: "array",
 			boxJsType: "checkboxes",
@@ -202,7 +202,7 @@ export default defineConfig({
 		},
 		{
 			key: "Bottom",
-			name: "[底部]导航栏按钮",
+			name: "[底部] 导航栏按钮",
 			defaultValue: ["home", "dynamic", "ogv", "会员购Bottom", "我的Bottom"],
 			type: "array",
 			boxJsType: "checkboxes",
@@ -240,6 +240,21 @@ export default defineConfig({
 					"key": "我的Bottom",
 					"label": "我的"
 				}
+			],
+		},
+		{
+			key: "LogLevel",
+			name: "[调试] 日志等级",
+			type: "string",
+			defaultValue: "WARN",
+			description: "选择脚本日志的输出等级，低于所选等级的日志将全部输出。",
+			options: [
+				{ key: "OFF", label: "关闭" },
+				{ key: "ERROR", label: "❌ 错误" },
+				{ key: "WARN", label: "⚠️ 警告" },
+				{ key: "INFO", label: "ℹ️ 信息" },
+				{ key: "DEBUG", label: "🅱️ 调试" },
+				{ key: "ALL", label: "全部" },
 			],
 		},
 	],

@@ -1,12 +1,6 @@
 export default {
-	Default: {
-		Settings: {
-			Switch: true,
-		},
-	},
 	Enhanced: {
 		Settings: {
-			Switch: "true",
 			Home: {
 				Switch: "true",
 				Top_left: "mine",
@@ -21,9 +15,10 @@ export default {
 				CreatorCenter: [],
 				Recommend: ["400", "402", "404", "403"],
 				More: ["407", "410", "1028"],
-				iPad: { Upper: [], Recommend: ["789", "790", "791", "793", "794", "2542"], More: ["797", "798"] },
+				iPad: { Switch: "true", Upper: [], Recommend: ["789", "790", "791", "793", "794", "2542"], More: ["797", "798"] },
 			},
 			Region: {
+				Switch: "true",
 				Index: [
 					"1",
 					"3",
@@ -2956,6 +2951,11 @@ export default {
 					},
 				],
 			},
+		},
+	},
+	Default: {
+		Settings: {
+			LogLevel: "WARN",
 		},
 	},
 };
