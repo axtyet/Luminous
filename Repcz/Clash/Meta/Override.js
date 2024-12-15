@@ -2,7 +2,7 @@
 //
 // Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
 //
-// 最后更新时间: 2024-11-26 22:15
+// 最后更新时间: 2024-12-15 08:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -45,8 +45,7 @@ function main(config) {
     "enhanced-mode": "fake-ip",
     "fake-ip-range": "198.18.0.1/16",
     "fake-ip-filter": ["*", "+.lan", "+.local", "+.direct", "+.msftconnecttest.com", "+.msftncsi.com"],
-    "nameserver": ["223.5.5.5", "119.29.29.29"],
-    "nameserver-policy": {"rule-set:AD": "rcode://success"}
+    "nameserver": ["223.5.5.5", "119.29.29.29"]
   };
 
   // 覆盖 geodata 配置
@@ -359,6 +358,7 @@ function main(config) {
 
   // 覆盖规则
   config["rules"] = [
+    "RULE-SET,AD,REJECT",
     "RULE-SET,AI,AI",
     "RULE-SET,Apple,苹果服务",
     "RULE-SET,YouTube,谷歌服务",

@@ -7,7 +7,7 @@
 #
 # Mihomo Version ≥ 1.8.10
 #
-# 最后更新时间: 2024-12-11 20:30
+# 最后更新时间: 2024-12-15 08:00
 #
 # ================
 
@@ -67,7 +67,6 @@ dns:
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter: ['*', '+.lan', '+.local', '+.direct', '+.msftconnecttest.com', '+.msftncsi.com']
   nameserver: [223.5.5.5, 119.29.29.29]
-  nameserver-policy: {"rule-set:AD": rcode://success}
 
 # 锚点参数
 pg: &pg {type: select, proxies: [手动切换, 香港节点, 美国节点, 狮城节点, 日本节点, 台湾节点, DIRECT]}
@@ -117,7 +116,7 @@ rule-providers:
   HBO: {<<: *c, path: ./rules/HBO.list, url: https://github.com/Repcz/Tool/raw/X/Clash/Rules/HBO.list}
 
 rules:
-# - RULE-SET,AD,REJECT
+  - RULE-SET,AD,REJECT
   - RULE-SET,AI,AI
   - RULE-SET,Apple,苹果服务
   - RULE-SET,YouTube,谷歌服务
