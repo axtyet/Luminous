@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2024-12-09
+更新日期：2024-12-19
 脚本作者：chxm1023
 电报频道：https://t.me/chxm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -232,6 +232,7 @@ const list = {
   'com.kuaijiezhilingdashi.appname': { cm: 'timea', hx: 'hxpda', id: "com.othermaster.yearlyvip", latest: "chxm1023" },  //快捷指令库
   'LogInput': { cm: 'timea', hx: 'hxpda', id: "com.logcg.loginput", latest: "chxm1023" },  //落格输入法
   'SoundLab': { cm: 'timea', hx: 'hxpda', id: "8800", latest: "chxm1023" },  //合声
+  'HandNote': { cm: 'timeb', hx: 'hxpda', id: "permanent_membership", latest: "chxm1023" },  //千本笔记
   'Kilonotes': { cm: 'timea', hx: 'hxpda', id: "kipa_kilonotes_quarter_subscription", latest: "chxm1023" },  //千本笔记
   'YiJianKouTu': { cm: 'timea', hx: 'hxpda', id: "XiChaoYiJianKouTuPlus", latest: "chxm1023" },  //一键抠图
   'FileArtifact': { cm: 'timea', hx: 'hxpda', id: "com.shengzhou.fileartifact.year", latest: "chxm1023" },  //文晓生
