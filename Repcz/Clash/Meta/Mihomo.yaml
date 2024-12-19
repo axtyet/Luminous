@@ -7,7 +7,7 @@
 #
 # Mihomo Version ≥ 1.8.10
 #
-# 最后更新时间: 2024-12-15 08:00
+# 最后更新时间: 2024-12-19 20:20
 #
 # ================
 
@@ -39,20 +39,8 @@ geox-url:
   mmdb: "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb"
   asn: "https://mirror.ghproxy.com/https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb"
 
-profile:
-  store-selected: true 
-  store-fake-ip: true  
-
-sniffer:
-  enable: true
-  sniff:
-    HTTP:
-      ports: [80, 8080-8880]
-      override-destination: true
-    TLS:
-      ports: [443, 8443]
-    QUIC:
-      ports: [443, 8443]
+profile: { store-selected: true, store-fake-ip: false }
+sniffer: { enable: true, sniff: { HTTP: { ports: [80], override-destination: true }, TLS: { ports: [443, 8443] }, QUIC: { ports: [443, 8443] } } }
 
 tun:
   enable: true
