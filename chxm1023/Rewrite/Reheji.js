@@ -49,7 +49,6 @@ const bundle = {
 };
 
 const listua = {
-  'iHabit': { name: 'ihabit_lTime_subscription', id: 'ihabit_forever_payment_vip', cm: 'sjb' },  //iHabit-习惯养成
   'Morphose': { name: 'ProStandard', id: 'com.pixery.morphose.yearly', cm: 'sja' },  //Morphose
   'ClevCalc': { name: 'Premium', id: 'com.dencreak.dlcalculator.iap.dlc_no_ads_permanent', cm: 'sjb' },  //万能计算器
   'Unfold': { name: 'REDUCED_PRO_YEARLY', id: 'UNFOLD_PRO_YEARLY', cm: 'sja' },  //Unfold-视频和照片编辑器
