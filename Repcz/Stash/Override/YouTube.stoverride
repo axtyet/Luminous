@@ -1,0 +1,45 @@
+name: |-
+  Youtube (Music) Enhance
+desc: |-
+  适用于 Youtube & Youtube Music
+  作者: @Maasea @Script-Hub
+icon: |-
+  https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouTube.png
+category: |-
+  ⚙️ ▸ NoAds
+arguments: |-
+  屏蔽上传按钮:true,屏蔽选段按钮:true,字幕翻译语言:zh-Hans,歌词翻译语言:zh-Hans,脚本执行引擎:auto,启用调试模式:false
+arguments-desc: |-
+  - 屏蔽参数：[true, false] \n- 翻译参数：[语言代码, off] \n- 脚本引擎：[auto, jsc, webview]\n\n1. 语言代码遵循 Google Translate Languages Codes, 当填入 off 时关闭翻译\n2. 推荐使用 jsc 引擎，但你仍可以切换成 webview 体验 Surge 新特性\n3. 开启调试模式用于输出更多日志
+
+http:
+
+  mitm:
+    - "*.googlevideo.com"
+    - "youtubei.googleapis.com"
+
+  url-rewrite:
+    - >-
+      ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad - reject-200
+
+  script:
+    - match: ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch)
+      name: "youtube.response"
+      type: response
+      require-body: true
+      max-size: -1
+      binary-mode: true
+      argument: |-
+        {"lyricLang":"zh-Hans","captionLang":"zh-Hans","blockUpload":true,"blockImmersive":true,"debug":false}
+
+script:
+  shortcuts:
+    udp-googlevideo: network == 'udp' and (host.endswith('+.googlevideo.com') or host.endswith('+.googleapi.com'))
+
+script-providers:
+  "youtube.response":
+    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+    interval: 86400
+
+rules:
+  - SCRIPT,udp-googlevideo,REJECT
