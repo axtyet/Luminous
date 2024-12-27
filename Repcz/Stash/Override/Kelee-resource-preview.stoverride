@@ -1,0 +1,15 @@
+name: 功能｜Kelee 资源预览
+desc: 预览资源，而不是下载
+icon: https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/KeLee.png
+category: ⚙️ ▸ Function
+
+http:
+
+  mitm:
+    - "*.kelee.one"
+    - "kelee.one"
+
+  header-rewrite:
+    - ^https:\/\/(.*\.)?kelee\.one(\/.*)? request-replace User-Agent Surge iOS/9527
+    - ^https:\/\/(.*\.)?kelee\.one(\/.*)? response-add content-disposition inline
+    - https:\/\/(.*\.)?kelee\.one(\/.*)? response-replace content-type text/plain; charset=utf-8

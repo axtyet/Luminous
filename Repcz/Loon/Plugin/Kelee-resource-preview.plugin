@@ -1,0 +1,13 @@
+#!name=功能｜Kelee 资源预览
+#!desc=预览资源，而不是下载
+#!homepage=https://github.com/luestr/ProxyResource/tree/main?tab=readme-ov-file#插件列表
+#!icon=https://raw.githubusercontent.com/luestr/IconResource/main/Other_icon/120px/KeLee.png
+#!tag=⚙️ ▸ Function
+
+[Rewrite]
+^https:\/\/(.*\.)?kelee\.one(\/.*)? header-replace User-Agent Surge\x20iOS/9527
+^https:\/\/(.*\.)?kelee\.one(\/.*)? response-header-add content-disposition inline
+^https:\/\/(.*\.)?kelee\.one(\/.*)? response-header-replace content-type text/plain;\x20charset=utf-8
+
+[MITM]
+hostname = *.kelee.one, kelee.one
