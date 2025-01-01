@@ -2,7 +2,7 @@ name: 滴滴出行去广告
 desc: |-
   移除开屏广告、精简首页、底栏和我的页面。
   作者: @ZenmoFeiShi @可莉🅥 @Script-Hub
-  最后更新时间: 2025-01-01 19:35
+  最后更新时间: 2025-01-01 20:50
 icon: https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/DiDi.png
 category: ⚙️ ▸ NoAds
 
@@ -68,11 +68,9 @@ script-providers:
 
 script:
   shortcuts:
-    DD_IP1: ipasn(dst_ip) == 45090 and dst_port == 25641 and network == 'tcp'
-    DD_IP2: ipasn(dst_ip) == 63646 and dst_port == 25641 and network == 'tcp'
+    DD_IP: dst_port == 25641 and network == 'tcp' and (ipasn(dst_ip) == 45090 or ipasn(dst_ip) == 63646)
 
 rules:
-  - SCRIPT,DD_IP1,REJECT
-  - SCRIPT,DD_IP2,REJECT
+  - SCRIPT,DD_IP,REJECT
   - DOMAIN,hd.xiaojukeji.com,REJECT
   - DOMAIN,gwp.xiaojukeji.com,REJECT
