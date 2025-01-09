@@ -3,8 +3,9 @@
 项目名称：海绵去水印/功夫去水印
 下载地址：#小程序://海绵去水印/fkz0DxWNzGVwb3A
 下载地址：#小程序://功夫去水印/BDrKc83B8O909Sc
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2025-01-08
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 使用说明：点击登录即可变成至尊VIP。
 
@@ -21,7 +22,7 @@ hostname = analysis.20kaka.cn, q12.tuanyougou.com
 
 
 var body = $response.body;
-var chxm1023 = JSON.parse(body);
+var ddm = JSON.parse(body);
 
 const vip = '/user';
 const ad = '/index';
@@ -32,7 +33,7 @@ const jxb = '/GetYqList';
 
 //海绵去水印
 if ($request.url.indexOf(vip) != -1){
-  chxm1023 = {
+  ddm = {
   "invite_num" : 0,
   "cdkey" : "1",
   "vip" : 1,
@@ -46,7 +47,7 @@ if ($request.url.indexOf(vip) != -1){
     "ip" : null,
     "sort_num" : "0",
     "max_num" : null,
-    "nickname" : "chxm1023",
+    "nickname" : "ddm",
     "create_time" : "1970-01-01 08:00:00",
     "given" : null,
     "day_num" : 0,
@@ -75,18 +76,18 @@ if ($request.url.indexOf(vip) != -1){
 
 
 if ($request.url.indexOf(ad) != -1){
-  delete chxm1023.data.banner;
-  delete chxm1023.data.advertisement;
-  delete chxm1023.data.banner_tools;
+  delete ddm.data.banner;
+  delete ddm.data.advertisement;
+  delete ddm.data.banner_tools;
 }
 
 if ($request.url.indexOf(jx) != -1){
-  chxm1023.data.vip = 1;
+  ddm.data.vip = 1;
 }
 
 //功夫去水印备用版
 if ($request.url.indexOf(vipb) != -1){
-  chxm1023.data = {
+  ddm.data = {
     "userId" : 1858119,
     "openid" : 1858119,
     "endTime" : "2099-09-09",
@@ -98,17 +99,17 @@ if ($request.url.indexOf(vipb) != -1){
 }
 
 if ($request.url.indexOf(adb) != -1){
-  delete chxm1023.data.ads;
-  delete chxm1023.data.bannerList;
-  delete chxm1023.data.adTip;
-  delete chxm1023.data.adTiptj;
-  delete chxm1023.data.adTippl;
-  delete chxm1023.data.adPath;
-  delete chxm1023.data.content;
+  delete ddm.data.ads;
+  delete ddm.data.bannerList;
+  delete ddm.data.adTip;
+  delete ddm.data.adTiptj;
+  delete ddm.data.adTippl;
+  delete ddm.data.adPath;
+  delete ddm.data.content;
 }
 
 if ($request.url.indexOf(jxb) != -1){
-  chxm1023.data.keyong = 99999999999;
+  ddm.data.keyong = 99999999999;
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});
