@@ -2,8 +2,9 @@
 
 项目名称：板凳音乐
 下载地址：https://t.cn/A6WODB1b
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2024-01-09
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
@@ -17,14 +18,14 @@ hostname = mobileapp.wuyamusic.com
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 const vip = /vip\/user/;
 const yuepu = /music\/score/;
 const ad = /(api\/msg\/listpopupmessage|app\/swiper\/listv)/;
 
 if(vip.test($request.url)){
-	chxm1023.data = [
-    {...chxm1023.data,
+	ddm.data = [
+    {...ddm.data,
       "remainderDay" : 99999,
       "version" : 1,
       "type" : 1,
@@ -40,14 +41,14 @@ if(vip.test($request.url)){
 }
 
 if(yuepu.test($request.url)){
-	chxm1023.data.usableNumber = 99;
-	chxm1023.data.free = 1;
-	delete chxm1023.data.amount;
+	ddm.data.usableNumber = 99;
+	ddm.data.free = 1;
+	delete ddm.data.amount;
 }
 
 if(ad.test($request.url)){
-	chxm1023.data = [];
-	chxm1023.rows = chxm1023.rows.filter(item => item.title !== "联系我们");
+	ddm.data = [];
+	ddm.rows = ddm.rows.filter(item => item.title !== "联系我们");
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});

@@ -20,40 +20,39 @@
 下载地址：https://t.cn/A6o1iVTI
 项目名称：佐糖照片修复
 下载地址：https://t.cn/A6o1itzG
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2025-01-08
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
 
 [rewrite_local]
-
 ^https?:\/\/.*\.(aoscdn\.com|apsapp\.cn) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/arqjt.js
 
-[mitm] 
-
+[mitm]
 hostname = *.aoscdn.com, *.apsapp.cn
 
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 const vipa = '/base/vip/client/authorizations';
 const vipb = '/vips';
 
 
 if ($request.url.indexOf(vipa) != -1){
-  chxm1023.data.is_activated = 1;
-  chxm1023.data.remain_days = 999999999;
-  chxm1023.data.expire_time = "2099-09-09 09:09:09";
-  chxm1023.data.expired_at = 4092600296;
-  chxm1023.data.license_type = "premium";
-  chxm1023.data.durations = 999999999;
-  chxm1023.data.vip_special = 1;
+  ddm.data.is_activated = 1;
+  ddm.data.remain_days = 999999999;
+  ddm.data.expire_time = "2099-09-09 09:09:09";
+  ddm.data.expired_at = 4092600296;
+  ddm.data.license_type = "premium";
+  ddm.data.durations = 999999999;
+  ddm.data.vip_special = 1;
 }
 
 if ($request.url.indexOf(vipb) != -1){
-  chxm1023.data = {
+  ddm.data = {
     "group_expired_at" : 0,
     "is_tried" : 0,
     "max_devices" : 1,
@@ -68,8 +67,8 @@ if ($request.url.indexOf(vipb) != -1){
     "quota" : 999999999,
     "status" : 1,
     "vip_special" : 1,
-    "coin" : 100
+    "coin" : 9999
   };
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});

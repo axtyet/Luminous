@@ -2,8 +2,9 @@
 
 项目名称：Boring Day 壁纸
 下载地址：https://t.cn/A6WUmTgo
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2025-01-09
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
@@ -17,10 +18,10 @@ hostname = boringday.api.neuronlabs.art
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 
 if ($request.url.indexOf('restore') != -1){
-  chxm1023.retData = {
+  ddm.retData = {
     "expiredAt" : 4092599349000,
     "productID" : "com.neuronlabs.id108",
     "orderNo" : "490000123456789",
@@ -29,7 +30,7 @@ if ($request.url.indexOf('restore') != -1){
 }
 
 if ($request.url.indexOf('premium') != -1){
-  chxm1023.retData = [
+  ddm.retData = [
     {
       "isSubscribe" : true,
       "productID" : "com.neuronlabs.id108"
@@ -38,8 +39,8 @@ if ($request.url.indexOf('premium') != -1){
 }
 
 if ($request.url.indexOf('info') != -1){
-  chxm1023.retData.isVIP = true;
-  chxm1023.retData.expiresAt = 4092599349000;
+  ddm.retData.isVIP = true;
+  ddm.retData.expiresAt = 4092599349000;
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});

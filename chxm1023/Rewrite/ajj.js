@@ -2,39 +2,29 @@
 
 项目名称：爱剪辑
 下载地址：https://t.cn/A6KKPMgP
-使用声明：仅供学习与交流，请勿转载与贩卖！⚠️⚠️⚠️
+更新日期：2025-01-08
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
+使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
 
 [rewrite_local]
-
 ^https?:\/\/api\.open\.loveclip\.site\/UserInfo\/(UserPersonalCoreAsync|GetUserDetail) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/ajj.js
 
 [mitm]
-
 hostname = api.open.loveclip.site
 
 *************************************/
 
 
-const urla = "/UserInfo/UserPersonalCoreAsync";
-const urlb = "/UserInfo/GetUserDetail";
-var body = $response.body;
+var ddm = JSON.parse($response.body);
 
-if ($request.url.indexOf(urla) != -1){
-let chxm1023 = JSON.parse(body);
-chxm1023.data.IsVip = true;
-chxm1023.data.VipLevel = "1";
-chxm1023.data.VipExpire = "2099-09-09 09:09:09";
-body = JSON.stringify(chxm1023);}
+if(/(UserPersonalCoreAsync|GetUserDetail)/.test($request.url)){
+  ddm.data.IsVip = true;
+  ddm.data.VipLevel = "1";
+  ddm.data.VipExpire = "2099-09-09 09:09:09";
+}
 
+$done({body : JSON.stringify(ddm)});
 
-
-if ($request.url.indexOf(urlb) != -1){
-let chxm1023 = JSON.parse(body);
-chxm1023.data.IsVip = true;
-chxm1023.data.VipLevel = "1";
-chxm1023.data.VipExpire = "2099-09-09 09:09:09";
-body = JSON.stringify(chxm1023);}
-
-$done({body});

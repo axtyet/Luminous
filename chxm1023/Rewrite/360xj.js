@@ -2,8 +2,9 @@
 
 项目名称：360相机
 下载地址：https://t.cn/A6O2Vt0D
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2025-01-08
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
@@ -17,14 +18,14 @@ hostname = *.camera360.com
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 
 const vip1 = '/api/order/purchase';
 const vip2 = '/api/iap/check-receipt';
 const ad = '/operational-positions';
 
 if ($request.url.indexOf(vip1) != -1){
-  chxm1023["data"] = {
+  ddm["data"] = {
     "originalTransactionId" : "490001464780901",
     "errorCode" : 0,
     "purchaseTime" : 1662685749,
@@ -35,7 +36,7 @@ if ($request.url.indexOf(vip1) != -1){
 }
 
 if ($request.url.indexOf(vip2) != -1){
-  chxm1023["data"] = {
+  ddm["data"] = {
     "sandbox" : 0,
     "purchaseTime" : 1662685749,
     "isTrialPeriod" : 1,
@@ -51,7 +52,7 @@ if ($request.url.indexOf(vip2) != -1){
 }
 
 if ($request.url.indexOf(ad) != -1){
-  chxm1023.Boot = [];
+  ddm.Boot = [];
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});

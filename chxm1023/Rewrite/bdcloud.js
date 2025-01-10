@@ -3,24 +3,23 @@
 项目名称：百度网盘，一刻相册 解锁部分功能
 下载地址：https://t.cn/AiT82mfg
 下载地址：https://t.cn/Ainbj7GV
-脚本作者：chxm1023
+更新日期：2025-01-09
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
-使用说明：非一次性解锁，每次解锁需打开脚本
 
 **************************************
 
 [rewrite_local]
-
 ^https?:\/\/pan\.baidu\.com\/(youai\/(user\/.+\/getminfo|membership\/.+\/adswitch)|(rest\/.+\/membership\/user|act\/.+\/(bchannel|welfare)\/list|api\/usercfg)) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/bdcloud.js
 
 [mitm]
-
 hostname = pan.baidu.com
 
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 const yike = '/getminfo';
 const ad = '/adswitch';
 const wangpan = '/membership/user';
@@ -29,7 +28,7 @@ const hf = '/welfare/list';
 const usercfg = '/api/usercfg';
 
 if ($request.url.indexOf(yike) != -1){
-  chxm1023 = {
+  ddm = {
   "errno": 0,
   "request_id": 342581654394297772,
   "has_purchased": 1,
@@ -67,11 +66,11 @@ if ($request.url.indexOf(yike) != -1){
 }
 
 if ($request.url.indexOf(ad) != -1){
-  chxm1023.switch = "open";
+  ddm.switch = "open";
 }
 
 if ($request.url.indexOf(wangpan) != -1){
-  chxm1023.product_infos = [
+  ddm.product_infos = [
     {
       "product_id" : "5310897792128633390",
       "end_time" : 4092600296,
@@ -96,7 +95,7 @@ if ($request.url.indexOf(wangpan) != -1){
       "status" : 1
     }
   ];
-  chxm1023.guide_data = {
+  ddm.guide_data = {
     "title" : "超级会员 SVIP",
     "content" : "已拥有极速下载+视频倍速特权",
     "button" : {
@@ -104,20 +103,20 @@ if ($request.url.indexOf(wangpan) != -1){
       "action_url" : "https://pan.baidu.com/wap/vip/user?from=myvip2#svip"
     }
   };
-  chxm1023.identity_icon = {
+  ddm.identity_icon = {
     "vip" : "https://internal-amis-res.cdn.bcebos.com/images/2019-8/1566452237582/78b88bf113b7.png",
     "common" : "https://internal-amis-res.cdn.bcebos.com/images/2019-8/1566452539056/bf72cf66fae1.png",
     "svip" : "https://internal-amis-res.cdn.bcebos.com/images/2019-8/1566452115696/38c1d743bfe9.png",
     "contentvip" : ""
   };
-  chxm1023.error_code = 1;
-  delete chxm1023.tips_data_list;
-  delete chxm1023.status_data_arr;
-  delete chxm1023.sub_card_list;
+  ddm.error_code = 1;
+  delete ddm.tips_data_list;
+  delete ddm.status_data_arr;
+  delete ddm.sub_card_list;
 }
 
 if ($request.url.indexOf(list) != -1){
-  chxm1023.data = [
+  ddm.data = [
     {
       "sub_title" : "",
       "id" : 856,
@@ -140,11 +139,11 @@ if ($request.url.indexOf(list) != -1){
 }
 
 if ($request.url.indexOf(hf) != -1){
-  delete chxm1023.data;
+  delete ddm.data;
 }
 
 if ($request.url.indexOf(usercfg) != -1){
-  chxm1023.user_new_define_cards = [
+  ddm.user_new_define_cards = [
     {
       "card_id" : "1",
       "card_type" : "4",
@@ -164,4 +163,4 @@ if ($request.url.indexOf(usercfg) != -1){
   ];
 }
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});

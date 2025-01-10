@@ -5,8 +5,9 @@
 下载地址：https://t.cn/A6OjOeJY
 下载地址：https://t.cn/A6OmacYG
 下载地址：https://t.cn/A6Omaf2D
-脚本作者：chxm1023
-电报频道：https://t.me/chxm1023
+更新日期：2025-01-08
+脚本作者：@ddm1023
+电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
 
 **************************************
@@ -20,7 +21,7 @@ hostname = purchase-*-api.*.com, user-kaji-api.b612kaji.com
 *************************************/
 
 
-var chxm1023 = JSON.parse($response.body);
+var ddm = JSON.parse($response.body);
 const Foodie = 'https://purchase-foodiecn-api.yiruikecorp.com';
 const qingtu = 'https://purchase-qingtu-api.b612kaji.com';
 const B612xj = 'https://user-kaji-api.b612kaji.com';
@@ -46,6 +47,6 @@ if ($request.url.indexOf(tianyan) != -1){
   id = "com.yiruike.sodacn.subscribe.oneyear";
 }
 
-chxm1023 = {  "result" : {    "products" : [      {        "managed" : false,        "status" : "ACTIVE",        "startDate" : 1666666666666,        "productId" : (id),        "expireDate" : 4092599349000      }    ],    "activated" : true  }};
+ddm = {  "result" : {    "products" : [      {        "managed" : false,        "status" : "ACTIVE",        "startDate" : 1666666666666,        "productId" : (id),        "expireDate" : 4092599349000      }    ],    "activated" : true  }};
 
-$done({body : JSON.stringify(chxm1023)});
+$done({body : JSON.stringify(ddm)});
