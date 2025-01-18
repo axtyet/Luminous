@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-01-17 08:03:51(GMT+8) 
-! Total count: 33880
+! ! Version: 2025-01-18 08:03:43(GMT+8) 
+! Total count: 33872
  
 ###ADtip
 ###AdBlockDialog
@@ -1666,17 +1666,6 @@
 ##ul.thread_detail_ads
 ##vg-pause-ads
 ##vg-pause-f
-#%#var AG_abortInlineScript=function(g,b,c){var d=function(){if("currentScript"in document)return document.currentScript;var a=document.getElementsByTagName("script");return a[a.length-1]},e=Math.random().toString(36).substr(2,8),h=d();AG_defineProperty(b,{beforeGet:function(){var a=d();if(a instanceof HTMLScriptElement&&a!==h&&""===a.src&&g.test(a.textContent))throw c&&console.warn("AdGuard aborted execution of an inline script"),new ReferenceError(e);}});var f=window.onerror;window.onerror=function(a){if("string"===typeof a&&-1!==a.indexOf(e))return c&&console.warn("AdGuard has caught window.onerror: "+b),!0;if(f instanceof Function)return f.apply(this,arguments)}};
-#%#var AG_abortOnPropertyRead=function(a,b){var c=Math.random().toString(36).substr(2,8);AG_defineProperty(a,{beforeGet:function(){b&&console.warn("AdGuard aborted property read: "+a);throw new ReferenceError(c);}});var d=window.onerror;window.onerror=function(e){if("string"===typeof e&&-1!==e.indexOf(c))return b&&console.warn("AdGuard has caught window.onerror: "+a),!0;if(d instanceof Function)return d.apply(this,arguments)}};
-#%#var AG_abortOnPropertyWrite=function(a,b){var c=Math.random().toString(36).substr(2,8);AG_defineProperty(a,{beforeSet:function(){b&&console.warn("AdGuard aborted property write: "+a);throw new ReferenceError(c);}});var d=window.onerror;window.onerror=function(e){if("string"===typeof e&&-1!==e.indexOf(c))return b&&console.warn("AdGuard has caught window.onerror: "+a),!0;if(d instanceof Function)return d.apply(this,arguments)}};
-#%#var AG_defineProperty=function(){var p,q=Object.defineProperty;if("function"==typeof WeakMap)p=WeakMap;else{var r=0,t=function(){this.a=(r+=Math.random()).toString()};t.prototype.set=function(a,b){var d=a[this.a];d&&d[0]===a?d[1]=b:q(a,this.a,{value:[a,b],writable:!0});return this};t.prototype.get=function(a){var b;return(b=a[this.a])&&b[0]===a?b[1]:void 0};t.prototype.has=function(a){var b=a[this.a];return b?b[0]===a:!1};p=t}function u(a){this.b=a;this.h=Object.create(null)}function v(a,b,d,e){this.a=a;this.i=b;this.c=d;this.f=e}function w(){this.g=/^([^\\\.]|\\.)*?\./;this.j=/\\(.)/g;this.a=new p}function x(a,b){var d=b.f;if(d&&!("beforeGet"in d||"beforeSet"in d))return z(d);var e={get:function(){var c=b.f;c&&c.beforeGet&&c.beforeGet.call(this,b.a.b);a:if(c=b.g)c=A(c)?c.value:c.get?c.get.call(this):void 0;else{c=b.a.b;if(b.i in c&&(c=B(c),null!==c)){var d=C.call(c,b.i);c=d?d.call(this):c[b.i];break a}c=void 0}(this===b.a.b||D.call(b.a.b,this))&&E(a,c,b.c);return c},set:function(c){if(this===b.a.b||D.call(b.a.b,this)){b.f&&b.f.beforeSet&&(c=b.f.beforeSet.call(this,c,this));var d=b.g;d&&A(d)&&d.value===c?c=!0:(d=F(b,c,this),G(c)&&(c=H(a,c),I(a,c,b.c)),c=d)}else c=F(b,c,this);return c}};d&&J(d,e,K);return e}function I(a,b,d){for(var e in d.h){var c=d.h[e];if(b.h[e]){var h=a,g=b.h[e],k=c;!k.f||g.f||"undefined"===typeof g.a.b||g.g||(g.g=z(k.f));g.c&&k.c&&g.c!==k.c&&I(h,g.c,k.c)}else{g=h=void 0;k=a;var f=b,l=c.i,m="undefined"!==typeof f.b,y=!1;m&&(g=L(f.b,l))&&!g.configurable&&(y=!0,h=f.b[l]);var n=y?H(k,h):new u(c.c.b);I(k,n,c.c);n=new v(f,l,n,c.f);f.h[l]=n;m&&(n.g=g,m=x(k,n),y?E(k,h,c.c):(q(f.b,l,m),g&&A(g)&&(M(m,g.value,f.b),E(k,g.value,c.c))))}}}function E(a,b,d){G(b)&&(b=H(a,b),I(a,b,d))}function F(a,b,d){var e=a.g;if(!e){e=B(a.a.b);if(null!==e&&(e=N.call(e,a.i)))return e.call(d,b);if(!O(a.a.b))return!1;a.g={value:b,configurable:!0,writable:!0,enumerable:!0};return!0}return M(e,b,d)}function H(a,b){var d=a.a.get(b);d||(d=new u(b),a.a.set(b,d));return d}function A(a){return"undefined"!==typeof a.writable}function J(a,b,d){for(var e=0,c=d.length;e<c;e++){var h=d[e];h in a&&(b[h]=a[h])}}function z(a){if(a){var b={};J(a,b,P);return b}}function M(a,b,d){if(A(a))return a.writable?(a.value=b,!0):!1;if(!a.set)return!1;a.set.call(d,b);return!0}var P="configurable enumerable value get set writable".split(" "),K=P.slice(0,2),L=Object.getOwnPropertyDescriptor,O=Object.isExtensible,B=Object.getPrototypeOf,D=Object.prototype.isPrototypeOf,C=Object.prototype.__lookupGetter__||function(a){return(a=Q(this,a))&&a.get?a.get:void 0},N=Object.prototype.__lookupSetter__||function(a){return(a=Q(this,a))&&a.set?a.set:void 0};function Q(a,b){if(b in a){for(;!w.hasOwnProperty.call(a,b);)a=B(a);return L(a,b)}}function G(a){var b=typeof a;return"function"===b||"object"===b&&null!==a?!0:!1}var R;return function(a,b,d){R||(R=new w);var e=R;d=d||window;var c=new u;a+=".";var h=c||new u;for(var g=e.g,k=e.j,f,l,m;a;){f=g.exec(a);if(null===f)throw 1;f=f[0].length;l=a.slice(0,f-1).replace(k,"$1");a=a.slice(f);(f=h.h[l])?m=f.c:(m=new u,f=new v(h,l,m),h.h[l]=f);h=m}if(!f)throw 1;a=f;a.f=b;E(e,d,c)};}();
-#%#var AG_each = function(selector, fn) { if (!document.querySelectorAll) return; var elements = document.querySelectorAll(selector); for (var i = 0; i < elements.length; i++) { fn(elements[i]); }; };
-#%#var AG_onLoad=function(func){if(document.readyState==="complete"||document.readyState==="interactive")func();else if(document.addEventListener)document.addEventListener("DOMContentLoaded",func);else if(document.attachEvent)document.attachEvent("DOMContentLoaded",func)};
-#%#var AG_removeCookie=function(a){var e=/./;/^\/.+\/$/.test(a)?e=new RegExp(a.slice(1,-1)):""!==a&&(e=new RegExp(a.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")));a=function(){for(var a=document.cookie.split(";"),g=a.length;g--;){cookieStr=a[g];var d=cookieStr.indexOf("=");if(-1!==d&&(d=cookieStr.slice(0,d).trim(),e.test(d)))for(var h=document.location.hostname.split("."),f=0;f<h.length-1;f++){var b=h.slice(f).join(".");if(b){var c=d+"=",k="; domain="+b;b="; domain=."+b;document.cookie=c+"; expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=c+k+"; expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=c+b+"; expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=c+"; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=c+k+"; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT";document.cookie=c+b+"; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT"}}}};a();window.addEventListener("beforeunload",a)};
-#%#var AG_removeElementById = function(id) { var element = document.getElementById(id); if (element && element.parentNode) { element.parentNode.removeChild(element); }};
-#%#var AG_removeElementBySelector = function(selector) { if (!document.querySelectorAll) { return; } var nodes = document.querySelectorAll(selector); if (nodes) { for (var i = 0; i < nodes.length; i++) { if (nodes[i] && nodes[i].parentNode) { nodes[i].parentNode.removeChild(nodes[i]); } } } };
-#%#var AG_removeParent = function(el, fn) { while (el && el.parentNode) { if (fn(el)) { el.parentNode.removeChild(el); return; } el = el.parentNode; } };
-#%#var AG_setConstant=function(e,a){if("undefined"===a)a=void 0;else if("false"===a)a=!1;else if("true"===a)a=!0;else if("noopFunc"===a)a=function(){};else if("trueFunc"===a)a=function(){return!0};else if("falseFunc"===a)a=function(){return!1};else if(/^\d+$/.test(a)){if(a=parseFloat(a),isNaN(a)||32767<Math.abs(a))return}else return;var b=!1;AG_defineProperty(e,{get:function(){return a},set:function(c){if(b)var d=!0;else void 0!==c&&void 0!==a&&typeof c!==typeof a&&(b=!0),d=b;d&&(a=c)}})};
 #189
 #@##adblocktest
 #@##banner_ad
@@ -7642,9 +7631,9 @@ bilibili.com##div[style*="height:"][data-loc-id]
 bilibili.com##span[style*="height:"][data-loc-id]
 bilibili.com#$#.bili-video-card:has(.bili-video-card__info--ad) > .bili-video-card__skeleton { visibility: visible !important; }
 bilibili.com#$#.bili-video-card:has(.bili-video-card__info--creative-ad) > .bili-video-card__skeleton { visibility: visible !important; }
+bilibili.com#$#.container > div[class*="-card"]:has(div[style="display: none !important;"]) { position: absolute !important; left: -3000px !important; }
 bilibili.com#$?#.container > div.feed-card:not(:has(> div > *)) { remove: true; }
 bilibili.com#$?#.container > div.floor-single-card:has(> div.skeleton) { remove: true; }
-bilibili.com#$?#.container > div[class*="-card"]:has(div[style="display: none !important;"]) { remove: true; }
 bilibili.com#$?#.ex-card-common:has(.gg-icon) { remove: true; }
 bilibili.com#$?#.van-slide > .item:has(.bypb-icon) { remove: true; }
 bilibili.com#%#//scriptlet('json-prune', 'data.cm_info.ads')
@@ -9520,7 +9509,6 @@ expreview.com##.mamaBox
 extfans.com##.b-ad-1
 extmovie.com##.cd_listtop_pc
 extreme-down.*,extreme-download.*,voiranime.com#$#abort-on-property-read NativeAd
-extremetube.com,pornhub.com,redtube.com,redtube.com.br,tube8.com,tube8.es,tube8.fr,youporn.com,youporngay.com,youpornru.com#$#abort-current-inline-script Object.defineProperty trafficjunky
 eyny.com##span[id^="ads_ads_"]
 eyuyan.com##div[id^="ads_r_"]
 eyuyao.com##div[id^="x_ad_"]
@@ -10206,7 +10194,7 @@ go4up.com##IMG[src="http://go4up.com/assets/img/downloadfr.gif"]
 go4up.com##[href^="http://go.ad2up.com/afu.php?id="]
 go4up.com##[href^="http://liversely.com/g4u?q="]
 gocmod.com#$#abort-current-inline-script jQuery popup
-goctruyentranhvui6.com,mobiblog.club,truyenqqto.com,sextop1.show,hhvsub.com,sayhentai.art,xem.sexviet88.link#$#abort-current-inline-script WebAssembly globalThis
+goctruyentranhvui8.com,mobiblog.club,truyenqqto.com,sextop1.show,hhvsub.com,sayhentai.art,xem.sexviet88.link#$#abort-current-inline-script WebAssembly globalThis
 godt.no##.adblock-info
 gofilmes.me#$#abort-on-property-read zfgformats
 gogi.in#@#.ad300-250
@@ -11249,6 +11237,7 @@ indiatimes.com#?#div:-abp-has(> a p:-abp-has(> span:-abp-properties(content: "Ad
 indiatimes.com#?#div:-abp-has(> h2:-abp-contains(Promoted Stories))
 indiatimes.com#@#div[id^="div-gpt-ad"]
 indoxx1.show##img[src^="blob:https://indoxx1.show/"]
+infinityfree.com,laleggepertutti.it,talkwithstranger.com,kreuzwortraetsel.de,verkaufsoffener-sonntag.com,sportsrec.com,crosswordsolver.com,motscroises.fr,cruciverba.it,motorbikecatalog.com,globalrph.com#$#abort-on-iframe-property-read addEventListener
 info-mage.ru###helpme[style="display: block;"]
 info.cz,lupa.cz,hnonline.sk#$#abort-current-inline-script Math.random adb
 infoq.cn##.geo-banner
@@ -13137,7 +13126,6 @@ motobuy.com.tw##.AD1
 motobuy.com.tw##.adbig
 motocity.com.tw###rotator
 motorpage.ru#$#json-prune '0.BannerId 1.BannerId 2.BannerId 3.BannerId 4.BannerId 5.BannerId 6.BannerId'
-motorsport-total.com#@#.billboard
 mover.uz###oframeplayer > [class][style^="display: block"]
 movieclassic.net###billboard-modal
 movieclassic.net##.modal-backdrop
@@ -14592,12 +14580,14 @@ redircdn.com##.al
 redocn.com###yc_adv_1_2
 redocn.com##.big_vip_gg
 redocn.com##.small_vip_gg
+redtube.*,pornhub.com,tube8.*,youporn.com#$#abort-current-inline-script Object.defineProperty trafficjunky
+redtube.*,pornhub.com,tube8.*,youporn.com#$#hide-if-matches-xpath './/div[contains(text(),"TrafficJunky")]/parent::div[@style]/ancestor::div[@class][@style]/parent::*[not(self::body) and not(self::div[@class])][1]'
+redtube.*,pornhub.com,tube8.*,youporn.com#$#hide-if-matches-xpath '//img[contains(@style, "position: absolute; width: 100%; height: 100%; top: 0px; left: 0px;")]//preceding-sibling::video/parent::div/ancestor-or-self::div[contains(@style,"position:")]'; hide-if-matches-xpath '//img[contains(@src, "data:image/png;base64") or contains(@src,"data:image/gif;base64")]/parent::*/ancestor::div[contains(@style,"position:")]/parent::*[1]'
 redtube.com###as_131
 redtube.com###slidePanelContainerAB
 redtube.com##.add-blocker-msg
 redtube.com##.qb
 redtube.com#$#abort-on-property-read smpop
-redtube.com,pornhub.com,tube8.com,youporn.com#$#hide-if-matches-xpath './/div[contains(text(),"TrafficJunky")]/parent::div[@style]/ancestor::div[@class][@style]/parent::*[not(self::body) and not(self::div[@class])][1]'
 redtube.com,tube8.com,tube8.es,tube8.fr,tube8.net##a[href*="advertising"]
 referencemega.com###hebdotop_t
 reflex.cz###gl-nat
@@ -15092,7 +15082,6 @@ smm.cn##.ad_front_container
 smm.cn##.common-jinzhu-wrap
 smm.cn##.top_taishan_jinzhu
 smotrisport.tv##.dont-add-our-site-pls
-smsonline.cloud,infinityfree.com,laleggepertutti.it,winfuture.de,talkwithstranger.com,the-crossword-solver.com,wort-suchen.de,kreuzwortraetsel.de,verkaufsoffener-sonntag.com,word-grabber.com,raetsel-hilfe.de,maketecheasier.com,sportsrec.com,flatpanelshd.com,crosswordsolver.com,motscroises.fr,cruciverba.it,palabr.as,oeffnungszeitenbuch.de,horairesdouverture24.fr,oraridiapertura24.it,nyitvatartas24.hu,motorbikecatalog.com,globalrph.com,forsal.pl,woxikon.*#$#abort-on-iframe-property-read addEventListener
 smzdm.com###elevator > LI:first-child
 smzdm.com###footer_layer
 smzdm.com###global-search > DIV.search-inner.z-clearfix > DIV.download:last-child
@@ -15581,7 +15570,7 @@ taoziba.cc##.vddb2 + a
 tapochek.net#$#abort-on-property-read ads_script
 taptap.com###bottomBanner
 taptap.com##.open-app-button
-target.com#$#hide-if-matches-xpath './/p[text()="Sponsored"]/parent::div[@class]/ancestor::div[contains(@data-test,"ProductCardWrapper")]/parent::div[1]'
+target.com#$#hide-if-matches-xpath './/p[text()="Sponsored"]/parent::div[@class]/ancestor::div[contains(@data-test,"ProductCardWrapper")][1]'
 tassbiz.ru##.adblock_notif
 tbtdg.com###adblockWarning
 tbtdg.com##.reveal-modal-bg
@@ -15896,12 +15885,12 @@ tripadvisor.com#$#hide-if-matches-xpath './/div/span[contains(text(), "Sponsored
 tripadvisor.com#$#hide-if-matches-xpath './/div[@data-curated-shelf-id and .//div[contains(text(), "Sponsored by")]]/self::div[1]'
 tripadvisor.com#$#hide-if-matches-xpath './/div[@data-test-target="hero-gallery"][../following-sibling::div//div[contains(text(),"Sponsored by")]]/parent::div/parent::div'
 tripadvisor.com#$#hide-if-matches-xpath './/div[@id="typeahead_results"]//div[contains(text(),"Sponsored")]/ancestor::a[@href]'
+tripadvisor.com#$#hide-if-matches-xpath './/h2[@class][contains(text(),"Sponsored by")]/preceding::div[@data-vjs-player]/parent::div[not(@class)]'
 tripadvisor.com#$#hide-if-matches-xpath './/span[@class="listItem"]//div[@data-automation]//span[contains(text(),"Sponsored")]/ancestor::span/parent::div[1]'
 tripadvisor.com#$#hide-if-matches-xpath './/span[contains(text(), "SPONSORED")]/../../../preceding-sibling::div[@data-vjs-player="true"]/parent::div'
 tripadvisor.com#$#hide-if-matches-xpath './/span[contains(text(), "SPONSORED")]/ancestor-or-self::a[@target="_blank"][@href]/parent::div[1]'
 tripadvisor.com#$#hide-if-matches-xpath './/span[contains(text(),"Sponsored")]/ancestor::a[@target="_blank"]/ancestor::li[@class]'
 tripadvisor.com#$#hide-if-matches-xpath './/ul[li/picture]/parent::div/following::span[text()="Sponsored"]/ancestor::div[.//picture and .//a[contains(@href, "Restaurant_Review")]/following::ul/li][1]/parent::div/ancestor-or-self::span[1]'
-tripadvisor.com#$#hide-if-matches-xpath './/video/following::*[@class][contains(translate(text(), "SPONSORED", "sponsored"), "sponsored")][1]/preceding::div[@data-vjs-player]/parent::div/parent::div'
 tripadvisor.com#$#hide-if-matches-xpath '//div[.//div[contains(text(), "Sponsored by: ")]]/ancestor-or-self::span[1]/parent::div[1]'
 tripadvisor.com,tripadvisor.com.br,tripadvisor.ca,tripadvisor.com.mx,tripadvisor.com.ar,tripadvisor.cl,tripadvisor.co,tripadvisor.com.ve,tripadvisor.co.uk,tripadvisor.it,tripadvisor.es,tripadvisor.de,tripadvisor.fr,tripadvisor.se,tripadvisor.nl,tripadvisor.com.tr,tripadvisor.dk,tripadvisor.at,tripadvisor.com.gr,no.tripadvisor.com,tripadvisor.pt,tripadvisor.ru,tripadvisor.ch,tripadvisor.be,tripadvisor.jp,cn.tripadvisor.com,tripadvisor.in,tripadvisor.com.my,tripadvisor.com.ph,tripadvisor.com.sg,tripadvisor.co.id,tripadvisor.co.kr,th.tripadvisor.com,tripadvisor.com.tw,tripadvisor.com.hk,tripadvisor.co.za,ar.tripadvisor.com,tripadvisor.com.eg,tripadvisor.co.il#$#hide-if-matches-xpath '././/span[contains(.,"Patrocinado") or contains(.,"Annonce") or contains(.,"Sponsored") or contains (.,"Sponsorizzato") or contains(., "Gesponsert") or contains(.,"Sponsrad") or contains(.,"Gesponsord") or contains(.,"Sponsorlu") or contains(.,"Sponsoreret") or contains(.,"Χορηγία") or contains(.,"Sponset") or contains(.,"Реклама") or contains(.,"スポンサー提供") or contains(.,"赞助商") or contains(.,"Bersponsor") or contains(.,"스폰서") or contains(.,"สปอนเซอร์") or contains(.,"贊助商") or contains(.,"贊助") or contains(.,"مدعوم") or contains(.,"מודעה")]/ancestor::header/ancestor-or-self::div[2]'
 tropica.cn##.a_mu1
@@ -16703,7 +16692,7 @@ www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrwae]{12}|[Patrocind]{11}|[Sponsrizat]{13}|[Anzeig]{6}/ 'div[role=feed] div[role=article]' a[href^="?__cft__"]; hide-if-contains-visible-text /./ 'div[role=feed] div[role=article]' 'span>a[attributionsrc][href="#"][role="link"][tabindex="0"]>span>span[aria-labelledby]>span[style]'; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-matches-xpath '//div[@role="complementary"]//div[not(@class) and not(@id)]/span[not(@class) and not(@id) and not(@aria-labelledby)]'; hide-if-matches-xpath './/div[@role="complementary"]//span/following::div[@aria-labelledby][@role][@tabindex]/ancestor-or-self::span'; race stop;
 www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(VideoHomeFeedUnitSectionComponent)[^\n]+?"(sponsored_data")[^\n]+?("ad_id"|"SponsoredData")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(VideoPlayerRelay_video$defer$InstreamVideoAdBreaksPlayer_video|instream_video_ad_breaks_comet|__module_operation_InstreamVideoAdBreaksPlayer_video_instream_video_ad_breaks_comet|__module_component_InstreamVideoAdBreaksPlayer_video_instream_video_ad_breaks_comet|InstreamVideoAdBreaksPlayerImpl_adBreaks$normalization.graphql|InstreamVideoAdBreaksPlayerDeferred.react|InstreamVideoAdBreaksPlayerImpl.react|CommercialBreakStartingIndicatorFalcoEvent|CommercialBreakClickFalcoEvent|CommercialBreakEndFalcoEvent)/'
-www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(brs_c|label_field_for_brs|new_label_for_brs|cont_lb_brs|cnt_lbl_brs|the_cnt_lbl_for_brs|newest_lbl_for_brs|flag_for_brs|brs_content_label|flag_of_cnt_lbl_brs|lbl_br_cnt|cont_of_brs_lb|content_type_lbl_brs|flag_for_content_type_brs|identifier_for_content_type_brs|identifier_brs_cnt|br_safety_cont_label|br_sft_con_lbl|b_safety_con_lbl|brand_sf_content_lbl|br_sf_cnt|brand_sft_cont|br_sft_cnt_label|sfty_content_brs_flag|sft_cont_brs_flag|flag_protection_for_cnt_brand|brand_content_protection_lbl|brand_content_protection_label|brs_text_label|txt_cnt_of_brs|txt_flag_cnt_brand|co_lbl_la_br|b_sft_con_lbl|br_labe_cont|lab_br_conten|br_s_cnt_lbl|sfty_for_br_cont_lbl)[^\n]+?("sponsored_data"|"spons_data_lbl"|"data_for_spon"|"data_sponsored"|"spon_data")[^\n]+?("SponsoredData"|"ad_id")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sponsored_auct_dist|auction_dist_for_sponsored|distance_for_sp_auction|auct_dist_for_spon|sps_auct_dist|auct_distance_lbl_for_spons|spon_auc_dis|dist_auction_sps|dis_auc_spons|auc_dist_sps|spons_auct_distance|sps_auc_dis|spons_auc_dist|spons_auct_flag_space|new_spons_auct_flag_space|flag_sponsored_dist_auction|sponsored_lbl_auc_indicator_dist|lbl_for_spons_auc_dis|of_distanc_sponso_au|dist_for_spon_auc)/'
+www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(brs_c|label_field_for_brs|new_label_for_brs|cont_lb_brs|cnt_lbl_brs|the_cnt_lbl_for_brs|newest_lbl_for_brs|flag_for_brs|brs_content_label|flag_of_cnt_lbl_brs|lbl_br_cnt|cont_of_brs_lb|content_type_lbl_brs|flag_for_content_type_brs|identifier_for_content_type_brs|identifier_brs_cnt|br_safety_cont_label|br_sft_con_lbl|b_safety_con_lbl|brand_sf_content_lbl|br_sf_cnt|brand_sft_cont|br_sft_cnt_label|sfty_content_brs_flag|sft_cont_brs_flag|flag_protection_for_cnt_brand|brand_content_protection_lbl|brand_content_protection_label|brs_text_label|txt_cnt_of_brs|txt_flag_cnt_brand|co_lbl_la_br|b_sft_con_lbl|br_labe_cont|lab_br_conten|br_s_cnt_lbl|sfty_for_br_cont_lbl)[^\n]+?("sponsored_data"|"spons_data_lbl"|"data_for_spon"|"data_sponsored"|"spon_data"|data_spon_lbl)[^\n]+?("SponsoredData"|"ad_id")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sponsored_auct_dist|auction_dist_for_sponsored|distance_for_sp_auction|auct_dist_for_spon|sps_auct_dist|auct_distance_lbl_for_spons|spon_auc_dis|dist_auction_sps|dis_auc_spons|auc_dist_sps|spons_auct_distance|sps_auc_dis|spons_auc_dist|spons_auct_flag_space|new_spons_auct_flag_space|flag_sponsored_dist_auction|sponsored_lbl_auc_indicator_dist|lbl_for_spons_auc_dis|of_distanc_sponso_au|dist_for_spon_auc)/'
 www.ghxi.com##.wpcom_ad_wrap
 www.ghxi.com##DIV[style^='padding:10px;position: fixed;bottom: 0;left: 0;right:0;z-index: ']
 www.goha.ru,3dnews.ru,avtovzglyad.ru,baby.ru,dni.ru,kufar.by,ura.news#$#abort-on-property-read Ya
@@ -18201,6 +18190,7 @@ zzzyk.com###Tinfo
 ||4shared.com/js/blockDetect/blockDetect.4min.js$script
 ||4sq.icu^
 ||4t6u.icu^
+||4ve.fun^
 ||4vgyjja.cn^
 ||4we.icu^
 ||4wm.fun^
@@ -18695,6 +18685,7 @@ zzzyk.com###Tinfo
 ||8seaa.com/template/assets1/js/vue.js
 ||8suis.top^
 ||8t9he.cyou^
+||8u0.fun^
 ||8xtm6i.cn^
 ||8ziyuan.com/images/infolinksad.jpg
 ||900.la/imgs/1bb725da-974f-43da-9eb9-dfdebc224949/2015-12-18/zg3wwaug.gif
@@ -28492,6 +28483,7 @@ zzzyk.com###Tinfo
 ||pharmnet.com.cn/js/float_div.js
 ||phb123.com/skin/js/tongji.js
 ||phbkm.com/js/
+||pheetuth.com^
 ||pheqae.com^
 ||phfqumvi.xyz^
 ||phjtxx.xyz^
