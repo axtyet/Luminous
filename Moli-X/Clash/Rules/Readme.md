@@ -1,3 +1,4 @@
+# 资源仓库
 ## CDN加速：
 ### OpenAI
 **原链接**
@@ -26,3 +27,4 @@ https://raw.githubusercontent.com/Moli-X/Resources/main/Clash/Rules/Video.yaml
 
 **CDN加速**
 https://cdn.jsdelivr.net/gh/Moli-X/Resources@main/Clash/Rules/Video.yaml
+
