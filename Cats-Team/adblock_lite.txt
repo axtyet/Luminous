@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-01-21 08:03:32(GMT+8) 
-! Total count: 33889
+! ! Version: 2025-01-22 08:03:26(GMT+8) 
+! Total count: 33900
  
 ###ADtip
 ###AdBlockDialog
@@ -3275,7 +3275,7 @@ $websocket,domain=wap.yushuwu.cloud
 1314gl.com##a[href*=".apkpackagesys.com/"]
 1337x.buzz,komikav.com,limetorrents.lol,himovies.to,manhuascan.com,moviesda1.com,moviesjoy.*,realgfporn.com,soap2day.rs,sxyprn.*,strikeout.cc,thepiratebay10.xyz#$#abort-current-inline-script document.createElement script
 137.175.73.220,xnxxw.net##a[target="_blank"][rel="nofollow"] > img
-1377x.*,doood.*,igetintopc.com,jasminetesttry.com,seaporn.org,vid2faf.site,vidsrc.pro#$#abort-on-property-read window.open
+1377x.*,doood.*,igetintopc.com,jasminetesttry.com,seaporn.org,sfile.mobi,vid2faf.site,vidsrc.pro#$#abort-on-property-read window.open
 13tv.top,freehao123.com##.box
 13tv.top,sina.com##.aditem
 141hongkong.com###dialog
@@ -8020,11 +8020,10 @@ cctime.com###ad_three
 cctime.com##.nav_banner
 cctime.com,doyo.cn###top_banner
 cctv.com##.anime_ewm
-cdiscount.com#$#hide-if-matches-xpath './/a[@href]/img[@title]/ancestor::div[contains(@class,"resultbox--pub")][1]'; hide-if-matches-xpath './/a[@target][@aria-label="bannerlink"]/parent::div[@class][1]'; hide-if-matches-xpath './/ul[@id]//a[contains(@rel, "sponsored")]/ancestor::li[1]';
-cdiscount.com#$#hide-if-matches-xpath './/div[contains(@class,"sponsored")]/ancestor-or-self::div[contains(@id,"AdDisplay") and  contains(@data-action,"AdsDisplay")]'
-cdiscount.com#$#hide-if-matches-xpath './/div[contains(@class,"sponsored")]/ancestor::li[@class="abLabel"]'; hide-if-matches-xpath './/div[contains(@class,"sponsored")]/ancestor::li[1]'
-cdiscount.com#$#hide-if-matches-xpath './/div[contains(@class,"sponsored")]/parent::div[@id]/ancestor::div[@class="o-block"]'
-cdiscount.com#$#hide-if-matches-xpath '//div[@class="c-sponsoredMentions"]/parent::div[@class]'; hide-if-matches-xpath './/article[contains(@class,"sponsored")]//ancestor::div[@id][@class="c-fp__cell--side"]';
+cdiscount.com#$#hide-if-contains /Sponsorisé/ 'div[class="o-block"]' 'div[class^="o-block"] *[pos][id] ^^sh^^ div[class]'
+cdiscount.com#$#hide-if-contains /Sponsorisé/ 'li[class="abLabel"], li[data-sku]' '*[pos][id] ^^sh^^ div[class]'
+cdiscount.com#$#hide-if-matches-xpath './/article[contains(@class,"sponsored")]//ancestor::div[@id][@class="c-fp__cell--side"]'
+cdiscount.com#$#hide-if-matches-xpath './/img[contains(@src,"sponso")]/parent::a/ancestor::div[contains(@style,"background-color: rgb(255, 255, 255);")][.//div[contains(@style,"color: rgb(41, 56, 71);")]]'
 cdn.tiv.pw###Advertisement1
 cdn.tiv.pw##.drt
 cdn.tiv.pw##.floater
@@ -9244,6 +9243,7 @@ ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeige|Sponsorisé|Sponsorizz
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeige|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado/ 'div[id^="placement"][style^="min-height:144px;"]>div' 'div[data-viewport]>div'
 ebay.*#$#race start; hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado|Anzeige/ 'li.s-item' '* li div>span>div ^^sh^^ span:not([aria-hidden="true"])'; hide-if-contains-and-matches-style /./ li[data-viewport] 'li[data-viewport] .s-item__sep>div ^^sh^^ span' /./ 'overflow-x: visible'; hide-if-contains-visible-text /./ 'li[data-viewport]' '.s-item__sep>div ^^sh^^ span:nth-child(2)'; hide-if-matches-computed-xpath './/div[contains(@class, "s-item__detail")]/span/div[@aria-labelledby = "{{}}"]/ancestor::li' './/style[contains(text(),"size: var")]' /^\\s*div\\.(.*?)_/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/script[contains(text(),"CSSStyleDeclaration")]' /getPropertyValue\\(\\"\\-\\-(.*?)\\"/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/style[contains(text(),"div:first-line")]' '/0px;\\s\\-\\-(.*?)\\:/'; hide-if-matches-computed-xpath './/li//span[@class="s-item__sep"]/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]//div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; hide-if-matches-computed-xpath './/li//span/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]/div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; race stop;
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[data-testid="x-pda-placements"]>div>div>div' 'div[data-viewport]>span>div>div ^^sh^^ *'
+ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[id*="placement_"]>div' 'div[data-viewport]>span>div[aria-labelledby]>div[aria-hidden]'
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'li>div[class="brwrvr__item-card__body"]' 'div>span[class="su-sponsored-label__sep"]>span'
 ebay.com#$#hide-if-matches-xpath './/div[@class]/h2[contains(.,"Sponsored")]//ancestor::div[@data-viewdtls][@data-pushed-view="true"]'
 ebay.com#$#hide-if-matches-xpath '//div[@role="text"][text()="Sponsored"]/ancestor-or-self::div[@data-viewport][1]'
@@ -9779,6 +9779,7 @@ footdirect24.com###hid
 footfetishvid.com,lesbian8.com,older-women-porn.com,pimpandhost.com,silkengirl.net,xnxx-sexfilme.com#$#prevent-listener getexoloader; abort-on-property-read ExoLoader; abort-on-property-read ExoLoader.addZone; abort-on-property-read ExoLoader.serve;
 footfetishvid.com,manga21plus.com,povaddict.com#$#abort-on-property-read a3klsam
 foreverconscious.com,blwideas.com,utahsweetsavings.com,usersub.com,thechroniclesofhome.com,theavtimes.com,tastefullyeclectic.com,stevivor.com,redcarpet-fashionawards.com,prepared-housewives.com,mjsbigblog.com,lizs-early-learning-spot.com,knowyourphrase.com,hodgepodgehippie.com,yummytummyaarthi.com,spring.org.uk,greenarrowtv.com,tamaratattles.com,goodnewsnetwork.org,entertainment-focus.com,bike-urious.com#$#abort-on-property-read g00gletag
+forexlive.com#$#hide-if-matches-xpath './/div[@id][@class="banner"]/parent::div[contains(@class,"guid")]/ancestor::div[contains(@data-ref,"banner")][1]'
 fortress.com.hk,youdao.com#@#.share-icon
 fortunechina.com##.pinglunmask
 fortunechina.com##.pinglunwindow
@@ -16688,7 +16689,7 @@ www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrwae]{12}|[Patrocind]{11}|[Sponsrizat]{13}|[Anzeig]{6}/ 'div[role=feed] div[role=article]' a[href^="?__cft__"]; hide-if-contains-visible-text /./ 'div[role=feed] div[role=article]' 'span>a[attributionsrc][href="#"][role="link"][tabindex="0"]>span>span[aria-labelledby]>span[style]'; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-matches-xpath '//div[@role="complementary"]//div[not(@class) and not(@id)]/span[not(@class) and not(@id) and not(@aria-labelledby)]'; hide-if-matches-xpath './/div[@role="complementary"]//span/following::div[@aria-labelledby][@role][@tabindex]/ancestor-or-self::span'; race stop;
 www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(VideoHomeFeedUnitSectionComponent)[^\n]+?"(sponsored_data")[^\n]+?("ad_id"|"SponsoredData")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(VideoPlayerRelay_video$defer$InstreamVideoAdBreaksPlayer_video|instream_video_ad_breaks_comet|__module_operation_InstreamVideoAdBreaksPlayer_video_instream_video_ad_breaks_comet|__module_component_InstreamVideoAdBreaksPlayer_video_instream_video_ad_breaks_comet|InstreamVideoAdBreaksPlayerImpl_adBreaks$normalization.graphql|InstreamVideoAdBreaksPlayerDeferred.react|InstreamVideoAdBreaksPlayerImpl.react|CommercialBreakStartingIndicatorFalcoEvent|CommercialBreakClickFalcoEvent|CommercialBreakEndFalcoEvent)/'
-www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(brs_c|label_field_for_brs|new_label_for_brs|cont_lb_brs|cnt_lbl_brs|the_cnt_lbl_for_brs|newest_lbl_for_brs|flag_for_brs|brs_content_label|flag_of_cnt_lbl_brs|lbl_br_cnt|cont_of_brs_lb|content_type_lbl_brs|flag_for_content_type_brs|identifier_for_content_type_brs|identifier_brs_cnt|br_safety_cont_label|br_sft_con_lbl|b_safety_con_lbl|brand_sf_content_lbl|br_sf_cnt|brand_sft_cont|br_sft_cnt_label|sfty_content_brs_flag|sft_cont_brs_flag|flag_protection_for_cnt_brand|brand_content_protection_lbl|brand_content_protection_label|brs_text_label|txt_cnt_of_brs|txt_flag_cnt_brand|co_lbl_la_br|b_sft_con_lbl|br_labe_cont|lab_br_conten|br_s_cnt_lbl|sfty_for_br_cont_lbl|sf_fo_co_br_lb_the)[^\n]+?("sponsored_data"|"spons_data_lbl"|"data_for_spon"|"data_sponsored"|"spon_data"|"data_spon_lbl")[^\n]+?("SponsoredData"|"ad_id")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sponsored_auct_dist|auction_dist_for_sponsored|distance_for_sp_auction|auct_dist_for_spon|sps_auct_dist|auct_distance_lbl_for_spons|spon_auc_dis|dist_auction_sps|dis_auc_spons|auc_dist_sps|spons_auct_distance|sps_auc_dis|spons_auc_dist|spons_auct_flag_space|new_spons_auct_flag_space|flag_sponsored_dist_auction|sponsored_lbl_auc_indicator_dist|lbl_for_spons_auc_dis|of_distanc_sponso_au|dist_for_spon_auc)/'
+www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(brs_c|label_field_for_brs|new_label_for_brs|cont_lb_brs|cnt_lbl_brs|the_cnt_lbl_for_brs|newest_lbl_for_brs|flag_for_brs|brs_content_label|flag_of_cnt_lbl_brs|lbl_br_cnt|cont_of_brs_lb|content_type_lbl_brs|flag_for_content_type_brs|identifier_for_content_type_brs|identifier_brs_cnt|br_safety_cont_label|br_sft_con_lbl|b_safety_con_lbl|brand_sf_content_lbl|br_sf_cnt|brand_sft_cont|br_sft_cnt_label|sfty_content_brs_flag|sft_cont_brs_flag|flag_protection_for_cnt_brand|brand_content_protection_lbl|brand_content_protection_label|brs_text_label|txt_cnt_of_brs|txt_flag_cnt_brand|co_lbl_la_br|b_sft_con_lbl|br_labe_cont|lab_br_conten|br_s_cnt_lbl|sfty_for_br_cont_lbl|sf_fo_co_br_lb_the)[^\n]+?("sponsored_data"|"spons_data_lbl"|"data_for_spon"|"data_sponsored"|"spon_data"|"data_spon_lbl")[^\n]+?("SponsoredData"|"ad_id")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sponsored_auct_dist|auction_dist_for_sponsored|distance_for_sp_auction|auct_dist_for_spon|sps_auct_dist|auct_distance_lbl_for_spons|spon_auc_dis|dist_auction_sps|dis_auc_spons|auc_dist_sps|spons_auct_distance|sps_auc_dis|spons_auc_dist|spons_auct_flag_space|new_spons_auct_flag_space|flag_sponsored_dist_auction|sponsored_lbl_auc_indicator_dist|lbl_for_spons_auc_dis|of_distanc_sponso_au|dist_for_spon_auc|di_lbl_spo_fo_au)/'
 www.ghxi.com##.wpcom_ad_wrap
 www.ghxi.com##DIV[style^='padding:10px;position: fixed;bottom: 0;left: 0;right:0;z-index: ']
 www.goha.ru,3dnews.ru,avtovzglyad.ru,baby.ru,dni.ru,kufar.by,ura.news#$#abort-on-property-read Ya
@@ -17458,6 +17459,7 @@ zzzyk.com###Tinfo
 ||00eeekk.com//html5/activityPage/
 ||00xvppy.cn^
 ||01210sop.xyz^
+||01211sop.xyz^
 ||01u.net/js/tj.js
 ||01v62.xyz^
 ||022003xs.com^
@@ -20467,6 +20469,7 @@ zzzyk.com###Tinfo
 ||biz.weibo.com^
 ||bj1.118pan.com^
 ||bjcathay.com/s?z=
+||bjfsk.xyz^
 ||bjhockey.org/public/pc/video/test.mp4
 ||bjimtyv.top^
 ||bjjabc.com^$third-party
@@ -25597,6 +25600,7 @@ zzzyk.com###Tinfo
 ||jcjzikj.xyz^
 ||jclimia.top^
 ||jcodecraeer.com/plus/fuckblok.
+||jcokamia.top^
 ||jcpecb.com^
 ||jcppcmqa.icu^
 ||jcrb.com/ZYW$subdocument
@@ -25774,6 +25778,7 @@ zzzyk.com###Tinfo
 ||jljftl.xyz^
 ||jlmhk.com/images/data/
 ||jlpcn.net/img/300p-
+||jltwxisa.icu^
 ||jlwz.cn/js/xf*.js
 ||jmbbs.cn/sjgg/
 ||jmbluyxkl.xyz^
@@ -26136,6 +26141,7 @@ zzzyk.com###Tinfo
 ||kccdk.com/Content/img/*.gif
 ||kclimid.top^
 ||kcnwe.xyz^
+||kcokamid.top^
 ||kdamcsd.top^
 ||kdcl.pchome.com.tw^
 ||kdcxhr.cn^
@@ -28338,6 +28344,7 @@ zzzyk.com###Tinfo
 ||p8u.hinet.net^
 ||p97387hj.xyz^
 ||pa4ye.cyou^
+||pa6.fun^
 ||pagead2.googleadservices.com^
 ||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js$redirect=googlesyndication-adsbygoogle,domain=youneed.win
 ||pagead2.googlesyndication.com/pagead/js/adsbygoogle.js$script,redirect=googlesyndication-adsbygoogle,domain=wuyong.fun,important
@@ -28952,6 +28959,7 @@ zzzyk.com###Tinfo
 ||qheose.xyz^
 ||qhestrad.com^
 ||qhicumg.cn^
+||qhihoins.com^
 ||qhimg.com/clk.gif?
 ||qhimg.com/js/iwt.js
 ||qhimg.com/ssl/20212c7594890e1c.js
@@ -29729,6 +29737,7 @@ zzzyk.com###Tinfo
 ||sciencenet.cn/field/js/news.
 ||sciencenet.cn/html/js/n
 ||scientificshirt.com^$third-party
+||scigzetg.com^
 ||scihuns.com^
 ||sciillr.cn^
 ||scint-x.com/js/
@@ -31673,6 +31682,7 @@ zzzyk.com###Tinfo
 ||uuuutp.com^
 ||uuysiaq.com^
 ||uuzwvqc.cn^
+||uv4.fun^
 ||uvekyvs.icu^
 ||uvklgw.xyz^
 ||uvnjlm.cn^
@@ -31933,6 +31943,7 @@ zzzyk.com###Tinfo
 ||vswswlz.icu^
 ||vszzzj.xyz^
 ||vtbfgnf00.fun^
+||vtdgfisz.icu^
 ||vtjbnb.xyz^
 ||vtlyrj.xyz^
 ||vtvnnl.xyz^
