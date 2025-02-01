@@ -4,27 +4,23 @@
 # TG:https://t.me/QVQ_Channel
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 #
-# Egern Version ≥ 1.22.0
+# Egern Version ≥ v1.29.0(489)
 #
-# 最后更新时间: 2025-1-21 22:00
+# 最后更新时间: 2025-02-01 22:30
 #
 # ================
 
 # TUN模式
 vif_only: true
-
 # 劫持 DNS 服务器
 hijack_dns:
 - '*:53'
-
 # 自定义MaxMind数据库
 geoip_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
-
 # 代理延迟测试
 proxy_latency_test_url: http://1.1.1.1/generate_204
 # 直连延迟测试
 direct_latency_test_url: http://connectivitycheck.platform.hicloud.com/generate_204
-
 dns:
   # DNS 引导器：用于解析上游DNS(DoT、DoH、DoQ)，默认 system
   bootstrap:
@@ -34,18 +30,11 @@ dns:
     Domestic-DNS:
     - 223.5.5.5
     - 119.29.29.29
-
   # DNS 转发规则
   forward:
   - wildcard: # 通配符规则
       match: "*"
       value: Domestic-DNS
-
-  hosts: # 域名映射
-
-  # 公网 IP 地址查询
-  public_ip_lookup_url: https://ifconfig.me/ip
-
 policy_groups:
 - external:
     name: 手动选择
@@ -190,7 +179,6 @@ policy_groups:
     filter: (?i)🇨🇳|🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)
     tolerance: 0
     icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png
-
 rules:
 - rule_set:
     match: https://github.com/Repcz/Tool/raw/X/Egern/Rules/Direct.yaml
@@ -268,3 +256,9 @@ rules:
     policy: 兜底分流
 mitm:
   enabled: true
+modules:
+- url: https://github.com/Repcz/Tool/raw/X/Egern/Module/YouTube.yaml
+  enabled: false
+- name: SubStore
+  url: https://raw.githubusercontent.com/sub-store-org/Sub-Store/refs/heads/master/config/Egern.yaml
+  enabled: false
