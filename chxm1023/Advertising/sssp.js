@@ -3,9 +3,10 @@
 项目名称：涩涩视频—去除所有广告
 下载地址：https://21139.net
 在线观看：https://30719.net
+在线观看：https://sese.31693.net
 在线观看：https://files.honghufly.com
 获取地址：kuaiboshipin8568@gmail.com 发送任意内容邮件获取最新下载地址
-更新日期：2025-02-07
+更新日期：2025-02-08
 脚本作者：@ddm1023
 电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -13,10 +14,10 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/(30719|files\.honghufly)\.(net|com) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Advertising/sssp.js
+^https?:\/\/(30719|(files|sese)\.(honghufly|31693))\.(net|com) url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Advertising/sssp.js
 
 [mitm]
-hostname = 30719.net, files.honghufly.com
+hostname = 30719.net, files.honghufly.com, sese.31693.net
 
 *************************************/
 
