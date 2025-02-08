@@ -1,14 +1,19 @@
-// 2025-02-07 03:31:01
+// 2025-02-08 18:33:32
 !(async () => {
   try {
-    let url = typeof $request !== "undefined" && $request.url;
-    const ins = Object.fromEntries(
-      (url.split("?")[1] || "")
-        .split("&")
-        .map((i) => i.split("="))
-        .map(([k, v]) => [k, decodeURIComponent(v)])
-    );
-    const ms = await Get(ins.url);
+    let url = typeof $request !== "undefined" && $request.url,
+      ms,
+      ins = Object.fromEntries(
+        (url.split("?")[1] || "")
+          .split("&")
+          .map((i) => i.split("="))
+          .map(([k, v]) => [k, decodeURIComponent(v)])
+      );
+    if (ins.url == "test") {
+      ms = '1';
+    } else {
+      ms = await Get(ins.url);
+    }
     $done({
       response: {
         status: 200,
@@ -16,14 +21,10 @@
           "Content-Type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "*",
         },
-        body: JSON.stringify(
-          {
-            sp: 1,
-            ms: ms,
-          },
-          null,
-          2
-        ),
+        body: JSON.stringify({
+          sp: 1,
+          ms: ms,
+        }),
       },
     });
   } catch (e) {
