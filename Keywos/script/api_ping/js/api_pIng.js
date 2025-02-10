@@ -10,6 +10,23 @@
           .map((i) => i.split("="))
           .map(([k, v]) => [k, decodeURIComponent(v)])
       );
+    const getEnv = () => {
+      return "undefined" != typeof Egern
+        ? "Egern"
+        : "undefined" != typeof $environment && $environment["surge-version"]
+        ? "Surge"
+        : "undefined" != typeof $environment && $environment["stash-version"]
+        ? "Stash"
+        : "undefined" != typeof module && module.exports
+        ? "Node.js"
+        : "undefined" != typeof $task
+        ? "Quantumult X"
+        : "undefined" != typeof $loon
+        ? "Loon"
+        : "undefined" != typeof $rocket
+        ? "Shadowrocket"
+        : void 0;
+    };
     timeouts = Number(ins.timeout) || 5000;
     if (ins.url == "test") {
       ms = "1";
@@ -45,6 +62,7 @@
         body: JSON.stringify({
           sp: 1,
           ms: ms,
+          app: getEnv(),
           timeouts: timeouts,
         }),
       },
