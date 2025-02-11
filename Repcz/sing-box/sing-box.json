@@ -1,0 +1,78 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "timestamp": true
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
+        },
+        "clash_api": {
+            "default_mode": "Rule",
+            "external_controller": "0.0.0.0:9999",
+            "secret": "singbox",
+            "external_ui": "dashboard"
+          }
+    },
+    "dns": {
+        "servers": [
+            {"tag": "ali","address": "https://223.6.6.6/dns-query","detour": "direct"},
+            {"tag": "remote_fakeip","address": "fakeip"}
+        ],
+        "rules": [
+            {"outbound": "any","server": "ali"},
+            {"clash_mode": "All_Direct","action": "route","server": "ali"},
+            {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip"}
+        ],
+        "fakeip": {"enabled": true,"inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"},
+        "independent_cache": true,
+        "strategy": "prefer_ipv4"
+    },
+    "inbounds": [
+        {
+          "type": "mixed",
+          "tag": "mixed",
+          "listen": "::",
+          "listen_port": 7080,
+          "set_system_proxy": false
+        },
+        {
+          "type": "tun",
+          "tag": "tun",
+          "interface_name": "tun0",
+          "address": ["172.18.0.1/30","fdfe:dcba:9876::1/126"],
+          "stack": "mixed",
+          "auto_route": true,
+          "strict_route": true
+        }
+      ],
+    "outbounds": [
+        {"tag": "direct","type": "direct"},
+        {"tag": "Proxy","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true}
+    ],
+    "route": {
+        "rule_set": [
+            {"tag": "AWAvenue-Ads","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/main/Filters/AWAvenue-Ads-Rule-Singbox.srs","download_detour": "direct"},
+            {"tag": "category-ads-all","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-category-ads-all.srs","download_detour": "direct"},
+            {"tag": "geolocation-!cn","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs","download_detour": "direct"},
+            {"tag": "geosite-telegram", "type": "remote", "format": "binary", "url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/telegram.srs", "download_detour": "direct" },
+            {"tag": "geoip-telegram", "type": "remote", "format": "binary", "url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/telegram.srs", "download_detour": "direct" },
+            {"tag": "cn-domain","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-cn.srs","download_detour": "direct"},
+            {"tag": "cn-ip","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geoip/cn.srs","download_detour": "direct"}
+        ],
+        "rules": [
+            {"action": "sniff"},
+            {"type": "logical","mode": "or","rules": [{"port": 53},{"protocol": "dns"}],"action": "hijack-dns"},
+            {"clash_mode": "All_Direct","action": "route","outbound": "direct"},
+            {"rule_set": ["AWAvenue-Ads","category-ads-all"],"action": "reject"},
+            {"rule_set": ["geoip-telegram","geosite-telegram"],"action": "route","outbound": "Proxy"},
+            {"rule_set": ["cn-domain","cn-ip"],"action": "route","outbound": "direct"},
+            {"rule_set": ["geolocation-!cn"],"action": "route","outbound": "Proxy"},
+            {"ip_is_private": true,"outbound": "direct"}
+        ],
+        "find_process": true,
+        "final": "Proxy"
+    }
+}
