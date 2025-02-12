@@ -64,19 +64,20 @@
     ],
     "outbounds": [
         {"tag": "direct","type": "direct"},
-        {"tag": "Proxy","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "AI","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "Google","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "Microsoft","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "Apple","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "Twitter","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
-        {"tag": "Telegram","type": "selector","outbounds": ["direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Proxy","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "AI","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Google","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Microsoft","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Apple","type": "selector","outbounds": ["direct","🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Twitter","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
+        {"tag": "Telegram","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
 
 
-        { "tag": "🇭🇰 HongKong", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇭🇰|HK|hk|香港|港|HongKong"] }] },
-        { "tag": "🇯🇵 Jpaan", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇯🇵|JP|jp|日本|日|Japan"] }] },
-        { "tag": "🇺🇲 United States", "type": "selector", "outbounds": ["{all}"], "filter": [{ "action": "include", "keywords": ["🇺🇸|US|us|美国|美|United States"] }, { "action": "exclude", "keywords": ["香港|港|HK|hk|HongKong"] }] }
-  
+        {"tag": "🇭🇰 HongKong","type": "urltest","outbounds": ["direct"],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false},
+        {"tag": "🇺🇸 United States","type": "urltest","outbounds": ["direct"],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false},
+        {"tag": "🇸🇬 Singapore","type": "urltest","outbounds": ["direct"],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false},
+        {"tag": "🇯🇵 Japan","type": "urltest","outbounds": ["direct"],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false},
+        {"tag": "🇨🇳 Taiwan","type": "urltest","outbounds": ["direct"],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false}
     ],
     "route": {
         "rule_set": [
