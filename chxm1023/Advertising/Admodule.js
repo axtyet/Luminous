@@ -1,33 +1,30 @@
-/*************************************
-
-项目名称：通用去广告模块
-更新日期：2025-01-16
-脚本作者：@ddm1023
-电报频道：https://t.me/ddm1023
-使用声明：⚠️仅供参考，🈲转载与售卖！
-
-*************************************/
-
-
+//全局AD净化处理
+//理论上适配所有工具
+//可以自行添加url重写
+//匹配关键词删除对应内容
+//更新日期: 2025-02-12
 var ddm = JSON.parse($response.body);
 
 if (/(top_notice|advert)/.test($request.url)) {
-  //清空AD内容修改成空响应
+  // 修改响应为空
   ddm = {};
 } else {
-  // 定义AD对象关键词
-  const ADKeywords = {
+  // 数组关键词列表
+  const keywords = {
     "layout": "advert_self",
     "acttype": "ad",
     "actcontent": "ad"
   };
-  // 定义AD相关键值
-  const ADlist = {
+
+  // 键值列表
+  const kvlist = {
     "is_auth": 1,
     "try_see": 1,
     "is_subscribe": 1,
     "switch": 0,
+    "google" : 0,
     "adtype": 0,
+    "mian_ad": 0,
     "splash_img": "",
     "advert_sdk_app_id": "",
     "config_vip_advert": "0",
@@ -57,36 +54,14 @@ if (/(top_notice|advert)/.test($request.url)) {
     "adSwitch": false,
     "jiliAd": ""
   };
-  //核心内容
-  function filterAndModify(obj) {
-    if (Array.isArray(obj)) {
-      return obj.map(filterAndModify).filter(item => !containsAdKeywords(item));
-    } else if (typeof obj === 'object' && obj !== null) {
-      for (const key in obj) {
-        if (containsAdKeywords(obj[key])) {
-          delete obj[key];
-        } else if (typeof obj[key] === 'object' && obj[key] !== null) {
-          obj[key] = filterAndModify(obj[key]);
-        } else if (key in ADlist) {
-          obj[key] = ADlist[key];
-        }
-      }
-      return obj;
-    }
-    return obj;
-  }
-  function containsAdKeywords(item) {
-    if (typeof item === 'object' && item !== null) {
-      return Object.keys(item).some(key => {
-        return Object.keys(ADKeywords).some(adKey => {
-          return key === adKey && item[key] === ADKeywords[adKey];
-        });
-      });
-    }
-    return false;
-  }
 
-  ddm = filterAndModify(ddm);
+  // 清空字段列表
+  const fieldstoclear = ["upgradenew", "quad"];
+
+  // 核心代码请勿删除
+  function filterAndModify(obj){if(Array.isArray(obj)){return obj.map(filterAndModify).filter(item=>!containskeywords(item))}else if(typeof obj==='object'&&obj!==null){for(const key in obj){if(fieldstoclear.includes(key)){obj[key]={}}else if(containskeywords(obj[key])){delete obj[key]}else if(typeof obj[key]==='object'&&obj[key]!==null){obj[key]=filterAndModify(obj[key])}else if(key in kvlist){obj[key]=kvlist[key]}}return obj}return obj}
+  function containskeywords(item){if(typeof item==='object'&&item!==null){return Object.keys(item).some(key=>{return Object.keys(keywords).some(adKey=>{return key===adKey&&item[key]===keywords[adKey]})})}return false}
+  ddm=filterAndModify(ddm);
 }
 
 $done({ body: JSON.stringify(ddm) });
