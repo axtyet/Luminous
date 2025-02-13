@@ -22,7 +22,7 @@
         ? "Shadowrocket"
         : void 0;
     };
-    if (url?.includes("?")) {
+    if (url && url.includes("?")) {
       ins = Object.fromEntries(
         (url.split("?")[1] || "")
           .split("&")
