@@ -20,18 +20,16 @@
     },
     "dns": {
         "servers": [
-            {"tag": "cloudflare","address": "https://1.1.1.1/dns-query","detour": "Proxy"},
-            {"tag": "ali","address": "223.5.5.5","address_strategy": "ipv4_only","strategy": "ipv4_only", "detour": "direct"},
-            {"tag": "remote_fakeip","address": "fakeip"}
+            {"tag": "cloudflare","type": "https","server": "1.1.1.1"},
+            {"tag": "ali","type": "https","server": "223.6.6.6"},
+            {"tag": "remote_fakeip","type": "fakeip","inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"}
         ],
         "rules": [
-            {"outbound": "any","server": "ali"},
             {"clash_mode": "Direct","action": "route","server": "ali"},
             {"clash_mode": "Global","action": "route","server": "cloudflare"},
             {"rule_set": ["GeoSite@CN","Apple"],"action": "route","server": "ali"},
             {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip"}
         ],
-        "fakeip": {"enabled": true,"inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"},
         "independent_cache": true,
         "strategy": "ipv4_only"
     },
