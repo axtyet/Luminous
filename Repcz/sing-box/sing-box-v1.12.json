@@ -11,7 +11,7 @@
             "store_fakeip": true
         },
         "clash_api": {
-            "default_mode": "Rule",
+            "default_mode": "规则模式",
             "external_controller": "127.0.0.1:9090",
             "external_ui": "ui",
             "external_ui_download_url": "https://git.repcz.link/github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
@@ -25,8 +25,8 @@
             {"tag": "remote_fakeip","type": "fakeip","inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"}
         ],
         "rules": [
-            {"clash_mode": "Direct","action": "route","server": "ali"},
-            {"clash_mode": "Global","action": "route","server": "cloudflare"},
+            {"clash_mode": "全局直连","action": "route","server": "ali"},
+            {"clash_mode": "全局代理","action": "route","server": "cloudflare"},
             {"rule_set": ["GeoSite@CN","Apple"],"action": "route","server": "ali"},
             {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip"}
         ],
@@ -109,8 +109,8 @@
         "rules": [
             {"action": "sniff"},
             {"protocol": "dns","action": "hijack-dns"},
-            {"clash_mode": "Direct","action": "route","outbound": "direct"},
-            {"clash_mode": "Global","action": "route","outbound": "Proxy"},
+            {"clash_mode": "全局直连","action": "route","outbound": "direct"},
+            {"clash_mode": "全局代理","action": "route","outbound": "Proxy"},
             {"rule_set": ["Ads"],"action": "reject"},
             {"rule_set": ["AI"],"action": "route","outbound": "AI"},
             {"rule_set": ["YouTube","Google"],"action": "route","outbound": "Google"},
