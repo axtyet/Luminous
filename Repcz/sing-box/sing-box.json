@@ -1,66 +1,22 @@
 {
-    "log": {
-        "disabled": false,
-        "level": "info",
-        "output": "sing-box.log",
-        "timestamp": true
-    },
-    "experimental": {
-        "cache_file": {
-            "enabled": true,
-            "store_fakeip": true
-        },
-        "clash_api": {
-            "default_mode": "Rule",
-            "external_controller": "127.0.0.1:9090",
-            "external_ui": "ui",
-            "external_ui_download_url": "https://git.repcz.link/github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
-            "external_ui_download_detour": "Proxy"
-        }
-    },
     "dns": {
         "servers": [
             {"tag": "cloudflare","address": "https://1.1.1.1/dns-query","detour": "Proxy"},
-            {"tag": "ali","address": "223.5.5.5","address_strategy": "ipv4_only","strategy": "ipv4_only", "detour": "direct"},
+            {"tag": "ali","address": "223.5.5.5","detour": "direct"},
             {"tag": "remote_fakeip","address": "fakeip"}
         ],
         "rules": [
             {"outbound": "any","server": "ali"},
-            {"clash_mode": "Direct","action": "route","server": "ali"},
-            {"clash_mode": "Global","action": "route","server": "cloudflare"},
-            {"rule_set": ["GeoSite@CN","Apple"],"action": "route","server": "ali"},
-            {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip"}
+            {"clash_mode": "全局直连","action": "route","server": "ali"},
+            {"clash_mode": "全局代理","action": "route","server": "remote_fakeip"},
+            {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip","rewrite_ttl": 1},
+            {"rule_set": ["GeoSite@CN","Apple"],"action": "route","server": "ali"}
         ],
+        "final": "cloudflare",
         "fakeip": {"enabled": true,"inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"},
         "independent_cache": true,
         "strategy": "ipv4_only"
     },
-    "inbounds": [
-        {
-            "type": "mixed",
-            "tag": "mixed",
-            "listen": "127.0.0.1",
-            "listen_port": 7080,
-            "set_system_proxy": false
-        },
-        {
-            "type": "tun",
-            "tag": "tun",
-            "address": [
-                "172.18.0.1/30",
-                "fdfe:dcba:9876::1/126"
-            ],
-            "platform": {
-                "http_proxy": {
-                    "enabled": true,
-                    "server": "127.0.0.1",
-                    "server_port": 7080
-                }
-            },
-            "stack": "mixed",
-            "auto_route": true
-        }
-    ],
     "outbounds": [
         {"tag": "direct","type": "direct"},
         {"tag": "Proxy","type": "selector","outbounds": ["🇭🇰 HongKong","🇺🇸 United States","🇸🇬 Singapore","🇯🇵 Japan","🇨🇳 Taiwan","direct"],"default": "direct","interrupt_exist_connections": true},
@@ -109,10 +65,10 @@
             {"tag": "geolocation-!cn","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs","download_detour": "direct"}
         ],
         "rules": [
-            {"action": "sniff"},
-            {"protocol": "dns","action": "hijack-dns"},
-            {"clash_mode": "Direct","action": "route","outbound": "direct"},
-            {"clash_mode": "Global","action": "route","outbound": "Proxy"},
+            {"action": "sniff","sniffer": ["http","tls","quic","dns"],"timeout": "500ms"},
+            {"type": "logical","mode": "or","rules": [{"port": 53},{"protocol": "dns"}],"action": "hijack-dns"},
+            {"clash_mode": "全局直连","action": "route","outbound": "direct"},
+            {"clash_mode": "全局代理","action": "route","outbound": "Proxy"},
             {"rule_set": ["Ads"],"action": "reject"},
             {"rule_set": ["AI"],"action": "route","outbound": "AI"},
             {"rule_set": ["YouTube","Google"],"action": "route","outbound": "Google"},
@@ -123,12 +79,56 @@
             {"rule_set": ["Steam","Epic"],"action": "route","outbound": "Game"},
             {"rule_set": ["Bahamut","Netflix","Disney","PrimeVideo","HBO","TikTok"],"action": "route","outbound": "ProxyMedia"},
             {"rule_set": ["AppleProxy"],"action": "route","outbound": "🇭🇰 HongKong"},
-            {"rule_set": ["GeoSite@CN","GeoIP@CN","Apple"],"action": "route","outbound": "direct"},
             {"rule_set": ["geolocation-!cn"],"action": "route","outbound": "Proxy"},
+            {"action": "resolve"},
+            {"rule_set": ["GeoSite@CN","GeoIP@CN","Apple"],"action": "route","outbound": "direct"},
             {"ip_is_private": true,"outbound": "direct"}
         ],
         "find_process": false,
         "auto_detect_interface": true,
         "final": "Final"
-    }
+    },
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "output": "sing-box.log",
+        "timestamp": true
+    },
+    "experimental": {
+        "cache_file": {
+            "enabled": true,
+            "store_fakeip": true
+        },
+        "clash_api": {
+            "default_mode": "规则模式",
+            "external_controller": "127.0.0.1:9090",
+            "external_ui": "ui",
+            "external_ui_download_url": "https://git.repcz.link/github.com/Zephyruso/zashboard/releases/latest/download/dist.zip",
+            "external_ui_download_detour": "Proxy"
+        }
+    },
+    "inbounds": [
+        {
+            "type": "mixed",
+            "listen": "127.0.0.1",
+            "listen_port": 7080,
+            "set_system_proxy": false
+        },
+        {
+            "type": "tun",
+            "address": [
+                "172.18.0.1/30",
+                "fdfe:dcba:9876::1/126"
+            ],
+            "platform": {
+                "http_proxy": {
+                    "enabled": true,
+                    "server": "127.0.0.1",
+                    "server_port": 7080
+                }
+            },
+            "stack": "mixed",
+            "auto_route": true
+        }
+    ]
 }
