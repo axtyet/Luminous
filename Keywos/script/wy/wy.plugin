@@ -6,7 +6,7 @@
 #!homepage = https://github.com/Keywos/rule/blob/main/script/wy
 #!icon = https://raw.githubusercontent.com/Keywos/rule/main/tv/app/144px/Netease.png
 #https://raw.githubusercontent.com/LimeAroma/Loon/main/Plugin/NeteaseCloudMusic_remove_ads.plugin
-#!date = 2024-12-01 21:16:57
+#!date = 2025-02-17 02:24:04
 
 
 [Argument]
@@ -20,7 +20,7 @@ PRDRD = switch,false,tag=[隐藏首页]每日推荐,desc=
 PRSCVPT = switch,false,tag=[隐藏首页]推荐歌单,desc=
 PRST = switch,false,tag=[隐藏首页]最近常听,desc=
 PRRR = switch,true,tag=[隐藏首页]雷达歌单,desc=
-HMPR = switch,true,tag=[隐藏首页]音乐合伙人,desc=
+HMPR = switch,false,tag=[隐藏首页]音乐合伙人,desc=
 PRMST = switch,true,tag=[隐藏首页]推荐专属歌单,desc=
 PRCN = switch,true,tag=[隐藏首页]你的专属歌单,desc=
 
@@ -34,7 +34,6 @@ DOMAIN,iadmatapk.nosdn.127.net,REJECT
 DOMAIN,httpdns.n.netease.com,REJECT
 
 [Rewrite]
-^https?:\/\/(?:ipv4|interface\d?)\.music\.163\.com\/e?api\/(?:batch|v\d\/resource\/comment\/floor\/get|homepage\/block\/page|link\/page\/rcmd\/(block\/resource\/multi\/refresh|resource\/show)|user\/follow\/users\/mixed\/get|link\/home\/framework\/tab|link\/position\/show\/resource|link\/page\/discovery\/resource\/show) header-del x-aeapi
 ^https?:\/\/httpdns.n\.netease\.com - reject
 ^https?:\/\/httpdns\.music\.163\.com - reject
 ^https?:\/\/(ipv4|interface\d?)\.music\.163.com\/e?api\/ad - reject-dict
