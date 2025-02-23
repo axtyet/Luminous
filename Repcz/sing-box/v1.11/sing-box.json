@@ -10,7 +10,7 @@
             {"clash_mode": "全局直连","action": "route","server": "ali"},
             {"clash_mode": "全局代理","action": "route","server": "remote_fakeip"},
             {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip","rewrite_ttl": 1},
-            {"rule_set": ["GeoSite@CN","Apple"],"action": "route","server": "ali"}
+            {"rule_set": ["ChinaDomain","Apple"],"action": "route","server": "ali"}
         ],
         "final": "cloudflare",
         "fakeip": {"enabled": true,"inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"},
@@ -60,8 +60,8 @@
             {"tag": "PrimeVideo", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/PrimeVideo.srs", "download_detour": "direct"},
             {"tag": "HBO", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/HBO.srs", "download_detour": "direct"},
             {"tag": "TikTok", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/TikTok.srs", "download_detour": "direct"},
-            {"tag": "GeoSite@CN", "type": "remote", "format": "binary", "url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "direct"},
-            {"tag": "GeoIP@CN", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Loyalsoldier/geoip/raw/release/srs/cn.srs", "download_detour": "direct"},
+            {"tag": "ChinaDomain", "type": "remote", "format": "binary", "url": "https://git.repcz.link/raw.githubusercontent.com/MetaCubeX/meta-rules-dat/sing/geo/geosite/cn.srs", "download_detour": "direct"},
+            {"tag": "China IP", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Loyalsoldier/geoip/raw/release/srs/cn.srs", "download_detour": "direct"},
             {"tag": "geolocation-!cn","type": "remote","format": "binary","url": "https://git.repcz.link/raw.githubusercontent.com/CHIZI-0618/v2ray-rules-dat/release/singbox_rule_set/geosite-geolocation-!cn.srs","download_detour": "direct"}
         ],
         "rules": [
@@ -81,7 +81,7 @@
             {"rule_set": ["AppleProxy"],"action": "route","outbound": "🇭🇰 HongKong"},
             {"rule_set": ["geolocation-!cn"],"action": "route","outbound": "Proxy"},
             {"action": "resolve"},
-            {"rule_set": ["GeoSite@CN","GeoIP@CN","Apple"],"action": "route","outbound": "direct"},
+            {"rule_set": ["ChinaDomain","ChinaIP","Apple"],"action": "route","outbound": "direct"},
             {"ip_is_private": true,"outbound": "direct"}
         ],
         "find_process": false,
