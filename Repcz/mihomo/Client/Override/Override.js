@@ -2,7 +2,7 @@
 //
 // Clash Verge Rev (Version ≥ 17.2) & Mihomo-Party (Version ≥ 1.5.10)
 //
-// 最后更新时间: 2024-12-15 08:00
+// 最后更新时间: 2025-02-27 23:00
 
 // 规则集通用配置
 const ruleProviderCommon = {
@@ -231,127 +231,127 @@ function main(config) {
     "AD": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Reject.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Reject.list",
       "path": "./rules/AD.list"
     },
     "Apple": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Apple.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Apple.list",
       "path": "./rules/Apple.list"
     },
     "Google": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Google.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Google.list",
       "path": "./rules/Google.list"
     },
     "YouTube": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/YouTube.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/YouTube.list",
       "path": "./rules/YouTube.list"
     },
     "Telegram": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Telegram.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Telegram.list",
       "path": "./rules/Telegram.list"
     },
     "Twitter": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Twitter.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Twitter.list",
       "path": "./rules/Twitter.list"
     },
     "Steam": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Steam.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Steam.list",
       "path": "./rules/Steam.list"
     },
     "Epic": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Epic.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Epic.list",
       "path": "./rules/Epic.list"
     },
     "AI": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/AI.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/AI.list",
       "path": "./rules/AI.list"
     },
     "Emby": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Emby.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Emby.list",
       "path": "./rules/Emby.list"
     },
     "Spotify": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Spotify.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Spotify.list",
       "path": "./rules/Spotify.list"
     },
     "Bahamut": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Bahamut.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Bahamut.list",
       "path": "./rules/Bahamut.list"
     },
     "Netflix": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Netflix.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Netflix.list",
       "path": "./rules/Netflix.list"
     },
     "Disney": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Disney.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Disney.list",
       "path": "./rules/Disney.list"
     },
     "PrimeVideo": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/PrimeVideo.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/PrimeVideo.list",
       "path": "./rules/PrimeVideo.list"
     },
     "HBO": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/HBO.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/HBO.list",
       "path": "./rules/HBO.list"
     },
     "OneDrive": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/OneDrive.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/OneDrive.list",
       "path": "./rules/OneDrive.list"
     },
     "Github": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Github.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Github.list",
       "path": "./rules/Github.list"
     },
     "Microsoft": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Microsoft.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Microsoft.list",
       "path": "./rules/Microsoft.list"
     },
     "Lan": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/Lan.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/Lan.list",
       "path": "./rules/Lan.list"
     },
     "ProxyGFW": {
       ...ruleProviderCommon,
       "behavior": "classical",
-      "url": "https://github.com/Repcz/Tool/raw/X/Clash/Rules/ProxyGFW.list",
+      "url": "https://github.com/Repcz/Tool/raw/X/mihomo/Rules/ProxyGFW.list",
       "path": "./rules/ProxyGFW.list"
     }
   };

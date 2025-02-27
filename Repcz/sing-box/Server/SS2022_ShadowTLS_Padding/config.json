@@ -1,0 +1,46 @@
+{
+    "log": {
+        "disabled": false,
+        "level": "info",
+        "timestamp": true
+    },
+    "inbounds": [
+        {
+            "type": "shadowtls",
+            "tag": "Shadowsocks+ShadowTLS+Padding",
+            "listen": "::",
+            "listen_port": 65110,
+            "version": 3,
+            "users": [
+                {
+                    "name": "singbox",
+                    "password": ""
+                }
+            ],
+            "handshake": {
+                "server": "icloud.com",
+                "server_port": 443
+            },
+            "strict_mode": true,
+            "detour": "shadowsocks-shadowtls-in"
+        },
+        {
+            "type": "shadowsocks",
+            "tag": "shadowsocks-shadowtls-in",
+            "listen": "127.0.0.1",
+            "sniff": true,
+            "sniff_override_destination": false,
+            "method": "2022-blake3-aes-128-gcm",
+            "password": "",
+            "multiplex": {
+                "enabled": true,
+                "padding": true
+            }
+        }
+    ],
+    "outbounds": [
+        {
+            "type": "direct"
+        }
+    ]
+}
