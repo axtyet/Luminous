@@ -8,12 +8,12 @@
         "rules": [
             {"clash_mode": "全局直连","action": "route","server": "ali"},
             {"clash_mode": "全局代理","action": "route","server": "remote_fakeip"},
+            {"query_type": "HTTPS","action": "reject"},
             {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip","rewrite_ttl": 1},
             {"rule_set": ["ChinaDomain","Apple"],"action": "route","server": "ali"}
         ],
         "final": "cloudflare",
-        "independent_cache": true,
-        "strategy": "ipv4_only"
+        "independent_cache": true
     },
     "outbounds": [
         {"tag": "direct","type": "direct"},
@@ -66,6 +66,7 @@
         "rules": [
             {"action": "sniff","sniffer": ["http","tls","quic","dns"],"timeout": "500ms"},
             {"type": "logical","mode": "or","rules": [{"port": 53},{"protocol": "dns"}],"action": "hijack-dns"},
+            {"ip_is_private": true,"action": "route","outbound": "direct"},
             {"clash_mode": "全局直连","action": "route","outbound": "direct"},
             {"clash_mode": "全局代理","action": "route","outbound": "Proxy"},
             {"rule_set": ["Ads"],"action": "reject"},
@@ -80,10 +81,8 @@
             {"rule_set": ["AppleProxy"],"action": "route","outbound": "🇭🇰 HongKong"},
             {"rule_set": ["geolocation-!cn"],"action": "route","outbound": "Proxy"},
             {"action": "resolve"},
-            {"rule_set": ["ChinaDomain","ChinaIP","Apple"],"action": "route","outbound": "direct"},
-            {"ip_is_private": true,"outbound": "direct"}
+            {"rule_set": ["ChinaDomain","ChinaIP","Apple"],"action": "route","outbound": "direct"}
         ],
-        "find_process": false,
         "auto_detect_interface": true,
         "final": "Final"
     },
