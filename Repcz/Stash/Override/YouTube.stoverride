@@ -2,7 +2,7 @@ name: Youtube (Music) Enhance
 desc: |-
   适用于 Youtube & Youtube Music
   作者: @Maasea @Script-Hub
-  最后更新时间: 2025-01-10 17:10
+  最后更新时间: 2025-03-09 14:10
 icon: https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouTube.png
 category: ⚙️ ▸ NoAds
 
@@ -13,7 +13,8 @@ http:
     - "youtubei.googleapis.com"
 
   url-rewrite:
-    - ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad - reject-200
+    - >-
+      ^https?:\/\/[\w-]+\.googlevideo\.com\/initplayback.+&oad - reject-200
 
   script:
     - match: ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch)
@@ -27,7 +28,7 @@ http:
 
 script-providers:
   "youtube.response":
-    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/dist/youtube.response.preview.js
+    url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
     interval: 86400
 
 script:
