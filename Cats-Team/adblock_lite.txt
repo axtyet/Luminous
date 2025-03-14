@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-03-13 18:42:19(GMT+8) 
-! Total count: 33721
+! ! Version: 2025-03-14 08:03:55(GMT+8) 
+! Total count: 33727
  
 ###ADtip
 ###AdBlockDialog
@@ -9308,20 +9308,20 @@ easylife.tw,ettoday.net##.idleAd
 easylife.tw,ez3c.tw,softwarebrother.com##.popup_bottom_block
 ebay.*#$#abort-on-property-read window.ebayAdsBerries.render; abort-on-property-read window.berries
 ebay.*#$#hide-if-contains-visible-text /(S*p*o*n*s*o*r*e*d|A*n*z*e*i*g*e|S*p*o*n*s*o*r*i*s*é|P*a*t*r*o*c*i*n*a*d*o|S*p*o*n*s*o*r*i*z*z*a*t*o)/ 'li[class*="brwrvr__item-card"]' 'li[class*="brwrvr__item-card"] span[class="su-sponsored-label__sep"] > span[role="text"] > span[class]'
+ebay.*#$#hide-if-contains-visible-text /(Sponsored|Anzeige|Sponsorisé|Commandité|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato)/ 'div[data-viewport]' 'div[data-viewport] div[role="text"]'
+ebay.*#$#hide-if-contains-visible-text /(\s*sponsored\s*|\s*anzeigen\s*|\s*sponsorisés\s*|\s*commandités\s*|\s*sponsorowane\s*|\s*gesponsord\s*|\s*patrocinados\s*|\s*sponsorizzati\s*)/ 'div[data-viewport]' 'div[data-viewport] h2'
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeige|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado/ 'div[data-testid="x-pda-placements"]>div>div>div' 'div[data-viewport]>span>span>span>button[aria-expanded="false"]>div[style="min-height:1px"]'
 ebay.*#$#hide-if-contains-visible-text /Sponsored|Anzeige|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado/ 'div[id^="placement"][style^="min-height:144px;"]>div' 'div[data-viewport]>div'
+ebay.*#$#hide-if-matches-xpath './/span[contains(@class,"items-carousel")][contains(.,"Sponsored") or contains(.,"Anzeigen") or contains(.,"Sponsorisés") or contains(.,"Commandités") or contains(.,"Promocionado") or contains(.,"Gesponsord") or contains(.,"Sponsorowane") or contains(.,"Patrocinado") or contains(.,"Sponsorizzati") or contains(.,"贊助")]/ancestor::div[@data-hscroll]/parent::li[1]'
 ebay.*#$#hide-if-matches-xpath './/style[1]' '' load;hide-if-matches-xpath '//li[@data-viewport]//span[@role="text" and @aria-labelledby=//span[@class="clipped"][.="Anzeige" or text()="Sponsored" or text()="Sponsorisé" or text()="Sponsorowane" or text()="Gesponsord" or text()="Patrocinado" or text()="Sponsorizzato" or text()="贊助"]/@id]/ancestor::li[@data-viewport]' '' 'auxclick';simulate-mouse-event 'xpath(.//style[@style]/ancestor::html)$event=auxclick,delay=100'
 ebay.*#$#race start; hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"]' 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"] > div[aria-hidden="true"]' '/; filter: invert/' '/color: rgb\\(0, 0, 0.*; filter: invert/'; hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"]' 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"] > div[aria-hidden="true"]' '/; filter: invert/' '/color: rgb\\(0, 0, 0.*; filter: invert/'; hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"]' 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"] > div[aria-hidden="true"]' '/; filter: none/' '/color: rgb\\(255, 255, 255.*; filter: invert/'; hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"]' 'li[data-viewport] div[class*="s-item__detail"] > span > div[aria-labelledby][class^="s-"][class*="s-"][role="text"] > div[aria-hidden="true"]' '/; filter: invert/' '/color: rgb\\(255, 255, 255.*; filter: none/'; race stop; hide-if-matches-xpath './/li//div[@aria-labelledby][@style]/ancestor::li[@data-viewport]'
 ebay.*#$#race start; hide-if-contains-visible-text /Sponsored|Anzeigen|Sponsorisé|Sponsorizzato|Sponsorowane|Gesponsord|Patrocinado|Anzeige/ 'li.s-item' '* li div>span>div ^^sh^^ span:not([aria-hidden="true"])'; hide-if-contains-and-matches-style /./ li[data-viewport] 'li[data-viewport] .s-item__sep>div ^^sh^^ span' /./ 'overflow-x: visible'; hide-if-contains-visible-text /./ 'li[data-viewport]' '.s-item__sep>div ^^sh^^ span:nth-child(2)'; hide-if-matches-computed-xpath './/div[contains(@class, "s-item__detail")]/span/div[@aria-labelledby = "{{}}"]/ancestor::li' './/style[contains(text(),"size: var")]' /^\\s*div\\.(.*?)_/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/script[contains(text(),"CSSStyleDeclaration")]' /getPropertyValue\\(\\"\\-\\-(.*?)\\"/; hide-if-matches-computed-xpath './/div[contains(@class,"s-item__detail")]/span/span[@aria-labelledby="{{}}"]/ancestor::li' './/style[contains(text(),"div:first-line")]' '/0px;\\s\\-\\-(.*?)\\:/'; hide-if-matches-computed-xpath './/li//span[@class="s-item__sep"]/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]//div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; hide-if-matches-computed-xpath './/li//span/span[@aria-labelledby="{{}}"]/ancestor::li' './/div[@id="srp-river-main"]/div[@class="clipped"]/li//span[@aria-labelledby]/..' '/labelledby=\\"(s-.{7})\\"/'; race stop;
 ebay.*#$#race start;hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li div.s-item__detail>span>span[class]' 'li div.s-item__detail>span>span[class] > div' '/; filter: none/' '/color: rgb\\(0, 0, 0.*; filter: none/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li div.s-item__detail>span>span[class]' 'li div.s-item__detail>span>span[class] > div' '/; filter: invert/' '/color: rgb\\(0, 0, 0.*; filter: invert/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li div.s-item__detail>span>span[class]' 'li div.s-item__detail>span>span[class] > div' '/; filter: none/' '/color: rgb\\(255, 255, 255.*; filter: invert/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li div.s-item__detail>span>span[class]' 'li div.s-item__detail>span>span[class] > div' '/; filter: invert/' '/color: rgb\\(255, 255, 255.*; filter: none/';race stop;hide-if-matches-xpath './/li//div[contains(@class,"s-item__detail")]//span[@class][@style]/div[text()]/ancestor::li'
 ebay.*#$#race start;hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li span[aria-labelledby]' 'li span[aria-labelledby] div' '/; filter: none/' '/color: rgb\\(0, 0, 0.*; filter: none/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li span[aria-labelledby]' 'li span[aria-labelledby] div' '/; filter: invert/' '/color: rgb\\(0, 0, 0.*; filter: invert/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li span[aria-labelledby]' 'li span[aria-labelledby] div' '/; filter: none/' '/color: rgb\\(255, 255, 255.*; filter: invert/';hide-if-contains-and-matches-style /Sponsored|Anzeige|Sponsorisé|Sponsorowane|Gesponsord|Patrocinado|Sponsorizzato|贊助/ 'li span[aria-labelledby]' 'li span[aria-labelledby] div' '/; filter: invert/' '/color: rgb\\(255, 255, 255.*; filter: none/';race stop;hide-if-matches-xpath './/li//span[@aria-labelledby][@style]/ancestor::li'
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[data-testid="x-pda-placements"]>div>div>div' 'div[data-viewport]>span>div>div ^^sh^^ *'
-ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[data-viewport]' 'div[data-viewport] div[role="text"]'
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'div[id*="placement_"]>div' 'div[data-viewport]>span>div[aria-labelledby]>div[aria-hidden]'
 ebay.com#$#hide-if-contains-visible-text /Sponsored/ 'li>div[class="brwrvr__item-card__body"]' 'div>span[class="su-sponsored-label__sep"]>span'
-ebay.com#$#hide-if-contains-visible-text /\s*sponsored\s*/ 'div[data-viewport]' 'div[data-viewport] h2'
 ebay.com#$#hide-if-matches-xpath './/div[@class]/h2[contains(.,"Sponsored")]//ancestor::div[@data-viewdtls][@data-pushed-view="true"]'
-ebay.com#$#hide-if-matches-xpath './/span[contains(@class,"items-carousel") and contains(.,"Sponsored")]/ancestor::div[@data-hscroll]/parent::li[1]'
 ebay.com#$#hide-if-matches-xpath '//div[@role="text"][text()="Sponsored"]/ancestor-or-self::div[@data-viewport][1]'
 ebay.de#$#hide-if-matches-xpath './/a[@*[contains(.,"UnifiedRankingScenario")]]/div[@class]//img[@src]/ancestor-or-self::li[starts-with(@class,"s-item")]'
 ebb.io#%#//scriptlet('set-constant', 'ga', 'noopFunc')
@@ -23490,6 +23490,7 @@ zzzyk.com###Tinfo
 ||fppcrl.xyz^
 ||fptdxkm.com^
 ||fpvdrzx.xyz^
+||fpxhdx.icu^
 ||fq01.shop^
 ||fq010.shop^
 ||fq02.shop^
@@ -23499,6 +23500,7 @@ zzzyk.com###Tinfo
 ||fq06.shop^
 ||fq07.shop^
 ||fq67.top^
+||fqbr.cn^
 ||fqghykp.cn^
 ||fqnhjt.icu^
 ||fqpxzr.xyz^
@@ -26759,6 +26761,7 @@ zzzyk.com###Tinfo
 ||lm865.com^
 ||lm882.com^
 ||lm995.com^
+||lmeurbnjs.com^
 ||lmlmvip.com^
 ||lmnpd.xyz^
 ||lmvotk.cn^
@@ -26854,6 +26857,7 @@ zzzyk.com###Tinfo
 ||lpocne.top^
 ||lpxmall.com^
 ||lqe3.icu^
+||lqfctb.icu^
 ||lqjinx.xyz^
 ||lqlwjr.icu^
 ||lqweqk61qlih.click^
@@ -32568,6 +32572,7 @@ zzzyk.com###Tinfo
 ||xiaoz.top/assets/imgurl.js
 ||xiarikui08.com^
 ||xiazaizhijia.com/w2/js/wxzzj.js
+||xielloltv.com^
 ||xiexingcun.com/tongji.js
 ||xiexingcun.com/tyong.js
 ||xiezhuo038.cn^
@@ -33566,6 +33571,7 @@ zzzyk.com###Tinfo
 ||znnodl.xyz^
 ||znyjmbh.icu^
 ||zodoth.com^
+||zogzoldop.com^
 ||zokjds.com/js/xiao.js
 ||zokzavnea.com^
 ||zol-img.com.cn/ad/
