@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-03-21 15:23:59(GMT+8) 
-! Total count: 33882
+! ! Version: 2025-03-22 08:03:42(GMT+8) 
+! Total count: 33889
  
 ###ADtip
 ###AdBlockDialog
@@ -6540,6 +6540,7 @@ $websocket,domain=wap.yushuwu.cloud
 @@||yantuchina.com/gg/tmp/hong.gif
 @@||yast.rutube.ru/crossdomain.xml$object-subrequest
 @@||yeeach.com^$generichide
+@@||yeeach.com^$generichide,badfilter
 @@||yellowbridge.com^$elemhide
 @@||yesiget.i234.me^$generichide
 @@||yimg.com/ss/rapid-3.*.js$domain=hk.yahoo.com|tw.yahoo.com
@@ -9055,7 +9056,6 @@ doupe.zive.cz#@##adblock-leaderboard
 douxie.com##.ndxBanner
 douxie.com##.ndxChdjBox
 douyin.com###videoSideBar iframe
-douyin.com##[class*='h5-ad-']
 douyin.com#?##douyin-right-container > div[class] > div[class]:has(> ul[class] > li[class] > a[href][target="_blank"] + div:contains(广告))
 douyin.com#?##videoSideBar:-abp-has(div:-abp-contains(/商品|商家|退款|店铺/))
 douyin.com#?#.xgplayer>div[class]:-abp-has(svg[height="16"][width="30"])
@@ -13668,8 +13668,9 @@ nodeloc.com###wghtml
 nodeloc.com##.AfruxWidgets-sideNavAlt
 nonameno.com,rusrek.com##.alert
 nongjitong.com##.ad_sms
-noon.com#$#hide-if-matches-xpath './/div[@class][contains(text(),"Sponsored")]/ancestor::a[@href]/ancestor-or-self::div[contains(@class,"ProductBoxLinkHandler")]'
-noon.com#$#hide-if-matches-xpath './/div[@class][contains(text(),"Sponsored")]/ancestor::a[@href]/ancestor-or-self::div[contains(@class,"ProductCarouselDesktop_emblaSlide")][1]'
+noon.com#$#hide-if-matches-xpath './/div[@class][contains(text(),"Sponsored") or contains(text(),"إعلان")]/ancestor::a[@href]/ancestor-or-self::div[contains(@class,"ProductBoxLinkHandler")]'
+noon.com#$#hide-if-matches-xpath './/div[@class][contains(text(),"Sponsored") or contains(text(),"إعلان")]/ancestor::a[@href]/ancestor-or-self::div[contains(@class,"ProductBoxLinkHandler")]/ancestor::div[contains(@id,"recommendedProducts")][@style]/ancestor::div[@id]/parent::div[contains(@class,"Recommendations")][1]'
+noon.com#$#hide-if-matches-xpath './/div[@class][contains(text(),"Sponsored") or contains(text(),"إعلان")]/ancestor::a[@href]/ancestor-or-self::div[contains(@class,"ProductCarouselDesktop_emblaSlide")][1]'
 noon.com#$#hide-if-matches-xpath './/span[.="Ad"]/ancestor::a/parent::div[@data-qa]/parent::div[contains(@class,"PdpTopSlotDesktop_pdpContainer")]'
 noon.com#$#hide-if-matches-xpath './/span[.="Ad"]/parent::div[@style][contains(@class,"RenderLabel_labelContainer")]/ancestor::div[@style][contains(@id,"adBannerModule")]'
 noon.com#$#hide-if-matches-xpath './/span[@class][contains(text(),"Sponsored")]/ancestor::div[@id][1]/parent::div[@style][contains(@id,"adMultiProductsBanner")]/ancestor::div[contains(@class,"PdpWidgets_widgetContaine")]'
@@ -15282,6 +15283,9 @@ so.com##div[id^="guang-"]
 so.com##div[id^="mohe-biu_360"] > .g-card
 so.com##li[data-cpc_query]
 so.com##li[data-id^="cm_display_init_text_"]
+so.douyin.com##X-VIEW.container
+so.douyin.com##[class*='h5-ad-']
+so.douyin.com##[class^='layout-']
 so.lenovo.com.cn##.AdSite
 so.toutiao.com##.relative.pointer-events-none
 so.toutiao.com##DIV[id^='ad_']
@@ -16306,7 +16310,7 @@ v2rayssr.com#$##wrapfabtest { height: 1px!important; }
 v2rayssr.com#?#.content-area > .single-bottom-html:has(> div[align="center"] > .adsbygoogle)
 v2rayssr.com#?#.sidebar-innter > .widget:has(.adsbygoogle)
 v2rayssr.com#?#.single-top-html:has(> div:only-child > a[target="_blank"] > img)
-vailonxx.co,www.motchill77.com,www.motchill77.com#$#abort-current-inline-script jQuery window.open
+vailonxx.co,www.motchill66.com,www.motchill66.com#$#abort-current-inline-script jQuery window.open
 vanpeople.com##.advlr
 vanpeople.com##.banneradv-newbox
 vanpeople.com##.main-adv
@@ -16819,7 +16823,7 @@ www.meijuii.cc##DIV[style*='vw; display: block;']
 www.nettruyenupp.com#$#abort-on-property-read sp
 www.olevod.com##.B1Lss,.B1Rss
 www.olx.pl#$#hide-if-matches-xpath './/div[@class="vivus_footer"]/h5/ancestor-or-self::div[contains(@class,"vivus")]/ancestor::div[@data-testid="qa-advert-slot"]'
-www.phimdinhcao.online,www.motchill77.com,www.motchill77.com,xnhau.fun,teamlanhlung3.shop#$#abort-on-property-read localStorage
+www.phimdinhcao.online,www.motchill66.com,www.motchill66.com,xnhau.fun,teamlanhlung3.shop#$#abort-on-property-read localStorage
 www.pixnet.net###extradiv2
 www.pixnet.net###extradiv5
 www.playno1.com##.eis_box_s
@@ -16867,7 +16871,6 @@ www.youtube.com##.ytlr-watch-default__ad-badge-for-tvae
 www.youtube.com##ytlr-ad-skip-or-preview
 www.youtube.com##ytlr-banner-cta-renderer
 www.youtube.com#$#override-property-read Object.prototype.args.raw_player_response.playerAds undefined; override-property-read Object.prototype.args.raw_player_response.adSlots undefined;
-www.youtube.com#$#override-property-read Object.prototype.globalCallbacks.onAbnormalityDetected noopFunc
 www.youtube.com#$#override-property-read Object.prototype.videoSkipJob_ noopFunc; override-property-read Object.prototype.web_playlist_queue_multiple_skips_ks false;
 www.youtube.com,m.youtube.com,music.youtube.com,youtubekids.com,youtube-nocookie.com#$#override-property-read playerResponse.adPlacements undefined;
 www.youtube.com,m.youtube.com,music.youtube.com,youtubekids.com,youtube-nocookie.com#$#override-property-read ytInitialPlayerResponse.adPlacements undefined;
@@ -17282,6 +17285,7 @@ youtube.com##ytd-engagement-panel-section-list-renderer[target-id^="engagement-p
 youtube.com#$#array-override push BISCOTTI_BASED_DETECTION_STATE_IS_CLICK_EVENT_NOT_TRUSTED
 youtube.com#$#override-property-read Object.prototype.ab_det_sc_inj_enf false
 youtube.com#$#override-property-read Object.prototype.ab_sa_ef undefined
+youtube.com#$#override-property-read Object.prototype.onAbnormalityDetected noopFunc; array-override includes onAbnormalityDetected false
 youtube.com#$#override-property-read Object.prototype.onAdSkip undefined
 youxi.baidu.com###coupletBanner
 youxi.kugou.com###scrollUp
@@ -19494,6 +19498,7 @@ zzzyk.com###Tinfo
 ||ajybgc.xyz^
 ||ajzsa.xyz^
 ||ak03150hou.com^
+||ak03211hou.com^
 ||ak0gsh40.com^$third-party
 ||ak530.com/js/*.js
 ||akabebe.com/jgg/*.gif
@@ -24206,6 +24211,7 @@ zzzyk.com###Tinfo
 ||gubgonx.cn^
 ||gucheng.com/2016/ggimg/
 ||gucheng.com/gcwad/
+||gucx.cn^
 ||guess.h.qhimg.com^
 ||guessdetail.com^$third-party
 ||guhai.com.cn/AD/
@@ -27807,6 +27813,7 @@ zzzyk.com###Tinfo
 ||neiod.xyz^
 ||nektonsrutate.com^
 ||neldatsy.com^
+||neldipbtg.com^
 ||nen.com.cn/eap/
 ||nen.com.cn/service/js/beitou
 ||neolit.cn^
