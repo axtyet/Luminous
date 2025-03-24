@@ -1,7 +1,7 @@
 /*************************************
 
 项目名称：iTunes-系列解锁合集
-更新日期：2025-03-14
+更新日期：2025-03-24
 脚本作者：@ddm1023
 电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -29,10 +29,12 @@ const yearlysubscription = `${bundle_id}.yearlysubscription`;
 const lifetimeid = `${bundle_id}.lifetime`;
 
 const list = {
+  'ECGANALYZER': { cm: 'timea', hx: 'hxpda', id: "com.wms.hrv.yearlyfamilysharing", latest: "ddm1023" }, //ECG+
+  'com.RuoG.Pixiu': { cm: 'timea', hx: 'hxpda', id: "com.RuoG.Pixiu.VIPYear", latest: "ddm1023" }, //貔貅记账
   'com.ideack.BusinessCard': { cm: 'timeb', hx: 'hxpda', id: "BusinessCardVipPerpetual", latest: "ddm1023" }, //名片夹
   'com.ideack.MagicAudio': { cm: 'timeb', hx: 'hxpdb', id: "MagicAudioPermanent", latest: "ddm1023" }, //音乐剪辑
   'DuChuangZhe': { cm: 'timea', hx: 'hxpda', id: "org.zrey.du.main", latest: "ddm1023" }, //独创者
-  'PhotoWhite': { cm: 'timeb', hx: 'hxpda', id: "org.zrey.photowhite.flash_lifetime", latest: "ddm1023" },  //印白
+  'PhotoWhite': { cm: 'timeb', hx: 'hxpda', id: "org.zrey.photowhite.flash_lifetime", latest: "ddm1023" },  //印白相册
   'FETreeVideoChange': { cm: 'timeb', hx: 'hxpda', id: "com.dj.videototext.forever", latest: "ddm1023" },  //视频转文字
   '%E5%B0%8F%E5%B0%8F%E7%9B%B8%E6%9C%BA%E5%A4%A7%E5%B8%88': { cm: 'timeb', hx: 'hxpda', id: "com.ai.merge.forever.vip", latest: "ddm1023" },  //乐颜
   'FoodIdentificationTool': { cm: 'timeb', hx: 'hxpda', id: "20002", latest: "ddm1023" },  //剂查查
@@ -138,7 +140,6 @@ const list = {
   'excel': { cm: 'timea', hx: 'hxpda', id: "com.gamawh.excelerios.yearly", latest: "ddm1023" },  //办公文档
   'Future%20Baby': { cm: 'timea', hx: 'hxpda', id: "com.nilu.faceseer.yearly", latest: "ddm1023" },  //宝宝长相预测
   'Smoke': { cm: 'timea', hx: 'hxpda', id: "smoke19870727", latest: "ddm1023" },  //今日香烟
-  'com.wms.hrv': { cm: 'timea', hx: 'hxpda', id: "com.wms.hrv.pro", latest: "ddm1023" },  //ECG+
   'AppAlarmIOS': { cm: 'timea', hx: 'hxpda', id: "alarm.me.vip.year.tier1", latest: "ddm1023" },  //Me+
   'Tinglee': { cm: 'timea', hx: 'hxpdb', id: "vip.forever.tinglee", latest: "ddm1023" },  //英语听听
   'NoteKeys': { cm: 'timea', hx: 'hxpda', id: "notekeys_access_weekly", latest: "ddm1023" },  //五线谱
@@ -221,7 +222,6 @@ const list = {
   'ExcelSpreadSheetsWPS': { cm: 'timea', hx: 'hxpda', id: "com.turbocms.SimpleSpreadSheet.viponeyear", latest: "ddm1023" },  //简易表格(需试用)
   'XinQingRiJi': { cm: 'timea', hx: 'hxpda', id: "zhiwenshouzhangQuarterlyPlus", latest: "ddm1023" },  //猫咪手帐(需试用)
   'Nutrilio': { cm: 'timea', hx: 'hxpda', id: "net.nutrilio.one_year_plus", latest: "ddm1023" },  //Nutrilio
-  'Pixiu%E8%AE%B0%E8%B4%A6': { cm: 'timea', hx: 'hxpda', id: "com.RuoG.Pixiu.VIPYear", latest: "ddm1023" },  //貔貅记账
   'AIHeader': { cm: 'timea', hx: 'hxpda', id: "com.ai.avatar.maker.month.3dayfree", latest: "ddm1023" },  //AI头像馆
   'MoodTracker': { cm: 'timeb', hx: 'hxpda', id: "co.vulcanlabs.moodtracker.lifetime2", latest: "ddm1023" },  //ChatSmith(美区)
   'com.dandelion.Routine': { cm: 'timeb', hx: 'hxpda', id: "membership", latest: "ddm1023" },  //小日常
@@ -249,7 +249,7 @@ const list = {
   'Wext': { cm: 'timeb', hx: 'hxpda', id: "com.lmf.wext.life", latest: "ddm1023" },  //万源阅读
   'ColorCapture': { cm: 'timeb', hx: 'hxpda', id: "10001", latest: "ddm1023" },  //色采
   'xTerminal': { cm: 'timea', hx: 'hxpda', id: "xterminal.pro2", latest: "ddm1023" },  //xTerminal
-  'Fotoz': { cm: 'timeb', hx: 'hxpda', id: "com.kiddy.fotoz.ipa.pro", latest: "ddm1023" },  //Fotoz
+  'Fotoz': { cm: 'timeb', hx: 'hxpda', id: "com.kiddy.fotoz.ipa.pro", latest: "ddm1023" },  //Fotoz - 图片一键下载
   'TheLastFilm': { cm: 'timea', hx: 'hxpda', id: "Filmroll_Pro_1Year", latest: "ddm1023" },  //最后一卷胶片(需订阅一次)
   'Motivation': { cm: 'timea', hx: 'hxpda', id: "com.monkeytaps.motivation.premium.year3", latest: "ddm1023" },  //Motivation
   'io.sumi.GridDiary2': { cm: 'timea', hx: 'hxpda', id: "io.sumi.GridDiary.pro.annually", latest: "ddm1023" },  //格志
