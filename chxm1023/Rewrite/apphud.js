@@ -3,7 +3,7 @@
 项目名称：apphud合集
 下载地址：https://t.cn/A6m7WeMH
 下载地址：https://t.cn/A6WlGNDi
-更新日期：2024-12-02
+更新日期：2025-03-31
 脚本作者：@ddm1023
 电报频道：https://t.me/ddm1023
 使用声明：⚠️仅供参考，🈲转载与售卖！
@@ -22,6 +22,7 @@ hostname = *.apphud.com
 const ddm = JSON.parse(typeof $response != "undefined" && $response.body || "{}");
 
 const list = [
+  "SnipProYearly", //Snip:Removebg - 抠图换背景
   "com.newlearning.english.premium.forever",  //Excellent
   "1year7days80",  //Bright
   "com.movavi.clips.lifetime",  //Movavi
