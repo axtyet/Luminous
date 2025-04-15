@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-04-15 20:05:27(GMT+8) 
-! Total count: 33936
+! ! Version: 2025-04-16 02:04:19(GMT+8) 
+! Total count: 33948
  
 ###ADtip
 ###AdBlockDialog
@@ -4913,6 +4913,7 @@ $websocket,domain=wap.yushuwu.cloud
 @@||ad.ettoday.net/msg_liveshow.php^$domain=ettoday.net
 @@||ad.filmweb.pl/adbanner/reklamy/adx.js$script
 @@||ad.kazakinfo.com^
+@@||ad.mail.ru/adp/?_SITEZONE=15&json=1^$xmlhttprequest,domain=mail.ru
 @@||ad.ourgame.com^
 @@||ad.sevenads.net/banner.php?$script,domain=uploaded-premium.ru
 @@||ad.sevenads.net/layer.php?p=$script,domain=uploaded-premium.ru
@@ -5375,6 +5376,8 @@ $websocket,domain=wap.yushuwu.cloud
 @@||dydog.org/*/DPlayer.min.css
 @@||dydog.org/*/DPlayer.min.js
 @@||dyo.gs/intermission/loadTargetUrl$xmlhttprequest
+@@||dzen.ru/api/web/v*/$domain=mail.ru
+@@||dzen.ru/zen-partner/mailru-morda$domain=mail.ru
 @@||e-mete.com/js/ads*.js$script,third-party
 @@||e.cn.miaozhen.com/r/k=*=http
 @@||e9china.net^$generichide
@@ -5865,6 +5868,7 @@ $websocket,domain=wap.yushuwu.cloud
 @@||monnsutogatya.com^$elemhide
 @@||morosedog.gitlab.io^$generichide
 @@||moyens.net^$generichide
+@@||ms.dzen.ru/?rn=$domain=mail.ru
 @@||ms332.com^$generichide
 @@||msecnd.net/scripts/jsll-$domain=microsoft.com
 @@||msn.wrating.com/a1.js
@@ -7711,6 +7715,7 @@ bilibili.com##.banner-card
 bilibili.com##.bili-app
 bilibili.com##.bili-app-link-container
 bilibili.com##.bili-dyn-ads
+bilibili.com##.bili-video-card.is-rcmd:has(> div.bili-video-card__wrap .bili-video-card__stats--icon > path[d*="M16.9122 1.50323C17.4366 1.48358 17.99745 1.54938 18.4701 1.8207C18.9423 2.09168 19.28085"])
 bilibili.com##.bili-video-card.is-rcmd:has(> div.bili-video-card__wrap div.bili-video-card__stats > div.bili-video-card__stats--left:empty + span.bili-video-card__stats--text)
 bilibili.com##.bili-video-card__wrap > a[href^="http"]:not([href*=".bilibili.com/"])
 bilibili.com##.btn-ad
@@ -7803,6 +7808,7 @@ bingfeng.tw#%#(function(){var b=window.setTimeout;window.setTimeout=function(a,c
 bingfeng.tw#%#//scriptlet('abort-current-inline-script', 'setTimeout', 'COOKIE_NAME')
 bioon.com###ad_tb
 bioon.com##.grid_6
+biqgg.com##a[onclick="guangtui();"]
 biqle.org,biqle.ru#$#prevent-listener /click|mousedown/ 'popunder'
 biquge001.com###content > a
 bitauto.com###advCarsumType1
@@ -12867,6 +12873,9 @@ mail.qq.com###plp_ad_container
 mail.qq.com##.tipbook-top
 mail.rambler.ru##.notification-warning
 mail.ru#$#hide-if-contains-visible-text /Реклама/ 'div.tgb-wrapper' span
+mail.ru#@#.mailru-visibility-check
+mail.ru#@#.tgb-wrapper
+mail.ru#@#[href^="https://dzen.ru"]
 mail.sina.com.cn##.rightbottom
 main.m.taobao.com##button
 maiziedu.com##.msg
@@ -14894,6 +14903,7 @@ sdzbcg.com##td[width="297"] img
 sdzbcg.com##td[width="580"][height="279"] > table:nth-child(2n-1)
 se.pl###adb_popup
 se533.com##div[style="width:960px;margin:0 auto;text-align:center;"]
+search.bilibili.com##.video-list > div:has(> .bili-video-card > .bili-video-card__wrap > .bili-video-card__info > .bili-video-card__info--right > .ad-feedback-entry)
 search.chongbuluo.com##.search > div > a[target="_blank"] > img
 search.seznam.cz#$#hide-if-matches-xpath './/div/h3[contains(@class,"bd037d")]/a[@data-dot-data]/ancestor::div[@data-e-b-n]'
 search.seznam.cz#$#hide-if-matches-xpath './/picture[@class]/img[contains(@src,"https://d25-a.sdn.cz")]/ancestor::div[@data-e-b-n][@data-n-id]/parent::div[@class][1]'
@@ -15153,6 +15163,7 @@ sinoptik.ua#$#abort-on-property-read SIN.globals.ADBLOCK_DETECTED
 sisixxb.com##.preflink
 site.baidu.com##.pstr.mt10
 sixyin.com##.custom-html-widget > a[target="_blank"] > img
+sixyin.com##.widget_custom_html
 sixyin.com#?#.widget_custom_html:has(> h3:contains(赞助))
 skidrowreloaded.*,vidsrc.*#$#abort-on-property-read runPop; abort-current-inline-script open; abort-on-property-read Math.floor
 skinme.cc,yuntue.com##.huodong
@@ -16800,7 +16811,7 @@ www.facebook.com,web.facebook.com#$#race start; hide-if-contains /Anzeige|Sponso
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrizato]{11}|[Sponsrowane]{11}|[Anzeig]{6}|[Patrocnado]{11}|स्पॉन्सर्ड/ 'div#watch_feed div[class^="_"]' 'a[href="#"][role="link"]'; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrizato]{11}|[Sponsrowane]{11}|[Anzeig]{6}|[Patrocnado]{11}|स्पॉन्सर्ड/ 'div#watch_feed div[class^="_"]' 'a[href^="?__cft__"] span'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[aria-label][attributionsrc][href^="?__cft__"][role="link"]>span>span[aria-labelledby]'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[attributionsrc][href*="/ads/about/"][role="link"][tabindex="0"]>span'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[attributionsrc][href="#"][role="link"][tabindex="0"]>span>span[aria-labelledby]>span[style]'; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrwae]{12}|[Patrocind]{11}|[Sponsrizat]{13}|[Anzeig]{6}/ 'div[role=feed] div[role=article]' a[href^="?__cft__"]; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-matches-xpath '//div[@role="complementary"]//div[not(@class) and not(@id)]/span[not(@class) and not(@id) and not(@aria-labelledby)]'; hide-if-matches-xpath './/div[@role="complementary"]//span/following::div[@aria-labelledby][@role][@tabindex]/ancestor-or-self::span'; race stop;
-www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(brs_lbl_content|brs_cnt_lbl_the|the_brs_lab_content_new|the_br_s_cnt_label|the_br_s_cont_label|br_lb_label|br_lb_label_co|lbl_content_brs|labe_br_con_the|br_safety_content_label|br_con_label_for_safety|content_lbl_brs|content_label_brs|cont_label_brs|con_label_brs|new_con_label_brs|lbl_la_br_cont|new_lbl_la_br_cont|br_safety_con_label|new_br_safety_con_label|brs_con_label|brs_content_label|bran_lbl_cont|brand_lbl_cont)[^\n]+?("sponsored_data"|"data_spon"|"spon_dat"|ads_data)[^\n]+?("SponsoredData"|"ad_id")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sp_auct_dis|flag_distan_spon_auc|of_distanc_auctio_spons|auction_distance_sp|auct_distance_sponsored|auc_distance_sponsored|auction_sponsored_dist|new_auction_sponsored_dist|auct_dis_of_sponsored|the_auct_dis_of_sponsored|auc_dis_sponsored|the_auc_dis_sponsored|spon_auct_dis|spons_dista_auc|dist_spons_auctio|sponsor_for_dis_au|distanc_auct_the_sponsor|spon_lbl_aucti_dista|label_auctio_spons_distanc|auct_dis_sponso|auc_dist_sponso|auc_dis_sponso|new_auc_dis_sponso|spon_lbl_dist_auct|spon_lbl_dis_auct|spons_lbel_dis_auct|lbl_flag_spon_auc_dist)/'
+www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(conte_br_labe_flag|brs_lbl_content|brs_cnt_lbl_the|the_brs_lab_content_new|the_br_s_cnt_label|the_br_s_cont_label|br_lb_label|br_lb_label_co|lbl_content_brs|labe_br_con_the|br_safety_content_label|br_con_label_for_safety|content_lbl_brs|content_label_brs|cont_label_brs|con_label_brs|new_con_label_brs|lbl_la_br_cont|new_lbl_la_br_cont|br_safety_con_label|new_br_safety_con_label|brs_con_label|brs_content_label|bran_lbl_cont|brand_lbl_cont)[^\n]+?("sponsored_data"|"data_spon"|"spon_dat"|ads_data)[^\n]+?("SponsoredData"|"ad_id"|"lbl_adv_iden")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sp_auct_dis|flag_distan_spon_auc|of_distanc_auctio_spons|auction_distance_sp|auct_distance_sponsored|auc_distance_sponsored|auction_sponsored_dist|new_auction_sponsored_dist|auct_dis_of_sponsored|the_auct_dis_of_sponsored|auc_dis_sponsored|the_auc_dis_sponsored|spon_auct_dis|spons_dista_auc|dist_spons_auctio|sponsor_for_dis_au|distanc_auct_the_sponsor|spon_lbl_aucti_dista|label_auctio_spons_distanc|auct_dis_sponso|auc_dist_sponso|auc_dis_sponso|new_auc_dis_sponso|spon_lbl_dist_auct|spon_lbl_dis_auct|spons_lbel_dis_auct|lbl_flag_spon_auc_dist)/'
 www.ghxi.com##.wpcom_ad_wrap
 www.ghxi.com##DIV[style^='padding:10px;position: fixed;bottom: 0;left: 0;right:0;z-index: ']
 www.goha.ru,3dnews.ru,avtovzglyad.ru,baby.ru,dni.ru,kufar.by,ura.news#$#abort-on-property-read Ya
@@ -18629,7 +18640,6 @@ zzzyk.com###Tinfo
 ||6vhao.tv/d/
 ||6w7.icu^
 ||6yfcuuw.com^
-||6yso.com/wp-content/uploads/*-300-x-
 ||70.86.24.120:8060/
 ||7011.stia.cn^
 ||70822.com/agfile/
@@ -20583,6 +20593,7 @@ zzzyk.com###Tinfo
 ||bio-equip.com/dimgs/
 ||bio-equip.com/uploadimages/peiqing.gif
 ||bioon.com/xy/article/img/zhi_neng_xibao_fenxi.png
+||biqgg.com/w.js?v=
 ||biqiuge8.cc/js/d
 ||biqiuge8.cc/js/p
 ||biquge96.com/123.
@@ -27484,6 +27495,7 @@ zzzyk.com###Tinfo
 ||mnpbxjq.cn^
 ||mnpzrgz.xyz^
 ||mnrrk.com/yuhe/ote/js/pcgg.js
+||mnrz.cn^
 ||mnwor.xuanlishi.com^
 ||mnzvtwd.cn^
 ||mo-tuo.com^
