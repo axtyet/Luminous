@@ -2,9 +2,9 @@ name: 小红书去广告
 desc: |-
   过滤信息流推广，移除图片及视频水印，如有异常，请先清除缓存再尝试。
   作者: @RuCu6 @fmz200 @可莉🅥 @Script-Hub
-  最后更新时间: 2025-01-10 21:40
+  最后更新时间: 2025-03-16 19:40
 icon: https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/RedPaper.png
-category: ⚙️ ▸ NoAds
+category: ⚙️ ▸ NoAds-Beta
 
 http:
 
@@ -86,9 +86,5 @@ script-providers:
     url: https://kelee.one/Resource/Script/RedPaper/RedPaper_remove_ads.js
     interval: 86400
 
-script:
-  shortcuts:
-    quic-xiaohongshu: network == 'udp' and host.endswith('xiaohongshu.com')
-
 rules:
-  - SCRIPT,quic-xiaohongshu,REJECT
+  - AND,((PROTOCOL,QUIC),(DOMAIN-SUFFIX,xiaohongshu.com)),REJECT

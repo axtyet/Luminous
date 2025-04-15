@@ -2,9 +2,9 @@ name: Youtube (Music) Enhance
 desc: |-
   适用于 Youtube & Youtube Music
   作者: @Maasea @Script-Hub
-  最后更新时间: 2025-03-09 14:10
+  最后更新时间: 2025-04-15 19:15
 icon: https://raw.githubusercontent.com/luestr/IconResource/main/App_icon/120px/YouTube.png
-category: ⚙️ ▸ NoAds
+category: ⚙️ ▸ NoAds-Beta
 
 http:
 
@@ -24,16 +24,13 @@ http:
       max-size: -1
       binary-mode: true
       argument: |-
-        {"lyricLang":"zh-Hans","captionLang":"zh-Hans","blockUpload":true,"blockImmersive":true,"debug":false}
+        {"lyricLang":"off","captionLang":"off","blockUpload":true,"blockImmersive":true,"blockShorts":false,"debug":false}
 
 script-providers:
   "youtube.response":
     url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
     interval: 86400
 
-script:
-  shortcuts:
-    quic-googlevideo: network == 'udp' and (host.endswith('googlevideo.com') or host.endswith('googleapi.com'))
-
 rules:
-  - SCRIPT,quic-googlevideo,REJECT
+  - AND,((PROTOCOL,UDP),(DOMAIN-SUFFIX,googlevideo.com)),REJECT
+  - AND,((PROTOCOL,UDP),(DOMAIN-SUFFIX,googleapi.com)),REJECT
