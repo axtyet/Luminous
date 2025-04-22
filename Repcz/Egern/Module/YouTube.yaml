@@ -2,7 +2,7 @@ name: Youtube (Music) Enhance
 description: |-
   适用于 Youtube & Youtube Music
   作者: @Maasea @Egern
-  最后更新时间: 2025-03-09 14:10
+  最后更新时间: 2025-04-22 19:45
 compat_arguments:
   屏蔽上传按钮: 'true'
   屏蔽选段按钮: 'true'
@@ -33,7 +33,7 @@ map_locals:
 scriptings:
 - http_response:
     name: youtube.response
-    match: ^https:\/\/youtubei\.googleapis\.com\/youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch)
+    match: ^https:\/\/youtubei\.googleapis\.com\/(youtubei\/v1\/(browse|next|player|search|reel\/reel_watch_sequence|guide|account\/get_setting|get_watch))(\?(.*))?$
     script_url: https://raw.githubusercontent.com/Maasea/sgmodule/master/Script/Youtube/youtube.response.js
     arguments:
       _compat.$argument: '{"lyricLang":"{{{歌词翻译语言}}}","captionLang":"{{{字幕翻译语言}}}","blockUpload":{{{屏蔽上传按钮}}},"blockImmersive":{{{屏蔽选段按钮}}},"debug":{{{启用调试模式}}}}'
