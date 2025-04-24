@@ -31,9 +31,9 @@ Console.info(`FORMAT: ${FORMAT}`);
 	// 信息组
 	const infoGroup = {
 		seasonTitle: url.searchParams.get("season_title"),
-		seasonId: Number.parseInt(url.searchParams.get("season_id"), 10) || undefined,
-		epId: Number.parseInt(url.searchParams.get("ep_id"), 10) || undefined,
-		mId: Number.parseInt(url.searchParams.get("mid") || url.searchParams.get("vmid"), 10) || undefined,
+		seasonId: url.searchParams.get("season_id") || undefined,
+		epId: url.searchParams.get("ep_id") || undefined,
+		mId: url.searchParams.get("mid") || url.searchParams.get("vmid") || undefined,
 		evaluate: undefined,
 		keyword: url.searchParams.get("keyword"),
 		locale: url.searchParams.get("locale"),
@@ -101,10 +101,11 @@ Console.info(`FORMAT: ${FORMAT}`);
 											switch (PATHs?.[1]) {
 												case "View": // 播放页
 													body = ViewReq.fromBinary(rawBody);
+													Console.debug(`ViewUniteReq: ${JSON.stringify(body, null, 2)}`);
 													rawBody = ViewReq.toBinary(body);
 													// 判断线路
-													infoGroup.seasonId = Number.parseInt(body?.extraContent?.season_id, 10) || infoGroup.seasonId;
-													infoGroup.epId = Number.parseInt(body?.extraContent.ep_id, 10) || infoGroup.epId;
+													infoGroup.seasonId = body?.extraContent?.season_id || infoGroup.seasonId;
+													infoGroup.epId = body?.extraContent.ep_id || infoGroup.epId;
 													if (infoGroup.seasonId || infoGroup.epId) infoGroup.type = "PGC";
 													if (Caches.ss.has(infoGroup.seasonId)) infoGroup.locales = Caches.ss.get(infoGroup.seasonId);
 													else if (Caches.ep.has(infoGroup.epId)) infoGroup.locales = Caches.ep.get(infoGroup.epId);
@@ -115,11 +116,12 @@ Console.info(`FORMAT: ${FORMAT}`);
 											switch (PATHs?.[1]) {
 												case "PlayViewUnite": // 播放地址
 													body = PlayViewUniteReq.fromBinary(rawBody);
+													Console.debug(`body: ${JSON.stringify(body)}`);
 													body.vod.forceHost = Settings?.ForceHost ?? 1;
 													rawBody = PlayViewUniteReq.toBinary(body);
 													// 判断线路
-													infoGroup.seasonId = Number.parseInt(body?.extraContent?.season_id, 10) || infoGroup.seasonId;
-													infoGroup.epId = Number.parseInt(body?.extraContent.ep_id, 10) || infoGroup.epId;
+													infoGroup.seasonId = body?.extraContent?.season_id || infoGroup.seasonId;
+													infoGroup.epId = body?.extraContent.ep_id || infoGroup.epId;
 													if (infoGroup.seasonId || infoGroup.epId) infoGroup.type = "PGC";
 													if (Caches.ss.has(infoGroup.seasonId)) infoGroup.locales = Caches.ss.get(infoGroup.seasonId);
 													else if (Caches.ep.has(infoGroup.epId)) infoGroup.locales = Caches.ep.get(infoGroup.epId);
@@ -207,8 +209,8 @@ Console.info(`FORMAT: ${FORMAT}`);
 									// 番剧-播放页-web
 									const URLRegex = /ss(?<seasonId>[0-9]+)|ep(?<epId>[0-9]+)/;
 									({ seasonId: infoGroup.seasonId, epId: infoGroup.epId } = PATHs?.[2].match(URLRegex)?.groups);
-									infoGroup.seasonId = Number.parseInt(infoGroup.seasonId, 10) || infoGroup.seasonId;
-									infoGroup.epId = Number.parseInt(infoGroup.epId, 10) || infoGroup.epId;
+									infoGroup.seasonId = infoGroup.seasonId || infoGroup.seasonId;
+									infoGroup.epId = infoGroup.epId || infoGroup.epId;
 									if (Caches.ss.has(infoGroup.seasonId)) infoGroup.locales = Caches.ss.get(infoGroup.seasonId);
 									else if (Caches.ep.has(infoGroup.epId)) infoGroup.locales = Caches.ep.get(infoGroup.epId);
 									break;
@@ -247,14 +249,14 @@ Console.info(`FORMAT: ${FORMAT}`);
 							break;
 						case "/x/v2/space": // 用户空间
 							switch (infoGroup.mId) {
-								case 928123: // 哔哩哔哩番剧
-								case 15773384: // 哔哩哔哩电影
+								case "928123": // 哔哩哔哩番剧
+								case "15773384": // 哔哩哔哩电影
 								default:
 									infoGroup.locales = ["CHN"];
 									break;
-								case 11783021: // 哔哩哔哩番剧出差
-								case 1988098633: // b站_戲劇咖
-								case 2042149112: // b站_綜藝咖
+								case "11783021": // 哔哩哔哩番剧出差
+								case "1988098633": // b站_戲劇咖
+								case "2042149112": // b站_綜藝咖
 									infoGroup.locales = Settings.Locales.filter(locale => locale !== "CHN");
 									break;
 							}
@@ -281,14 +283,14 @@ Console.info(`FORMAT: ${FORMAT}`);
 						case "/x/space/acc/info": // 用户空间-账号信息-pc
 						case "/x/space/wbi/acc/info": // 用户空间-账号信息-wbi
 							switch (infoGroup.mId) {
-								case 928123: // 哔哩哔哩番剧
-								case 15773384: // 哔哩哔哩电影
+								case "928123": // 哔哩哔哩番剧
+								case "15773384": // 哔哩哔哩电影
 								default:
 									infoGroup.locales = ["CHN"];
 									break;
-								case 11783021: // 哔哩哔哩番剧出差
-								case 1988098633: // b站_戲劇咖
-								case 2042149112: // b站_綜藝咖
+								case "11783021": // 哔哩哔哩番剧出差
+								case "1988098633": // b站_戲劇咖
+								case "2042149112": // b站_綜藝咖
 									infoGroup.locales = Settings.Locales.filter(locale => locale !== "CHN");
 									break;
 							}
@@ -326,6 +328,7 @@ Console.info(`FORMAT: ${FORMAT}`);
 			break;
 	}
 	$request.url = url.toString();
+	Console.debug(`$request.url: ${$request.url}`);
 	Console.debug(`infoGroup: ${JSON.stringify(infoGroup)}`);
 	// 请求策略
 	switch (url.pathname) {
