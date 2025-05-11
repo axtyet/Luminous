@@ -4,9 +4,9 @@
 # TG:https://t.me/QVQ_Channel
 # 以 ';' 或 '#' 或 '//' 开头的配置文件行为注释行
 #
-# Egern Version ≥ v1.29.0(489)
+# Egern Version ≥ v2.0.0(552)
 #
-# 最后更新时间: 2025-02-01 22:30
+# 最后更新时间: 2025-05-11 23:30
 #
 # ================
 
@@ -15,8 +15,10 @@ vif_only: true
 # 劫持 DNS 服务器
 hijack_dns:
 - '*:53'
-# 自定义MaxMind数据库
+# 自定义 MaxMind 数据库
 geoip_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country.mmdb
+# 自定义 ASN 数据库
+asn_db_url: https://raw.githubusercontent.com/Loyalsoldier/geoip/release/GeoLite2-ASN.mmdb
 # 代理延迟测试
 proxy_latency_test_url: http://1.1.1.1/generate_204
 # 直连延迟测试
@@ -35,6 +37,10 @@ dns:
   - wildcard: # 通配符规则
       match: "*"
       value: Domestic-DNS
+  hosts:
+    # App Store 下载请求解析 金山CDN
+    iosapps.itunes.apple.com:
+    - iosapps.itunes.apple.com.download.ks-cdn.com
 policy_groups:
 - external:
     name: 手动选择
@@ -42,7 +48,7 @@ policy_groups:
     urls:
     - http://your-service-provider
     hidden: false
-    icon: https://raw.githubusercontent.com/Repcz/Tool/X/Egern/Photo/ICON/Egern.png
+    icon: https://github.com/Repcz/Repcz.github.io/raw/main/docs/egern/Photo/Egern.png
 - select:
     name: 国外网站
     policies:
