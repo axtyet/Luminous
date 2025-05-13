@@ -1,7 +1,7 @@
-// 2025-05-13 13:34:09
+// 2025-05-13 14:36:33
 (async () => {
   // prettier-ignore
-  let body = { d: "", p: "" }, response = { body: JSON.stringify(body) }, ARGV, reqbody, notif = "空数据"
+  let body = { d: "", p: "" }, response = { body: JSON.stringify(body) }, ARGV, reqbody, notif = ""
   try {
     const CACHE_KEY = "Rule-Cidr-Cache"; // whois cidr 缓存
     const CACHE_TTL = 90 * 24 * 60 * 60 * 1000; // cidr 结果 缓存过期时间 90天 毫秒
@@ -18,7 +18,8 @@
     // prettier-ignore
     const { CN = "CNN", FINAL = "FINAL", COUNT = 5, CNIP = 1, CNHOST = 1, FINALIP = 1,  FINALHOST = 1,} = ARGV;
     var checkCacheCidrs = [];
-    if (FINALIP && CNIP) checkCacheCidrs = ReadValidCache();
+    if (FINALIP == 1 && CNIP == 1) checkCacheCidrs = ReadValidCache();
+
     var _cidr_cache = 0;
     var _cidr_get = 0;
     var _cidr_size = 0;
@@ -81,7 +82,7 @@
     for (let i = 0; i < directList.length; i++) {
       const H = directList[i];
       if (isIPv4(H)) {
-        if (CNIP) RULEOBJ.DIRECT.ips.push(H);
+        if (CNIP == 1) RULEOBJ.DIRECT.ips.push(H);
       } else if (CNHOST && !isIPv6(H)) {
         RULEOBJ.DIRECT.hosts.push(`DOMAIN-SUFFIX,${H}`);
       }
@@ -90,7 +91,7 @@
     for (let i = 0; i < proxyList.length; i++) {
       const H = proxyList[i];
       if (isIPv4(H)) {
-        if (FINALIP) RULEOBJ.PROXY.ips.push(H);
+        if (FINALIP == 1) RULEOBJ.PROXY.ips.push(H);
       } else if (FINALHOST && !isIPv6(H)) {
         RULEOBJ.PROXY.hosts.push(`DOMAIN-SUFFIX,${H}`);
       }
@@ -231,9 +232,18 @@
           if (parts_length > 0) {
             const tlddomain = parts[parts_length - 1];
             if (countryTLDList.includes(tlddomain)) {
-              if (parts_length > 1)
-                notif_text_c.push(isdp + ": " + tlddomain + " -> " + domain);
-              rules_direct_set.add("DOMAIN-SUFFIX," + tlddomain);
+              if (parts_length > 1) {
+                if (is_direct) {
+                  rules_re_domain_set.add(tlddomain);
+                  rules_direct_set.add("DOMAIN-SUFFIX," + tlddomain);
+                } else if (rules_re_domain_set.has(tlddomain)) {
+                  notif_text_a.push(isdp + ": " + domain);
+                  return;
+                } else {
+                  notif_text_c.push(isdp + ": " + tlddomain + " -> " + domain);
+                  rules_direct_set.add("DOMAIN-SUFFIX," + tlddomain);
+                }
+              }
             } else {
               if (!checkMatch(domain)) {
                 if (parts_length > 2) {
