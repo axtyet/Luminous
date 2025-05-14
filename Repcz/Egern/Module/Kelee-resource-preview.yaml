@@ -1,0 +1,23 @@
+name: 功能｜Kelee 资源预览
+description: 预览资源，而不是下载
+header_rewrites:
+- add:
+    match: ^https:\/\/(.*\.)?kelee\.one(\/.*)?
+    name: content-disposition
+    value: inline
+    type: response
+- replace:
+    match: ^https:\/\/(.*\.)?kelee\.one(\/.*)?
+    name: content-type
+    value: text/plain; charset=utf-8
+    type: response
+- replace:
+    match: ^https:\/\/(.*\.)?kelee\.one(\/.*)?
+    name: User-Agent
+    value: Surge iOS/9527
+    type: request
+mitm:
+  hostnames:
+    includes:
+    - '*.kelee.one'
+    - kelee.one
