@@ -83,8 +83,8 @@
             backdrop-filter: blur(10px);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            margin-top: 8rem;
-            margin-bottom: auto;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
             transition: all 0.3s ease;
         }
 
@@ -209,7 +209,9 @@
             transform: translateY(-10px);
             transition: all 0.3s ease;
             margin-top: 0.5rem;
-            overflow: hidden;
+            max-height: 350px; 
+            overflow-y: auto; /* 添加垂直滚动条 */
+            overflow-x: hidden;
         }
 
         body.dark-mode .options-container {
@@ -280,7 +282,7 @@
             opacity: 0;
             transform: translateY(20px);
             transition: all 0.5s ease;
-            background: linear-gradient(135deg, #f8f9ff, #e6f3ff);
+            background: linear-gradient(135deg, #f8f9ff, #baddff);
             padding: 2rem;
             border-radius: 16px;
             border: 1px solid rgba(102, 126, 234, 0.1);
@@ -398,9 +400,16 @@
 
         footer .emoji {
             font-size: 1.5rem;
+            color: #333;
             margin-bottom: 1rem;
         }
 
+        body.dark-mode footer .emoji {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            margin-bottom: 1rem;
+        }        
+        
         footer a {
             color: #667eea;
             text-decoration: none;
@@ -673,7 +682,7 @@
         </main>
 
         <footer>
-            <div class="emoji">（￣︶￣）↗</div>
+            <div class="emoji" onclick="alert('Ciallo～(∠・ω< )⌒☆')" style="cursor: pointer;">Ciallo～(∠・ω< )⌒☆</div>
             <p>❔Have any questions? Please go to <a href="https://github.com/Cats-Team/AdRules#chat">Chat</a></p>
             <p>📃Want to see the upstream rules? <a
                     href="https://github.com/Cats-Team/AdRules/blob/script/Source.md">Source</a></p>
