@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-05-27 02:03:59(GMT+8)
-! Total count: 34334
+! ! Version: 2025-05-27 08:12:44(GMT+8)
+! Total count: 34343
  
 ###ADtip
 ###AdBlockDialog
@@ -2209,10 +2209,10 @@ $websocket,domain=wap.yushuwu.cloud
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.[a-z]{2,3}:\d{1,6}\/[a-z]{1,3}\/\d+\?is_not=/$all
 /^https:\/\/[a-z0-9]+\.[a-z0-9]+\.[a-z]{2,3}:\d{1,6}\/bug\?i=\d+$/
 /^https:\/\/zz\d{4}bb\d{4}\.com/$third-party,image
-/^https?:\/\/(?:[a-z]+\.)?[0-9a-z-]+\.[a-z]{2,7}\/get\/\d{6,7}(?:\?zoneid=.*)?$/$third-party,match-case,script,domain=nungxthai.me|pornnungxxx.me|xnxx.health
-/^https?:\/\/(?:[a-z]+\.)?[0-9a-z]+(?:[-.][0-9a-z]+)?\.[a-z]{2,7}\/[0-9a-zA-Z]{3,26}\/\d{4,6}(?:\?[_a-z]=[-0-9a-z]+)?$/$third-party,match-case,script,domain=spedostream.com
-/^https?:\/\/[-a-z]{6,}\.(?:com?|info|pro|xyz)\/[a-d][-\.\/_A-Za-z][DHWXm][-\.\/_A-Za-z][59FVZ][-\.\/_A-Za-z][6swyz][-\.\/_A-Za-z][-\/_0-9a-zA-Z][-\.\/_A-Za-z][-\/_0-9a-zA-Z]{22,162}$/$third-party,match-case,script,xmlhttprequest,domain=bokepindo13.yoga
-/^https?:\/\/[a-z]{8,15}\.(?:com|net)\/tag\.min\.js$/$third-party,script,match-case,domain=yomovies.golf|bolly4u.cx|kita.rest
+/^https?:\/\/(?:[a-z]+\.)?[0-9a-z-]+\.[a-z]{2,7}\/get\/\d{6,7}(?:\?zoneid=.*)?$/$match-case,script,third-party,domain=nungxthai.me|pornnungxxx.me|xnxx.health
+/^https?:\/\/(?:[a-z]+\.)?[0-9a-z]+(?:[-.][0-9a-z]+)?\.[a-z]{2,7}\/[0-9a-zA-Z]{3,26}\/\d{4,6}(?:\?[_a-z]=[-0-9a-z]+)?$/$match-case,script,third-party,domain=spedostream.com
+/^https?:\/\/[-a-z]{6,}\.(?:com?|info|pro|xyz)\/[a-d][-\.\/_A-Za-z][DHWXm][-\.\/_A-Za-z][59FVZ][-\.\/_A-Za-z][6swyz][-\.\/_A-Za-z][-\/_0-9a-zA-Z][-\.\/_A-Za-z][-\/_0-9a-zA-Z]{22,162}$/$match-case,script,third-party,xmlhttprequest,domain=bokepindo13.yoga
+/^https?:\/\/[a-z]{8,15}\.(?:com|net)\/tag\.min\.js$/$match-case,script,third-party,domain=bolly4u.cx|kita.rest|yomovies.golf
 /^https?:\/\/www\.freeuseporn\.com\/[0-9a-f]{12}\.js/$script,domain=freeuseporn.com
 /_xa/ads
 /_xa/ads?
@@ -9918,7 +9918,7 @@ firstrowfr.eu###fanback
 fishpi.cn##a[href*="guangdianhong.com"]
 fishpi.cn#?#.module:-abp-has(>.ad)
 fitacg.com##a[href*="ifift.com"]
-fiverr.com#$#hide-if-contains-and-matches-style '' 'div.gig-card-layout' 'span>div' /./ /PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iMTgiIGZpbGw9Im5vb/
+fiverr.com#$#hide-if-matches-xpath './/div[contains(@class, "gig-card-layout")]//span/div[@class="_5dtjre1" and string-length(@class) = 8]/ancestor-or-self::div[@class="gig-card-layout"][1]'
 fixolas.net##[href="http://fixolas.net/"] > IMG
 fjsen.com,nuomi.com#@#.right-ad
 flashback.org###top-banner-container
@@ -16908,7 +16908,7 @@ www.facebook.com,web.facebook.com#$#json-prune 'require.0.3.0.__bbox.require.[].
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains /Anzeige|Sponsored|Sponsorlu|Gesponsert|Patrocinado|Sponsorisé|Commandité|Gesponsord|Sponsorowane|Publicidad|Sponsrad|Sponsoreret|Sponsoroitu|Sponsa|Sponset|Sponsorizat|Bersponsor|Ditaja|Sponsorizzato/ 'div[aria-describedby][aria-labelledby]' 'span[aria-labelledby] svg[style] * ^^svg^^ * ^^svg^^'; hide-if-contains /Anzeige|Sponsored|Sponsorlu|Gesponsert|Patrocinado|Sponsorisé|Commandité|Gesponsord|Sponsorowane|Publicidad|Sponsrad|Sponsoreret|Sponsoroitu|Sponsa|Sponset|Sponsorizat|Bersponsor|Ditaja|Sponsorizzato/ 'div[aria-describedby][aria-labelledby]' 'span[aria-labelledby] svg[style] * ^^svg^^'; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrizato]{11}|[Sponsrowane]{11}|[Anzeig]{6}|[Patrocnado]{11}|स्पॉन्सर्ड/ 'div#watch_feed div[class^="_"]' 'a[href="#"][role="link"]'; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrizato]{11}|[Sponsrowane]{11}|[Anzeig]{6}|[Patrocnado]{11}|स्पॉन्सर्ड/ 'div#watch_feed div[class^="_"]' 'a[href^="?__cft__"] span'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[aria-label][attributionsrc][href^="?__cft__"][role="link"]>span>span[aria-labelledby]'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[attributionsrc][href*="/ads/about/"][role="link"][tabindex="0"]>span'; hide-if-contains-visible-text /./ 'div#watch_feed div[class^="_"]' 'span>a[attributionsrc][href="#"][role="link"][tabindex="0"]>span>span[aria-labelledby]>span[style]'; race stop;
 www.facebook.com,web.facebook.com#$#race start; hide-if-contains-visible-text /[Sponsred]{9}|[Gesponrtd]{10}|[Sponrisé]{10}|[Comandité]{9}|[Publicda]{10}|[Sponsrwae]{12}|[Patrocind]{11}|[Sponsrizat]{13}|[Anzeig]{6}/ 'div[role=feed] div[role=article]' a[href^="?__cft__"]; race stop;
-www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(content_label_flag_new_br|labl_for_coniten_of_brs|brs_content_of_labe|for_br_cont_lab|la_con_br|brs_conte_labe_flag|of_conite_flag_brs_labe|lbl_brs_lae_cntent|conte_brs_lb_for|lab_co_br_for|new_brs_content_label|new_brs_content_labe|brs_lab_lbl_conteint_of|brs_lb_conten|flag_br_lfbel_contte|conttent_labe_new_rz|the_brand_cont_sft_flag|brand_cont_sft_flag|flag_cntentk_lbel_b|con_safety_brs|cont_sfty_brs|content_sfty_brs|conte_br_labe_flag|brs_lbl_content|brs_cnt_lbl_the|the_brs_lab_content_new|the_br_s_cnt_label|the_br_s_cont_label|br_lb_label|br_lb_label_co|lbl_content_brs|labe_br_con_the|br_safety_content_label|br_con_label_for_safety|content_lbl_brs|content_label_brs|cont_label_brs|con_label_brs|new_con_label_brs|lbl_la_br_cont|new_lbl_la_br_cont|br_safety_con_label|new_br_safety_con_label|brs_con_label|brs_content_label|bran_lbl_cont|brand_lbl_cont)[^\n]+?("sponsored_data"|"data_spon"|"spon_dat"|"ads_data"|"the_spons_data"|"daspo_sto")[^\n]+?("SponsoredData"|"lbl_adv_iden")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sp_auct_dis|flag_distan_spon_auc|of_distanc_auctio_spons|auction_distance_sp|auct_distance_sponsored|auc_distance_sponsored|auction_sponsored_dist|new_auction_sponsored_dist|auct_dis_of_sponsored|the_auct_dis_of_sponsored|auc_dis_sponsored|the_auc_dis_sponsored|spon_auct_dis|spons_dista_auc|dist_spons_auctio|sponsor_for_dis_au|distanc_auct_the_sponsor|spon_lbl_aucti_dista|label_auctio_spons_distanc|auct_dis_sponso|auc_dist_sponso|auc_dis_sponso|new_auc_dis_sponso|spon_lbl_dist_auct|spon_lbl_dis_auct|spons_lbel_dis_auct|lbl_flag_spon_auc_dist|sps_auction_distance|sps_auction_flag_distance|sps_auct_distance|sponso_auc_dist|new_of_sponsxored_diwsta_uctiopn|spon_auct_of_dist|dist_to_spons_auction|aucti_sponsor_the_new_distnc|distance_auti_sonsore|sponsore_auctio_dis|for_aucti_dista_spon|dist_auct_spons_lbl)/'
+www.facebook.com,web.facebook.com#$#replace-xhr-response '/\{"(lagbel_coten_bre|lagbel_coten_br|content_label_flag_new_br|labl_for_coniten_of_brs|brs_content_of_labe|for_br_cont_lab|la_con_br|brs_conte_labe_flag|of_conite_flag_brs_labe|lbl_brs_lae_cntent|conte_brs_lb_for|lab_co_br_for|new_brs_content_label|new_brs_content_labe|brs_lab_lbl_conteint_of|brs_lb_conten|flag_br_lfbel_contte|conttent_labe_new_rz|the_brand_cont_sft_flag|brand_cont_sft_flag|flag_cntentk_lbel_b|con_safety_brs|cont_sfty_brs|content_sfty_brs|conte_br_labe_flag|brs_lbl_content|brs_cnt_lbl_the|the_brs_lab_content_new|the_br_s_cnt_label|the_br_s_cont_label|br_lb_label|br_lb_label_co|lbl_content_brs|labe_br_con_the|br_safety_content_label|br_con_label_for_safety|content_lbl_brs|content_label_brs|cont_label_brs|con_label_brs|new_con_label_brs|lbl_la_br_cont|new_lbl_la_br_cont|br_safety_con_label|new_br_safety_con_label|brs_con_label|brs_content_label|bran_lbl_cont|brand_lbl_cont)[^\n]+?("sponsored_data"|"data_spon"|"spon_dat"|"ads_data"|"the_spons_data"|"daspo_sto")[^\n]+?("SponsoredData"|"lbl_adv_iden")[^\n]+"cursor":"[^"]+"\}/' '{}' '/(sponsored_auction_distance|sp_auct_dis|flag_distan_spon_auc|of_distanc_auctio_spons|auction_distance_sp|auct_distance_sponsored|auc_distance_sponsored|auction_sponsored_dist|new_auction_sponsored_dist|auct_dis_of_sponsored|the_auct_dis_of_sponsored|auc_dis_sponsored|the_auc_dis_sponsored|spon_auct_dis|spons_dista_auc|dist_spons_auctio|sponsor_for_dis_au|distanc_auct_the_sponsor|spon_lbl_aucti_dista|label_auctio_spons_distanc|auct_dis_sponso|auc_dist_sponso|auc_dis_sponso|new_auc_dis_sponso|spon_lbl_dist_auct|spon_lbl_dis_auct|spons_lbel_dis_auct|lbl_flag_spon_auc_dist|sps_auction_distance|sps_auction_flag_distance|sps_auct_distance|sponso_auc_dist|new_of_sponsxored_diwsta_uctiopn|spon_auct_of_dist|dist_to_spons_auction|aucti_sponsor_the_new_distnc|distance_auti_sonsore|sponsore_auctio_dis|for_aucti_dista_spon|dist_auct_spons_lbl)/'
 www.ghxi.com##.wpcom_ad_wrap
 www.ghxi.com##DIV[style^='padding:10px;position: fixed;bottom: 0;left: 0;right:0;z-index: ']
 www.goha.ru,3dnews.ru,avtovzglyad.ru,baby.ru,dni.ru,kufar.by,ura.news#$#abort-on-property-read Ya
@@ -18127,6 +18127,7 @@ zzzyk.com###Tinfo
 ||212ehae.fun^
 ||217hs.com/js/jquery.js
 ||218.30.15.193/phpstat/count/
+||21cfhm0s1.top^
 ||21edu8.com/js/mymoney/
 ||21qma3vs.com^
 ||21sq.org/js/downloadbanner.js
@@ -18365,6 +18366,7 @@ zzzyk.com###Tinfo
 ||3i2i.com^
 ||3jia5.com^$third-party
 ||3k8.com/d/js/m/thea
+||3kfvgobkw.com^
 ||3lo.icu^
 ||3ni.icu^
 ||3p8801.co^
@@ -20668,6 +20670,7 @@ zzzyk.com###Tinfo
 ||bgdizsay.icu^
 ||bgf05251lko.com^
 ||bgf05261lko.com^
+||bgf05270lko.com^
 ||bghebf.xyz^
 ||bh0874.online^
 ||bhaabom.cn^
@@ -23272,6 +23275,7 @@ zzzyk.com###Tinfo
 ||erlirscid.com^
 ||erqtga.xyz^
 ||err.ifengcloud.ifeng.com^
+||errandsracket.com^
 ||ert.pengwenli.top^
 ||ertgbme.com^
 ||ertlisw.top^
@@ -28526,6 +28530,7 @@ zzzyk.com###Tinfo
 ||onjncgq.top^
 ||onkacspio.com^
 ||online.wsj.com/javascript/abm.js$script
+||onlinehentai.tv^
 ||onlywoofs.com^$third-party
 ||onwnomv.icu^
 ||onx8.com/theme/tange/add/
@@ -28590,6 +28595,7 @@ zzzyk.com###Tinfo
 ||oschina.net/uploads/cooperation/
 ||osdxx.com^
 ||oshaq.top^
+||osjt.cn^
 ||oslbahk.top^
 ||osnignsk.xyz^
 ||oss-ap-southeast-1.aliyuncs.com/js/copy.js
@@ -31149,6 +31155,7 @@ zzzyk.com###Tinfo
 ||ta.trs.cn^$third-party
 ||ta20k.xyz^
 ||taboola.com^$domain=spaste.com
+||tacksnocks.top^
 ||tad.suning.com^
 ||taffykhirka.com^
 ||tafyeta.ru^$domain=pronpic.org
@@ -33004,6 +33011,7 @@ zzzyk.com###Tinfo
 ||wxl0gfw.icu^
 ||wxmhau.xyz^
 ||wxsicu.xyz^
+||wy12cewh4.com^
 ||wy213.com^$popup,third-party
 ||wyisloe.top^
 ||wyplmjufd.live^
@@ -33728,6 +33736,7 @@ zzzyk.com###Tinfo
 ||yruws6.com^
 ||ys2000.cdn.bcebos.com^
 ||ys630.com^$third-party
+||ysavom.icu^
 ||ysdm*.ys137.com.cn^
 ||ysjkbk.com^
 ||ysm.ezprice.net^$third-party
