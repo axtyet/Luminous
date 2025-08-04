@@ -1,20 +1,18 @@
 {
     "dns": {
         "servers": [
-            {"tag": "cloudflare","address": "https://1.1.1.1/dns-query","detour": "Proxy"},
-            {"tag": "ali","address": "223.5.5.5","detour": "direct"},
-            {"tag": "remote_fakeip","address": "fakeip"}
+            {"tag": "cloudflare","type": "https","server": "1.1.1.1","detour": "Proxy"},
+            {"tag": "ali","type": "https","server": "223.6.6.6"},
+            {"tag": "fakeip","type": "fakeip","inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"}
         ],
         "rules": [
-            {"outbound": "any","server": "ali"},
             {"clash_mode": "全局直连","action": "route","server": "ali"},
-            {"clash_mode": "全局代理","action": "route","server": "remote_fakeip"},
+            {"clash_mode": "全局代理","action": "route","server": "fakeip"},
             {"query_type": "HTTPS","action": "reject"},
-            {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip","rewrite_ttl": 1},
-            {"rule_set": ["ChinaDomain","Apple"],"action": "route","server": "ali"}
+            {"query_type": ["A","AAAA"],"action": "route","server": "fakeip","rewrite_ttl": 1},
+            {"rule_set": ["ChinaDomain"],"action": "route","server": "ali"}
         ],
-        "final": "ali",
-        "fakeip": {"enabled": true,"inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"},
+        "final": "cloudflare",
         "independent_cache": true
     },
     "outbounds": [
@@ -38,6 +36,7 @@
         {"tag": "🇨🇳 Taiwan","type": "urltest","outbounds": [],"url": "http://1.1.1.1/generate_204","interval": "10m","tolerance": 0,"interrupt_exist_connections": false}
     ],
     "route": {
+        "default_domain_resolver": {"server": "ali"},
         "rule_set": [
             {"tag": "Ads","type": "remote","format": "binary","url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/Ads_SukkaW.srs","download_detour": "direct"},
             {"tag": "Telegram", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/Telegram.srs", "download_detour": "direct"},

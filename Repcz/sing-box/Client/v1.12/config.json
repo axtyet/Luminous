@@ -3,16 +3,16 @@
         "servers": [
             {"tag": "cloudflare","type": "https","server": "1.1.1.1","detour": "Proxy"},
             {"tag": "ali","type": "https","server": "223.6.6.6"},
-            {"tag": "remote_fakeip","type": "fakeip","inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"}
+            {"tag": "fakeip","type": "fakeip","inet4_range": "198.18.0.0/15","inet6_range": "fc00::/18"}
         ],
         "rules": [
             {"clash_mode": "全局直连","action": "route","server": "ali"},
-            {"clash_mode": "全局代理","action": "route","server": "remote_fakeip"},
+            {"clash_mode": "全局代理","action": "route","server": "fakeip"},
             {"query_type": "HTTPS","action": "reject"},
-            {"query_type": ["A","AAAA"],"action": "route","server": "remote_fakeip","rewrite_ttl": 1},
-            {"rule_set": ["ChinaDomain","Apple"],"action": "route","server": "ali"}
+            {"query_type": ["A","AAAA"],"action": "route","server": "fakeip","rewrite_ttl": 1},
+            {"rule_set": ["ChinaDomain"],"action": "route","server": "ali"}
         ],
-        "final": "ali",
+        "final": "cloudflare",
         "independent_cache": true
     },
     "outbounds": [
