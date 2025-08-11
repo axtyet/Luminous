@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-08-11 08:14:59(GMT+8)
-! Total count: 35098
+! ! Version: 2025-08-11 12:07:51(GMT+8)
+! Total count: 35104
  
 ###ADtip
 ###AdBlockDialog
@@ -1458,6 +1458,7 @@
 ##a[href="javascript:GoGd();"]
 ##a[href="javascript:GoTp();"]
 ##a[href="javascript:window.GoTp();"]
+##a[href][target="_blank"] > img[width="100%"][src$=".gif"]
 ##a[href^="/ad.html?url="]
 ##a[href^="/ad/"] > img[id][src*="hdslb.com"]
 ##a[href^="/archives/"] > .post-card > .blog-background[style*="gif;base64"]
@@ -1907,6 +1908,7 @@ $websocket,domain=wap.yushuwu.cloud
 .com:2*/static/lbsite/*/*.js?v=$script,third-party
 .com:3*/static/lbsite/*/*.js?v=$script,third-party
 .com:7891/stats$third-party
+.com:8*/mj*$third-party
 .com:8001/*/*?*=$third-party
 .com:8003/d/*&n=$third-party
 .com:8005/*&n=$third-party
@@ -3597,17 +3599,34 @@ $websocket,domain=wap.yushuwu.cloud
 18board.com,18board.net,18p2p.com,18p2p.tv##a[target="_blank"] > img[width="920"]
 18board.com,18board.net,18p2p.com,18p2p.tv##a[target="_blank"] > img[width="950"]
 18board.com,18board.net,18p2p.com,18p2p.tv##a[target="_blank"] > img[width^="72"]
+18comic.org,18comic.vip###guide-modal
 18comic.org,18comic.vip##.container > div[style^="margin-bottom:"]:has(> div.col-lg-3 > div[data-exo])
 18comic.org,18comic.vip##.container > div[style^="padding:"]:has(> [data-group="content_page"])
+18comic.org,18comic.vip##.div_sticky2
+18comic.org,18comic.vip##.modal-backdrop
 18comic.org,18comic.vip##.modal-body > ul.pop-list
+18comic.org,18comic.vip##.row[style="display: flex;flex-wrap: wrap;"]
 18comic.org,18comic.vip##.tab-content + .row:has(> div[class] > div[class] > .group-notice)
 18comic.org,18comic.vip##.top-a2db
+18comic.org,18comic.vip##a[herf*="//"]:not([href*="comic."]) > img
+18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > [style*="back"]
+18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > div[style]
+18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > img
+18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > img + [style]
 18comic.org,18comic.vip##body .bot-per
 18comic.org,18comic.vip##div[class="row"][style="display: flex;flex-wrap: wrap;"]
+18comic.org,18comic.vip##div[data-group][data-width="300"]
 18comic.org,18comic.vip##div[data-group^="photo_center_games_"]
 18comic.org,18comic.vip##div[data-group^="skyscraper_"]
 18comic.org,18comic.vip##div[data-height="250"][data-width="300"]
 18comic.org,18comic.vip##div[data-height="90"][data-width="728"]
+18comic.org,18comic.vip##style + div[style="cursor: pointer; position: relative;"]
+18comic.org,18comic.vip#?#:-abp-has(>ins+div)
+18comic.org,18comic.vip#?#:-abp-has(>ins+script)
+18comic.org,18comic.vip#?#:-abp-has(>ins+style)
+18comic.org,18comic.vip#?#:-abp-has(>script+ins)
+18comic.org,18comic.vip#?#:not(body):-abp-has(>script[src*=".realsrv.com"])
+18comic.org,18comic.vip#?#div[data-group]:-abp-has(>.group-notice)
 18comic.org,18comic.vip#@#img[style*="300px"]
 18comic.org,18comic.vip,jmcomic1.city,jmcomic1.win,jmcomic1.group##.bot-per-context
 18comic.org,18comic.vip,jmcomic1.city,jmcomic1.win,jmcomic1.group##[data-group^='album_related'],[data-group^='all_bottom']
@@ -7706,6 +7725,7 @@ benxiang.com##.w-hot-link-txt
 benyixiwang.com##p img[src*=".dlssyht.cn/u/"][title]
 benyixiwang.com#?#p:-abp-has(a[href="http://www.sm9166.com"])
 beppegrillo.it#@#div[id^="div-gpt-ad-"]
+beqg.cc,biquge321.com#%#//scriptlet('prevent-addEventListener', 'touchend', 'window.location.href')
 beritabaru.news,solusi.cyou,poop.*#$#override-property-read setTimeout noopFunc
 bestcclm.com##.wp.cl > a
 bestopview.com###pubtextnone
@@ -7848,7 +7868,6 @@ bioon.com##.grid_6
 biqgg.com##a[onclick="guangtui();"]
 biqle.org,biqle.ru#$#prevent-listener /click|mousedown/ 'popunder'
 biquge001.com###content > a
-biquge321.com#%#//scriptlet('prevent-addEventListener', 'touchend', 'window.location.href')
 biquge345.com##.puaxqbxs_b
 biquge345.com##div[style^="position:fixed;"]
 bitauto.com###advCarsumType1
@@ -12008,22 +12027,6 @@ jkptgbf.xyz,mfulbvu.xyz,91porna.com##div[class^="aspect-"]:has(> div > .swiper-b
 jkptgbf.xyz,mfulbvu.xyz,91porna.com#%#//scriptlet('remove-attr', 'data-ads_url', '[data-ads_url]')
 jlmhk.com##.bn
 jlpcn.net##.vodAd
-jm18c-twie.vip,18comic.org,18comic.vip###guide-modal
-jm18c-twie.vip,18comic.org,18comic.vip##.div_sticky2
-jm18c-twie.vip,18comic.org,18comic.vip##.modal-backdrop
-jm18c-twie.vip,18comic.org,18comic.vip##.row[style="display: flex;flex-wrap: wrap;"]
-jm18c-twie.vip,18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > [style*="back"]
-jm18c-twie.vip,18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > div[style]
-jm18c-twie.vip,18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > img
-jm18c-twie.vip,18comic.org,18comic.vip##a[href*="//"]:not([href*="comic."]) > img + [style]
-jm18c-twie.vip,18comic.org,18comic.vip##div[data-group][data-width="300"]
-jm18c-twie.vip,18comic.org,18comic.vip##style + div[style="cursor: pointer; position: relative;"]
-jm18c-twie.vip,18comic.org,18comic.vip#?#:-abp-has(>ins+div)
-jm18c-twie.vip,18comic.org,18comic.vip#?#:-abp-has(>ins+script)
-jm18c-twie.vip,18comic.org,18comic.vip#?#:-abp-has(>ins+style)
-jm18c-twie.vip,18comic.org,18comic.vip#?#:-abp-has(>script+ins)
-jm18c-twie.vip,18comic.org,18comic.vip#?#:not(body):-abp-has(>script[src*=".realsrv.com"])
-jm18c-twie.vip,18comic.org,18comic.vip#?#div[data-group]:-abp-has(>.group-notice)
 jmbbs.com###xjj_jmbbs2015_01
 jmbbs.com##.middle_guanggao
 jmbbs.com##img[width="1100"]
@@ -26500,7 +26503,6 @@ zzzyk.com###Tinfo
 ||jlpcn.net/img/300p-
 ||jltwxisa.icu^
 ||jlwz.cn/js/xf*.js
-||jm18c-twie.vip/media/albums/*?$media
 ||jmbbs.cn/sjgg/
 ||jmbluyxkl.xyz^
 ||jmcomic.asia/iframe_*&idzone=
@@ -32904,6 +32906,8 @@ zzzyk.com###Tinfo
 ||vbc08091op.com^
 ||vbc08100op.com^
 ||vbc08101op.com^
+||vbc08110op.com^
+||vbc08111op.com^
 ||vbdbmqzu.com^
 ||vbiakpu.icu^
 ||vbjm.cn^
@@ -34413,6 +34417,7 @@ zzzyk.com###Tinfo
 ||ymlykj.com/nuxt/static/liveBanner.jpg
 ||ymm17.cc^
 ||ymm19.cc^
+||ymmegy.icu^
 ||ymmiyun.com^
 ||ymwjwe.xyz^
 ||ymyile.xyz^
@@ -35033,6 +35038,7 @@ zzzyk.com###Tinfo
 ||zx123.cn/templates/zx123cs/theme-2015/js/right_xh.js
 ||zxcrr.com^
 ||zxcv1.com^
+||zxdnsx7si.com^
 ||zxiws.cn^
 ||zxpaa.xyz^
 ||zxqiwe.cn^
