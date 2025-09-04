@@ -4,7 +4,7 @@
 #
 # Stash Version ≥ 2.6.0 
 #
-# 最后更新时间: 2024-12-11 20:30
+# 最后更新时间: 2025-09-04 19:30
 #
 # ================
 
@@ -69,67 +69,44 @@ proxy-groups:
   - {name: 台湾节点, icon: https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/China.png, type: url-test, interval: 300, include-all: true, filter: "(?i)🇨🇳|🇹🇼|台湾|(\b(TW|Tai|Taiwan)\b)"}
 
 rule-providers:
-
-  # 局域网   
-  Lan: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Lan.list}
-
-  #广告拦截
-  Reject: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Reject.list}
-
-  # 苹果服务
-  Apple: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Apple.list}
-  AppleProxy: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/AppleProxy.list}
   
-  # 微软服务 
+  Direct: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Direct.list}
+  Lan: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Lan.list}
+  Reject: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Reject.list}
+  AppleCN: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/AppleCN.list}
+  AppleProxy: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/AppleServers.list}
   Microsoft: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Microsoft.list}
   OneDrive: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/OneDrive.list}
   Github: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Github.list}
-
-  # 谷歌服务
-  Youtube: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/YouTube.list}
+  YouTube: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/YouTube.list}
   Google: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Google.list}
-
-  # 电报消息
   Telegram: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Telegram.list}
-
-  # 推特消息
   Twitter: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Twitter.list}
-
-  # 游戏平台
   Steam: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Steam.list}
   Epic: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Epic.list}
-
-  # AI平台
   AI: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/AI.list}
-
-  # Emby
   Emby: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Emby.list}
-
-  # Spotify
   Spotify: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Spotify.list}
-  
-  # 国际媒体
   Bahamut: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Bahamut.list}
   Netflix: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Netflix.list}
   Disney: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Disney.list}
   PrimeVideo: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/PrimeVideo.list}
   HBO: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/HBO.list}
   TikTok: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/TikTok.list}
-
-  # 代理网站
-  ProxyGFW: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/ProxyGFW.list}
+  CDN: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/CDN.list}
+  Proxy: {behavior: classical, format: text, interval: 86400, url: https://github.com/Repcz/Tool/raw/X/Stash/Rules/Proxy.list}
 
 rules:
+  - RULE-SET,Direct,DIRECT
   - RULE-SET,Reject,REJECT
   - RULE-SET,AI,AI
   - RULE-SET,Github,微软服务
   - RULE-SET,OneDrive,微软服务
   - RULE-SET,Microsoft,微软服务
-  - RULE-SET,Youtube,谷歌服务
+  - RULE-SET,YouTube,谷歌服务
   - RULE-SET,Google,谷歌服务
   - RULE-SET,Twitter,推特消息
   - RULE-SET,Telegram,电报消息
-# - PROCESS-NAME,Telegram,REJECT-DROP # For Telegram macOS
   - RULE-SET,Steam,游戏平台
   - RULE-SET,Epic,游戏平台
   - RULE-SET,Emby,Emby
@@ -140,9 +117,10 @@ rules:
   - RULE-SET,HBO,国际媒体
   - RULE-SET,TikTok,国际媒体
   - RULE-SET,Spotify,Spotify
-  - RULE-SET,ProxyGFW,国外网站
-  - RULE-SET,AppleProxy,国外网站
-  - RULE-SET,Apple,DIRECT
+  - RULE-SET,CDN,国外网站
+  - RULE-SET,Proxy,国外网站
+  - RULE-SET,AppleCN,DIRECT
+  - RULE-SET,AppleProxy,香港节点
   - RULE-SET,Lan,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,兜底分流
