@@ -13,7 +13,7 @@ console.log(body);
 let resp_data = JSON.parse(body);
 
 // 查询夺宝岛历史价格
-if (url.includes("functionId=dbd.auction.detail.history") && url.includes("appid=paipai_h5")) {
+if (url.includes("functionId=dbd.auction.detail.history")) {
   console.log("处理夺宝岛历史获拍价");
   /* let msg = "";
   resp_data.result.data.forEach(item => {
@@ -28,7 +28,7 @@ if (url.includes("functionId=dbd.auction.detail.history") && url.includes("appid
     }
   }); */
   const newItem = {
-    userNickname: "以下是历史获拍价",
+    userNickname: "历史获拍价",
     endTime: 1753891200000, // 2025-07-31 00:00:00
     userImage: null,
     offerPrice: "---"
@@ -40,7 +40,7 @@ if (url.includes("functionId=dbd.auction.detail.history") && url.includes("appid
 }
 
 // 查询历史获拍人的出价
-if (url.includes("functionId=paipai.auction.bidrecords") && url.includes("appid=paipai_h5")) {
+if (url.includes("functionId=paipai.auction.bidrecords")) {
   console.log("查询历史获拍人的出价");
   let commitsRsp;
   const commitsCache = $.getdata("fmz200.paipai.detail.history");
@@ -66,7 +66,7 @@ if (url.includes("functionId=paipai.auction.bidrecords") && url.includes("appid=
         endTime: null,
         created: item.endTime,
         modified: null,
-        userImage: null,
+        userImage: 'https://raw.githubusercontent.com/fmz200/wool_scripts/main/icons/apps/paipai.png',
         currentPrice: null,
         newPrice: null,
         entryId: null,
