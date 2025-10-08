@@ -4,8 +4,8 @@
 ! Powerd by Cats-Team
 ! Expires: 1 day (update frequency)
 ! Description: AdRules AdBlock List's Lite Version, And Remove Some Filters
-! ! Version: 2025-10-08 20:05:55(GMT+8)
-! Total count: 35313
+! ! Version: 2025-10-09 02:04:38(GMT+8)
+! Total count: 35314
  
 ###ADtip
 ###AdBlockDialog
@@ -17158,6 +17158,7 @@ www.xvideos.com##.thumb-ad
 www.ydyse.com##.left,.bottom,.right,.ad,.adimage
 www.youtube.com##.ytlr-watch-default__ad-badge-for-tvae
 www.youtube.com##ytlr-ad-skip-or-preview
+www.youtube.com#$#json-prune 'adSlots adPlacements playerAds' 'streamingData.formats.0.qualityOrdinal'; json-prune 'playerResponse.adPlacements playerResponse.playerAds playerResponse.adPlacements playerResponse.adSlots' 'playerResponse.streamingData.formats.0.qualityOrdinal'
 www.youtube.com#$#map-override set AD_PLACEMENT '' value.kind;
 www.youtube.com#$#override-property-read ytplayer.config.args.raw_player_response.adPlacements emptyArray; override-property-read ytplayer.config.args.raw_player_response.adSlots emptyArray; override-property-read ytplayer.config.args.raw_player_response.playerAds emptyArray;
 www.youtube.com,m.youtube.com,music.youtube.com,youtubekids.com,youtube-nocookie.com#$#override-property-read playerResponse.adPlacements undefined;
@@ -17341,7 +17342,7 @@ xuite.net##.articleExtAd
 xuite.net##[class^="ad-mid"]
 xuite.net##div[id^="index-ad-mid"]
 xunlei.com##.mini-pop
-xv-ru.com,xvideos.com,xnxx.com#$#prevent-listener DOMContentLoaded banners; json-prune 'banners'; abort-on-property-read xv.sda.banners
+xv-ru.com,xvideos.com,xnxx.com#$#prevent-listener DOMContentLoaded /loadAdsDelayed/; override-property-read xv.sda.pp.init noopFunc
 xvideo.cc#%#//scriptlet("set-constant", "poped", "true")
 xvideos.com##div[id^="video-ad"]+div[class]
 xvna.com##.articleAD
