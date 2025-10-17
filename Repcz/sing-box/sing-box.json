@@ -55,7 +55,6 @@
             {"tag": "PrimeVideo", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/PrimeVideo.srs", "download_detour": "direct"},
             {"tag": "HBO", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/HBO.srs", "download_detour": "direct"},
             {"tag": "TikTok", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/TikTok.srs", "download_detour": "direct"},
-            {"tag": "CDN", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Loyalsoldier/geoip/raw/release/srs/CDN.srs", "download_detour": "direct"},
             {"tag": "Proxy", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/Proxy.srs", "download_detour": "direct"},
             {"tag": "AppleCN", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/AppleCN.srs", "download_detour": "direct"},
             {"tag": "AppleProxy", "type": "remote", "format": "binary", "url": "https://git.repcz.link/github.com/Repcz/Tool/raw/X/sing-box/Rules/AppleServers.srs", "download_detour": "direct"},
@@ -78,7 +77,7 @@
             {"rule_set": ["Spotify"],"action": "route","outbound": "Spotify"},
             {"rule_set": ["Steam","Epic"],"action": "route","outbound": "Game"},
             {"rule_set": ["Bahamut","Netflix","Disney","PrimeVideo","HBO","TikTok"],"action": "route","outbound": "ProxyMedia"},
-            {"rule_set": ["Proxy","CDN"],"action": "route","outbound": "Proxy"},
+            {"rule_set": ["Proxy"],"action": "route","outbound": "Proxy"},
             {"action": "resolve"},
             {"rule_set": ["ChinaDomain","ChinaIP","AppleCN"],"action": "route","outbound": "direct"},
             {"rule_set": ["AppleProxy"],"action": "route","outbound": "🇭🇰 HongKong"}
