@@ -4,6 +4,17 @@
         "level": "info",
         "timestamp": true
     },
+    "dns": {
+        "servers": [
+            {"tag": "cloudflare","type": "https","server": "1.1.1.1"}
+        ],
+        "strategy": "ipv4_only",
+        "rules": [
+            {"query_type": ["A","AAAA"],"action": "route","server": "cloudflare","strategy": "ipv4_only"}
+        ],
+        "final": "cloudflare",
+        "independent_cache": true
+    },
     "inbounds": [
         {
             "type": "shadowtls",
