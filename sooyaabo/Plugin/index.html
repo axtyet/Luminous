@@ -62,7 +62,9 @@
     }
 
     /* 基础样式重置 */
-    *, *::before, *::after {
+    *,
+    *::before,
+    *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
@@ -85,7 +87,8 @@
     }
 
     /* 防止移动端橡皮筋效果露底 */
-    body::before, body::after {
+    body::before,
+    body::after {
       content: '';
       position: fixed;
       left: 0;
@@ -96,10 +99,16 @@
       background-color: var(--bg-body);
     }
 
-    body::before { bottom: 100%; }
-    body::after { top: 100%; }
+    body::before {
+      bottom: 100%;
+    }
 
-    input, button {
+    body::after {
+      top: 100%;
+    }
+
+    input,
+    button {
       font-family: inherit;
       border: none;
       outline: none;
@@ -178,16 +187,28 @@
       transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     }
 
-    .menu-toggle span:nth-child(1) { width: 22px; }
-    .menu-toggle span:nth-child(2) { width: 16px; opacity: 1; }
-    .menu-toggle span:nth-child(3) { width: 22px; }
+    .menu-toggle span:nth-child(1) {
+      width: 22px;
+    }
+
+    .menu-toggle span:nth-child(2) {
+      width: 16px;
+      opacity: 1;
+    }
+
+    .menu-toggle span:nth-child(3) {
+      width: 22px;
+    }
 
     .menu-toggle.active span:nth-child(1) {
       transform: translateY(7.5px) rotate(45deg);
       background-color: var(--text-primary);
     }
 
-    .menu-toggle.active span:nth-child(2) { opacity: 0; }
+    .menu-toggle.active span:nth-child(2) {
+      opacity: 0;
+    }
+
     .menu-toggle.active span:nth-child(3) {
       transform: translateY(-7.5px) rotate(-45deg);
       background-color: var(--text-primary);
@@ -234,7 +255,9 @@
       cursor: pointer;
     }
 
-    .menu-item:hover { background-color: var(--bg-body); }
+    .menu-item:hover {
+      background-color: var(--bg-body);
+    }
 
     .menu-item-content {
       display: flex;
@@ -270,7 +293,9 @@
       mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z'/%3E%3C/svg%3E");
     }
 
-    #install-pwa { display: none; }
+    #install-pwa {
+      display: none;
+    }
 
     /* 页面主容器布局 */
     .wrap {
@@ -323,13 +348,20 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      .banner-item { color: #e2e2e2; }
+      .banner-item {
+        color: #e2e2e2;
+      }
     }
 
-    .banner-item.active { opacity: 1; z-index: 1; }
+    .banner-item.active {
+      opacity: 1;
+      z-index: 1;
+    }
 
     /* 搜索框与筛选标签 */
-    .search-box { margin-bottom: 2rem; }
+    .search-box {
+      margin-bottom: 2rem;
+    }
 
     #search {
       width: 100%;
@@ -437,7 +469,9 @@
     }
 
     @media (prefers-color-scheme: dark) {
-      .card-icon { background: #333; }
+      .card-icon {
+        background: #333;
+      }
     }
 
     .card-header-info {
@@ -468,13 +502,20 @@
     }
 
     .author-avatar {
-      width: 20px;
-      height: 20px;
+      width: 22px;
+      height: 22px;
       border-radius: 50%;
       object-fit: cover;
       display: block;
       background-color: rgba(0, 0, 0, 0.05);
       border: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      transform: translateY(-1px);
+      transition: transform 0.2s ease;
+    }
+
+    .author-avatar:hover {
+      transform: scale(1.2);
     }
 
     @media (prefers-color-scheme: dark) {
@@ -556,13 +597,23 @@
 
     /* 桌面端大屏适配 */
     @media (min-width: 768px) {
-      :root { --spacing-page-h: 2rem; }
+      :root {
+        --spacing-page-h: 2rem;
+      }
+
       header {
         padding-left: 2rem;
         padding-right: 2rem;
       }
-      .header-title-block { top: 50%; }
-      header h1 { font-size: 1.4rem; }
+
+      .header-title-block {
+        top: 50%;
+      }
+
+      header h1 {
+        font-size: 1.4rem;
+      }
+
       .secondary-menu {
         display: flex !important;
         visibility: visible !important;
@@ -578,24 +629,40 @@
         align-items: center;
         gap: 0.3rem;
       }
-      .menu-toggle { display: none; }
+
+      .menu-toggle {
+        display: none;
+      }
+
       .menu-item {
         width: auto;
         padding: 8px;
         border-radius: 50%;
         gap: 2px;
       }
+
       .menu-item:hover {
         background-color: rgba(0, 0, 0, 0.05);
       }
+
       @media (prefers-color-scheme: dark) {
         .menu-item:hover {
           background-color: rgba(255, 255, 255, 0.1);
         }
       }
-      .menu-item-content span:not(.icon) { display: none; }
-      .menu-item-content { gap: 0; }
-      #install-pwa { display: none !important; }
+
+      .menu-item-content span:not(.icon) {
+        display: none;
+      }
+
+      .menu-item-content {
+        gap: 0;
+      }
+
+      #install-pwa {
+        display: none !important;
+      }
+
       .wrap {
         padding-left: 2rem;
         padding-right: 2rem;
@@ -759,10 +826,7 @@
 
       document.querySelectorAll('.tab').forEach(btn => {
         const cat = btn.dataset.cat;
-        const key = cat === 'all' ? 'All' :
-                    cat === '去广告' ? 'Adblock' :
-                    cat === '功能增强' ? 'Enhance' :
-                    cat === '解锁会员' ? 'Unlock' : 'Cron';
+        const key = cat === 'all' ? 'All' : cat === '去广告' ? 'Adblock' : cat === '功能增强' ? 'Enhance' : cat === '解锁会员' ? 'Unlock' : 'Cron';
         btn.textContent = TEXT[`cat${key}`];
       });
 
@@ -810,6 +874,7 @@
                 const authorName = match[1].trim();
                 const authorUrl = match[2].trim();
                 let avatarUrl = authorUrl;
+
                 if (authorUrl.includes('github.com') && !authorUrl.match(/\.(png|jpg|jpeg|gif)$/i)) {
                   const userMatch = authorUrl.match(/github\.com\/([^\/]+)/);
                   if (userMatch && userMatch[1]) {
@@ -820,9 +885,14 @@
                 } else if (!authorUrl.startsWith('http')) {
                   avatarUrl = '';
                 }
-                return { name: authorName, avatar: avatarUrl };
+
+                return { name: authorName, avatar: avatarUrl, url: authorUrl };
               } else {
-                return { name: part, avatar: `https://github.com/${encodeURIComponent(part)}.png` };
+                return {
+                  name: part,
+                  avatar: `https://github.com/${encodeURIComponent(part)}.png`,
+                  url: `https://github.com/${encodeURIComponent(part)}`
+                };
               }
             });
           }
@@ -860,9 +930,9 @@
         const filtered = plugins.filter(p => {
           const hitCat = filterCat === 'all' || p.tags.includes(filterCat);
           const hitKw = !lowerKw ||
-                        p.name.toLowerCase().includes(lowerKw) ||
-                        p.tags.some(tag => tag.toLowerCase().includes(lowerKw)) ||
-                        p.authors.some(a => a.name.toLowerCase().includes(lowerKw));
+            p.name.toLowerCase().includes(lowerKw) ||
+            p.tags.some(tag => tag.toLowerCase().includes(lowerKw)) ||
+            p.authors.some(a => a.name.toLowerCase().includes(lowerKw));
           return hitCat && hitKw;
         });
 
@@ -886,8 +956,12 @@
           let authorsHtml = '';
           if (p.authors && p.authors.length > 0) {
             const imgs = p.authors.map(a =>
-              `<img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}" loading="lazy" onerror="this.style.display='none'">`
+              `<a href="${a.url}" target="_blank" rel="noopener noreferrer">
+                  <img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}"
+                  loading="lazy" onerror="this.style.display='none'">
+               </a>`
             ).join('');
+
             authorsHtml = `<div class="author-wrapper">${imgs}</div>`;
           }
 
