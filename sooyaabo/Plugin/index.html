@@ -437,7 +437,7 @@
       height: 100%;
     }
 
-    .card:hover {
+    .card:not(:has(.author-avatar:hover)):hover {
       transform: translateY(-6px) scale(1.005);
       box-shadow: var(--shadow-hover);
       background-color: var(--bg-card-hover);
@@ -446,7 +446,7 @@
       z-index: 10;
     }
 
-    .card:active {
+    .card:not(:has(.author-avatar:active)):active {
       transform: scale(0.97);
       transition-duration: 0.1s;
     }
@@ -510,18 +510,20 @@
       background-color: rgba(0, 0, 0, 0.05);
       border: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
-      transform: translateY(-1px);
-      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
-      -webkit-tap-highlight-color: transparent; 
-      -webkit-touch-callout: default;
+      transition: transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
-    .author-avatar:hover {
-      transform: scale(1.2);
+    @media (hover: hover) {
+      .author-avatar:hover {
+        transform: scale(1.2);
+      }
     }
 
     .author-avatar:active {
-      transform: translateY(-1px) scale(1);
+      transform: scale(1.2);
+      transition-duration: 0.1s;
     }
 
     
@@ -532,18 +534,6 @@
       }
     }
 
-    @media (hover: hover) {
-      .author-avatar:hover {
-        transform: scale(1.2);
-        z-index: 1;
-      }
-    }
-
-    .author-avatar:active {
-      transform: scale(1.2); 
-      transition-duration: 0.1s;
-    }
-    
     .card-desc {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -926,10 +916,9 @@
           let authorsHtml = '';
           if (p.authors && p.authors.length > 0) {
             const imgs = p.authors.map(a =>
-              `<a href="${a.url}" target="_blank" rel="noopener noreferrer">
-                  <img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}"
-                  loading="lazy" onerror="this.style.display='none'">
-               </a>`
+              `<a href="${a.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"> 
+                  <img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}" loading="lazy" onerror="this.style.display='none'">
+              </a>`
             ).join('');
 
             authorsHtml = `<div class="author-wrapper">${imgs}</div>`;
