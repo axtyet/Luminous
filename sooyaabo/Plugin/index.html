@@ -84,8 +84,16 @@
       position: relative;
       z-index: 1;
       overscroll-behavior-y: none;
+      -webkit-user-select: none; 
+      user-select: none;
+      -webkit-touch-callout: none;
     }
 
+    input, textarea {
+      -webkit-user-select: auto;
+      user-select: auto;
+    }
+    
     /* 防止移动端橡皮筋效果露底 */
     body::before,
     body::after {
@@ -437,18 +445,27 @@
       height: 100%;
     }
 
-    .card:not(:has(.author-avatar:hover)):hover {
-      transform: translateY(-6px) scale(1.005);
-      box-shadow: var(--shadow-hover);
-      background-color: var(--bg-card-hover);
-      backdrop-filter: saturate(180%) blur(10px);
-      -webkit-backdrop-filter: saturate(180%) blur(10px);
-      z-index: 10;
+    @media (hover: hover) {
+      .card:not(:has(.author-avatar:hover)):hover {
+        transform: translateY(-6px) scale(1.005);
+        box-shadow: var(--shadow-hover);
+        background-color: var(--bg-card-hover);
+        backdrop-filter: saturate(180%) blur(10px);
+        -webkit-backdrop-filter: saturate(180%) blur(10px);
+        z-index: 10;
+      }
     }
 
-    .card:not(:has(.author-avatar:active)):active {
-      transform: scale(0.97);
-      transition-duration: 0.1s;
+    @media (hover: none) {
+      .card:not(:has(.author-avatar:active)):active {
+        transform: translateY(-6px) scale(1.005); /* 这里改成了上浮，而不是原来的 scale(0.97) */
+        box-shadow: var(--shadow-hover);
+        background-color: var(--bg-card-hover);
+        backdrop-filter: saturate(180%) blur(10px);
+        -webkit-backdrop-filter: saturate(180%) blur(10px);
+        z-index: 10;
+        transition-duration: 0.1s; /* 按下响应速度 */
+      }
     }
 
     .card-top {
@@ -511,8 +528,6 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
       transition: transform 0.2s ease;
-      -webkit-tap-highlight-color: transparent;
-      -webkit-mask-image: -webkit-radial-gradient(white, black);
     }
 
     @media (hover: hover) {
