@@ -84,16 +84,8 @@
       position: relative;
       z-index: 1;
       overscroll-behavior-y: none;
-      -webkit-user-select: none; 
-      user-select: none;
-      -webkit-touch-callout: none;
     }
 
-    input, textarea {
-      -webkit-user-select: auto;
-      user-select: auto;
-    }
-    
     /* 防止移动端橡皮筋效果露底 */
     body::before,
     body::after {
@@ -263,8 +255,11 @@
       cursor: pointer;
     }
 
-    .menu-item:hover {
-      background-color: var(--bg-body);
+    /* 仅在支持 hover 的设备上启用菜单 hover 效果 */
+    @media (hover: hover) {
+      .menu-item:hover {
+        background-color: var(--bg-body);
+      }
     }
 
     .menu-item-content {
@@ -405,9 +400,12 @@
       box-shadow: var(--shadow-sm);
     }
 
-    .tabs button:hover {
-      color: var(--text-primary);
-      transform: translateY(-1px);
+    /* 仅在支持 hover 的设备上启用 Tab hover 效果 */
+    @media (hover: hover) {
+      .tabs button:hover {
+        color: var(--text-primary);
+        transform: translateY(-1px);
+      }
     }
 
     .tabs button.active {
@@ -445,8 +443,9 @@
       height: 100%;
     }
 
+    /* 关键改动！仅在支持 hover 的设备（桌面端）上启用卡片放大、阴影和背景色变化 */
     @media (hover: hover) {
-      .card:not(:has(.author-avatar:hover)):hover {
+      .card:hover {
         transform: translateY(-6px) scale(1.005);
         box-shadow: var(--shadow-hover);
         background-color: var(--bg-card-hover);
@@ -456,16 +455,9 @@
       }
     }
 
-    @media (hover: none) {
-      .card:not(:has(.author-avatar:active)):active {
-        transform: translateY(-6px) scale(1.005); /* 这里改成了上浮，而不是原来的 scale(0.97) */
-        box-shadow: var(--shadow-hover);
-        background-color: var(--bg-card-hover);
-        backdrop-filter: saturate(180%) blur(10px);
-        -webkit-backdrop-filter: saturate(180%) blur(10px);
-        z-index: 10;
-        transition-duration: 0.1s; /* 按下响应速度 */
-      }
+    .card:active {
+      transform: scale(0.97);
+      transition-duration: 0.1s;
     }
 
     .card-top {
@@ -527,9 +519,11 @@
       background-color: rgba(0, 0, 0, 0.05);
       border: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
+      transform: translateY(-1px);
       transition: transform 0.2s ease;
     }
 
+    /* 仅在支持 hover 的设备上启用头像放大 */
     @media (hover: hover) {
       .author-avatar:hover {
         transform: scale(1.2);
@@ -537,11 +531,9 @@
     }
 
     .author-avatar:active {
-      transform: scale(1.2);
-      transition-duration: 0.1s;
+      transform: translateY(-1px) scale(1);
     }
 
-    
     @media (prefers-color-scheme: dark) {
       .author-avatar {
         background-color: rgba(255, 255, 255, 0.1);
@@ -665,11 +657,14 @@
         gap: 2px;
       }
 
-      .menu-item:hover {
-        background-color: rgba(0, 0, 0, 0.05);
+      /* 这里的 hover 在桌面模式下生效，且我们加上了 hover:hover 确保逻辑一致 */
+      @media (hover: hover) {
+        .menu-item:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+        }
       }
 
-      @media (prefers-color-scheme: dark) {
+      @media (prefers-color-scheme: dark) and (hover: hover) {
         .menu-item:hover {
           background-color: rgba(255, 255, 255, 0.1);
         }
@@ -931,9 +926,10 @@
           let authorsHtml = '';
           if (p.authors && p.authors.length > 0) {
             const imgs = p.authors.map(a =>
-              `<a href="${a.url}" target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"> 
-                  <img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}" loading="lazy" onerror="this.style.display='none'">
-              </a>`
+              `<a href="${a.url}" target="_blank" rel="noopener noreferrer">
+                  <img src="${a.avatar}" class="author-avatar" alt="${a.name}" title="${a.name}"
+                  loading="lazy" onerror="this.style.display='none'">
+                </a>`
             ).join('');
 
             authorsHtml = `<div class="author-wrapper">${imgs}</div>`;
