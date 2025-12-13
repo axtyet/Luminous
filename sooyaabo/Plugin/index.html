@@ -511,7 +511,9 @@
       border: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
       transform: translateY(-1px);
-      transition: transform 0.2s ease;
+      transition: transform 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
+      -webkit-tap-highlight-color: transparent; 
+      -webkit-touch-callout: default;
     }
 
     .author-avatar:hover {
@@ -530,6 +532,18 @@
       }
     }
 
+    @media (hover: hover) {
+      .author-avatar:hover {
+        transform: scale(1.2);
+        z-index: 1;
+      }
+    }
+
+    .author-avatar:active {
+      transform: scale(1.2); 
+      transition-duration: 0.1s;
+    }
+    
     .card-desc {
       font-size: 0.9rem;
       color: var(--text-secondary);
@@ -840,70 +854,21 @@
       sectionTitleEl.textContent = TEXT.loading;
       document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-      // 从 GitHub API 获取插件文件列表及内容
+      // 从 plugins.json 获取插件列表
       let plugins = [];
       const GITHUB_REPO = 'sooyaaabo/Loon';
       const PLUGIN_DIR_PATH = 'Plugin';
+      
+      // 使用相对路径加载同目录下的 JSON 文件
+      const JSON_URL = './plugins.json';
 
       try {
-        const allFilesResponse = await fetch(`https://api.github.com/repos/${GITHUB_REPO}/contents/${PLUGIN_DIR_PATH}`);
-        const allFiles = await allFilesResponse.json();
+        // 添加时间戳防止缓存
+        const response = await fetch(`${JSON_URL}?t=${new Date().getTime()}`);
+        if (!response.ok) throw new Error('无法加载插件索引文件');
 
-        if (!Array.isArray(allFiles)) throw new Error('无效的 GitHub API 响应。');
-        const pluginFiles = allFiles.filter(file => file.name.toLowerCase().endsWith('.lpx'));
-        if (pluginFiles.length === 0) throw new Error(TEXT.noPluginsFound);
-
-        const pluginContents = await Promise.all(
-          pluginFiles.map(file => fetch(file.download_url).then(res => res.text()))
-        );
-
-        plugins = pluginContents.map((text, i) => {
-          const file = pluginFiles[i];
-          const name = (text.match(/#!\s*name\s*=\s*(.+)/i) || [])[1]?.trim() || file.name;
-          const desc = (text.match(/#!\s*desc\s*=\s*(.+)/i) || [])[1]?.trim() || 'No description available';
-          const icon = (text.match(/#!\s*icon\s*=\s*(.+)/i) || [])[1]?.trim() || '';
-          const date = (text.match(/#!\s*date\s*=\s*(.+)/i) || [])[1]?.trim() || 'Unknown';
-          const tagStr = (text.match(/#!\s*tag\s*=\s*(.+)/i) || [])[1]?.trim();
-          const tags = tagStr ? tagStr.split(',').map(t => t.trim()).filter(Boolean) : [];
-
-          // 解析作者信息（支持 Name[URL] 格式）
-          const authorLine = (text.match(/#!\s*author\s*=\s*(.+)/i) || [])[1]?.trim() || '';
-          let authors = [];
-
-          if (authorLine) {
-            const parts = authorLine.split(/,\s*/);
-            authors = parts.map(part => {
-              part = part.trim();
-              const match = part.match(/^([^\[]+)\[(.+)\]$/);
-              if (match) {
-                const authorName = match[1].trim();
-                const authorUrl = match[2].trim();
-                let avatarUrl = authorUrl;
-
-                if (authorUrl.includes('github.com') && !authorUrl.match(/\.(png|jpg|jpeg|gif)$/i)) {
-                  const userMatch = authorUrl.match(/github\.com\/([^\/]+)/);
-                  if (userMatch && userMatch[1]) {
-                    avatarUrl = `https://github.com/${userMatch[1]}.png`;
-                  } else {
-                    avatarUrl = `${authorUrl}.png`;
-                  }
-                } else if (!authorUrl.startsWith('http')) {
-                  avatarUrl = '';
-                }
-
-                return { name: authorName, avatar: avatarUrl, url: authorUrl };
-              } else {
-                return {
-                  name: part,
-                  avatar: `https://github.com/${encodeURIComponent(part)}.png`,
-                  url: `https://github.com/${encodeURIComponent(part)}`
-                };
-              }
-            });
-          }
-
-          return { url: file.download_url, name, desc, icon, date, authors, tags };
-        });
+        plugins = await response.json();
+        
       } catch (error) {
         listEl.innerHTML = `<div class="empty">${TEXT.loadFailed(error.message)}</div>`;
         sectionTitleEl.textContent = 'Error';
