@@ -78,19 +78,21 @@ async function main() {
 
   const level = getScoreLevel(score);
 
-  // ---- 风险系数呈现格式：分数 - 等级 ----
+  // ---- 风险系数 ----
   const scoreHtml =
     score === "N/A"
-      ? `N/A - 未知`
-      : `<span>${score} - <span style="color:${level.color};">${level.text}</span></span>`;
+      ? `<span style="color:#000000;">N/A</span> <span style="color:#000000;">-</span> <span style="color:#000000;">未知</span>`
+      : `<span style="color:${level.color};">${score}</span> <span style="color:#000000;">-</span> <span style="color:${level.color};">${level.text}</span>`;
 
-  // IP 类型：住宅 vs 数据中心
-  const isRes = Boolean(json.isResidential);
-  // 原生 IP vs 广播 IP
-  const isBrd = Boolean(json.isBroadcast);
+  // IP 类型颜色高亮处理
+  const isRes = Boolean(json.isResidential);  // 住宅 or 数据中心
+  const isBrd = Boolean(json.isBroadcast);    // 原生 or 广播
 
   const typeText = isRes ? "住宅网络" : "数据中心";
-  const brdText = isBrd ? "广播 IP" : "原生 IP";
+  const brdText = isBrd ? "广播" : "原生";
+
+  const typeColor = isRes ? "#48c78e" : "#fe6685";
+  const brdColor = isBrd ? "#fe6685" : "#48c78e";
 
   // ---- HTML ----
   const html = `
@@ -101,13 +103,16 @@ async function main() {
 
 <b>IP 地址:</b> ${ip}<br><br>
 
-<b>IP 类型:</b> ${typeText} • ${brdText}<br><br>
-
 <b>ISP:</b> ${isp}<br><br>
 
 <b>ASN:</b> ${asn}<br><br>
 
 <b>地理位置:</b> ${loc}<br><br>
+
+<b>属性来源:</b>
+<span style="color:${typeColor};">${typeText}</span> •
+<span style="color:${brdColor};">${brdText}</span>
+<br><br>
 
 <b>风险系数:</b> ${scoreHtml}
 
