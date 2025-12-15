@@ -12,7 +12,9 @@ async function main() {
   // API 接口地址
   const url = "https://my.ippure.com/v1/info";
 
-  const { error, response, data } = await request("GET", url);
+  const nodeName = $environment.params?.node;
+
+  const { error, response, data } = await request("GET", {url, node: nodeName});
 
   // 网络异常
   if (error || !data) {
@@ -38,7 +40,7 @@ async function main() {
   }
 
   // 节点名称
-  const nodeName = $environment.params?.node ?? "未知节点";
+  const nodeNameDisplay = nodeName ?? "未知节点";
 
   // IP 字段兼容
   const ip = json.ipAddress || json.query || json.ip || "未知";
@@ -99,7 +101,7 @@ async function main() {
 <div style="margin:0;padding:0;font-family:-apple-system;font-size:large;">
 
 <br>
-<b>节点:</b> ${nodeName}<br><br>
+<b>节点:</b> ${nodeNameDisplay}<br><br>
 
 <b>IP 地址:</b> ${ip}<br><br>
 
