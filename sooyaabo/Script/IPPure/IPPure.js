@@ -9,100 +9,125 @@ async function request(method, params) {
 }
 
 async function main() {
-  // 请求地址（IP 信息接口）
+  // API 接口地址
   const url = "https://my.ippure.com/v1/info";
 
   const { error, response, data } = await request("GET", url);
 
-  // 网络或数据获取异常处理
+  // 网络异常
   if (error || !data) {
     return $done({
-      title: "IPPure Overview",
-      htmlMessage: "<b>Network Error</b>"
+      title: "IPPure 信息概览",
+      htmlMessage: "<b>网络错误</b>"
     });
   }
 
   let json;
   try {
-    // 解析返回的 JSON 数据
+    // 解析接口返回 JSON
     json = JSON.parse(data);
 
-    // 输出接口原始数据
+    // 输出原始 JSON
     console.log(JSON.stringify(json, null, 2));
 
   } catch {
     return $done({
-      title: "IPPure Overview",
-      htmlMessage: "<b>Invalid JSON</b>"
+      title: "IPPure 信息概览",
+      htmlMessage: "<b>JSON 数据无效</b>"
     });
   }
 
   // 节点名称
-  const nodeName = $environment.params?.node ?? "Unknown Node";
+  const nodeName = $environment.params?.node ?? "未知节点";
 
-  // IP 地址字段兼容处理
-  const ip = json.ipAddress || json.query || json.ip || "Unknown";
+  // IP 字段兼容
+  const ip = json.ipAddress || json.query || json.ip || "未知";
 
-  // 位置（拼接城市/地区/国家）
-  const loc = [json.city, json.region, json.country]
-    .filter(Boolean)
-    .join(", ") || "Unknown";
+  // 地理位置（城市 / 区域 / 国家）
+  const loc =
+    [json.city, json.region, json.country].filter(Boolean).join(", ") ||
+    "未知";
 
-  // ISP 信息
-  const isp = json.asOrganization || "Unknown";
+  // ISP
+  const isp = json.asOrganization || "未知";
 
-  // ASN 信息字段兼容处理
+  // ASN 字段兼容处理
   const asn =
     json.asNumber ||
     json.asn ||
     (json.as && json.as.replace(/[^0-9]/g, "")) ||
-    "Unknown";
+    "未知";
 
-  // Fraud Score（系数评分）
+  // Fraud Score（风险系数）
   const score = json.fraudScore ?? "N/A";
 
-  // 类型标识（Residential住宅 vs DC机房 / Broadcast广播 vs Native原生）
-  const isRes = Boolean(json.isResidential);
-  const isBrd = Boolean(json.isBroadcast);
-  const typeText = isRes ? "Residential" : "DC";
-  const brdText = isBrd ? "Broadcast" : "Native";
+  // 风险等级颜色与文本
+  function getScoreLevel(score) {
+    if (score === "N/A") return { text: "未知", color: "#000000" };
 
-  // HTML 输出内容
+    const s = Number(score);
+    if (s >= 0 && s <= 15) return { text: "极度纯净", color: "#166534" };
+    if (s >= 16 && s <= 25) return { text: "纯净", color: "#22c55e" };
+    if (s >= 26 && s <= 40) return { text: "中性", color: "#84cc16" };
+    if (s >= 41 && s <= 50) return { text: "轻度风险", color: "#eab308" };
+    if (s >= 51 && s <= 70) return { text: "中度风险", color: "#f97316" };
+    if (s >= 71 && s <= 100) return { text: "极度风险", color: "#dc2626" };
+
+    return { text: "未知", color: "#000000" };
+  }
+
+  const level = getScoreLevel(score);
+
+  // ---- 风险系数呈现格式：分数 - 等级 ----
+  const scoreHtml =
+    score === "N/A"
+      ? `N/A - 未知`
+      : `<span>${score} - <span style="color:${level.color};">${level.text}</span></span>`;
+
+  // IP 类型：住宅 vs 数据中心
+  const isRes = Boolean(json.isResidential);
+  // 原生 IP vs 广播 IP
+  const isBrd = Boolean(json.isBroadcast);
+
+  const typeText = isRes ? "住宅网络" : "数据中心";
+  const brdText = isBrd ? "广播 IP" : "原生 IP";
+
+  // ---- HTML ----
   const html = `
 <div style="margin:0;padding:0;font-family:-apple-system;font-size:large;">
 
 <br>
-<b>Node:</b> ${nodeName}<br><br>
+<b>节点:</b> ${nodeName}<br><br>
 
-<b>IP:</b> ${ip}<br><br>
+<b>IP 地址:</b> ${ip}<br><br>
 
-<b>Location:</b> ${loc}<br><br>
+<b>IP 类型:</b> ${typeText} • ${brdText}<br><br>
 
 <b>ISP:</b> ${isp}<br><br>
 
 <b>ASN:</b> ${asn}<br><br>
 
-<b>Fraud Score:</b> ${score}<br><br>
+<b>地理位置:</b> ${loc}<br><br>
 
-<b>Type:</b> ${typeText} • ${brdText}
+<b>风险系数:</b> ${scoreHtml}
 
 </div>
 `.trim();
 
   return $done({
-    title: "IPPure Overview",
+    title: "IPPure 信息概览",
     htmlMessage: html
   });
 }
 
+// 主入口
 (async () => {
-  // 主流程异常捕获
   try {
     await main();
   } catch (e) {
     $done({
-      title: "IPPure Overview",
-      htmlMessage: "<b>Script Error:</b> " + e.message
+      title: "IPPure 信息概览",
+      htmlMessage: "<b>脚本错误：</b>" + e.message
     });
   }
 })();
