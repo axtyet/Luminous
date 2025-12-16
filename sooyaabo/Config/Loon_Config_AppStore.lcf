@@ -1,8 +1,8 @@
 # Loon 配置文件
 # 描述：个人使用的 Loon 配置文件，可根据实际需求进行调整。
-# 日期: 2025-11-27 12:00
+# 日期: 2025-12-16 20:00
 # 作者: sooyaaabo（恩秀）
-# 版本: 3.3.6(917)
+# 版本: 3.3.7(921)
 # 主页: https://github.com/sooyaaabo/Loon/blob/main/README.md
 # 插件: https://github.com/sooyaaabo/Loon/main/Plugin
 # 规则: https://github.com/sooyaaabo/Loon/main/Rule
@@ -53,8 +53,7 @@ disconnect-on-policy-change = false
 # 直连测试URL
 internet-test-url = http://connectivitycheck.platform.hicloud.com/generate_204
 # 节点测试URL
-proxy-test-url = http://www.google.com/blank.html
-# proxy-test-url = http://www.apple.com/library/test/success.html
+proxy-test-url = http://latency-test.skk.moe/endpoint
 # 资源解析器
 resource-parser = https://github.com/sub-store-org/Sub-Store/releases/latest/download/sub-store-parser.loon.min.js
 # GeoIP数据库
@@ -131,9 +130,9 @@ FINAL,手动选择
 [Remote Rule]
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/PCDN.lsr, policy=REJECT, tag=PCDN, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/MyBlockAds.lsr, policy=REJECT, tag=MyBlockAds, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/AWAvenueAdsRule.lsr, policy=REJECT, tag=AWAvenueAdsRule, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/RejectAd.lsr, policy=REJECT, tag=RejectAd, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/AdRules.lsr, policy=REJECT, tag=AdRules, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/AWAvenueAdsRule.lsr, policy=REJECT, tag=AWAvenueAdsRule, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/Media-Direct.lsr, policy=DIRECT, tag=Media-Direct, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/Apple.lsr, policy=DIRECT, tag=Apple, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Rule/Media-Proxy.lsr, policy=Streaming, tag=Media-Proxy, enabled=true
@@ -170,11 +169,10 @@ https://kelee.one/Tool/Loon/Lpx/BlockAdvertisers.lpx, pin=true, enabled=true
 https://kelee.one/Tool/Loon/Lpx/Remove_ads_by_keli.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Netisp-x.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/NodeTools.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/IPPure.lpx, policy=Global, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/StreamingMedia.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Redirect.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/WebPage.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/CookieTask.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/AppRaven.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/SkipProxy.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Bank.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/ChinaMobile.lpx, enabled=true
@@ -204,6 +202,7 @@ https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Taobao.lpx, enabled
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Goofish.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Jingdong.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Pinduoduo.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Dewu.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/smzdm.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Cainiao.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/DingdongMaicai.lpx, enabled=true
@@ -219,9 +218,9 @@ https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Zhihu.lpx, enabled=
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/CoolApk.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/IThome.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Keep.lpx, enabled=true
+https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/JingdongWaimai.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/LuckinCoffee.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Ezviz.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/HOK_GameHelper.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/LOL_Bible.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/miHoYoBBS.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/QQMusic.lpx, enabled=true
@@ -240,15 +239,12 @@ https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/MangoTV.lpx, enable
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Bilibili.lpx, policy=Hong Kong, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/IQIYI_Ssports.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/YouTube.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/CMS_Adblock.lpx, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/XPTV.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/MyBlockAds.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/StartUpAds.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/BlockAds.lpx, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Sub-Store.lpx, policy=Hong Kong, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/Script-Hub.lpx, policy=Hong Kong, enabled=true
 https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/BoxJs.lpx, policy=Hong Kong, enabled=true
-https://raw.githubusercontent.com/sooyaaabo/Loon/main/Plugin/1.1.1.1.lpx, enabled=true
 
 [MITM]
 hostname = 
