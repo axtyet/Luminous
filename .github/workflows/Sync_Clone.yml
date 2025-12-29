@@ -317,26 +317,6 @@ jobs:
         git clone -b master https://github.com/ddgksf2013/Profile.git tyu_Tmp
         cp -r tyu_Tmp/* Luminous-repo/ddgksf2013/Profile
         rm -rf tyu_Tmp
-    
-      # Fork 墨鱼 重写
-    - name: Fork ddgksf2013 MoYu
-      run: |
-        mkdir -p Luminous-repo/ddgksf2013/MOYU
-        git clone -b master https://github.com/ddgksf2013/MoYu.git uyt_Tmp
-        cp -r uyt_Tmp/* Luminous-repo/ddgksf2013/MOYU
-        rm -rf uyt_Tmp
-      # 修改脚本链接
-    - name: Edit ddgksf2013/MOYU
-      run: |
-        cd Luminous-repo/ddgksf2013/MOYU
-        for file in *.js; do
-            if [ "$file" ] ; then
-              # 修改脚本链接
-              sed -i 's/github\.com\/ddgksf2013\/MoYu\/raw\/master/raw.githubusercontent\.com\/axtyet\/Luminous\/main\/ddgksf2013\/MOYU/g' "$file"
-            else
-              echo "$file not found."
-            fi
-          done
 
       # Fork evilbutcher 去广告&脚本
     - name: Fork evilbutcher Advertising&Script
