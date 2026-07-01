@@ -1,0 +1,16 @@
+#!name=挖财记账去广告
+#!desc=移除开屏广告、横幅广告，顶部推广、活动配置。\n@可莉🅥
+#!category=⚙️ ▸ Kelee Mode
+#!URL=https://kelee.one/Tool/Loon/Lpx/Wacai_remove_ads.lpx
+#!date=2026-06-30 22:54:46
+
+[URL Rewrite]
+^https:\/\/jz\.wacaijizhang\.com\/activity\/ - reject
+
+[Map Local]
+^https:\/\/jz\.wacaijizhang\.com\/sensor\/config\/iOS\.conf\? data-type=text data="{\"v\":\"v2\",\"configs\":{\"disableSDK\":true,\"disableDebugMode\":true,\"supportTransportEncrypt\":false}}" status-code=200 header="Content-Type:application/json"
+^https:\/\/jz\.wacaijizhang\.com\/api\/banners\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/jz\.wacaijizhang\.com\/api\/resource\/universal\/fetch$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% jz.wacaijizhang.com

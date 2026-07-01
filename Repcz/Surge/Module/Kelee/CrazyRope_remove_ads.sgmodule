@@ -1,0 +1,20 @@
+#!name=天天跳绳去广告
+#!desc=移除开屏广告、横幅广告、弹窗广告、活动推广，精简首页标签和搜索页面。\n@可莉🅥
+#!category=⚙️ ▸ Kelee Mode
+#!URL=https://kelee.one/Tool/Loon/Lpx/CrazyRope_remove_ads.lpx
+#!date=2026-07-01 00:19:10
+
+[Map Local]
+^https:\/\/api\.tiantiantiaosheng\.com\/api\d\/abtest\/ads_v\d\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/cdn\.tiantiantiaosheng\.com\/props_config_prod\/ad_position_config\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api\d\/adolescent_mode\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api\d\/ad_sys\/ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api\/user\/home_page\/activities$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api\d\/search\/base_info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api2\/medal_challenge_activity\/page_switch\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api2\/training_plan\/recommended_list$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api2\/user\/new_register_info$ data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/api\.tiantiantiaosheng\.com\/api2\/popup\/list\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% api.tiantiantiaosheng.com, cdn.tiantiantiaosheng.com

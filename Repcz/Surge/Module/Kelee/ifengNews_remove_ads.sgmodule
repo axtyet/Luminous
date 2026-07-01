@@ -1,0 +1,36 @@
+#!name=凤凰新闻去广告
+#!desc=移除皮肤、开屏广告、信息流广告、文末广告、视频流广告、评论区广告，移除信息流订阅号文章、文末推荐阅读，精简我的页面。\n@可莉🅥
+#!category=⚙️ ▸ Kelee Mode
+#!URL=https://kelee.one/Tool/Loon/Lpx/ifengNews_remove_ads.lpx
+#!date=2026-07-01 11:32:25
+
+[URL Rewrite]
+^https:\/\/config\.nine\.ifeng\.com\/news\/h5prepublish\? - reject
+
+[Body Rewrite]
+http-response-jq ^https:\/\/config\.nine\.ifeng\.com\/news\/cow\? '.bottomNav|=map(select(.NavId=="bottomNavNews" or .NavId=="bottomNavMine"))'
+http-response-jq ^https:\/\/config\.nine\.ifeng\.com\/news\/cow\? 'delpaths([["zip_url"]])'
+http-response-jq ^https:\/\/config\.nine\.ifeng\.com\/news\/channel\? '.defaultChannel |= map(select(.id == "commenterch" or .id == "sy" or .id == "vipchannel" or .id == "rank_hot_merge" or .id == "rtnews" or .id == "sp" or .id == "mil" or .id == "finance" or .id == "history" or .id == "momentsnew" or .id == "taihai" or .id == "focusnews" or .id == "rcmd" or .id == "tw" or .id == "HK" or .id == "dawanqu1"))'
+http-response-jq ^https:\/\/config\.nine\.ifeng\.com\/news\/channel\? 'delpaths([["more"],["youngChannel"]])'
+http-response-jq ^https:\/\/nine\.ifeng\.com\/headline\? 'walk(if type == "object" and has("item") and (.item | type == "array") then .item |= map(select(.type == "phvideo" or .type == "doc" or .type == "phreclist")) else . end)'
+http-response-jq ^https:\/\/nine\.ifeng\.com\/getNewsDocs\? 'delpaths([["body","showAdvert"],["body","adData"]])'
+http-response-jq ^https:\/\/nine\.ifeng\.com\/phoenixTvChannel\? 'map(if has("item") then .item|=map(select(.type=="columnfastmessagescroll" or .type=="phvideo" or .type=="videoseriesrecommendmarquee" or .type=="short")) else . end)'
+http-response-jq ^https:\/\/nine\.ifeng\.com\/videoimmersionlistv\d\? 'map(if has("item") then .item|=map(select(.type=="miniVideo" or .type=="phvideo")) else . end)'
+http-response-jq ^https:\/\/nine\.ifeng\.com\/shortList\? 'map(.item|=map(select(.type=="short")))'
+http-response-jq ^https:\/\/comment\.ifeng\.com\/v\d\/get\/commentlist\? 'del(.comments[] | select(.type == "advert"))'
+
+[Map Local]
+^https:\/\/nine\.ifeng\.com\/adPreload\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/startUpAdPrestrainList\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/startUpAddAd\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/searchhotwordsrollv\d\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/searchvideohotwordsroll\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/searchHotwordsReact\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/user\.iclient\.ifeng\.com\/active_task\/channel\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/newRelatedDocs\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/getdocbackinfo\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/user\.iclient\.ifeng\.com\/event_protal\/list_lite\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+^https:\/\/nine\.ifeng\.com\/adVideoImmersionWindow\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% nine.ifeng.com, config.nine.ifeng.com, user.iclient.ifeng.com, comment.ifeng.com

@@ -1,0 +1,18 @@
+#!name=百度翻译去广告
+#!desc=移除开屏广告、横幅广告，精简我的页面。\n@可莉🅥
+#!category=⚙️ ▸ Kelee Mode
+#!URL=https://kelee.one/Tool/Loon/Lpx/BaiduTranslate_remove_ads.lpx
+#!date=2026-06-30 23:28:03
+
+[URL Rewrite]
+^https:\/\/fanyi-app\.baidu\.com\/static\/react-activity\/page\/courseBoutique\.html\? - reject
+
+[Body Rewrite]
+http-response-jq ^https:\/\/fanyi-app\.baidu\.com\/transapp\/comment\/my\? 'delpaths([["data","taskBanner"],["data","act"]])'
+http-response-jq ^https:\/\/fanyi-app\.baidu\.com\/transapp\/recitewd\/myplan\? 'delpaths([["data","activityRec"],["data","activityRecList"]])'
+
+[Map Local]
+^https:\/\/fanyi-app\.baidu\.com\/transapp\/v2\/api\/launch\/config\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% fanyi-app.baidu.com
