@@ -7,7 +7,6 @@
 [![](https://visitor-badge.laobi.icu/badge?page_id=Repcz.Tool&left_color=gray&right_color=blue)](#)
 [![](https://img.shields.io/github/stars/Repcz/Tool?style=flat&label=Stars&color=ffcb2e)](https://github.com/Repcz/Tool/stargazers)
 [![](https://img.shields.io/github/forks/Repcz/Tool?style=flat&label=Forks&color=2ea043)](https://github.com/Repcz/Tool/forks)
-[![](https://img.shields.io/github/repo-size/Repcz/Tool?style=flat&label=Repo%20Size&color=8441c4)](https://github.com/Repcz/Tool)
 [![](https://img.shields.io/badge/License-MIT-22c55e?style=flat)](LICENSE)
 [![](https://img.shields.io/github/last-commit/Repcz/Tool?style=flat&label=Updated&color=3178c6)](https://github.com/Repcz/Tool/commits)
 
