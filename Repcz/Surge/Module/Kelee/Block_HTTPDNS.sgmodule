@@ -2,7 +2,7 @@
 #!desc=拦截常见的HTTPDNS服务，以确保这些请求都能够在Loon的DNS框架下工作。\n@可莉🅥, @VirgilClyne
 #!category=⚙️ ▸ Kelee Mode
 #!URL=https://kelee.one/Tool/Loon/Lpx/Block_HTTPDNS.lpx
-#!date=2026-07-01 10:51:17
+#!date=2026-07-03 00:35:14
 
 [Rule]
 DOMAIN-KEYWORD,httpdns,REJECT,extended-matching,pre-matching
@@ -11,6 +11,8 @@ USER-AGENT,"httpdns*",REJECT
 USER-AGENT,"httpsdns*",REJECT
 USER-AGENT,"Httpdns*",REJECT
 USER-AGENT,"Httpsdns*",REJECT
+AND,((URL-REGEX, ^http:\/\/119\.29\.29\.90\/d\?), (USER-AGENT, %E5%98%80%E5%97%92%E5%87%BA%E8%A1%8C*)),DIRECT
+AND,((URL-REGEX, ^http:\/\/119\.28\.28\.90\/d\?), (USER-AGENT, %E5%98%80%E5%97%92%E5%87%BA%E8%A1%8C*)),DIRECT
 URL-REGEX,"^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)(?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?",REJECT,extended-matching
 URL-REGEX,"^http:\/\/\[[0-9a-fA-F:]+\](?:\/v?[0-9]+)?\/(?:sign_)?(?:(?:d|ss)[46]?|resolve)\?",REJECT,extended-matching
 DOMAIN,yyapp-httpdns.gslb.yy.com,REJECT,extended-matching,pre-matching
