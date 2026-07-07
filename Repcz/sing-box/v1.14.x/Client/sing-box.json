@@ -83,7 +83,6 @@
             {"rule_set": ["Ads"],"action": "reject"},
             {"rule_set": ["AI"],"action": "route","outbound": "AI"},
             {"rule_set": ["Telegram"],"action": "route","outbound": "Telegram"},
-            {"type": "logical","mode": "and","rules": [{"source_port": 7080},{"ip_version": 4}],"action": "reject"},
             {"rule_set": ["Twitter","Facebook","TikTok"],"action": "route","outbound": "Social"},
             {"rule_set": ["Steam","Epic"],"action": "route","outbound": "Game"},
             {"rule_set": ["Google"],"action": "route","outbound": "Google"},
