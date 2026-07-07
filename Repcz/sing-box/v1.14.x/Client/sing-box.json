@@ -22,8 +22,8 @@
             {"query_type": "HTTPS","action": "reject"},
             {"domain_suffix": ["lancache.steamcontent.com","10099.com.cn","msftconnecttest.com","msftncsi.com","local","lan","home","internal","corp","example.com"],"server": "local"},
             {"query_type": ["A","AAAA"],"action": "route","server": "fakeip","rewrite_ttl": 1},
-            {"clash_mode": "All Proxy","action": "route","server": "fakeip"},
-            {"clash_mode": "All Direct","action": "route","server": "local"}
+            {"clash_mode": "Global","action": "route","server": "fakeip"},
+            {"clash_mode": "Direct","action": "route","server": "local"}
         ],
         "reverse_mapping": true,
         "strategy": "ipv4_only",
@@ -78,11 +78,12 @@
             {"action": "sniff","sniffer": ["http","tls","quic","dns"]},
             {"protocol": "dns","action": "hijack-dns"},
             {"ip_is_private": true,"action": "route","outbound": "Direct"},
-            {"clash_mode": "All Direct","action": "route","outbound": "Direct"},
-            {"clash_mode": "All Proxy","action": "route","outbound": "Manual"},
+            {"clash_mode": "Direct","action": "route","outbound": "Direct"},
+            {"clash_mode": "Global","action": "route","outbound": "Manual"},
             {"rule_set": ["Ads"],"action": "reject"},
             {"rule_set": ["AI"],"action": "route","outbound": "AI"},
             {"rule_set": ["Telegram"],"action": "route","outbound": "Telegram"},
+            {"type": "logical","mode": "and","rules": [{"inbound": ["telegram-socks"]},{"rule_set": ["Telegram"],"invert": true}],"action": "reject"},
             {"rule_set": ["Twitter","Facebook","TikTok"],"action": "route","outbound": "Social"},
             {"rule_set": ["Steam","Epic"],"action": "route","outbound": "Game"},
             {"rule_set": ["Google"],"action": "route","outbound": "Google"},
@@ -130,12 +131,19 @@
     "inbounds": [
         {
             "type": "mixed",
+            "tag": "mixed",
             "listen": "127.0.0.1",
-            "listen_port": 7080,
-            "set_system_proxy": false
+            "listen_port": 7080
+       },
+        {
+            "type": "socks",
+            "tag": "telegram-socks",
+            "listen": "127.0.0.1",
+            "listen_port": 6153
         },
         {
             "type": "tun",
+            "tag": "tun",
             "address": [
                 "172.18.0.1/30",
                 "fdfe:dcba:9876::1/126"
