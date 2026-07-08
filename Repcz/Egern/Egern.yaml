@@ -240,6 +240,17 @@ rules:
 - rule_set:
     match: https://github.com/Repcz/Tool/raw/X/Egern/Rules/Telegram.yaml
     policy: Telegram
+- and:
+    name: Fuck Telegram
+    match:
+    - not:
+        match:
+          rule_set:
+            match: https://github.com/Repcz/Tool/raw/X/Egern/Rules/Telegram.yaml
+    - listen_port:
+        match: '6153'
+    policy: REJECT
+    disabled: false
 - rule_set:
     match: https://github.com/Repcz/Tool/raw/X/Egern/Rules/Twitter.yaml
     policy: Social
