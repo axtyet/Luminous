@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-07-09 10:24:33(GMT+8)
-! Total count: 39160
+! Version: 2026-07-09 17:27:13(GMT+8)
+! Total count: 39164
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -12886,6 +12886,7 @@ kupi.cz,novinky.cz,sport.cz,super.cz##iframe[data-cy-loaded]
 kurir.rs#$#override-property-read as_-400652451 true; override-property-read as_-739600671 true; override-property-read as_-1078548891 true; override-property-read as_1336353459 true
 kurs.com.ua#$#abort-current-inline-script document.documentElement.clientWidth
 kuruma-news.jp#$#override-property-read adshield.isAdBlockerDetected false
+kuruma-news.jp#$#prevent-element-src-loading script /\/(feed|media)\//
 kuruma-news.jp#$#prevent-element-src-loading script /\/feed\//
 kuruma-news.jp^$csp=script-src-attr 'none'
 kuwo.cn##.qr_wrapper
@@ -15692,6 +15693,7 @@ sac.net.cn###rightDiv
 saigon24.net#$#abort-current-inline-script document.getElementById myModal
 sailtool.com##body > div[style^="position:fixed;right:0;top:"]
 sallysbakingaddiction.com#$#cookie-remover /adblocker/ true
+sameday.costco.*##div:has(> div > div[id] > div[id$="-content"] li[data-testid="compact-shoppable-header"])
 sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="item carousel"])
 sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="product carousel"])
 sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div[role="region"][aria-label="item carousel"])
@@ -15702,12 +15704,11 @@ sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.
 sameday.costco.*##div[id]:has(> a[href*="/store/costco/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="browse items"])
 sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid="shoppable-list-sliding-carousel"])
 sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid^="shoppable-list-"])
-sameday.costco.*##div[id]:has(> div[id$="-content"] li[data-testid="compact-shoppable-header"])
 sameday.costco.*##div[id]:has(> div[id] > ul li[data-testid="compact-shoppable-header"])
 sameday.costco.*#$#abort-current-inline-script setTimeout ic-detect-ad-block; override-property-read ADBLOCK_DETECTED false
 sameday.costco.*#$#hide-if-matches-xpath './/div[@style]/following::span[text()]/preceding::div[@aria-hidden="true"]/preceding::img[contains(@alt,"Sponsored") or contains(@alt,"Advertisement")]/ancestor-or-self::div[@id][@class][1]'
 sameday.costco.*#$#hide-if-matches-xpath3 './/section[matches(replace(string(.), " ", ""), "Sponsored")]/ancestor::li[1]'
-sameday.costco.*#$#race start; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ed")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"d")]]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//sp-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-sp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-fp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-cc-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-cc-tag/ancestor::li[1]'; hide-if-matches-xpath './/ic-fp-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-pl-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-vt-tag/ancestor::li[1]'; hide-if-matches-xpath 'hide-if-matches-xpath './/div[@role="group"][.//ic-vt-tag]/ancestor::li[1]''; hide-if-matches-xpath './/div[@role="group"][.//ic-mv-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-mv-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-tr-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-tr-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-jn-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-jn-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-px-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-px-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nx-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-nx-tag/ancestor::li[1]'; race stop;
+sameday.costco.*#$#race start; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ed")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"d")]]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//sp-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-sp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-fp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-cc-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-cc-tag/ancestor::li[1]'; hide-if-matches-xpath './/ic-fp-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-pl-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-vt-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-vt-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-mv-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-mv-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-tr-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-tr-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-jn-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-jn-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-px-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-px-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nx-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-nx-tag/ancestor::li[1]'; race stop;
 sameday.costco.*#$#race start; hide-if-matches-xpath '//div[@id]/a//div[descendant::span[contains(text(), "Spons")] and descendant::span[contains(text(), "ored")]]/ancestor::div[3]'; hide-if-matches-xpath '//div[@id]/a//div[descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(), "d")]]/ancestor::div[3]'; hide-if-matches-xpath '//div[@id]/div[contains(@id,"-inner")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; hide-if-matches-xpath '//div[@id]/div[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; hide-if-matches-xpath '//div[@id]/section[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; race stop;
 samehadaku.net#@##adsense
 samsclub.com##div[class="analytics"][data-strategy="Sponsored products"]
@@ -22078,6 +22079,7 @@ zzzyk.com###Tinfo
 ||bas.boshi.tv^
 ||base64decode.org^$csp=script-src-attr 'none'
 ||baseboosters.com^
+||basestll.com^
 ||basically97.top^
 ||basilfish.com^
 ||basionsassay.com^
@@ -23585,7 +23587,6 @@ zzzyk.com###Tinfo
 ||clumsycar.com^
 ||clw99.mobi^
 ||cm.baidu.com^
-||cmahrukfuqkiv.online^
 ||cmath.fr/images/fond2.gif
 ||cmath.fr/images/fondsticky.gif
 ||cmbkgmx.cn^
@@ -24111,7 +24112,6 @@ zzzyk.com###Tinfo
 ||czsp12.com/api/*=advert&
 ||czsp12.com/api/*=announce&
 ||czt4gnz57.com^
-||cztesoepklydo.online^
 ||cztv.com/201506/02/124d35111e8f180c96f99acbcbdf5de6.jpg
 ||d*.ruiwen.com^
 ||d*.xinshipu.com^
@@ -24968,6 +24968,7 @@ zzzyk.com###Tinfo
 ||ductilevoider.com^
 ||dufile.com/jsa/
 ||duhquietly.com/session$domain=hochi.news
+||duhquietly.com^$domain=kuruma-news.jp
 ||duhquietly.com^$domain=trilltrill.jp
 ||duhquietly.com^$script,domain=hochi.news
 ||duhrawhide.com/feed/$domain=euronews.com
@@ -25661,6 +25662,7 @@ zzzyk.com###Tinfo
 ||extramonies.com^
 ||extremely58.top^
 ||exuberantedge.com^
+||exudingidolet.com^
 ||exvl.cn^
 ||exwz.cn^
 ||ey8u1z38v.com^
@@ -26040,7 +26042,6 @@ zzzyk.com###Tinfo
 ||flasmr.top/leb.
 ||fldlxx.icu^
 ||fleetbegin.com^
-||fliffuscatalpa.com^
 ||flighty.cn/images/
 ||flimsycircle.com^
 ||flimsythought.com^
@@ -26155,7 +26156,6 @@ zzzyk.com###Tinfo
 ||fpdisplay.com/templates/default/js/palyflash_
 ||fpdisplay.com/upload/n_ad/
 ||fpgxyjv3h.com^
-||fpofgwxhxtjaj.online^
 ||fpoyvjgdm.com^
 ||fprrpv.icu^
 ||fptdxkm.com^
@@ -26179,7 +26179,6 @@ zzzyk.com###Tinfo
 ||fraysystems.com^
 ||frchavvati.com^
 ||frcykpk.cn^
-||freaksdopers.cfd^
 ||free-cdn.oss-cn-shanghai.aliyuncs.com^
 ||free3dgame.xyz^
 ||freean.us/Webservices/jsParseLinks.aspx$script,third-party
@@ -27646,6 +27645,7 @@ zzzyk.com###Tinfo
 ||hogtiesturret.com^
 ||hohmanrtit.com^
 ||hohmaryt.com^
+||hoirms.com^
 ||hollg8023.745c.cn^
 ||hollowafterthought.com^
 ||holmesmind.com^
@@ -28346,6 +28346,7 @@ zzzyk.com###Tinfo
 ||imp.zol.com.cn^
 ||impactbitcompoundsystems.net^
 ||impdsp.meituan.com^
+||impeccable-career.pro^
 ||impedegrimy.com^
 ||importantmeat.com^
 ||importedincrease.com^
@@ -29431,6 +29432,7 @@ zzzyk.com###Tinfo
 ||kitesquirrel.com^
 ||kitetuning.com^
 ||kittentacos.com^
+||kittultheeker.com^
 ||kittycatking.com^
 ||kiuee8.com^
 ||kivo.fun^
@@ -32305,6 +32307,7 @@ zzzyk.com###Tinfo
 ||people.com.cn/adv/
 ||people.com.cn/img/gjt/
 ||people.com.cn/rmrb/tplimg/new.js
+||peoplebrain.net^$domain=coolmathgames.com|dailykos.com|gamebanana.com
 ||pepnsnq.cn^
 ||pepwpv.icu^
 ||perceivequarter.com^
@@ -34196,7 +34199,6 @@ zzzyk.com###Tinfo
 ||shenlinlive.cn^
 ||shentongjiakao.ren^
 ||shenxianmaomao.com^
-||sherpasackage.com^
 ||shesubscriptions.com^
 ||shewang.net/images/*/900x
 ||shewang.net/images/*/CHD
@@ -34968,12 +34970,12 @@ zzzyk.com###Tinfo
 ||stringent19.com^
 ||strip.chat/widgets/$domain=tktube.com
 ||strip.taobaocdn.com/tfscom/$subdocument
+||stripchats.site^
 ||stripedbat.com^
 ||strivesidewalk.com^
 ||strivesquirrel.com^
 ||strokesystem.com^
 ||strongercity.com^
-||struvlichi.com^
 ||stsgus.icu^
 ||stubborn80.top^
 ||studycooking.com^
@@ -35712,6 +35714,7 @@ zzzyk.com###Tinfo
 ||topiccaroler.com^
 ||topicimg.1234567.com.cn/product/2021/1/11/b914f8b6-fb61-4c85-834f-863b67c13a45.gif$domain=fund.eastmoney.com
 ||topmba.mobi/ad/
+||topperanlases.com^
 ||topthink.com/api/basic/
 ||topthink.com/uploads/assistant/$image,domain=doc.thinkphp.cn
 ||topthrowbacks.com^
@@ -38968,6 +38971,7 @@ zzzyk.com###Tinfo
 ||zo0nk647a.com^
 ||zoaenkekd.com^
 ||zoeacaring.com^
+||zoealcantuta.com^
 ||zokjds.com/js/xiao.js
 ||zol-img.com.cn/ad/
 ||zol-img.com.cn/detail/js/module/app-download-float/script.js
