@@ -2,7 +2,7 @@
 #!desc=移除开屏广告、底栏多多视频、会场入口、聊天页面精选推荐及推广，精简首页和个人中心。\n@ZenmoFeiShi, @可莉🅥
 #!category=⚙️ ▸ Kelee Mode
 #!URL=https://kelee.one/Tool/Loon/Lpx/PinDuoDuo_remove_ads.lpx
-#!date=2026-06-22 19:19:25
+#!date=2026-07-11 20:21:39
 
 [Rule]
 AND,((URL-REGEX, "^http:\/\/((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\/d(\d)?"), (USER-AGENT, "*com.xunmeng.pinduoduo*")),REJECT
@@ -54,5 +54,8 @@ http-response-jq ^https:\/\/api\.pinduoduo\.com\/api\/aristotle\/order_list_v4\?
 ^https:\/\/api\.pinduoduo\.com\/api\/buffon\/nasus\/recommend\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 ^https:\/\/api\.pinduoduo\.com\/api\/caterham\/v2\/query\/goods_detail_with_tags\? data-type=text data="{}" status-code=200 header="Content-Type:application/json"
 
+[Script]
+移除扫码取件页面商品推荐及弹窗 = type=http-response,pattern=^https:\/\/m\.pinduoduo\.net\/mdkd\/package\?from_app_scan,script-path=https://kelee.one/Resource/JavaScript/PinDuoDuo/PinDuoDuo_remove_ads.js,requires-body=true
+
 [MITM]
-hostname = %APPEND% api.pinduoduo.com
+hostname = %APPEND% api.pinduoduo.com, m.pinduoduo.net
