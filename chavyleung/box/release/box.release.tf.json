@@ -1,6 +1,18 @@
 {
   "releases": [
     {
+      "version": "0.19.30",
+      "tags": ["beta"],
+      "author": "@GideonSenku",
+      "msg": "feat(boxjs): 支持粘贴 JSON 内容添加订阅",
+      "notes": [
+        {
+          "name": "功能",
+          "descs": ["新增 /api/addAppSubRaw 接口，除订阅地址外，现可直接粘贴订阅的 JSON 内容添加订阅（无需远程地址）", "严格校验粘贴内容：仅接受合法 JSON 对象、须含 id 且 apps 为数组、限制体积上限，避免异常数据写入", "以订阅自带 id 作为缓存键，刷新订阅时自动跳过无远程地址的粘贴订阅"]
+        }
+      ]
+    },
+    {
       "version": "0.19.29",
       "tags": ["beta"],
       "author": "@GideonSenku",

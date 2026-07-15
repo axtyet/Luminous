@@ -3,7 +3,7 @@ const $ = new Env('BoxJs')
 // 为 eval 准备的上下文环境
 const $eval_env = {}
 
-$.version = '0.19.29'
+$.version = '0.19.30'
 $.versionType = 'beta'
 
 // 发出的请求需要需要 Surge、QuanX 的 rewrite
@@ -280,6 +280,7 @@ async function handleApi() {
   const apiHandlers = {
     '/save': apiSave,
     '/addAppSub': apiAddAppSub,
+    '/addAppSubRaw': apiAddAppSubRaw,
     '/deleteAppSub': apiDeleteAppSub,
     '/reloadAppSub': apiReloadAppSub,
     '/delGlobalBak': apiDelGlobalBak,
@@ -766,6 +767,60 @@ async function apiAddAppSub() {
   $.json = getBoxData()
 }
 
+async function apiAddAppSubRaw() {
+  // 直接粘贴 JSON 内容添加订阅（非远程 URL）
+  // body: { json: '<订阅JSON字符串>', id, name }
+  const req = $.toObj($request.body) || {};
+  const rawText = typeof req.json === 'string' ? req.json : '';
+
+  // 体积上限，避免撑爆存储 / 拖垮客户端
+  const MAX_RAW_BYTES = 512 * 1024;
+  if (rawText.length === 0) {
+    $.json = { code: -1, message: '订阅内容为空' };
+    return;
+  }
+  if (rawText.length > MAX_RAW_BYTES) {
+    $.json = { code: -1, message: '订阅内容过大' };
+    return;
+  }
+
+  // 严格解析：必须是合法 JSON 对象，含 id，且 apps 为数组
+  const sub = $.toObj(rawText);
+  if (!sub || typeof sub !== 'object' || Array.isArray(sub)) {
+    $.json = { code: -1, message: '订阅内容不是合法 JSON 对象' };
+    return;
+  }
+  if (!sub.hasOwnProperty('id') || !sub.id) {
+    $.json = { code: -1, message: '订阅缺少 id 字段' };
+    return;
+  }
+  if (!Array.isArray(sub.apps)) {
+    $.json = { code: -1, message: '订阅 apps 字段格式错误' };
+    return;
+  }
+
+  // 无远程地址：用订阅自带 id 作 key（客户端 appSubCaches / appsubs 均按 url 索引，
+  // 故这里让 url 字段等于 id，两处对齐即可，不引入任何伪协议前缀）
+  const id = req.id || sub.id;
+
+  // 写入订阅缓存（与 reloadAppSubCache 一致的结构）
+  const subcaches = getAppSubCaches();
+  subcaches[id] = sub;
+  subcaches[id].url = id;
+  subcaches[id].updateTime = new Date();
+  if (req.name) subcaches[id].name = req.name;
+  $.setjson(subcaches, $.KEY_app_subCaches);
+
+  // 写入订阅引用列表（按 id 去重，避免重复粘贴产生多条）
+  const usercfgs = getUserCfgs();
+  usercfgs.appsubs = usercfgs.appsubs.filter((e) => e && e.id !== id);
+  usercfgs.appsubs.push({ url: id, enable: true, id });
+  $.setjson(usercfgs, $.KEY_usercfgs);
+
+  $.log(`添加订阅(粘贴), 成功! id=${id}`);
+  $.json = getBoxData();
+}
+
 async function apiDeleteAppSub() {
   const sub = $.toObj($request.body)
   // 添加订阅
@@ -966,6 +1021,10 @@ async function apiSaveData() {
  */
 
 function reloadAppSubCache(url) {
+  // 仅刷新 http(s) 远程订阅；粘贴导入的订阅无远程地址，跳过刷新保留已有缓存
+  if (!url || !/^https?:\/\//i.test(url)) {
+    return Promise.resolve()
+  }
   // 地址后面拼时间缀, 避免 GET 缓存
   const requrl = `${url}${
     url.includes('?') ? '&' : '?'
