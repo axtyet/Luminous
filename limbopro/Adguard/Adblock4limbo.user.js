@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo.[github]
 // @namespace    https://github.com/limbopro/Adblock4limbo/raw/main/Adguard/Adblock4limbo.user.js
-// @version      0.2025.12.27
+// @version      0.2026.07.18
 // @license      CC BY-NC-SA 4.0
 // @description  毒奶去网页广告计划用户脚本 For Quantumult X & Surge & Shadowrocket & Loon & Stash & 油猴 ；1.新增页面右下角导航；2.通过 JavaScript 移除特定网站网页广告 —— 搜索引擎（Bing/Google）广告及内容农场结果清除/低端影视/欧乐影院/iyf爱壹帆/哔滴影视/Pornhub/Javbus/Supjav/Jable(支持抓取M3U8链接)/MissAv/91porn(支持视频下载)/hitomi/紳士漫畫/禁漫天堂/等视频&ACG&小说&漫画网站上的弹窗广告&视频广告&Gif图片广告等，保持网页清爽干净无打扰！ P.S. 欢迎提交issue
 // @author       limbopro
@@ -47,6 +47,7 @@
 // @match        https://missav.com/*
 // @match        https://missav.ai/*
 // @match        https://missav.ws/*
+// @match        https://javtiful.com/*
 // @match        https://supjav.com/*
 // @match        https://www.javbus.com/*
 // @match        https://av.jkforum.net/*
@@ -379,6 +380,7 @@ var adsMax = {
         dmm: "",
         /* @media (min-width:640px){.sm\\:hidden{margin:6px 0 0;padding:0;display:flex !important}} */
         missav: "a[href^='https://theporndude.com'],a[href*='mycomic'],a[href*=myavlive],[href*='bit.ly'],[href*='bit.ly'][target=_blank],a[href*='/vip'],img[src*='.gif'],iframe,#a[href*='//bit.ly/'],div[style*='z-index: 1001'],ul.space-y-2.mb-4.ml-4.list-disc.text-nord14,div.space-y-5.mb-5,div.under_player,div[style=\"width: 300px; height: 250px;\"]{display:none !important;pointer-events:none !important}body{overflow-x:hidden}", //  MissAV
+        javtiful: ".front-home-premium-alert,a[href*='rdx.jav.si'],a[href*='r.trwl1.com'],.front-watch-text-feature,.front-feature-placement-close {display:none !important; pointer-events: none !important;}",
         bigirl: 'div#container + div, h4.adblock_title,div.adblock_subtitle,[class^=\'adblock\'],div[class^=\'ad_\'], .toppage_av {display:none !important; pointer-events: none !important;}', // https://bi-girl.net/
         marketcap: '.ad-tr {display:none !important; pointer-events: none !important;}', // https://8marketcap.com/
         opgg: ".AdSense,  div[data-ad], tr.ad, #banner-container, section[class*='md:hidden'] {display:none !important; pointer-events: none !important;}",
@@ -461,6 +463,7 @@ function values() {
         "xchina.co",
         'dmm.co.jp',
         "missav",
+        "javtiful",
         "bi-girl",
         "marketcap",
         "op.gg",
@@ -1930,13 +1933,13 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
         case 'alicesw':
             css_adsRemove(adsMax.css.alicesw, 100, 'alicesw');
             break;
-            
+
         case 'bi-girl': // bigirl
             css_adsRemove(adsMax.css.bigirl, 500, 'bigirl')
             js_adsRemove(uBlockOrigin.noevalif);
             break;
 
-            case 'marketcap': // marketcap
+        case 'marketcap': // marketcap
             css_adsRemove(adsMax.css.marketcap, 500, 'bigirl')
             js_adsRemove(uBlockOrigin.noevalif);
             break;
@@ -2246,6 +2249,12 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
 
             break;
 
+        case 'javtiful':
+
+            css_adsRemove(adsMax.css.javtiful, 100, 'missavx');
+            window_open_defuser(); // 打断 window.open 施法
+
+            break;
 
         case 'missav':
 
