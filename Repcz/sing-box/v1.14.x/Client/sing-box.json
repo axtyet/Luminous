@@ -17,7 +17,7 @@
             {"tag": "local","type": "local","neighbor_domain": [".local",".lan"]}
         ],
         "rules": [
-            {"rule_set": ["Ads"],"action": "predefined"},
+            {"rule_set": ["Reject"],"action": "predefined"},
             {"rule_set": ["ChinaDomain"],"action": "route","server": "ali-udp"},
             {"query_type": "HTTPS","action": "reject"},
             {"domain_suffix": ["lancache.steamcontent.com","10099.com.cn","msftconnecttest.com","msftncsi.com","local","lan","home","internal","corp","example.com"],"server": "local"},
@@ -51,28 +51,20 @@
     ],
     "route": {
         "rule_set": [
-            {"tag": "Ads","type": "remote","format": "binary","url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Ads_SukkaW.srs"},
-            {"tag": "AI", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/AI.srs"},
-            {"tag": "Telegram", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Telegram.srs"},
-            {"tag": "Twitter", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Twitter.srs"},
-            {"tag": "Facebook", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Facebook.srs"},
-            {"tag": "TikTok", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/TikTok.srs"},
-            {"tag": "Steam", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Steam.srs"},
-            {"tag": "Epic", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Epic.srs"},
-            {"tag": "Google", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Google.srs"},
-            {"tag": "Github", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Github.srs"},
-            {"tag": "Microsoft", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Microsoft.srs"},
-            {"tag": "Emby", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Emby.srs"},
-            {"tag": "Spotify", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Spotify.srs"},
-            {"tag": "Bahamut", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Bahamut.srs"},
-            {"tag": "Netflix", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Netflix.srs"},
-            {"tag": "Disney", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Disney.srs"},
-            {"tag": "PrimeVideo", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/PrimeVideo.srs"},
-            {"tag": "HBO", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/HBO.srs"},
-            {"tag": "Proxy", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/Proxy.srs"},
-            {"tag": "AppleProxy", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/AppleServers.srs"},
-            {"tag": "ChinaDomain", "type": "remote", "format": "binary", "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/ChinaDomain.srs"},
-            {"tag": "ChinaIP", "type": "remote", "format": "binary", "url": "https://github.com/Loyalsoldier/geoip/raw/release/srs/cn.srs"}
+            {
+                "tag": [
+                    "Reject",
+                    "AI", "Telegram", "Twitter", "Facebook", "TikTok",
+                    "Steam", "Epic",
+                    "Google", "Microsoft", "Github",
+                    "Emby", 
+                    "Spotify", "Bahamut", "Netflix", "Disney", "PrimeVideo", "HBO", 
+                    "Proxy", "AppleProxy", 
+                    "ChinaDomain", "ChinaIP"
+                ],
+                "type": "remote", "format": "binary",
+                "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/{tag}.srs"
+            }
         ],
         "rules": [
             {"action": "sniff","sniffer": ["http","tls","quic","dns"]},
@@ -80,7 +72,7 @@
             {"ip_is_private": true,"action": "route","outbound": "Direct"},
             {"clash_mode": "Direct","action": "route","outbound": "Direct"},
             {"clash_mode": "Global","action": "route","outbound": "Manual"},
-            {"rule_set": ["Ads"],"action": "reject"},
+            {"rule_set": ["Reject"],"action": "reject"},
             {"rule_set": ["AI"],"action": "route","outbound": "AI"},
             {"rule_set": ["Telegram"],"action": "route","outbound": "Telegram"},
             {"type": "logical","mode": "and","rules": [{"inbound": ["telegram-socks"]},{"rule_set": ["Telegram"],"invert": true}],"action": "reject"},
