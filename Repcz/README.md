@@ -68,6 +68,30 @@ rules:
 }
 ```
 
+自 `sing-box 1.14.0-alpha.46` 起: `tag` 也接受一组标签，用于一次定义多个共享其他选项的规则集。
+
+```json
+// sing-box 多 tag 示例
+{
+  "rule_set": [
+      {
+          "tag": [
+              "Reject",
+              "AI", "Telegram", "Twitter", "Facebook", "TikTok",
+              "Steam", "Epic",
+              "Google", "Microsoft", "Github",
+              "Emby", 
+              "Spotify", "Bahamut", "Netflix", "Disney", "PrimeVideo", "HBO", 
+              "Proxy", "AppleProxy", 
+              "ChinaDomain", "ChinaIP"
+          ],
+          "type": "remote", "format": "binary",
+          "url": "https://github.com/Repcz/Tool/raw/X/sing-box/Rules/{tag}.srs"
+      }
+  ]
+}
+```
+
 > 所有规则集均从 `X` 分支提供，通过 `raw` 或 `raw.githubusercontent.com` 直接引用。
 
 ---
