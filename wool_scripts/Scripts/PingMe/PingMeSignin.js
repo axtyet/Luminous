@@ -19,7 +19,7 @@ hostname = api.pingmeapp.net
 
 const $ = new Env('PingMe签到');
 const isNode = $.isNode();
-const notify = isNode ? require('./sendNotify') : '';
+const notify = isNode ? require('../qinglong/sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
 const ckKey = 'pingme_capture_v3';

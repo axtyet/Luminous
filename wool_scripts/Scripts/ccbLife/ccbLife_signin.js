@@ -70,7 +70,7 @@ script-providers:
 */
 
 const $ = new Env('建行生活');
-const notify = $.isNode() ? require('./sendNotify') : '';
+const notify = $.isNode() ? require('../qinglong/sendNotify') : '';
 let AppId = '1472477795', giftMap = { "1": "打车", "2": "外卖", "3": "骑行" }, message = '';
 let giftType = ($.isNode() ? process.env.JHSH_GIFT : $.getdata('JHSH_GIFT')) || '2';  // 奖励类型，默认领取'外卖'券
 let bodyStr = ($.isNode() ? process.env.JHSH_BODY : $.getdata('JHSH_BODY')) || '';  // 签到所需的 body

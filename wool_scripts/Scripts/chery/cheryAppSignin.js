@@ -5,7 +5,7 @@
  */
 const $ = new Env("奇瑞汽车App签到");
 const isNode = $.isNode();
-const notify = isNode ? require('./sendNotify') : '';
+const notify = isNode ? require('../qinglong/sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
 const tokenList = isNode ? process.env["fmz200_chery_account"] : $.getdata('fmz200_chery_account');

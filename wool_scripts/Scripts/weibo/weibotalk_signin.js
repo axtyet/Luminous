@@ -55,7 +55,7 @@ hostname = api.weibo.cn
 
 const $ = new Env("微博超话签到");
 const isNode = $.isNode();
-const notify = isNode ? require('./sendNotify') : '';
+const notify = isNode ? require('../qinglong/sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
 const wb_delete_cookie = isNode ? process.env["wb_delete_cookie"] : $.getdata("wb_delete_cookie");

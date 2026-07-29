@@ -9,7 +9,7 @@
 
 const $ = new Env('监控TestFlight是否可加入');
 const isNode = $.isNode();
-const notify = isNode ? require('./sendNotify') : '';
+const notify = isNode ? require('../qinglong/sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
 const TF_APP_ID = isNode ? process.env["fmz200_TF_APP_ID"] : $.getdata("fmz200_TF_APP_ID");

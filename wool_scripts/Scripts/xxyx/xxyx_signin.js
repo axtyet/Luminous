@@ -11,7 +11,7 @@
 
 const $ = new Env('晓晓优选签到');
 const isNode = $.isNode();
-const notify = isNode ? require('./sendNotify') : '';
+const notify = isNode ? require('../qinglong/sendNotify') : '';
 $.nodeNotifyMsg = []; // nodeJS合并通知
 
 const tokenList = isNode ? process.env["fmz200_xxyx_token"] : $.getdata("fmz200_xxyx_token");
