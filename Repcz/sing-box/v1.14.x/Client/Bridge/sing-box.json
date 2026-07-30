@@ -18,7 +18,11 @@
     ],
     "rules": [
       {"rule_set": ["Reject"],"action": "predefined"},
-      {"rule_set": ["ChinaDomain"],"action": "route","server": "ali-udp"},
+      {"rule_set": ["ChinaDomain"],"query_type": ["A","AAAA"],"action": "evaluate","server": "ali-udp","tag": "ali-response","timeout": "3s"},
+      {"rule_set": ["ChinaDomain"],"query_type": ["A","AAAA"],"action": "evaluate","server": "tx-udp","tag": "tx-response","timeout": "3s"},
+      {"rule_set": ["ChinaDomain"],"query_type": ["A","AAAA"],"match_response": "ali-response","ip_accept_any": true,"action": "respond","race": true},
+      {"rule_set": ["ChinaDomain"],"query_type": ["A","AAAA"],"match_response": "tx-response","ip_accept_any": true,"action": "respond","race": true},
+      {"rule_set": ["ChinaDomain"],"action": "route","server": "ali-udp","timeout": "3s"},
       {"query_type": "HTTPS","action": "reject"},
       {"domain_suffix": ["lancache.steamcontent.com","10099.com.cn","msftconnecttest.com","msftncsi.com","local","lan","home","internal","corp","example.com"],"server": "local"},
       {"query_type": ["A","AAAA"],"action": "route","server": "fakeip","rewrite_ttl": 1},
