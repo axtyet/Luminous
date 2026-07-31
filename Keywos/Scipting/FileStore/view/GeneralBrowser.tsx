@@ -194,13 +194,13 @@ function FileRowLink({
   };
 
   const openEditor = async (scrollToLine?: number) => {
-    if (isHomeScreenHost) {
+/*     if (isHomeScreenHost) {
       await Navigation.present({
         element: <EditorPage path={file.path} mode="present" scrollToLine={scrollToLine} />,
         modalPresentationStyle: "pageSheet",
       });
       return;
-    }
+    } */
     if (navPath) {
       navPath.setValue([...navPath.value, "editor:" + file.path + (scrollToLine ? "::L" + scrollToLine : "")]);
     }
@@ -2245,7 +2245,7 @@ function GeneralBrowser({
       <Button title="从相册导入" systemImage="photo.on.rectangle" action={handleImportFromPhotos} />
       <Button title="从文件导入" systemImage="doc.badge.plus" action={handleImportFromFiles} />
       <Divider />
-      <Menu title="更多导入" systemImage="plus">
+      <Menu title="更多导入" systemImage="ellipsis">
         <Button title="图片" systemImage="photo" action={handleImportImages} />
         <Button title="视频" systemImage="video" action={handleImportVideos} />
         <Button title="实况照片" systemImage="livephoto" action={handleImportLivePhotosOnly} />
@@ -3012,12 +3012,12 @@ function GeneralBrowser({
                           // editor 类型且有匹配行：直接 present 编辑器并跳转行号
                           if (prefix === "editor:") {
                             const line = result.matchedLine || (result.allMatches && result.allMatches.length > 0 ? result.allMatches[0].line : undefined);
-                            if (isHomeScreenHost) {
+                            /* if (isHomeScreenHost) {
                               await Navigation.present({
                                 element: <EditorPage path={result.path} mode="present" scrollToLine={line} />,
                                 modalPresentationStyle: "pageSheet",
                               });
-                            } else if (activeNavPath) {
+                            } else */ if (activeNavPath) {
                               activeNavPath.setValue([...activeNavPath.value, prefix + result.path + (line ? "::L" + line : "")]);
                             }
                           } else if (prefix === "archive:" && isHomeScreenHost) {
