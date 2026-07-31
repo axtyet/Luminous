@@ -461,6 +461,9 @@ IP-CIDR6, 2402:4e00:1200:ed00:0:9089:6dac:96b6/128, REJECT, no-resolve
 
 
 
+# =====================================
+# 复写
+# =====================================
 [Rewrite]
 # >>>>>>>>>>>>>>> ✅ 0 ✅ <<<<<<<<<<<<<<
 
@@ -3517,8 +3520,7 @@ https://mgesq.api.mgtv.com/v2/user/center/icon reject-dict
 ^https?:\/\/wemallh5\.usmile\.com\/api\/sp-portal\/store\/usmile\/activity\/dayCheck\?pop reject-dict
 # 首页弹窗
 ^https?:\/\/www\.myusmile\.online\/user\/userTagRecord\/popup reject
-# 我的页推广
-http-response ^https?:\/\/www\.myusmile\.online\/user\/plaqueTopic\/selectByType script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/usmile.js
+
 
 
 # >>>>>>>>>>>>>>> ✅ Y ✅ <<<<<<<<<<<<<<
@@ -4575,6 +4577,9 @@ http-response ^https?:\/\/(edith|rec|www)\.xiaohongshu\.com\/api\/sns\/(v4\/note
 # 评论区图片、live图水印，表情包下载
 http-response ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/(v5\/note\/comment\/list|v3\/note\/comment\/sub_comments)\? script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, timeout=60, tag=小红书评论区去水印存储, enable={xhs_enable}
 http-response ^https:\/\/edith\.xiaohongshu\.com\/api\/sns\/v1\/interaction\/comment\/video\/download\? script-path=https://github.com/fmz200/wool_scripts/raw/main/Scripts/xiaohongshu/xiaohongshu.js, requires-body=true, timeout=60, tag=小红书评论区去水印下载, enable={xhs_enable}
+
+# > 笑容加
+http-response ^https?:\/\/www\.myusmile\.online\/user\/plaqueTopic\/selectByType script-path=https://raw.githubusercontent.com/zirawell/R-Store/main/Res/Scripts/AntiAd/usmile.js, requires-body=true, tag=笑容加去广告
 
 
 
