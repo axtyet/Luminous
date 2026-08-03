@@ -115,9 +115,6 @@ rules:
 
 <div align="center">
 
-**🛠️ Tool** · 由 [@Repcz](https://github.com/Repcz) 维护 ·
-![](https://img.shields.io/badge/Made%20with-♥-ff4d4d?style=flat-square)
-
 <sub>仅用于学习和研究目的</sub>
 
 </div>
