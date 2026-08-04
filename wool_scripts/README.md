@@ -183,7 +183,3 @@ https://github.com/fmz200/wool_scripts/raw/main/Loon/rule/Douyin.list
 
 <!---   ![Visitor Count](https://profile-counter.glitch.me/fmz200/count.svg)    --->
 
-## 💵 感谢赞助
-
-![赞助信息](./pic/IMG_7825.png)
-
