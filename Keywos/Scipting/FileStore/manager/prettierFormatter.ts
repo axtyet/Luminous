@@ -4,8 +4,12 @@
  * 遇到不规范 HTML（如标签未正确闭合）时自动降级到旧的自定义格式化。
  */
 
-import * as prettier from "prettier"
 import { formatHTML } from "./htmlFormatter"
+
+/** 惰性加载 prettier：依赖未安装时不让整个脚本启动失败 */
+function loadPrettier() {
+  return require("prettier")
+}
 
 /** 使用 HTML 解析器的扩展名集合（格式失败时可降级到 formatHTML） */
 const HTML_PARSER_EXTS = new Set([".html", ".htm", ".xhtml", ".vue", ".svelte", ".svg", ".xml"])
@@ -95,6 +99,7 @@ export async function formatWithPrettier(code: string, ext: string): Promise<str
   if (!parser) return code
 
   try {
+    const prettier = loadPrettier()
     const result = await prettier.format(code, {
       parser,
       tabWidth: 2,

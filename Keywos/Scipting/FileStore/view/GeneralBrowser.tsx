@@ -1229,15 +1229,25 @@ function GeneralBrowser({
       setIsLoading(false);
     } catch (e) {
       console.log("加载目录失败:", e);
-      // 首页目录不存在时自动回退到默认目录
+      // 首页根目录不存在或不可读取（如残留书签指向无权限的缓存目录）时，回退到默认目录并修正存档
       if (isHomePage && loadingDir) {
         try {
-          const exists = await FileManager.exists(loadingDir);
-          if (!exists) {
-            console.log("首页目录不存在，回退到默认目录:", defaultDir);
+          // 计算首页配置的根目录（与挂载时的解析逻辑一致）
+          let homeRoot = settings?.homeCurrentPath || defaultDir;
+          if (settings?.homeDirectoryBookmarkName) {
+            try {
+              const bp = FileManager.bookmarkedPath(settings.homeDirectoryBookmarkName);
+              if (bp) homeRoot = bp;
+            } catch {}
+          }
+          const norm = (p: string) => p.replace(/\/+$/, "");
+          // 加载的就是首页根目录、且它不是默认目录本身时才回退（进入此 catch 说明目录已不可读/不存在）
+          const isRoot = norm(loadingDir) === norm(homeRoot);
+          if (isRoot && norm(loadingDir) !== norm(defaultDir)) {
+            console.log("首页目录不存在或不可访问，回退到默认目录:", defaultDir);
             setHomeCurrentDir(defaultDir);
             if (settings && onSettingsChange) {
-              const restored = { ...settings, homeCurrentPath: defaultDir };
+              const restored = { ...settings, homeCurrentPath: defaultDir, homeDirectoryBookmarkName: null };
               saveSettings(restored);
               onSettingsChange(restored);
             }

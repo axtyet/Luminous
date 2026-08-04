@@ -2,10 +2,13 @@
  * JS 格式化/压缩工具（基于 terser）
  */
 
-import * as terser from "terser"
+/** 惰性加载 terser：依赖未安装时不让整个脚本启动失败 */
+function loadTerser() {
+  return require("terser")
+}
 
 export async function formatJS(code: string): Promise<string> {
-  const result = await terser.minify(code, {
+  const result = await loadTerser().minify(code, {
     mangle: false,
     compress: false,
     output: {
@@ -18,7 +21,7 @@ export async function formatJS(code: string): Promise<string> {
 }
 
 export async function minifyJSPreserveNames(code: string): Promise<string> {
-  const result = await terser.minify(code, {
+  const result = await loadTerser().minify(code, {
     mangle: false,
     compress: {
       defaults: true,
@@ -33,7 +36,7 @@ export async function minifyJSPreserveNames(code: string): Promise<string> {
 }
 
 export async function minifyJSPreserveNamesAndComments(code: string): Promise<string> {
-  const result = await terser.minify(code, {
+  const result = await loadTerser().minify(code, {
     mangle: false,
     compress: {
       defaults: true,
@@ -48,7 +51,7 @@ export async function minifyJSPreserveNamesAndComments(code: string): Promise<st
 }
 
 export async function minifyJSAggressive(code: string): Promise<string> {
-  const result = await terser.minify(code, {
+  const result = await loadTerser().minify(code, {
     mangle: {
       toplevel: true,
     },

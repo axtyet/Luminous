@@ -10,6 +10,7 @@ import { SettingsTabPage } from "./SettingsTabPage";
 import { ToastOverlay } from "./ToastOverlay";
 import { showToast } from "../manager/ToastManager";
 import { getServerCount, hasActiveServers, stopHttpBackgroundIfIdle } from "../manager/LocalHttpServer";
+import { ensureNpmDependencies } from "../manager/npmDeps";
 
 /* ───── 主页视图 ───── */
 export function HomeView() {
@@ -32,6 +33,7 @@ export function HomeView() {
       const timer = setTimeout(() => showToast(`正在运行 ${serverCount} 个 HTTP 服务`), 0);
       return () => clearTimeout(timer);
     }
+
   }, []);
 
   // 恢复保活实例后回到退出前的内容页。先切到另一个内容 Tab，再在下一轮切回，
@@ -87,7 +89,11 @@ export function HomeView() {
       setClipboardSyncTrigger((k) => k + 1);
     }
   };
-
+  // UI 已就绪（ToastOverlay 已挂载）后，再检查 npm 运行环境，缺失时自动安装并 Toast 提示
+  
+  (async () => {
+  await ensureNpmDependencies();
+})();
   return (
     <ZStack alignment="bottomTrailing" frame={{ maxWidth: "infinity", maxHeight: "infinity" }}>
       <TabView
