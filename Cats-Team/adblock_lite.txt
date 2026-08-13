@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-08-13 20:55:27(GMT+8)
-! Total count: 39383
+! Version: 2026-08-14 02:54:07(GMT+8)
+! Total count: 39398
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -2295,7 +2295,7 @@ $websocket,domain=wap.yushuwu.cloud
 /^https?:\/\/[a-z0-9]{5,15}\.[a-z]{2,3}\/5\/\d{6,7}(?:\?_=\d+|\/\??)?$/$third-party,script,xmlhttprequest,domain=bokepindoh.cc|bokepindoh.fun|bokepindoh.lol|bokepindoh.my|bokepindoh.pw|bokepindoh.to|bokepindoh.top|bokepindoh.tv|bokepindoh.party|bokepindoh.uno|bokepindoh.jp.net
 /^https?:\/\/[a-z]{8,15}\.xyz\/$/$xmlhttprequest,third-party
 /^https?:\/\/kan\.znds\.com\/public\/home\/images\/[0-9]+-[0-9]+\.gif\?v=/$domain=kan.znds.com
-/^https?:\/\/pikabu\.ru\/ajax\/+[A-Za-z0-9_.-]{7,}\?[A-Za-z0-9]+=[0-9a-z_-]+/$xmlhttprequest,domain=pikabu.ru
+/^https?:\/\/pikabu\.ru\/ajax\/+[A-Za-z0-9_-]+(\.[A-Za-z0-9]{1,2})?\?[A-Za-z0-9]+=[0-9a-z_-]+/$xmlhttprequest,domain=pikabu.ru
 /^https?:\/\/www\.freeuseporn\.com\/[0-9a-f]{12}\.js/$script,domain=freeuseporn.com
 /^vidhub\d+\.(cc\|top)$/##.player-info div[class]:has(> div[class][style] > img[onclick^="window.open"]:first-child + span[style]:last-child)
 /^vidhub\d+\.(cc\|top)$/##div[class][style*="position:"] > img[onclick^="window.open"]
@@ -2989,6 +2989,7 @@ $websocket,domain=wap.yushuwu.cloud
 /res/kj/hf*.js?v=
 /resolve?type=*&short=*&name=$third-party
 /resource/common/tongzhuo/game_info.json
+/rollbar.min.css$script,domain=streamingnow.mov
 /runtime/ad/*
 /runtime/hu/*.js
 /runtime/js/index960.js
@@ -14730,6 +14731,7 @@ onlinedown.net##.u-btn-gao
 onlinedown.net##.u-btn-safe
 onlineradiobox.com#$#override-property-read as_-979609477 true; override-property-read as_-1318557697 true; override-property-read as_-959343976 true; override-property-read as_-700311684 true
 onlineradiobox.com#$#override-property-read isAdShieldTurn false
+onlineradiobox.com,fandom.com,base64decode.org,9gag.com#$#override-property-read Navigator.prototype.userAgent 'AdsBot-Google'; override-property-read Navigator.prototype.userAgentData undefined
 onlyfaps.club#$#abort-current-inline-script univresalP
 onlystream.tv,younetu.*#$#abort-on-property-read BetterJsPop
 onperiscope.com#@#.adsbygoogle
@@ -16553,6 +16555,7 @@ streaming-foot.info,stream-foot.tv,foot-live.info,total-sport.tv##[id^="timer"]
 streamingcommunity.*#$#abort-current-inline-script String.fromCharCode /btoa|break/
 streamingcommunityz.*#$#abort-on-property-read document.head.append
 streamingcommunityz.*,watchflix.*#$#abort-on-property-read dispatchEvent; hide-if-matches-xpath './/div[(@style="position: fixed; inset: 0px; z-index: 2147483647; pointer-events: auto;") or (@class and starts-with(@style, "pointer-events: none; position: absolute; top: 0px; left: 0px; width:"))]';
+streamingnow.mov#$#prevent-window-open _blank 2 obj
 streamingnow.mov,vidzy.cc#$#abort-on-property-read aclib.runPop
 streaminporn.com,gaypornmasters.com#@##adsense
 streamlive.to###adblockplus
@@ -17476,6 +17479,7 @@ vidmoly.*#$#abort-current-inline-script addEventListener DOMContentLoaded; abort
 vidmoly.*#$#override-property-read HTMLAnchorElement.prototype.click noopFunc; prevent-listener DOMContentLoaded href;
 vidmoly.to###adsblock
 vidmoly.to###dos_vlock
+vidnest.*#$#prevent-window-open /[?&](step1|step2|param4|zid|tvc)=/ 2 obj
 vidnest.fun#$#timer-override 1 window.location.replace noop timeout
 vidora.*,vidzy.*#$#override-property-read cRAds false
 vidrock.ru#$#prevent-element-src-loading script /acscdn\\.com|aclib/
@@ -19273,6 +19277,7 @@ zzzyk.com###Tinfo
 ||19dkfu1wg.com^
 ||1adi9wenq.com^
 ||1biqug.com/js/ajax.js
+||1bsb5sic0.com^
 ||1buu1.penyouw.com^
 ||1cimslrk3.com^
 ||1dfsdfg.com^
@@ -23255,6 +23260,7 @@ zzzyk.com###Tinfo
 ||catschickens.com^
 ||cattlecommittee.com^
 ||cauldronfest.com^
+||caulkedwhys.shop^
 ||causecherry.com^
 ||cautelaunsent.com^
 ||cautious60.com^
@@ -25499,6 +25505,7 @@ zzzyk.com###Tinfo
 ||ejieban.com^
 ||ejiwvof.icu^
 ||ejolul.xyz^
+||ejpeyuforzksu.online^
 ||ejunshi.com^
 ||ejyymghi.com^
 ||ek946br7uy.com^
@@ -25900,6 +25907,7 @@ zzzyk.com###Tinfo
 ||f8ejqxp.cn^
 ||f92l2orpu3.com^
 ||f9bnlbgjf.com^
+||fa5hnea2f.com^
 ||fa7z99cnam.com^
 ||fabcharting.com^
 ||fabledsoul.com^
@@ -26739,6 +26747,7 @@ zzzyk.com###Tinfo
 ||gfbdb1.com^
 ||gfblaghzk2.com^
 ||gfh9j4wyub.com^
+||gfkffnyncyicj.space^
 ||gfnulonelb.com^
 ||gfrzzzx.cn^
 ||gfvip09at.com^
@@ -32620,6 +32629,7 @@ zzzyk.com###Tinfo
 ||pigeonkit.com^
 ||pigeonsetc.com^
 ||pigmentpaper.com^
+||pikabu.ru/ajax//$xmlhttprequest
 ||pilesteroidprogramming.com^
 ||pilleustrig.com^
 ||pimlog.baidu.com^
@@ -33933,6 +33943,7 @@ zzzyk.com###Tinfo
 ||rvdkjn.icu^
 ||rvkhazel.com^
 ||rvlgrb.xyz^
+||rvpfhiincsu.com^
 ||rvr3psha.xyz^
 ||rvrl1srlq.com^
 ||rvyjbwr.cn^
@@ -36875,6 +36886,7 @@ zzzyk.com###Tinfo
 ||videos-fms.jwpsrv.com/*/content/conversions/*.mp4|$media,domain=auto.cz|autorevue.cz|maminka.cz|reflex.cz|blesk.cz|dama.cz|e15.cz|mojezdravi.cz|zeny.cz|zive.cz
 ||videowood.me/assets/js/popup.js
 ||videowood.tv/popjavascript
+||vidnees.workers.dev/fetch?url=$domain=vidnest.fun
 ||vidrock.ru/sbx.js
 ||vidsgs4x4.com^
 ||vidsrcme.ru/sbx.js
@@ -37039,6 +37051,7 @@ zzzyk.com###Tinfo
 ||vujglx.icu^
 ||vujzkkz.cn^
 ||vulrxr.xyz^
+||vulturkipskin.cfd^
 ||vupload.duowan.com^
 ||vurr.cn^
 ||vuyibsm.icu^
@@ -37407,6 +37420,7 @@ zzzyk.com###Tinfo
 ||wit.qq.com^$3p
 ||withsharks.com^
 ||withsounds.com^
+||witsafenuddleunbaked.qpon^
 ||witticism19.top^
 ||wittypopcorn.com^
 ||wizardbuck.com^
@@ -37573,6 +37587,7 @@ zzzyk.com###Tinfo
 ||wuyunks.com/1.
 ||wvepppysvo.com^
 ||wvrp.cn^
+||wvuiaqx.com^
 ||wvxi9jbnt.com^
 ||wvyqks.xyz^
 ||wvzd.cn^
