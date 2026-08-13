@@ -175,7 +175,7 @@ https://github.com/fmz200/wool_scripts/raw/main/Loon/rule/Douyin.list
 
 ## 🌟 欢迎星标
 
-![Star](https://api.star-history.com/svg?repos=fmz200/wool_scripts&type=Date)
+![Star](https://star-history.dera.page/svg?repos=fmz200/wool_scripts&type=Date)
 
 ## 💹 访问量统计
 
