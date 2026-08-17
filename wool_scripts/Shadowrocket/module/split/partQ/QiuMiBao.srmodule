@@ -1,0 +1,15 @@
+#!name=球迷报
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partQ/QiuMiBao.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/a\.qiumibao\.com\/activities\/config\.php - reject
+^https?:\/\/a\.qiumibao\.com\/ios\/config\/\?version_code= - reject
+
+[MITM]
+hostname = %APPEND% a.qiumibao.com
+

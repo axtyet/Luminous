@@ -1,0 +1,17 @@
+#!name=医考帮
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partY/YiKaoBang.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/api\.yikaobang\.com\.cn\/client\/main\/homePageSmallAd - reject
+^https?:\/\/api\.yikaobang\.com\.cn\/index\.php\/Client\/main\/startPage - reject
+# 去强制更新 感谢【SH DDDDD】分享
+^https?:\/\/api\.yikaobang\.com\.cn\/index\.php\/version\/version\/check - reject
+
+[MITM]
+hostname = %APPEND% api.yikaobang.com.cn
+

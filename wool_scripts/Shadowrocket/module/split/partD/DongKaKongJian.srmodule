@@ -1,0 +1,17 @@
+#!name=动卡空间
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/DongKaKongJian.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告
+^https?:\/\/ump\.sz\.creditcard\.ecitic\.com\/citiccard\/cm-ump\/ump-gateway\/ump-net-app\/ump-net-app\/adv data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/m\.creditcard\.ecitic\.com\/citiccard\/mbk\/appspace-getway\/getWay\/dkkj-system-web\/system\/v\d\/init-config data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% ump.sz.creditcard.ecitic.com, m.creditcard.ecitic.com
+

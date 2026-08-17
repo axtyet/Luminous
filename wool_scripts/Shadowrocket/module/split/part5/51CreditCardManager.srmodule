@@ -1,0 +1,21 @@
+#!name=51信用卡管家
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/part5/51CreditCardManager.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=51xyk_enable:true
+#!arguments-desc=51xyk_enable: 51xyk_enable
+
+[Map Local]
+^https?:\/\/api\.u51\.com\/(generic-config-gateway|rs-resys)\/api\/v\d\/(creditpage-config|recommend) data-type=text data=" "
+
+[Script]
+51信用卡管家 = type=http-response, pattern=^https?:\/\/api\.u51\.com\/liabilitygateway\/api\/v\d\/homepage\/liabilityline, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js, requires-body=true, timeout=60
+
+51信用卡管家 = type=http-response, pattern=^https?:\/\/api\.u51\.com\/generic-config-gateway\/api\/v\d\/guanjia\/me-tab2\/config, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/51card.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% api.u51.com
+

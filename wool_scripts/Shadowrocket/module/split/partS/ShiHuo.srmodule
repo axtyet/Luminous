@@ -1,0 +1,20 @@
+#!name=识货
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partS/ShiHuo.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+# 开屏广告
+^https?:\/\/sh-gateway\.shihuo\.cn\/v\d\/services\/sh-adapi\/home\/(screen|ad) - reject
+
+[Map Local]
+^https?:\/\/static\.shihuocdn\.cn\/admin\/imgs/202[0-9]{5}\/[a-z0-9]{32}_513x777\.png data-type=text data=" "
+
+^https?:\/\/static\.shihuocdn\.cn\/admin\/imgs/202[0-9]{5}\/[a-z0-9]{32}_750x1624\.png data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% sh-gateway.shihuo.cn, static.shihuocdn.cn
+

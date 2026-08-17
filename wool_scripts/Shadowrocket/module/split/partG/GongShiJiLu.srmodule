@@ -1,0 +1,18 @@
+#!name=工时记录
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partG/GongShiJiLu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/mi\.gdt\.qq\.com\/gdt_mview\.fcg - reject
+^https?:\/\/open\.e\.kuaishou\.com\/rest\/e\/v3\/open\/univ - reject
+
+[Map Local]
+^https?:\/\/yun\.tuitiger\.com\/mami-media data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% yun.tuitiger.com, mi.gdt.qq.com, open.e.kuaishou.com
+

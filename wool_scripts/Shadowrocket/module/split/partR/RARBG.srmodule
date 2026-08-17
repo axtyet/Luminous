@@ -1,0 +1,18 @@
+#!name=RARBG
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partR/RARBG.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Body Rewrite]
+http-response ^https?:\/\/dyncdn\.me\/static\/\d{0,2}\/js\/showads\.js$ true false
+
+[Map Local]
+# https://rarbgmirror.org/torrents.php
+^https?:\/\/dyncdn\.me\/static\/\d{0,2}\/js\/expla\d{0,4}\.js$ data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% dyncdn.me
+

@@ -1,0 +1,29 @@
+#!name=唯品会
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partW/Vipshop.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,n-st.vip.com,REJECT
+DOMAIN-SUFFIX,api.union.vip.com,REJECT
+DOMAIN-SUFFIX,ms.vipstatic.com,REJECT
+
+[URL Rewrite]
+^https?:\/\/b\.appsimg\.com\/upload\/momin - reject
+^https?:\/\/mapi\.appvipshop\.com\/vips-mobile\/rest\/iosAdInfo\/report - reject
+
+[Map Local]
+^https?:\/\/mapi\.appvipshop\.com\/vips-mobile\/rest\/activity\/advertisement\/get data-type=text data=" "
+
+# APP+小程序弹窗广告
+^https?:\/\/mapi\.appvipshop\.com\/vips-mobile\/rest\/layout\/productList\/eventData\/v data-type=text data=" "
+
+# 右下角悬浮窗，需手动关闭广告一次
+^https?:\/\/mapi\.appvipshop\.com\/vips-mobile\/rest\/activity\/coupon\/float_entrance\/get\?api_key data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% b.appsimg.com, mapi.appvipshop.com
+

@@ -12,7 +12,9 @@ const activeDrawTimes = 5
   await draw(headers)
   await draw(headers)
   if ($.time('yyyy-MM-dd') <= activeDrawEnd) {
-    for (let i = 0; i < activeDrawTimes; i++) {
+    await getActiveList(headers)
+    const times = $.active?.gift_total != null ? $.active.gift_num || 0 : activeDrawTimes
+    for (let i = 0; i < times; i++) {
       const stop = await triggerDraw(headers)
       if (stop) break
       await $.wait(800)
@@ -67,6 +69,25 @@ function draw(headers) {
   })
 }
 
+function getActiveList(headers) {
+  return new Promise((resolve) => {
+    const url = {
+      url: hostApi + '/active/trigger_active_list',
+      headers,
+    }
+    $.get(url, (err, resp, data) => {
+      try {
+        $.active = JSON.parse(data)
+        $.log(`活动列表: ${data}`)
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
+        resolve()
+      }
+    })
+  })
+}
+
 function triggerDraw(headers) {
   return new Promise((resolve) => {
     let stop = true
@@ -78,15 +99,13 @@ function triggerDraw(headers) {
       try {
         const res = JSON.parse(data)
         $.log(`活动抽奖: ${data}`)
-        const prize =
-          res.winning_desc ||
-          res.prize_name ||
-          res.data?.winning_desc ||
-          res.data?.prize_name ||
-          res.data?.prize?.name ||
-          res.message
+        const prize = res.is_win
+          ? res.reward?.detail?.open_door_remarks || res.reward?.detail?.card_name || res.reward?.name
+          : res.reels
+            ? `未中奖 ${res.reels.join('')}`
+            : res.message
         if (prize) drawRes.push(`活动: ${prize}`)
-        stop = res.status !== true
+        stop = res.status === false || res.gift_num === 0
       } catch (e) {
         $.logErr(e, resp)
       } finally {

@@ -1,0 +1,28 @@
+#!name=美柚
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partM/Meiyou.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=meiyou_enable:true
+#!arguments-desc=meiyou_enable: meiyou_enable
+
+[Rule]
+DOMAIN,ad.seeyouyima.com,REJECT
+
+[URL Rewrite]
+^http:\/\/x\.seeyouyima\.com\/adx\/staticstics\? - reject
+^https:\/\/axxd\.xmseeyouyima\.com\/ad\/ - reject
+^https:\/\/axxd\.xmseeyouyima\.com\/ad_statistics\? - reject
+^https:\/\/axxd\.xmseeyouyima\.com\/v1\/getad\? - reject
+^https:\/\/axxd\.xmseeyouyima\.com\/pregetad\? - reject
+
+[Script]
+美柚App净化 = type=http-response, pattern=^https:\/\/config-service\.seeyouyima\.com\/api\/configs\/batch\?, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js, requires-body=true, timeout=60
+
+美柚App净化 = type=http-response, pattern=^https:\/\/config-service\.seeyouyima\.com\/api\/configs\?, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/meiyou/meiyou_ads.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% x.seeyouyima.com, axxd.xmseeyouyima.com, config-service.seeyouyima.com
+

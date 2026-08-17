@@ -1,0 +1,20 @@
+#!name=掌上英雄联盟
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partZ/ZhangShangLOL.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/mlol\.qt\.qq\.com\/go\/recommend - reject
+
+[Map Local]
+# 开屏广告 感谢【𝑨梦 𝑪𝒉𝒙𝒎𝟏𝟎𝟐𝟑】分享
+^https?:\/\/us\.l\.qq\.com\/exapp data-type=text data=" "
+
+^https?:\/\/ossweb-img\.qq\.com\/upload\/adw\/image\/[0-9]{3}\/202[0-9]{5}\/[a-z0-9]{32}\.(jpg|jpeg) data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% us.l.qq.com, ossweb-img.qq.com, mlol.qt.qq.com
+

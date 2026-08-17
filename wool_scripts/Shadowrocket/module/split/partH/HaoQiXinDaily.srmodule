@@ -1,0 +1,15 @@
+#!name=好奇心日报
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partH/HaoQiXinDaily.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/notch\.qdaily\.com\/api\/v\d\/boot_ad - reject
+^https?:\/\/app3\.qdaily\.com\/app3\/boot_advertisements\.json - reject
+
+[MITM]
+hostname = %APPEND% notch.qdaily.com, app3.qdaily.com
+

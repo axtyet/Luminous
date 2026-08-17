@@ -1,0 +1,20 @@
+#!name=旅途随身听
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partL/LvTuSuiShenTing.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=lvtusvuftk_enable:true
+#!arguments-desc=lvtusvuftk_enable: lvtusvuftk_enable
+
+[Map Local]
+^https?:\/\/www\.1314zhilv\.com\/ltsstnew\/(guideScenic\/getRecentlyUpdatedScenic|city\/getWeatherByCityName) data-type=text data="{}" header="Content-Type:application/json"
+
+[Script]
+# 首页北京城市导览图片,首页上方轮播图片净化
+旅途随身听 = type=http-response, pattern=^https?:\/\/www\.1314zhilv\.com\/ltsstnew\/(common\/getJGQIconNew|city\/getAllBannelByCity), script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/lvtusuishenting/ltsst-ad.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% www.1314zhilv.com
+

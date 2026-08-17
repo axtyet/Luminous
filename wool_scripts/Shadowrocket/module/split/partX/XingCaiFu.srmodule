@@ -1,0 +1,15 @@
+#!name=星财富
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partX/XingCaiFu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告+弹窗广告+横幅广告
+^https?:\/\/operationapi\.fosunhanig\.com\/ad\/v\d\/(PopupAdList|ScreenAdList|BannerList) data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% operationapi.fosunhanig.com
+

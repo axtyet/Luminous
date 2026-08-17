@@ -1,0 +1,17 @@
+#!name=滴滴代驾
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/DiDiDaiJia.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 横幅广告
+^https?:\/\/as\.xiaojukeji\.com\/ep\/as\/conf\?ns=daijia-front&name= data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/daijia\.kuaidadi\.com\/gateway\?api=prado\.cms\.delivery\.batch&apiVe data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% daijia.kuaidadi.com, as.xiaojukeji.com
+

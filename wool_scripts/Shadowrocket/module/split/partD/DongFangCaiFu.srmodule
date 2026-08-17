@@ -1,0 +1,25 @@
+#!name=东方财富
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/DongFangCaiFu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,bduserlog.eastmoney.com,REJECT
+DOMAIN-SUFFIX,js4.eastmoney.com,REJECT
+DOMAIN-SUFFIX,same.eastmoney.com,REJECT
+
+[URL Rewrite]
+^https?:\/\/emdcadvertise\.eastmoney\.com\/infoService\/v\d - reject
+
+[Map Local]
+# 东方航空
+^https?:\/\/app\.ceair\.com\/customize\/security\/update data-type=text data=" "
+
+^https?:\/\/app\.ceair\.com\/customize\/main\/adScreen data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% app.ceair.com
+

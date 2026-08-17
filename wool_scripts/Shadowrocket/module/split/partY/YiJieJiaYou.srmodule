@@ -1,0 +1,18 @@
+#!name=易捷加油
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partY/YiJieJiaYou.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告
+^https?:\/\/a\.sinopecsales\.com\/app\/cms data-type=text data="{}" header="Content-Type:application/json"
+
+# 小程序底部横幅广告
+^https?:\/\/ocrifs\.ejoy\.sinopec\.com\/advertitfs\/advert\/findAdvertInfo data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% a.sinopecsales.com, ocrifs.ejoy.sinopec.com
+

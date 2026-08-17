@@ -1,0 +1,40 @@
+#!name=咪咕视频
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partM/MiguVideo.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,ad.cmvideo.cn,REJECT
+DOMAIN,ggc.cmvideo.cn,REJECT
+DOMAIN,ggv.cmvideo.cn,REJECT
+DOMAIN,ggx.cmvideo.cn,REJECT
+DOMAIN,ggx03.miguvideo.com,REJECT
+DOMAIN,ggic03.miguvideo.com,REJECT
+DOMAIN,ggmk.miguvideo.com,REJECT
+DOMAIN,ggadoffline.miguvideo.com,REJECT
+
+[Map Local]
+^https?:\/\/ggc\.miguvideo\.com\/v1\/iflyad\/deliverysystem\/direct\/ data-type=tiny-gif
+
+^https?:\/\/public-deliver9\.miguvideo\.com\/deliver\/site\/batchMatch\/mergeSpot\/miguvideo\/ data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/recommend-dy\.miguvideo\.com\/recommend-dynamic\/dataSource\/v1\/recommend\/merge data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/app-sc\.miguvideo\.com\/app-management\/v1\/staticcache\/settings\/miguvideo\/SHARE_PIC data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/common-sc\.miguvideo\.com\/videoActivity\/activityList\/ data-type=text data="{}" header="Content-Type:application/json"
+
+#^https?:\/\/display-sc\.miguvideo\.com\/display\/v3\/static\/PERSONAL_CENTER\/ reject-dict
+^https?:\/\/ggx.+\.miguvideo\.com\/request\/sdk.+[^?]*$ data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/ggic\d+.miguvideo\.com\/ad\/ data-type=text data="{}" header="Content-Type:application/json"
+
+[Script]
+咪咕视频个人中心去广告 = type=http-response, pattern=^https?:\/\/display-sc\.miguvideo\.com\/display\/v3\/static\/PERSONAL_CENTER$, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/refs/heads/main/Scripts/miguvideo/miguvideo_ads.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% ggc.miguvideo.com, public-deliver9.miguvideo.com, display*-sc.miguvideo.com, recommend-dy.miguvideo.com, app-sc.miguvideo.com, common-sc.miguvideo.com, ggx*.miguvideo.com, ggic*.miguvideo.com
+

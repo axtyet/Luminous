@@ -1,0 +1,20 @@
+#!name=京喜
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partJ/JingXi.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=jkxi_enable:true
+#!arguments-desc=jkxi_enable: jkxi_enable
+
+[Body Rewrite]
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=lite_advertising jdLiteAdvertisingVO fmz200
+http-response ^https?:\/\/api\.m\.jd\.com\/client\.action\?functionId=lite_SmartPush pushData fmz200
+
+[Script]
+京喜 = type=http-response, pattern=^https?:\/\/api\.m\.jd\.com\/api\?functionId=delivery_show, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/jingxiAd.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% api.m.jd.com
+

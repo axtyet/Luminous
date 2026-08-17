@@ -1,0 +1,15 @@
+#!name=币安
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partB/Binance.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告
+^https?:\/\/www\.(binance|yingwangtech)\.(com|info|net)\/bapi\/composite\/v1\/public\/market\/holiday-atmosphere data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% www.binance.info, www.yingwangtech.net, www.binance.com
+

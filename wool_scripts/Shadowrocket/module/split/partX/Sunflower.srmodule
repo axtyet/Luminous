@@ -1,0 +1,21 @@
+#!name=向日葵
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partX/Sunflower.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告
+^https?:\/\/client-api-v2\.oray\.com\/materials\/SLCC_IOS_STARTUP data-type=text data="{}" header="Content-Type:application/json"
+
+# 首页文字广告
+^https?:\/\/client-api-v2\.oray\.com\/materials\/SLCC_IOS_DEVICE data-type=text data="{}" header="Content-Type:application/json"
+
+# 发现页广告
+^https?:\/\/client-api-v2\.oray\.com\/materials\/SUNLOGIN_CLIENT_IOS_PROMOTION data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% client-api-v2.oray.com
+

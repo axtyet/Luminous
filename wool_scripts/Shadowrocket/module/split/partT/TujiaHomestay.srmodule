@@ -1,0 +1,21 @@
+#!name=途家民宿
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partT/TujiaHomestay.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/(promotion\/popup\/getpopupups\/bnb|portal\/getStartPictureAdvertising) - reject
+
+[Body Rewrite]
+http-response ^https?:\/\/client\.tujia\.com\/bnbapp-node\/app\/portal\/getportalconfig\/bnb\/v2 "banners":\[.+\], "banners":[],
+
+[Map Local]
+# 需要卸载重装
+^https?:\/\/client\.tujia\.com\/bnbapp-node data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% client.tujia.com
+

@@ -1,0 +1,23 @@
+#!name=嘀嗒出行
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/DiDaChuxing.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+# 小程序净化
+^https?:\/\/capis(-\d)?\.didapinche\.com\/adbase - reject
+^https?:\/\/capis(-\d)?\.didapinche\.com\/ad\/ - reject
+
+[Map Local]
+^https?:\/\/adx-cn\.anythinktech\.com\/bid data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/capis(-?\w*)?\.didapinche\.com\/publish\/api\/upgrade data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/www\.didapinche\.com\/app\/adstat\/ data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% capis*.didapinche.com, adx-cn.anythinktech.com, www.didapinche.com
+

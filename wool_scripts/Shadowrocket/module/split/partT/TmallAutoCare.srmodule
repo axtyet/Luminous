@@ -1,0 +1,20 @@
+#!name=天猫养车
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partT/TmallAutoCare.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 中间横幅广告
+^https?:\/\/api\.ncarzone\.com\/superapi\/canary\/appHomeFacade\/getNewUserPlateActivity data-type=text data=" "
+
+^https?:\/\/api\.ncarzone\.com\/superapi\/canary\/bannerFacade\/app\/list data-type=text data=" "
+
+# 右下角悬浮广告
+^https?:\/\/api\.ncarzone\.com\/superapi\/canary\/popupDialogFacade\/popupDialogList data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% api.ncarzone.com
+

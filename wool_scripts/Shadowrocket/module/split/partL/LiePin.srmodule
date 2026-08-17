@@ -1,0 +1,16 @@
+#!name=猎聘
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partL/LiePin.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+^https?:\/\/api-ac\.liepin\.com\/api\/com\.liepin\.cyclops\.live\.get-ad-cards data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/api-wanda\.liepin\.com\/api\/com\.liepin\.cbp\.baizhong\.op\.v2-show-4app data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% api-ac.liepin.com, api-wanda.liepin.com
+

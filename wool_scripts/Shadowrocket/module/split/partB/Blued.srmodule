@@ -1,0 +1,24 @@
+#!name=Blued
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partB/Blued.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=blued_enable:true
+#!arguments-desc=blued_enable: blued_enable
+
+[Map Local]
+# 主页推荐直播 
+^https?:\/\/social\.blued\.cn\/users\/recommend data-type=text data="{}" header="Content-Type:application/json"
+
+# 未登录时个人界面广告
+^https?:\/\/social\.blued\.cn\/users\/no_auth\/benefit data-type=text data="{}" header="Content-Type:application/json"
+
+[Script]
+# 登录后个人界面广告
+blued登录后个人界面广告 = type=http-response, pattern=^https?:\/\/social\.blued\.cn\/users\/.+\/more\/ios\?v=2, script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/blued.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% social.blued.cn
+

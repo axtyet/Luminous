@@ -1,0 +1,39 @@
+#!name=雪球
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partX/XueQiu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,ad.xueqiu.com,REJECT
+
+[Map Local]
+^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&height=932 data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.+home_visitor_relation_config data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&location=0&model=6&page=4 data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/snowpard\/launch_strategy\/query\.json\?channel=1&location=0&model=1&page=(4|6) data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/ucprofile\/api\/user\/batchGetUserBasicInfo\.json data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/lightsnow\/launch\/plan\/bee\/query\.json\?channel=1&ip_label=&label_json=.+new_customer=1 data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/lightsnow\/optional\/banner\/query\.json data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/open\.xueqiu\.com\/mpaas\/config\/content\?.+cube_detail_bottom_operation_trade_button data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/recommend-proxy\/card\/zj_card\.json\?feed_id=207 data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/recommend-proxy\/card\/portfolio_tab_symbol\.json data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/stock\.xueqiu\.com\/v5\/stock\/group\/recommend\/default\/list\.json data-type=text data="{}" header="Content-Type:application/json"
+
+^https:\/\/api\.xueqiu\.com\/livestream\/structure\/live\/hotCard\.json data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% api.xueqiu.com, open.xueqiu.com, stock.xueqiu.com, 39.103.79.14, 39.106.97.84, 47.95.49.75, 101.201.62.20, 101.201.62.26, 101.201.175.228, 124.250.48.3, 182.92.145.50, 182.92.251.113
+

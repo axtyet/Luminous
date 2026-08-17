@@ -1,0 +1,22 @@
+#!name=中国移动
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partZ/ChinaMobile.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+IP-CIDR,120.240.95.37/32,REJECT,no-resolve
+
+[URL Rewrite]
+^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/explorePage\/getAdverList - reject
+# 多个悬浮窗
+^https?:\/\/(client\.app\.coc|app)\.10086\.cn\/biz-orange\/DN\/emotionMarket - reject
+
+[Map Local]
+^https?:\/\/client\.app\.coc\.10086\.cn\/biz-orange\/DN\/init\/startInit data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% client.app.coc.10086.cn, app.10086.cn
+

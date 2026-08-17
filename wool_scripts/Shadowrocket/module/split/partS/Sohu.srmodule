@@ -1,0 +1,63 @@
+#!name=搜狐
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partS/Sohu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,ad.sohu.com,REJECT
+DOMAIN-SUFFIX,ads.sohu.com,REJECT
+DOMAIN-SUFFIX,aty.sohu.com,REJECT
+DOMAIN,hui.sohu.com,REJECT
+DOMAIN-SUFFIX,adnet.sohu.com,REJECT
+DOMAIN-SUFFIX,corp.sohu.com,REJECT
+DOMAIN-SUFFIX,cpc.sohu.com,REJECT
+DOMAIN-SUFFIX,go.sohu.com,REJECT
+DOMAIN-SUFFIX,hui.sohu.com,REJECT
+DOMAIN-SUFFIX,images.sohu.com,REJECT
+DOMAIN-SUFFIX,suvset.sohu.com,REJECT
+DOMAIN-SUFFIX,track.sohu.com,REJECT
+DOMAIN-SUFFIX,doc.go.sohu.com,REJECT
+DOMAIN-SUFFIX,i.go.sohu.com,REJECT
+DOMAIN-SUFFIX,imp.go.sohu.com,REJECT
+DOMAIN-SUFFIX,s.go.sohu.com,REJECT
+DOMAIN-SUFFIX,t.go.sohu.com,REJECT
+DOMAIN-SUFFIX,txt.go.sohu.com,REJECT
+DOMAIN-SUFFIX,x1.go.sohu.com,REJECT
+DOMAIN-SUFFIX,xls.go.sohu.com,REJECT
+DOMAIN-SUFFIX,ad.mail.sohu.com,REJECT
+DOMAIN-SUFFIX,3rd.t.sohu.com,REJECT
+DOMAIN-SUFFIX,888.tv.sohu.com,REJECT
+
+[URL Rewrite]
+^https?:\/\/(api|api-bk\d+)\.tv\.sohu\.com\/agg\/api\/app\/config\/bootstrap - reject
+^https?:\/\/pic\.k\.sohu\.com\/img\d\/wb\/tj\/ - reject
+
+[Map Local]
+^https?:\/\/api\.k\.sohu\.com\/api\/news\/adsense data-type=text data=" "
+
+^https?:\/\/pic\.k\.sohu\.com\/img8\/wb\/tj\/ data-type=text data=" "
+
+^https?:\/\/s1\.api\.tv\.itc\.cn\/v4\/mobile\/control\/switch\.json data-type=text data=" "
+
+^https?:\/\/agn\.aty\.sohu\.com\/m? data-type=tiny-gif
+
+^https?:\/\/api\.k\.sohu\.com\/api\/channel\/ad\/ data-type=tiny-gif
+
+^https?:\/\/hui\.sohu\.com\/predownload2\/? data-type=tiny-gif
+
+^https?:\/\/m\.aty\.sohu\.com\/openload? data-type=tiny-gif
+
+^https?:\/\/mmg\.aty\.sohu\.com\/mqs? data-type=tiny-gif
+
+^https?:\/\/mmg\.aty\.sohu\.com\/pvlog? data-type=tiny-gif
+
+^https?:\/\/photocdn\.sohu\.com\/tvmobilemvms data-type=tiny-gif
+
+^https?:\/\/s\.go\.sohu\.com\/adgtr\/\?gbcode= data-type=tiny-gif
+
+[MITM]
+hostname = %APPEND% *.souhu.com
+

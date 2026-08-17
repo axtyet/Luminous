@@ -1,0 +1,21 @@
+#!name=懒人听书
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partL/LanRenTingShu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/.*\/yyting\/advertclient\/ClientAdvertList.action - reject
+
+[Map Local]
+^https?:\/\/118\.178\.214\.118\/yyting\/advertclient\/ClientAdvertList\.action data-type=tiny-gif
+
+^https?:\/\/dapis\.mting\.info\/yyting\/advertclient\/ClientAdvertList\.action data-type=tiny-gif
+
+^https?:\/\/display\.wting\.info\/.*.jpeg data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% 118.178.214.118, dapis.mting.info, display.wting.info
+

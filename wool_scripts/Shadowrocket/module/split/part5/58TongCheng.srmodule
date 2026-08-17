@@ -1,0 +1,39 @@
+#!name=58同城
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/part5/58TongCheng.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN,track.58.com,REJECT
+DOMAIN,tracklog.58.com,REJECT
+DOMAIN-SUFFIX,58mingri.cn,REJECT
+DOMAIN-SUFFIX,58mingtian.cn,REJECT
+DOMAIN-SUFFIX,sc.58mingtian.cn,REJECT
+DOMAIN-SUFFIX,t1.58cdn.com.cn,REJECT
+DOMAIN-SUFFIX,t2.58cdn.com.cn,REJECT
+DOMAIN-SUFFIX,t3.58cdn.com.cn,REJECT
+DOMAIN-SUFFIX,adshow.58.com,REJECT
+DOMAIN-SUFFIX,brandshow.58.com,REJECT
+DOMAIN-SUFFIX,jing.58.com,REJECT
+DOMAIN-SUFFIX,jumpluna.58.com,REJECT
+DOMAIN-SUFFIX,news.58.com,REJECT
+DOMAIN-SUFFIX,track.58.com,REJECT
+DOMAIN-SUFFIX,tracklog.58.com,REJECT
+DOMAIN-SUFFIX,zzpush.58.com,REJECT
+DOMAIN-SUFFIX,jump.luna.58.com,REJECT
+
+[URL Rewrite]
+^https?:\/\/app\.58\.com\/api\/home\/(advertising|appadv)\/ - reject
+^https?:\/\/app\.58\.com\/api\/log\/ - reject
+
+[Map Local]
+^https?:\/\/.+?\.58cdn\.com\.cn\/brandads\/ data-type=text data=" "
+
+^https?:\/\/app\.58\.com\/api\/home\/invite\/popupAdv data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% *.58cdn.com.cn, app.58.com
+

@@ -1,0 +1,31 @@
+#!name=美图秀秀
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partM/MeituXiuxiu.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,corp.meitu.com,REJECT
+DOMAIN-SUFFIX,gg.meitu.com,REJECT
+DOMAIN-SUFFIX,message.meitu.com,REJECT
+DOMAIN-SUFFIX,tuiguang.meitu.com,REJECT
+DOMAIN-SUFFIX,xiuxiu.android.dl.meitu.com,REJECT
+DOMAIN-SUFFIX,adui.tg.meitu.com,REJECT
+DOMAIN-SUFFIX,rabbit.tg.meitu.com,REJECT
+DOMAIN-SUFFIX,meitubeauty.meitudata.com,REJECT
+DOMAIN-SUFFIX,xiuxiu.mobile.meitudata.com,REJECT
+DOMAIN-SUFFIX,dc.meitustat.com,REJECT
+DOMAIN-SUFFIX,mdc.meitustat.com,REJECT
+DOMAIN-SUFFIX,rabbit.meitustat.com,REJECT
+
+[URL Rewrite]
+^https?:\/\/mea\.meitudata\.com\/kaiping - reject
+
+[Map Local]
+^https?:\/\/adui\.tg\.meitu\.com data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% mea.meitudata.com, adui.tg.meitu.com
+

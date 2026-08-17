@@ -1,1 +1,1 @@
-## 你可以借助转换工具 [Script-Hub：重写 & 规则集转换](https://github.com/Script-Hub-Org/Script-Hub) 将本仓库中的配置转换到Egern中
+## 因为Egern强兼了Surge，所以你可以把Surge配置直接添加到Egern中使用。

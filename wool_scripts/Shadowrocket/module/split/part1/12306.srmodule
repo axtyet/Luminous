@@ -1,0 +1,16 @@
+#!name=12306
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/part1/12306.srmodule
+#!tg-channel=https://t.me/inaisi
+#!arguments=12306_enable:true
+#!arguments-desc=12306_enable: 12306_enable
+
+[Script]
+12306 = type=http-request, pattern=^https?:\/\/ad\.12306\.cn\/ad\/ser\/getAdList, script-path=https://raw.githubusercontent.com/kokoryh/Script/master/js/12306.js, requires-body=true, timeout=60
+
+[MITM]
+hostname = %APPEND% ad.12306.cn
+

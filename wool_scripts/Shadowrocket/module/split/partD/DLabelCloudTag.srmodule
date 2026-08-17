@@ -1,0 +1,16 @@
+#!name=DLabel云标签
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/DLabelCloudTag.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+# 去开屏广告
+^https:\/\/imagepc\.ctaiot\.com\/dlabel\/0\/startpage - reject
+^https:\/\/dudian-oss\.oss-cn-shenzhen\.aliyuncs\.com\/dlabel\/1\/startpage - reject
+
+[MITM]
+hostname = %APPEND% dudian-oss.oss-cn-shenzhen.aliyuncs.com, imagepc.ctaiot.com
+

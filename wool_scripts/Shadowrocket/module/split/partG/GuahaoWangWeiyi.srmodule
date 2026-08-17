@@ -1,0 +1,19 @@
+#!name=挂号网（微医）
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partG/GuahaoWangWeiyi.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/app\.wy\.guahao\.com\/json\/white\/dayquestion\/getpopad - reject
+
+[Map Local]
+^https?:\/\/kano\.guahao\.cn\/[a-zA-Z0-9]{12} data-type=text data=" "
+
+^https?:\/\/kano\.guahao\.cn\/.+?\?resize=\d{3}-\d{4} data-type=tiny-gif
+
+[MITM]
+hostname = %APPEND% kano.guahao.cn, app.wy.guahao.com
+

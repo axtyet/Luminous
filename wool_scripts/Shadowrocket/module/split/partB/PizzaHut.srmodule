@@ -1,0 +1,17 @@
+#!name=必胜客
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partB/PizzaHut.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/res\.pizzahut\.com\.cn\/CRM\/phad\/apphome\/apphome - reject
+
+[Map Local]
+^https?:\/\/res\.pizzahut\.com\.cn\/CRM\/phad\/member\/app\/member data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% res.pizzahut.com.cn
+

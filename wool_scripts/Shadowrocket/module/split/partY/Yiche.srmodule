@@ -1,0 +1,26 @@
+#!name=易车
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partY/Yiche.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN,adx.yiche.com,REJECT
+DOMAIN,log.ycapp.yiche.com,REJECT
+DOMAIN-SUFFIX,bglog.bitauto.com,REJECT
+DOMAIN-SUFFIX,g.bitauto.com,REJECT
+DOMAIN-SUFFIX,gimg.bitauto.com,REJECT
+DOMAIN-SUFFIX,gstat.bitauto.com,REJECT
+
+[Map Local]
+^https?:\/\/api\.ycapp\.yiche\.com\/appnews\/getadlist data-type=tiny-gif
+
+^https?:\/\/api\.ycapp\.yiche\.com\/yicheapp\/getadlist data-type=tiny-gif
+
+^https?:\/\/cheyouapi\.ycapp\.yiche\.com\/appforum\/getusermessagecount data-type=tiny-gif
+
+[MITM]
+hostname = %APPEND% api.ycapp.yiche.com, cheyouapi.ycapp.yiche.com
+

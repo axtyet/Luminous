@@ -1,0 +1,15 @@
+#!name=360儿童卫士
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/part3/360ChildGuard.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 开屏广告 感谢【别怕我又不乱来】分享
+^https?:\/\/ad\.life\.360\.cn\/v2\/app\/advertisement\/config\?sdk_ver= data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% ad.life.360.cn
+

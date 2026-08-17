@@ -1,0 +1,15 @@
+#!name=鲁班到家用户版
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partL/LuBanDaoJia.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 去开屏广告
+^https:\/\/order-app-api\.lbdj\.com\/lbdj\/apporder\/ad\/ data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% order-app-api.lbdj.com
+

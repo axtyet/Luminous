@@ -1,0 +1,28 @@
+#!name=Amazon
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partA/Amazon.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-SUFFIX,amazon-adsystem.com,REJECT
+DOMAIN-SUFFIX,mads.amazon.com,REJECT
+DOMAIN-SUFFIX,sdb.amazonaws.com,REJECT
+DOMAIN-SUFFIX,airpushmarketing.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,epowernetworktrackerimages.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,gateways.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,kbnetworkz.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,secretmedia.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,smblock.s3.amazonaws.com,REJECT
+DOMAIN-SUFFIX,whistleout.s3.amazonaws.com,REJECT
+
+[Map Local]
+^https?:\/\/api-cslp-emt\.amazon\.cn\/gateway\/content\/widget\/popup data-type=text data=" "
+
+^https?:\/\/api-cslp-emt\.amazon\.cn\/gateway\/recommend data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% api-cslp-emt.amazon.cn
+

@@ -1,0 +1,19 @@
+#!name=叮嗒出行
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partD/Dida.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Rule]
+DOMAIN-KEYWORD,image.bianxianmao.com,REJECT
+
+[Map Local]
+^https?:\/\/img\.admobile\.top\/admobile-adRequest\/.*.(jpg|png) data-type=text data=" "
+
+^https?:\/\/webcdn\.m\.qq\.com\/qiantu\/upload\/202[0-9]{5}\/.*.(jpg|png) data-type=text data=" "
+
+[MITM]
+hostname = %APPEND% img.admobile.top, webcdn.m.qq.com
+

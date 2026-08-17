@@ -1,0 +1,17 @@
+#!name=曹操专车
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partC/CaoCaoZhuanChe.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[URL Rewrite]
+^https?:\/\/cap\.caocaokeji\.cn\/advert-bss\/ - reject
+
+[Map Local]
+^https?:\/\/ptmpcap\.caocaokeji\.cn\/advert-bss\/ data-type=tiny-gif
+
+[MITM]
+hostname = %APPEND% ptmpcap.caocaokeji.cn, cap.caocaokeji.cn
+

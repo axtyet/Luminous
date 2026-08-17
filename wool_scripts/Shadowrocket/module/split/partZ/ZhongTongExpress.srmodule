@@ -1,0 +1,21 @@
+#!name=中通快递
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partZ/ZhongTongExpress.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+# 微信小程序净化
+^https?:\/\/hdgateway\.zto\.com\/getApolloConfig data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/hdgateway\.zto\.com\/track data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/hdgateway\.zto\.com\/getAdInfo data-type=text data="{}" header="Content-Type:application/json"
+
+^https?:\/\/hdgateway\.zto\.com\/listJumperShow data-type=text data="{}" header="Content-Type:application/json"
+
+[MITM]
+hostname = %APPEND% hdgateway.zto.com
+

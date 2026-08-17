@@ -1,0 +1,20 @@
+#!name=掌阅
+#!desc=某些APP要清除缓存或者重新安装拦截广告才会生效！
+#!author=奶思
+#!category=奶思的模块
+#!homepage=https://github.com/fmz200/wool_scripts
+#!raw-url=https://github.com/fmz200/wool_scripts/raw/main/Shadowrocket/module/split/partZ/iReader.srmodule
+#!tg-channel=https://t.me/inaisi
+
+[Map Local]
+^https?:\/\/ih2\.ireader\.com\/zyapi\/bookstore\/ad\/ data-type=text data=" "
+
+^https?:\/\/ih2\.ireader\.com\/zyapi\/self\/screen\/ad data-type=text data=" "
+
+^https?:\/\/ih2\.ireader\.com\/zycl\/api\/ad\/ data-type=text data=" "
+
+^https?:\/\/book\.img\.ireader\.com\/group6\/M00 data-type=tiny-gif
+
+[MITM]
+hostname = %APPEND% ih2.ireader.com, book.img.ireader.com
+
