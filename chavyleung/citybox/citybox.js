@@ -3,6 +3,8 @@ const hostApi = 'https://api.icitybox.cn/api'
 const drawRes = []
 const activeDrawEnd = '2026-09-20'
 const activeDrawTimes = 5
+const activeDrawGap = 3000
+const activeDrawRetry = 3
 
 !(async () => {
   const KEY_har = 'boxapp_citybox_har'
@@ -12,22 +14,28 @@ const activeDrawTimes = 5
   await draw(headers)
   await draw(headers)
   if ($.time('yyyy-MM-dd') <= activeDrawEnd) {
-    for (let i = 0; i < activeDrawTimes; i++) {
+    let retry = 0
+    for (let i = 0; i < activeDrawTimes; ) {
       await getActiveList(headers)
       // gift_num 是剩余次数；接口没返回该字段时按仍可抽处理，交给 trigger_draw 判定
       if ($.active?.gift_num === 0) break
-      const stop = await triggerDraw(headers)
-      if (stop) break
-      await $.wait(800)
+      const { done, retryable } = await triggerDraw(headers)
+      if (done) break
+      if (retryable) {
+        // 服务端限流（请勿重复提交），退避后重试，不消耗次数
+        if (++retry > activeDrawRetry) break
+        await $.wait(activeDrawGap * (retry + 1))
+        continue
+      }
+      retry = 0
+      i++
+      await $.wait(activeDrawGap)
     }
   }
-  if ($.sign?.signnum) {
-    $.msg($.name, `第${$.sign.signnum}天 签到成功`, drawRes.join('\n'))
-  } else if ($.sign?.message) {
-    $.msg($.name, $.sign?.message)
-  } else {
-    $.msg($.name, '签到失败')
-  }
+  const subTitle = $.sign?.signnum
+    ? `第${$.sign.signnum}天 签到成功`
+    : $.sign?.message || '签到失败'
+  $.msg($.name, subTitle, drawRes.join('\n'))
 })()
 .catch((e) => $.logErr(e))
 .finally(() => $.done())
@@ -59,8 +67,8 @@ function draw(headers) {
     }
     $.post(url, (err, resp, data) => {
       try {
-        const data = JSON.parse(data)
-        drawRes.push(data.winning_desc)
+        const res = JSON.parse(data)
+        if (res.winning_desc) drawRes.push(`转盘: ${res.winning_desc}`)
       } catch (e) {
         $.logErr(e, resp)
       } finally {
@@ -91,7 +99,7 @@ function getActiveList(headers) {
 
 function triggerDraw(headers) {
   return new Promise((resolve) => {
-    let stop = true
+    let result = { done: true, retryable: false }
     const url = {
       url: hostApi + '/active/trigger_draw',
       headers,
@@ -100,17 +108,25 @@ function triggerDraw(headers) {
       try {
         const res = JSON.parse(data)
         $.log(`活动抽奖: ${data}`)
-        const prize = res.is_win
-          ? res.reward?.detail?.open_door_remarks || res.reward?.detail?.card_name || res.reward?.name
-          : res.reels
-            ? `未中奖 ${res.reels.join('')}`
-            : res.message
-        if (prize) drawRes.push(`活动: ${prize}`)
-        stop = res.status === false || res.gift_num === 0
+        if (res.status === false) {
+          // 限流类错误可重试，其余（无次数/活动结束）直接结束
+          result = /重复提交|频繁|稍后/.test(res.message || '')
+            ? { done: false, retryable: true }
+            : { done: true, retryable: false }
+          if (!result.retryable && res.message) drawRes.push(`活动: ${res.message}`)
+        } else {
+          const prize = res.is_win
+            ? res.reward?.detail?.open_door_remarks || res.reward?.detail?.card_name || res.reward?.name
+            : res.reels
+              ? `未中奖 ${res.reels.join('')}`
+              : res.message
+          if (prize) drawRes.push(`活动: ${prize}`)
+          result = { done: res.gift_num === 0, retryable: false }
+        }
       } catch (e) {
         $.logErr(e, resp)
       } finally {
-        resolve(stop)
+        resolve(result)
       }
     })
   })
