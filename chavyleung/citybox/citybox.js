@@ -12,9 +12,10 @@ const activeDrawTimes = 5
   await draw(headers)
   await draw(headers)
   if ($.time('yyyy-MM-dd') <= activeDrawEnd) {
-    await getActiveList(headers)
-    const times = $.active?.gift_total != null ? $.active.gift_num || 0 : activeDrawTimes
-    for (let i = 0; i < times; i++) {
+    for (let i = 0; i < activeDrawTimes; i++) {
+      await getActiveList(headers)
+      // gift_num 是剩余次数；接口没返回该字段时按仍可抽处理，交给 trigger_draw 判定
+      if ($.active?.gift_num === 0) break
       const stop = await triggerDraw(headers)
       if (stop) break
       await $.wait(800)
