@@ -183,3 +183,16 @@ https://github.com/fmz200/wool_scripts/raw/main/Loon/rule/Douyin.list
 
 <!---   ![Visitor Count](https://profile-counter.glitch.me/fmz200/count.svg)    --->
 
+## 💰 赞助
+
+> 仓库已开启赞助功能，感谢支持！可通过以下地址打赏（自愿，不退不换）：\
+> 请务必选择对应网络转账，选错网络可能导致资金丢失且无法找回。
+
+| USDT-ERC20                                 | USDT-TRC20                                 |
+|--------------------------------------------|--------------------------------------------|
+| ![USDT-ERC20](pic/sponsor/USDT-ERC20.jpeg) | ![USDT-TRC20](pic/sponsor/USDT-TRC20.jpeg) |
+
+### USDT (TRC20)： TUypDxsqAT2ntoAZtYqogJYXeEgZpmxse9
+### USDT (ERC20)： 0x978cadf514d27fc715bdc3656a58438a548bafbc
+
+---
