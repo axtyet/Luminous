@@ -11,7 +11,7 @@
 **************************************
 
 [rewrite_local]
-^https:\/\/api\.bluepulse\.cn\/bluepulse-caption-server-front\/api\/v\d\/\/user\/app-vip-info url script-response-body https://raw.githubusercontent.com/chxm1023/script/main/Rewrite/hyzm.js
+^https:\/\/api\.bluepulse\.cn\/bluepulse-caption-server-front\/api\/v\d\/\/user\/app-vip-info url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/hyzm.js
 
 [mitm] 
 hostname = api.bluepulse.cn
