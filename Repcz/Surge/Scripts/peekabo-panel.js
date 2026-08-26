@@ -1,8 +1,10 @@
 /*
-  Peekabo 服务器流量信息面板 (Surge Panel)
+  Peekabo 服务器流量信息 (Surge 面板 + 每日定时通知)
   逻辑参考: xream/scripts → surge/modules/sub-store-scripts/sub-info/peekabo.js
-  依赖参数(argument): id=<服务器ID>&token=<API Token>&icon=<SF Symbol>&icon-color=<6位HEX>&ip-mode=<full|mask|hide>
-  API: GET https://vf-hk.peekabo.io/api/server/{id}?state=true
+  依赖参数(argument): id=<服务器ID>&token=<API Token>&icon=<SF Symbol>&icon-color=<6位HEX>&ip-mode=<full|mask|hide>&daily-notify=<true|false>
+  双模式(同一脚本):
+    - Panel (type=generic): 面板展示服务器名称/IP/地区/已用/剩余/到期
+    - Daily (type=cron):    每日定时推送流量日报; 剩余<=5天时改为到期提醒(均按天去重)
   已用流量按服务器出站流量(tx)统计, 与 Peekabo 计费口径一致
   地区: ip-api.com 反查(中文), 失败回退 ipwho.is, 结果经 $persistentStore 缓存 24h
 */
@@ -25,6 +27,10 @@ const ERROR_COLOR = "#EF4444"; // 错误态
 // IP 显示模式: full 完整 / mask 后两段打码 / hide 隐藏
 const ipModeRaw = String(ARGS["ip-mode"] || "mask").toLowerCase();
 const IP_MODE = ["full", "mask", "hide"].includes(ipModeRaw) ? ipModeRaw : "mask";
+// 每日推送开关(默认开), 模块参数可配置
+const DAILY_NOTIFY = String(ARGS["daily-notify"] || "true").toLowerCase() !== "false";
+// cron 上下文判定: type=cron 触发时 $cronexp 存在; type=generic 面板触发时不存在
+const IS_CRON = typeof $cronexp === "string" && $cronexp.length > 0;
 
 function maskIp(ip) {
   const parts = ip.split(".");
@@ -84,6 +90,12 @@ function formatDate(ts) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
 }
 
+function todayKey() {
+  const d = new Date();
+  const pad = (n) => String(n).padStart(2, "0");
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 function composeRegion(country, regionName, city) {
   const parts = [];
   if (country) parts.push(country);
@@ -138,19 +150,30 @@ async function getGeo(ip) {
   return region;
 }
 
-// 剩余天数 <= NOTIFY_DAYS 时发送通知, 按天去重(每天最多一次)
+// 剩余天数 <= NOTIFY_DAYS 时发送到期提醒, 按天去重(每天最多一次)
 function notifyExpiring(daysLeft, planName, expire) {
   if (daysLeft > NOTIFY_DAYS) return;
-  const d = new Date();
-  const pad = (n) => String(n).padStart(2, "0");
-  const today = `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
-  const key = `peekabo_notify_${today}`;
+  const key = `peekabo_notify_${todayKey()}`;
   try {
     if ($persistentStore.read(key)) return; // 今天已通知过
     $notification.post(
       "Peekabo 流量提醒",
       `${planName} 剩余 ${daysLeft} 天`,
       `到期时间: ${formatDate(expire)}，请及时续费`
+    );
+    $persistentStore.write("1", key);
+  } catch (_) {}
+}
+
+// 每日流量日报, 按天去重(每天最多一次)
+function notifyDaily(planName, usedText, totalText, percent, daysLeft, expire) {
+  const key = `peekabo_daily_${todayKey()}`;
+  try {
+    if ($persistentStore.read(key)) return; // 今天已推送过
+    $notification.post(
+      "Peekabo 流量日报",
+      `${planName} 已用 ${usedText} / ${totalText} (${percent}%)`,
+      `剩余 ${daysLeft} 天，到期: ${formatDate(expire)}`
     );
     $persistentStore.write("1", key);
   } catch (_) {}
@@ -166,19 +189,26 @@ function fail(msg) {
 
 (async () => {
   try {
-    if (!API_TOKEN || !SERVER_ID) return fail("缺少 id / token 参数");
+    if (!API_TOKEN || !SERVER_ID) {
+      if (IS_CRON) return $done(); // 定时任务静默失败, 不打扰
+      return fail("缺少 id / token 参数");
+    }
 
     const res = await httpGet(
       `https://vf-hk.peekabo.io/api/server/${encodeURIComponent(SERVER_ID)}?state=true`,
       { Accept: "application/json", Authorization: `Bearer ${API_TOKEN}` }
     );
 
-    if (res.status !== 200) return fail(`API 请求失败 (HTTP ${res.status})`);
+    if (res.status !== 200) {
+      if (IS_CRON) return $done();
+      return fail(`API 请求失败 (HTTP ${res.status})`);
+    }
 
     let json;
     try {
       json = JSON.parse(res.body);
     } catch (_) {
+      if (IS_CRON) return $done();
       return fail("API 响应解析失败");
     }
 
@@ -200,10 +230,11 @@ function fail(msg) {
       expire <= 0 ||
       !planName
     ) {
+      if (IS_CRON) return $done();
       return fail("API 返回的流量信息不完整");
     }
 
-    // 地区反查(带缓存, 失败不阻塞面板)
+    // 地区反查(带缓存, 失败不阻塞)
     const region = ip ? await getGeo(ip) : null;
 
     const usedText = formatBytes(used);
@@ -212,7 +243,21 @@ function fail(msg) {
     const now = Math.floor(Date.now() / 1000);
     const daysLeft = Math.max(0, Math.ceil((expire - now) / 86400));
 
-    // 剩余 <= NOTIFY_DAYS 天时发送到期通知
+    // === 每日定时推送模式 ===
+    if (IS_CRON) {
+      if (DAILY_NOTIFY) {
+        // 剩余 <= NOTIFY_DAYS: 优先到期提醒, 避免与日报重复打扰
+        if (daysLeft <= NOTIFY_DAYS) {
+          notifyExpiring(daysLeft, planName, expire);
+        } else {
+          notifyDaily(planName, usedText, totalText, percent, daysLeft, expire);
+        }
+      }
+      return $done(); // cron 脚本结果对象被忽略, bare $done() 即可
+    }
+
+    // === 面板模式 ===
+    // 剩余 <= NOTIFY_DAYS 天时发送到期通知(按天去重)
     notifyExpiring(daysLeft, planName, expire);
 
     const ipText = IP_MODE === "hide" ? null : `IP: ${IP_MODE === "mask" ? maskIp(ip) : ip}`;
@@ -229,6 +274,7 @@ function fail(msg) {
 
     finish(PANEL_TITLE, content, PANEL_ICON, PANEL_ICON_COLOR);
   } catch (e) {
+    if (IS_CRON) return $done(); // 定时任务静默失败
     fail(String((e && e.message) || e));
   }
 })();
