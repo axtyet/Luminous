@@ -10,7 +10,7 @@
 #!system = iOS, iPadOS
 #!system_version = 
 #!loon_version = 
-#!date=2026-06-01 18:17:00
+#!date=2026-08-27 16:37:00
 #!remark=下方的所有规则都标注了对应的hostname，可能存在错误或者遗漏，欢迎反馈。对于无法/可选MITM的hostname都特别做了“如开启可自行添加主机名”提示，如果提示后面没有标注主机名则包含所有主机名，否则只包含提示语后面的主机名。
 #############################################
 # "reject"        策略返回 HTTP 状态码 404,不附带任何额外内容
@@ -3417,6 +3417,8 @@ https://mgesq.api.mgtv.com/dsl/index.+ url script-response-body https://raw.gith
 # 移除搜索框内容
 ^https?:\/\/api\.xiaoyuzhoufm\.com\/v\d\/search\/get url reject-dict
 ^https?:\/\/api\.xiaoyuzhoufm\.com\/v\d\/category url reject-dict
+#
+^https?:\/\/api\.xiaoyuzhoufm\.com\/v1\/(related-episode|operation-resource)\/list url jsonjq-response-body '.data = []'
 
 # > 笑容加
 # hostname = myusmile.online, wemallh5.usmile.com, www.myusmile.online
