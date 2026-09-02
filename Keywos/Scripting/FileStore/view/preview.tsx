@@ -13,9 +13,14 @@ import { getServerCount, hasActiveServers, stopHttpBackgroundIfIdle } from "../m
 import { ensureNpmDependencies } from "../manager/npmDeps";
 
 /* ───── 主页视图 ───── */
-export function HomeView() {
+export function HomeView({ initialToast, initialLeftPath }: { initialToast?: string; initialLeftPath?: string }) {
   const dismiss = Navigation.useDismiss();
-  const initialSettings = readSettings();
+  const loadedSettings = readSettings();
+  // 指定初始左栏目录时（如导入非文本文件后回到 File Store），覆盖启动页设置：
+  // 跳转到“双栏浏览”Tab(0)，并让左栏进入 initialLeftPath 目录。仅影响本次会话起始状态。
+  const initialSettings = initialLeftPath
+    ? { ...loadedSettings, defaultTab: 0, dualLeftPath: initialLeftPath, dualLeftBookmarkName: null, homeCurrentPath: initialLeftPath, homeDirectoryBookmarkName: null }
+    : loadedSettings;
   const [bookmarks, setBookmarks] = useState<Bookmark[]>(() => getAllBookmarks());
   const [refreshKey, setRefreshKey] = useState(0);
   const [clipboardSyncTrigger, setClipboardSyncTrigger] = useState(0);
@@ -28,13 +33,21 @@ export function HomeView() {
 
   // 初次进入时提示当前保活的 HTTP 服务数量；延后一个事件循环，确保 Toast 已完成订阅。
   useEffect(() => {
-    const serverCount = getServerCount();
-    if (serverCount > 0) {
-      const timer = setTimeout(() => showToast(`正在运行 ${serverCount} 个 HTTP 服务`), 0);
-      return () => clearTimeout(timer);
-    }
-
+    const timer = setTimeout(() => {
+      const serverCount = getServerCount();
+      if (serverCount > 0) {
+        showToast(`正在运行 ${serverCount} 个 HTTP 服务`);
+      }
+    }, 0);
+    return () => clearTimeout(timer);
   }, []);
+
+  // 从 URL scheme 跳转（保存到 File Store）时弹 Toast
+  useEffect(() => {
+    if (!initialToast) return
+    const timer = setTimeout(() => showToast(initialToast), 0);
+    return () => clearTimeout(timer);
+  }, [initialToast]);
 
   // 恢复保活实例后回到退出前的内容页。先切到另一个内容 Tab，再在下一轮切回，
   // 促使原生控件离开残留的退出 Tab，但不销毁并重建所有页面。
