@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-09-02 10:24:13(GMT+8)
-! Total count: 39679
+! Version: 2026-09-02 18:23:16(GMT+8)
+! Total count: 39639
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -29,7 +29,7 @@
 ###\31 x1_container.float-banner-footer
 ###__ads_dp
 ###__long_gg_container
-###__nuxt > div > .footer
+###__nuxt > div > .footer > .floatWindow + div:not([class]):not([id])
 ###aabl-container
 ###aafoot.top_box
 ###aafoot[class^="top_box"]
@@ -998,6 +998,7 @@
 ##.video-info-aux + div[style^="border-radius: 5px;"]
 ##.video-item-ads
 ##.video-player > .gg-bg-cover
+##.videoPlayContainer > div#video-play + div[data-nosnippet]
 ##.video_details > .banner
 ##.vodads
 ##.vp-project-home > .ads-container
@@ -1703,6 +1704,7 @@
 ##header + #main:nth-child(n+4) .container-fluid.mb-3.p-0
 ##header + #main:nth-child(n+4) > div[id^="po-s"]:not(#po-shd)
 ##html.wap [style='left: 40%;']
+##html[lang="zh-cn"] > body  > header.Mobile-Header + main > div[id][class]
 ##iframe.ad-frame
 ##iframe[src*=".xxmh"][src*="?u="]
 ##img#GGADIMG
@@ -4592,7 +4594,6 @@ $websocket,domain=wap.yushuwu.cloud
 91porna.com,evgpopxb.cc##.dx-banner-item
 91porna.com,evgpopxb.cc##.modal-backdrop
 91porny.com###playerJsvLayer.jsv-layer
-91porny.com###video-play + div[data-nosnippet]
 91porny.com###warningModal:style(display: none !important;)
 91porny.com##.alert
 91porny.com##.container-fluid.p-0[class*="mb-"]
@@ -11936,44 +11937,14 @@ inforesist.org##aside[id="text-3"]
 inforesist.org##aside[id="text-39"]
 inforesist.org##aside[id="text-44"]
 inmywordz.com,ants.tw##.acca-block
-instacart.*##div:has(> div > div > h2 + span):has(img[alt="Advertisement"])
-instacart.*##div:has(> div[id] > div > a > picture > img[src*="display.instacart.com"][alt*="Sponsored"])
-instacart.*##div[id]:has(> a img[src*="display.instacart.com"]):has(> a > div > div span + span):has(> section div[role="region"])
-instacart.*##div[id]:has(> a img[src*="display.instacart.com"]):has(> a h2):has(> section div[role="region"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> div[id$="-inner"] > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> div[id] > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="browse items"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="featured items"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="items list"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="product carousel"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="shoppable items"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[role="region"][aria-label="featured items"])
-instacart.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section[id] > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> div > a img[src*="display.instacart.com"]):has(> div > a h2):has(> section div[data-testid$="-carousel-container"])
-instacart.*##div[id]:has(> div > a img[src*="display.instacart.com"]):has(> div > a h2):has(> section div[data-testid="shoppable-list-sliding-carousel"])
-instacart.*##div[id]:has(> div > a img[src*="display.instacart.com"]):has(> div > a h2):has(> section div[data-testid^="shoppable-list-"])
 instacart.*##div[id]:has(> div > a img[src*="display.instacart.com"]):has(> div > a h2):has(> section) > *
-instacart.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> div[id] > div[role="region"][aria-label="item carousel"])
 instacart.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid*="carousel"]) > *
 instacart.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid^="shoppable-"]) > *
-instacart.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section[id] > div[role="region"][aria-label="item carousel"])
-instacart.*##div[id]:has(> div[id$="-content"] li[data-testid="compact-shoppable-header"])
-instacart.*##div[id]:has(> div[id$="-content"] li[data-testid^="compact-"])
-instacart.*##div[id]:has(> section img[src*="display.instacart.com"][alt*="Sponsored"]):has(> div div[aria-hidden="true"])
 instacart.*##div[id]:has(div > a img[src*="display.instacart.com"]):has(div > a h2):has(> section) > *
-instacart.*##div[id]:has(img[src*="display.instacart.com"][alt*="Sponsored"]):has(> div > div[aria-hidden="true"])
-instacart.*##div[id]:has(img[src*="display.instacart.com"][alt*="Sponsored"]):has(> div[aria-hidden="true"])
-instacart.*##div[id][class]:has(> a > div:first-child img):has(> a div[style*="display:"] span)
-instacart.*##div[id][class]:has(> a > img):has(ul li:first-of-type a div[style*="display:"] span)
-instacart.*##div[id][class]:has(> div:first-child > a img[alt*="Sponsored"], > div[aria-hidden="true"]:last-child)
-instacart.*##div[id][class]:has(> div:first-of-type > a img[alt*="Sponsored"], > div[aria-hidden="true"]:last-child)
 instacart.*##div[id][class]:has(> span[aria-hidden="true"]:first-child):has(> section > span > a > picture > img[src*="display.instacart.com"][alt*="Sponsored"])
-instacart.*##li:has(fp-ads-tag):not(:has(h2))
 instacart.*#$#abort-current-inline-script setTimeout ic-detect-ad-block; override-property-read ADBLOCK_DETECTED false;
 instacart.*#$#hide-if-matches-xpath './/div[contains(@style,"display:")]/following::span[text()]/preceding::div[text()="Top picks from other aisles"]/ancestor-or-self::h2/ancestor-or-self::div[@class="e-1yrpusx"]'
-instacart.*#$#race start; hide-if-matches-xpath './/*[ self::div[span[text()="Spons"] and span[contains(text(), "ored")]] or self::*[@data-fp-eligible] ]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li] or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/*[ self::div[span[text()="Spon"] and span[contains(text(), "ored")]] or self::*[@data-fp-eligible] ]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li] or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/*[ self::div[span[text()="Spo"] and span[contains(text(), "ored")]] or self::*[@data-fp-eligible] ]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li] or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/sp-ads-tag[div[span[contains(text(),"Sponsor")]and span[contains(text(),"ed")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/sp-ads-tag[div[span[contains(text(),"Sponso")]and span[contains(text(),"ed")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/sp-ads-tag[div[span[contains(text(),"Sponso")]and span[contains(text(),"d")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-ads-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/sp-ads-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-sp-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-ads-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-sp-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-fp-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-cc-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-fp-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-cc-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-pl-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-pl-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-rt-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-rt-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-hm-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-hm-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-lm-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-lm-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-bn-tag[div[span[contains(text(),"S")]and span[contains(text(),"ponsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-bn-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-wd-tag[div[span[contains(text(),"Sp")]and span[contains(text(),"onsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-wd-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/*[div[span[contains(text(),"Sponso")]and span[contains(text(),"red")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-pt-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-vt-tag[div[span[contains(text(),"Sponsore")]and span[contains(text(),"d")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-vt-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-mv-tag[div[span[contains(text(),"Sponsor")]and span[contains(text(),"ed")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-mv-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-tr-tag[div[span[contains(text(),"Sp")]and span[contains(text(),"onsored")]]]/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-tr-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-jn-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-px-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/div[@role="group"]/section[*[div[span]]]/ancestor::li[1]'; hide-if-matches-xpath './/ic-tq-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-gy-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-mk-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-zr-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-nb-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; hide-if-matches-xpath './/ic-nt-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]'; race stop;
+instacart.*#$#hide-if-matches-xpath './/ic-nt-tag/ancestor::li[1]/ancestor-or-self::*[self::div[child::li]or self::li[not(parent::div)]][1]';
 instacart.*#?#:xpath(.//img[contains(@src,"display.instacart.com")]/following-sibling::div/h2/ancestor::a[1]/parent::div//following::section/parent::div[@id]/*/parent::div)
 instacart.*#?#:xpath(.//img[contains(@src,"display.instacart.com")]/following-sibling::div/h2/ancestor::a[1]/parent::div/following-sibling::section/parent::div[@id]/*/parent::div)
 instagram.com#$#hide-if-contains-visible-text '/Ad|Anzeige|Gesponsert|Sponsored|Geborg|Sponzorováno|Sponsoreret|Χορηγούμενη|Publicidad|Sponsoroitu|Sponsorisé|Bersponsor|Sponsorizzato|広告|광고|Ditaja|Sponset|Gesponsord|Sponsorowane|Patrocinado|Реклама|Sponsrad|ได้รับการสนับสนุน|May Sponsor|Sponsorlu|赞助内容|贊助|প্রযোজিত|પ્રાયોજિત|स्पॉन्सर्ड|Sponzorirano|ಪ್ರಾಯೋಜಿತ|സ്‌പോൺസർ ചെയ്‌തത്|पुरस्‍कृत|प्रायोजित|ਪ੍ਰਾਯੋਜਿਤ|මුදල් ගෙවා ප්‍රචාරය කරන ලදි|Sponzorované|స్పాన్సర్ చేసింది|Được tài trợ|Спонсорирано|Commandité|Sponsorizat|Спонзорисано/' 'article>div[class]' 'span[class]';
@@ -12754,6 +12725,8 @@ kaliscan.*#$#abort-current-inline-script document.createElement /l\\.parentNode\
 kaliscan.com#$#abort-current-inline-script document.createElement pop1stp_pop
 kalvin.cn##.fell_advertisement_box
 kanav.ad##div[class^="img-ad"]
+kanju.ai##.movie-player-info-ad-grid
+kanju.ai##.movie-player-info-ad-heading
 kankan.com###adv_box
 kankan.com###modal-adv
 kankan.com##.tuiguang_position
@@ -15994,31 +15967,12 @@ sac.net.cn###rightDiv
 saigon24.net#$#abort-current-inline-script document.getElementById myModal
 sailtool.com##body > div[style^="position:fixed;right:0;top:"]
 sallysbakingaddiction.com#$#cookie-remover /adblocker/ true
-sameday.costco.*##div:has(> div > div[id] > div[id$="-content"] li[data-testid="compact-shoppable-header"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="item carousel"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="product carousel"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section > div[role="region"][aria-label="item carousel"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid="shoppable-list-sliding-carousel"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[role="region"][aria-label="items carousel"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[role="region"][aria-label="items list"])
-sameday.costco.*##div[id]:has(> a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section img[alt="Advertisement"]):has(> section > div > div[role="region"][aria-label="items list"])
-sameday.costco.*##div[id]:has(> a[href*="/store/costco/brands/"] img[src*="display.instacart.com"]):has(> section > div > div[role="region"][aria-label="browse items"])
 sameday.costco.*##div[id]:has(> div > a img[src*="display.instacart.com"]):has(> div > a h2):has(> section)
-sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid$="-carousel-container"])
-sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid*="carousel"])
-sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid="shoppable-list-sliding-carousel"])
-sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid^="shoppable-"])
-sameday.costco.*##div[id]:has(> div > a[href*="/brands/"] img[src*="display.instacart.com"]):has(> section div[data-testid^="shoppable-list-"])
-sameday.costco.*##div[id]:has(> div[id$="-content"] > a img[src*="display.instacart.com"]):has(> div[id$="-content"] div[data-testid*="carousel"])
-sameday.costco.*##div[id]:has(> div[id$="-content"] > a img[src*="display.instacart.com"]):has(> div[id$="-content"] div[data-testid^="shoppable-"])
-sameday.costco.*##div[id]:has(> div[id$="-content"] > a img[src*="display.instacart.com"]):has(> div[id$="-content"] li img[src*="display.instacart.com"])
-sameday.costco.*##div[id]:has(> div[id$="-content"] li[data-testid^="compact-"])
-sameday.costco.*##div[id]:has(> div[id] > ul li[data-testid="compact-shoppable-header"])
 sameday.costco.*##div[id]:has(div > a img[src*="display.instacart.com"]):has(div > a h2):has(> section)
 sameday.costco.*#$#abort-current-inline-script setTimeout ic-detect-ad-block; override-property-read ADBLOCK_DETECTED false
 sameday.costco.*#$#hide-if-matches-xpath './/div[@style]/following::span[text()]/preceding::div[@aria-hidden="true"]/preceding::img[contains(@alt,"Sponsored") or contains(@alt,"Advertisement")]/ancestor-or-self::div[@id][@class][1]'
-sameday.costco.*#$#race start; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ored")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(),"ed")]]/ancestor::li[1]'; hide-if-matches-xpath './/li//div[@style][descendant::span[contains(text(), "Spon")] and descendant::span[contains(text(),"d")]]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//sp-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-ads-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-sp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-fp-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-cc-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-cc-tag/ancestor::li[1]'; hide-if-matches-xpath './/ic-fp-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-pl-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-vt-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-vt-tag]/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-mv-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-mv-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-tr-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-tr-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-jn-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-jn-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-px-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-px-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nx-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-nx-tag/ancestor::li[1]'; hide-if-matches-xpath './/ic-tq-tag/ancestor::li[1]'; hide-if-matches-xpath 'ic-tq-tag'; hide-if-matches-xpath './/div[@role="group"][.//ic-gy-tag]/ancestor::li[1]';  hide-if-matches-xpath './/ic-gy-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-mk-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-mk-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-zr-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-zr-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nb-tag]/ancestor::li[1]'; hide-if-matches-xpath './/ic-nb-tag/ancestor::li[1]'; hide-if-matches-xpath './/ic-nt-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nt-tag]/ancestor::li[1]'; race stop;
-sameday.costco.*#$#race start; hide-if-matches-xpath '//div[@id]/a//div[descendant::span[contains(text(), "Spons")] and descendant::span[contains(text(), "ored")]]/ancestor::div[3]'; hide-if-matches-xpath '//div[@id]/a//div[descendant::span[contains(text(), "Spo")] and descendant::span[contains(text(), "d")]]/ancestor::div[3]'; hide-if-matches-xpath '//div[@id]/div[contains(@id,"-inner")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; hide-if-matches-xpath '//div[@id]/div[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; hide-if-matches-xpath '//div[@id]/section[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; race stop;
+sameday.costco.*#$#race start; hide-if-matches-xpath './/ic-nt-tag/ancestor::li[1]'; hide-if-matches-xpath './/div[@role="group"][.//ic-nt-tag]/ancestor::li[1]'; race stop;
+sameday.costco.*#$#race start; hide-if-matches-xpath '//div[@id]/div[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; hide-if-matches-xpath '//div[@id]/section[contains(@id,"-content")][a[img[contains(@alt,"Ad")]] or .//div[starts-with(@id,"video-player")]]/parent::div'; race stop;
 samehadaku.net#@##adsense
 samsclub.com##div[class="analytics"][data-strategy="Sponsored products"]
 samsclub.com#$#hide-if-contains-visible-text /Sponsored/ 'div[style][class]' span[class]
@@ -18163,11 +18117,11 @@ www.duba.com##.tiyan_a
 www.elektroda.pl#$#abort-on-property-read popupStatus; abort-on-property-write welcomeAdContainer
 www.facebook.com,web.facebook.com##div[aria-posinset] a[href="#"] span[style*="absolute"]
 www.facebook.com,web.facebook.com##div[aria-posinset] a[href^="?"] span[style*="absolute"]
-www.facebook.com,web.facebook.com#$#hide-if-contains '/^(?:Sponsored|Ad|Sponsorisé|Commandité|Patrocinado|Bersponsor|Sponsorizzato|Sponsorowane|Được tài trợ)$/' 'div[aria-posinset]' 'div[aria-posinset] use^^svg^^use^^svg^^use^^svg^^use^^svg^^'
+www.facebook.com,web.facebook.com#$#hide-if-contains '/^(?:Sponsored|Ad|Sponsorisé|Commandité|Patrocinado|Bersponsor|Sponsorizzato|Sponsorowane|Được tài trợ)$/' 'div[aria-posinset]' 'div[aria-posinset] use^^svg^^use^^svg^^use^^svg^^'
 www.facebook.com,web.facebook.com#$#hide-if-contains-visible-text /^(?:[Aa][Dd]|Sponsored|esondSpored|.*Spored.*|(?=.*[sS])(?=.*[pP])(?=.*[oO])(?=.*[rR])(?=.*[dD])[a-zA-Z]+)$/ 'div[aria-posinset]' 'div[aria-posinset] a[href^="?"] span:not([style*="top"])'
 www.facebook.com,web.facebook.com#$#hide-if-contains-visible-text /^[^A-Za-z0-9]*(?:(?:[AaDd][^A-Za-z0-9]*){2,3}|(?:[SsPpOoNnRrIiEeDdÉé][^A-Za-z0-9]*){9,11}|(?:[CcOoMmAaNnDdIiTtÉéEe][^A-Za-z0-9]*){9,11}|(?:[PpAaTtRrOoCcIiNnDdEe][^A-Za-z0-9]*){10,12}|(?:[BbEeRrSsPpOoNn][^A-Za-z0-9]*){9,11}|(?:[SsPpOoNnRrIiZzAaTtEe][^A-Za-z0-9]*){12,14}|(?:[SsPpOoNnRrOoWwAaEe][^A-Za-z0-9]*){11,13}|(?:[ĐđƯưỢợCcTtÀàIiRr][^A-Za-z0-9]*){9,11})$/i 'div[aria-posinset]' 'div[aria-posinset] a[href^="?"], div[aria-posinset] a[href="#"]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@aria-labelledby and @aria-describedby]//span//div[@class][@role][contains(., "Anzeige") or contains(., "Sponsored") or contains(., "Sponsorlu") or contains(., "Gesponsert") or contains(., "Patrocinado") or contains(., "Sponsorisé") or contains(., "Commandité") or contains(., "Gesponsord") or contains(., "Sponsorowane") or contains(., "Publicidad") or contains(., "Sponsrad") or contains(., "Sponsoreret") or contains(., "Sponsoroitu") or contains(., "Sponsa") or contains(., "Sponset") or contains(., "Sponsorizat") or contains(., "Bersponsor") or contains(., "Ditaja") or contains(., "Sponsorizzato") or contains(., "May Sponsor") or contains(., "Реклама") or contains(., "贊助") or contains(., "赞助内容") or contains(., "ได้รับการสนับสนุน") or contains(., "Được tài trợ") or contains(., "प्रायोजित") or contains(., "دارای پشتیبانی مالی") or contains(., "تمويل شوي") or contains(., "সৌজন্যে") or contains(., "مُموَّل") or contains(., "سپانسرڈ") or contains(., "ממומן") or contains(., "Hirdetés") or contains(., "ಪ್ರಾಯೋಜಿತ")]/ancestor::div[@aria-labelledby and @aria-describedby]'
-www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="complementary"]//following::a[contains(@rel,"nofollow")]//img[@*[starts-with(name(),"data-") and contains(.,"thistleVane")]]/ancestor-or-self::div[contains(@class,"x1n2onr6")][2]/parent::div[1]/..'
+www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="complementary"]//following::a[contains(@rel,"nofollow")]//img[@*[starts-with(name(),"data-") and contains(.,"mosaicPlover")]]/ancestor-or-self::div[contains(@class,"x1n2onr6")][2]/parent::div[1]/..'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="feed"]//div[@role="article"]//a[@aria-label[.="Patrocinado" or .="Sponsa" or .="Bersponsor" or .="Commandité" or .="Ditaja" or .="Gesponsert" or .="Gesponsord" or .="Sponsrad" or .="Publicidad" or .="Sponsoreret" or .="Sponset" or .="Sponsored" or .="Sponsorisé" or .="Sponsorizat" or .="Sponsorizzato" or .="Anzeige" or .="Sponsorlu" or .="Sponsorowane" or .="Реклама" or .="ממומן" or .="تمويل شوي" or .="دارای پشتیبانی مالی" or .="سپانسرڈ" or .="مُموَّل" or .="प्रायोजित" or .="সৌজন্যে" or .="ได้รับการสนับสนุน" or .="内容" or .="贊助" or .="Sponsoroitu" or .="May Sponsor" or .="Được tài trợ" or .="ಪ್ರಾಯೋಜಿತ" or .="स्पॉन्सर्ड" or .="広告" or .="赞助内容" or .="Рэклама" or .="Sponzorované" or .="La maalgeliyey" or .="Geborg" or .="Reklam" or .="Plaćeni oglas" or .="광고" or .="Χορηγούμενη" or .="স্পনসর্ড" or .="സ്പോൺസർ ചെയ്തത്" or .="ਸਰਪ੍ਰਸਤੀ ਪ੍ਰਾਪਤ" or .="මුදල් ගෙවා ප්‍රචාරය කරන ලදි" or .="விளம்பரம்" or .="ప్రాయోజితం చేయబడింది" or .="Спонсорирано" or .="Спонзорисано" or .="ܒܘܕܩܐ ܡܡܘܘܢܐ" or .="Reklamo" or .="Hirdetés" or .="Sponsitud" or .="Sponzorováno"]]/ancestor::div[@role="article"]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/object[@type="nested/pressable"]/a[@role="link"]/span[contains("|Sponsoreret|Sponsrad|Patrocinado|Sponsa|Bersponsor|Commandité|Ditaja|Gesponsert|Gesponsord|Publicidad|Sponset|Sponsored|Sponsorisé|Sponsorizat|Sponsorizzato|Sponsorlu|Sponsorowane|Реклама|ממומן|تمويل شوي|دارای پشتیبانی مالی|سپانسرڈ|مُموَّل|प्रायोजित|সৌজন্যে|ได้รับการสนับสนุน|内容|贊助|Sponsoroitu|May Sponsor|Được tài trợ|", concat("|", text(), "|"))]/ancestor::span[2]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath '//div[@role="main"]//div[not(*)][text()="Ad" ]/ancestor::a[@href][@role="link"][@tabindex][1]/ancestor::div[2]/../parent::div'
@@ -19354,6 +19308,7 @@ zzzyk.com###Tinfo
 ||116xs.com/js/backbone.js
 ||1188.com^$3p
 ||119xiazai.com^$subdocument
+||11fkkw8h3i.com^
 ||11img.com/ad/
 ||11jianzhan.com^
 ||11kkzz.com/se/wf/
@@ -21493,7 +21448,6 @@ zzzyk.com###Tinfo
 ||afenx.top^
 ||affection28.top^
 ||affectionknit.com^
-||afforcebibbs.com^
 ||affxc.com^$3p
 ||affyun.com/wp-content/uploads/*-ad.
 ||affyun.com/wp-content/uploads/*/ad-
@@ -21654,6 +21608,7 @@ zzzyk.com###Tinfo
 ||akmh074.vip^
 ||akmh080.vip^
 ||akqipai.com/m/Tpl/v3/js/indexbottom.js
+||akrabatable.com^
 ||akuohvb4u.com^
 ||akuziti.com/tu/*.js
 ||al.newxue.com^
@@ -22169,7 +22124,6 @@ zzzyk.com###Tinfo
 ||audioarctic.com^
 ||audiofanzine.com/sorrier^$script
 ||auete.pro/js/mcenter/
-||aufaitties.com^
 ||autchoog.net^
 ||auth.be.sec.miui.com^
 ||autivnay.com^
@@ -23763,6 +23717,7 @@ zzzyk.com###Tinfo
 ||chaosmonitor.com^
 ||chaospace.fun/wp-content/uploads/*/%E6%A3%8B%E7%89%8C-
 ||chaospace.fun/wp-content/uploads/*/tg-
+||chaponrearing.com^
 ||chargecracker.com^
 ||charger44.com^
 ||charmingplate.com^
@@ -28172,7 +28127,6 @@ zzzyk.com###Tinfo
 ||hoopchina.com.cn/web/widget/partner/*/promote.js
 ||hoopchina.com.cn^*/ad-pc-sdk.
 ||hooperguze.com^
-||hoopoohonesty.com^
 ||hopefullyapricot.com^
 ||horizontallyresearchpolar.com^$popup,domain=nakastream.tv
 ||hornywood.tv/Webservices/jsParseLinks.aspx$script,third-party
@@ -30334,6 +30288,7 @@ zzzyk.com###Tinfo
 ||lestv10.icu^
 ||lestv7.icu^
 ||lettenfluoric.com^
+||letticolivean.com^
 ||letv.com/pzt/hyhmzq/index.shtml
 ||letvcdn.com/lc02_live/201803/18/23/40/1521387641261new.
 ||letvdbrwhbnhrs.com^
@@ -31755,6 +31710,7 @@ zzzyk.com###Tinfo
 ||natgeomedia.com/js/ads-parallax.
 ||naturallon.com^
 ||nauticalfox.com^
+||navajospoule.com^
 ||nawpush.com^
 ||nawpyd.icu^
 ||naxqhla.com^
@@ -33405,7 +33361,6 @@ zzzyk.com###Tinfo
 ||qfc4ac1f6.com^
 ||qfcdgy.cn^
 ||qfnoyix.cn^
-||qfthkikdoahsw.space^
 ||qfwhko.icu^
 ||qgckb3ov46.com^
 ||qgreedreau.com^
@@ -33716,6 +33671,7 @@ zzzyk.com###Tinfo
 ||qwnzzp50x.com^
 ||qwrnkpow.com^
 ||qwsbegovo.top^
+||qwt9oyg741.com^
 ||qwuylnl.com^
 ||qxakzox.cn^
 ||qxaz2xcw.com^
@@ -34365,6 +34321,7 @@ zzzyk.com###Tinfo
 ||samesticks.com^
 ||samestretch.com^
 ||samfw.com/js/script.js
+||sampanhuntley.com^
 ||samplesamba.com^
 ||samsung-com.112.2o7.net^
 ||samsungads.com^
@@ -35837,6 +35794,7 @@ zzzyk.com###Tinfo
 ||tcsgcdn.top^
 ||tcss.qq.com^
 ||tcuqqhj.icu^
+||tcwvvosfnvk.com^
 ||tcx0wyp0nn.com^
 ||tcyudzjp.com^
 ||tdavopl.icu^
@@ -35943,6 +35901,7 @@ zzzyk.com###Tinfo
 ||tgxpdr.icu^
 ||tgymhwt.cn^
 ||tgyxpfjws.com^
+||thalaolefin.com^
 ||thallus.net^
 ||thatdisform.cyou^
 ||thcaes.top^
@@ -36659,6 +36618,7 @@ zzzyk.com###Tinfo
 ||udc.yahoo.com^
 ||udcm.yahoo.com^
 ||udd1i5.zhihu.com^
+||udderliquidbase.com^
 ||udeztrb.cn^
 ||udghekzitv.com^
 ||udiab1.jianshu.com^
