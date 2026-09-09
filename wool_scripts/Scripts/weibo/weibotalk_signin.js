@@ -17,7 +17,7 @@
 【配置步骤，请认真阅读，每一个细节都很重要】
 ***********************************
 1. 根据你当前的软件，配置好script。由于是远程文件，记得顺便更新文件。
-2. 打开微博APP --> 底部栏"我的"  -->  中间的"超话社区"  --> 底部栏"我的" --> "关注"， 弹出通知，提示获取已关注超话链接成功。
+2. 打开微博APP --> 底部栏"我的" --> 中间的"超话社区" --> 底部栏"我的" --> "关注"，弹出通知，提示获取已关注超话列表成功。
 3. 点进一个超话页面，手动签到一次。弹出通知，提示获取超话签到链接成功。 若之前所有已经签到，请关注一个新超话进行签到。
 4. 回到quanx等软件，关掉获取cookie的rewrite。（loon是关掉获取cookie的脚本）
 
@@ -32,7 +32,7 @@ box订阅链接：https://raw.githubusercontent.com/toulanboy/scripts/master/tou
 *************************
 【Surge 4.2+ 脚本配置】
 *************************
-微博超话cookie获取 = type=http-request,pattern=^https?://m?api\.weibo\.c(n|om)\/2\/(statuses\/container_timeline_topicsub|page\/button),requires-body=true,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
+微博超话cookie获取 = type=http-request,pattern=^https?://m?api\.weibo\.c(n|om)\/2\/(flowlist|page\/button),requires-body=true,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
 微博超话 = type=cron,cronexp="5 0  * * *",script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk_signin.js,wake-system=true,timeout=600
 
 *************************
@@ -40,13 +40,13 @@ box订阅链接：https://raw.githubusercontent.com/toulanboy/scripts/master/tou
 *************************
 [script]
 cron "5 0 * * *" script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk_signin.js, timeout=600, tag=微博超话
-http-request ^https?://m?api\.weibo\.c(n|om)\/2\/(statuses\/container_timeline_topicsub|page\/button) script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js,requires-body=true, tag=微博超话cookie获取
+http-request ^https?://m?api\.weibo\.c(n|om)\/2\/(flowlist|page\/button) script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js,requires-body=true, tag=微博超话cookie获取
 
 *************************
 【 QX 1.0.10+ 脚本配置 】
 *************************
 [rewrite_local]
-^https?://m?api\.weibo\.c(n|om)\/2\/(statuses\/container_timeline_topicsub|page\/button) url script-request-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
+^https?://m?api\.weibo\.c(n|om)\/2\/(flowlist|page\/button) url script-request-body https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
 [task]
 5 0 * * * https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk_signin.js, tag=微博超话
 
@@ -58,7 +58,7 @@ hostname = api.weibo.cn, mapi.weibo.com
 【Shadowrocket 脚本配置】
 *************************
 [Script]
-微博超话cookie获取 = type=http-request,pattern=^https?://m?api\.weibo\.c(n|om)\/2\/(statuses\/container_timeline_topicsub|page\/button),requires-body=true,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
+微博超话cookie获取 = type=http-request,pattern=^https?://m?api\.weibo\.c(n|om)\/2\/(flowlist|page\/button),requires-body=true,script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk.cookie.js
 微博超话 = type=cron,cronexp="5 0  * * *",script-path=https://raw.githubusercontent.com/fmz200/wool_scripts/main/Scripts/weibo/weibotalk_signin.js,wake-system=true,timeout=600
 
 [MITM]
@@ -75,6 +75,8 @@ const wb_delete_cookie = isNode ? process.env["wb_delete_cookie"] : $.getdata("w
 const wb_msg_max_num = isNode ? process.env["wb_msg_max_num"] : $.getdata("wb_msg_max_num");
 const wb_request_time = isNode ? process.env["wb_request_time"] : $.getdata("wb_request_time");
 const tokenList = isNode ? process.env["fmz200_weibotalk_token"] : $.getdata("fmz200_weibotalk_token");
+
+const REQUEST_TIMEOUT = 15000; // 单次请求超时15秒
 
 $.delete_cookie = JSON.parse(wb_delete_cookie || false); // 若需要清空cookie，请把它置为true。清空完毕后，请重新置为false.
 $.msg_max_num = wb_msg_max_num * 1 || 50; // 一个通知显示30个超话的签到情况
@@ -207,7 +209,7 @@ function output() {
   }
 }
 
-// 获取所有关注的超话（新版API: POST container_timeline_topicsub）
+// 获取所有关注的超话（新版API: POST /2/flowlist）
 async function get_all_topics() {
   let page = 1;
   let sinceId = '';
@@ -219,6 +221,10 @@ async function get_all_topics() {
     let body = $.currentToken.tokenBody;
     if (page > 1) {
       body = modifyBodyForPagination(body, page, sinceId, maxId);
+    }
+    if (page > 1 && body === $.currentToken.tokenBody) {
+      console.log("❌ 分页body未变化，停止获取后续超话列表");
+      break;
     }
 
     console.log(`🌟 获取超话列表，第${page}页`);
@@ -260,8 +266,16 @@ async function get_all_topics() {
 
     // 检查是否有更多页
     let moreInfo = obj.moreInfo || {};
-    if (moreInfo.params && moreInfo.params.page && moreInfo.params.since_id) {
-      page = parseInt(moreInfo.params.page);
+    if (moreInfo.params && moreInfo.params.since_id) {
+      // 兼容两种分页机制：
+      // - flowlist: 无 page 参数，仅 since_id 递增
+      // - container_timeline_topicsub: page + since_id 同时递增
+      const nextPage = parseInt(moreInfo.params.page || '0');
+      if (nextPage && nextPage !== page) {
+        page = nextPage;
+      } else {
+        page = page + 1;
+      }
       sinceId = moreInfo.params.since_id;
       maxId = moreInfo.params.max_id || '';
     } else {
@@ -336,9 +350,11 @@ function modifyBodyForPagination(body, page, sinceId, maxId) {
     }
     if (key === 'manualType') { addedManualType = true; result.push('manualType=scroll'); continue; }
     if (key === 'invokeType') { addedInvokeType = true; result.push('invokeType=manual'); continue; }
-    if (key === 'page') { foundPage = true; result.push('page=' + page); continue; }
     if (key === 'since_id') { foundSinceId = true; result.push('since_id=' + sinceId); continue; }
-    if (key === 'max_id') { foundMaxId = true; result.push('max_id=' + (maxId || '0')); continue; }
+    // flowlist 不使用 page 参数，移除原有的 page 值
+    if (key === 'page') { foundPage = true; continue; }
+    // max_id 在 flowlist 中始终为0，保留原值
+    if (key === 'max_id') { foundMaxId = true; result.push(pair); continue; }
     if (key === 'pagingType') { foundPagingType = true; result.push('pagingType=cursor'); continue; }
     result.push(pair);
   }
@@ -346,17 +362,13 @@ function modifyBodyForPagination(body, page, sinceId, maxId) {
   if (!foundTaskType) result.push('taskType=loadMore');
   if (!addedManualType) result.push('manualType=scroll');
   if (!addedInvokeType) result.push('invokeType=manual');
-  if (!foundPage) result.push('page=' + page);
   if (!foundSinceId) result.push('since_id=' + sinceId);
-  if (!foundMaxId) result.push('max_id=' + (maxId || '0'));
   if (!foundPagingType) result.push('pagingType=cursor');
 
   return result.join('&');
 }
 
 // POST 请求封装
-const REQUEST_TIMEOUT = 15000; // 单次请求超时15秒
-
 function postRequest(url, headersStr, body) {
   return new Promise((resolve) => {
     let headers;
