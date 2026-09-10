@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-08-09 08:42⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-09-10 11:23⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -1105,7 +1105,7 @@ function RegCheck(total, typen, paraname,regpara) {
 //判断订阅类型
 function Type_Check(subs) {
     var type = "unknown"
-    var RuleK = ["host,", "-suffix,", "domain,", "-keyword,", "ip-cidr,", "ip-cidr6,",  "geoip,", "user-agent,", "ip6-cidr,", "ip-asn"];
+    var RuleK = ["host,", "-suffix,", "domain,", "domain-regex,", "-keyword,", "ip-cidr,", "ip-cidr6,",  "geoip,", "user-agent,", "ip6-cidr,", "ip-asn"];
     var DomainK = ["domain-set,"]
     var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=", "socks5=", "vless=","anytls="];
     var SurgeK = ["=ss,", "=vmess,", "=trojan,", "=http,", "=custom,", "=https,", "=shadowsocks", "=shadowsocksr", "=sock5", "=sock5-tls","=anytls"];
@@ -2262,6 +2262,7 @@ function Rule_Handle(subs, Pout, Pin) {
       nlist = cnt.map(Rule_Policy)
         //return cnt.map(Rule_Policy)
     }
+  nlist = nlist.filter(item => item && item != "-") // hide=0 时排除不支持规则留下的空禁用行
   nlist = Pfcr == 1? nlist.filter(Boolean).map(item => item+", force-cellular") : nlist.filter(Boolean)
   nlist = Pfcr == 2? nlist.filter(Boolean).map(item => item+", multi-interface") : nlist.filter(Boolean)
   nlist = Pfcr == 3? nlist.filter(Boolean).map(item => item+", multi-interface-balance") : nlist.filter(Boolean)
@@ -2277,6 +2278,18 @@ function Rule_Handle(subs, Pout, Pin) {
 
 function Rule_Policy(content) { //增加、替换 policy
     var cnt = content.replace(/^\s*\-\s/g,"").replace(/REJECT-TINYGIF/gi,"reject").replace(/REJECT-DROP/gi,"reject").trim().split("//")[0].trim().split(",");
+    // DOMAIN-REGEX 修复说明 ⟦2026-09-10 11:23:07 +08⟧
+    // 简单域名正则转为 host-wildcard：.* -> *、. -> ?、\. -> .，保留 ^/$ 边界；复杂语法提示跳过。
+    if (/^domain-regex$/i.test(cnt[0].trim())) {
+        var pattern = (cnt[1] || "").trim();
+        if (!/^\^?(?:[a-z0-9_-]|\\\.|\.\*?)+\$?$/i.test(pattern)) {
+            $notify("⚠️ DOMAIN-REGEX 无法转换为 Quantumult X 通配符规则", "已忽略该条复杂或无效正则，其余规则继续处理", content);
+            return "";
+        }
+        var wildcard = pattern.replace(/^\^|\$$/g, "").replace(/\\\.|\.\*|\./g, token => token == "\\." ? "." : token == ".*" ? "*" : "?");
+        cnt[0] = "host-wildcard";
+        cnt[1] = ((pattern[0] == "^" ? "" : "*") + wildcard + (pattern.slice(-1) == "$" ? "" : "*")).replace(/\*+/g, "*");
+    }
     var RuleK = ["//", "#", ";","[","/", "hostname","no-ipv6","no-system","<","{","}","]","^"];
     var RuleK1 = ["host", "domain", "ip-cidr", "geoip", "user-agent", "ip6-cidr", "ip-asn"];
     const RuleCheck = (item) => cnt[0].trim().toLowerCase().indexOf(item) == 0; //无视注释行
@@ -2457,7 +2470,7 @@ function Subs2QX(subs, Pudp, Ptfo, Pcert0, PTls13) {
     var list0 = subs.split("\n");
     var QuanXK = ["shadowsocks=", "trojan=", "vmess=", "http=","socks5=", "vless=", "anytls="];
     var SurgeK = ["=ss,", "=vmess,", "=trojan,", "=http,", "=https,", "=custom,", "=socks5", "=socks5-tls","=anytls"];
-    var LoonK = ["=Shadowsocks", "=ShadowsocksR", "=VLESS","=AnyTLS"]
+    var LoonK = ["=Shadowsocks", "=ShadowsocksR", "=Trojan", "=VLESS","=AnyTLS"]
     var QXlist = [];
     var failedList = [];
     for (var i = 0; i < list0.length; i++) {
@@ -3981,6 +3994,8 @@ function Loon2QX(cnt) {
       node = LoonSS2QX(cnt)
   } else if (type == "ShadowsocksR") { //ssr 类型
       node = LoonSSR2QX(cnt)
+  } else if (type == "Trojan") { // trojan 类型
+      node = LoonTJ2QX(cnt)
   } else if (type == "VLESS") { // vless 类型
     node = LoonVL2QX(cnt)
   } else if (type == "AnyTLS" && version > 913) { // anytls 类型
@@ -3988,6 +4003,19 @@ function Loon2QX(cnt) {
   }
   return node
 }
+
+// Loon Trojan 转换修复说明 ⟦2026-08-11 14:25:35 +08⟧
+// Loon 的 Trojan 密码位于第 4 个逗号字段，不能复用 Surge 的 password= 取值逻辑。
+function LoonTJ2QX(cnt) {
+  var tag = "tag=" + cnt.split("=")[0].trim();
+  var ipport = [cnt.split(",")[1].trim(), cnt.split(",")[2].trim()].join(":");
+  var pwd = "password=" + cnt.split(",")[3].trim().replace(/^\"|\"$/g, "");
+  var phost = cnt.indexOf("sni=") != -1 ? "tls-host=" + cnt.split("sni=")[1].split(",")[0].trim() : "";
+  var pverify = TLSCertParam(Pcert0, cnt.replace(/ /g, "").indexOf("skip-cert-verify=false") != -1 ? "true" : "false");
+  var pudp = paraCheck(cnt, "udp") == "true" ? "udp-relay=true" : "udp-relay=false";
+  return "trojan=" + [ipport, pwd, "over-tls=true", pverify, phost, pudp, tag].filter(Boolean).join(", ");
+}
+
 //Loon 的 ss 部分
 function LoonSS2QX(cnt) {
   var node = "shadowsocks="
