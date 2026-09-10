@@ -15,6 +15,8 @@ export interface AppSettingsCore {
   showExitButton: boolean;
   /** 滑动时隐藏底部标签栏 */
   tabBarMinimizeOnScroll: boolean;
+  /** 浏览列表显示模式：list=列表, grid=网格(文件夹视图) */
+  browserLayout?: "list" | "grid";
 }
 
 export interface AppSettingsMeta {
@@ -59,6 +61,7 @@ const defaultSettings: AppSettings = {
   defaultFilterType: "all",
   showExitButton: false,
   tabBarMinimizeOnScroll: true,
+  browserLayout: "list",
   dualLeftPath: null,
   dualLeftBookmarkName: null,
   dualRightPath: null,

@@ -49,10 +49,19 @@ export function DualBrowserPage({
     homeDirectoryBookmarkName: settings.dualRightBookmarkName || settings.homeDirectoryBookmarkName,
   }))
 
-  // 父级 settings 变化时同步非导航字段（全屏等）
+  // 父级 settings 变化时同步全局字段（browserLayout、显示开关等）到两栏，
+  // 仅保留两栏各自的导航状态（homeCurrentPath / homeDirectoryBookmarkName）
   useEffect(() => {
-    setLeftSettings((prev) => ({ ...prev, showExitButton: settings.showExitButton }))
-    setRightSettings((prev) => ({ ...prev, showExitButton: settings.showExitButton }))
+    setLeftSettings((prev) => ({
+      ...settings,
+      homeCurrentPath: prev.homeCurrentPath,
+      homeDirectoryBookmarkName: prev.homeDirectoryBookmarkName,
+    }))
+    setRightSettings((prev) => ({
+      ...settings,
+      homeCurrentPath: prev.homeCurrentPath,
+      homeDirectoryBookmarkName: prev.homeDirectoryBookmarkName,
+    }))
   }, [settings])
 
   // 各自独立的 settings 变更处理器
@@ -67,8 +76,13 @@ export function DualBrowserPage({
         dualRightBookmarkName: rightSettings.homeDirectoryBookmarkName,
       })
     }
+    // 浏览视图（browserLayout）是全局设置：本栏切换后向上同步父级 settings，
+    // 另一栏经父级 settings → 同步 useEffect 更新布局
+    if (newSettings.browserLayout !== settings.browserLayout) {
+      onSettingsChange?.(newSettings)
+    }
     setLeftSettings(newSettings)
-  }, [leftSettings, rightSettings, settings])
+  }, [leftSettings, rightSettings, settings, onSettingsChange])
 
   const handleRightSettingsChange = useCallback((newSettings: AppSettings) => {
     if (newSettings.homeCurrentPath !== rightSettings.homeCurrentPath) {
@@ -80,8 +94,12 @@ export function DualBrowserPage({
         dualLeftBookmarkName: leftSettings.homeDirectoryBookmarkName,
       })
     }
+    // 浏览视图（browserLayout）是全局设置：向上同步父级 settings，另一栏随之更新
+    if (newSettings.browserLayout !== settings.browserLayout) {
+      onSettingsChange?.(newSettings)
+    }
     setRightSettings(newSettings)
-  }, [leftSettings, rightSettings, settings])
+  }, [leftSettings, rightSettings, settings, onSettingsChange])
 
   // 左右各自独立的 refreshKey，互不影响
   const [leftKey, setLeftKey] = useState(0)

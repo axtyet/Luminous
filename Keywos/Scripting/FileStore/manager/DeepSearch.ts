@@ -437,6 +437,7 @@ export async function searchFromIndex(
           allMatches.push({
             line: i + 1,
             content: lines[i].trim()
+              //.slice(0, 80)
           })
         }
       }

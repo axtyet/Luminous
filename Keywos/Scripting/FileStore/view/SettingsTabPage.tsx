@@ -1,7 +1,7 @@
 // 设置标签 - 核心功能一览 + 应用设置
 // 汇集：9 项核心功能入口，以及原 SettingsPage 的显示模式
 
-import { NavigationStack, List, Section, Text, Button, Toggle, HStack, VStack, Spacer, Image, EmptyView, Rectangle, useState, useEffect } from "scripting";
+import { NavigationStack, List, Section, Text, Button, Toggle, Picker, HStack, VStack, Spacer, Image, EmptyView, Rectangle, useState, useEffect } from "scripting";
 import { AppSettings } from "../manager/Settings";
 import { Bookmark }from "../manager/BookmarkManager";
 import { getMaxIndexFileSizeKB, setMaxIndexFileSizeKB } from "../manager/SearchState";
@@ -181,6 +181,15 @@ export function SettingsTabPage({ settings, onSettingsChange, bookmarks, onSwitc
 
         {/* ── 显示模式（原 SettingsPage） ── */}
         <Section header={<Text padding={{ leading: 20, trailing: 5 }}>显示模式</Text>}>
+          <Picker
+            title="浏览视图"
+            value={settings.browserLayout ?? "list"}
+            onChanged={(val: string) => update({ browserLayout: val as "list" | "grid" })}
+            listRowInsets={{ top: 0, bottom: 0, leading: 30, trailing: 10 }}
+          >
+            <Text tag="list">列表视图</Text>
+            <Text tag="grid">网格图标视图</Text>
+          </Picker>
           <Toggle title="显示文件夹内项目个数" value={settings.showFolderItemCounts ?? true} onChanged={(value: boolean) => update({ showFolderItemCounts: value })} listRowInsets={{ top: 0, bottom: 0, leading: 30, trailing: 10 }} />
           <Toggle title="滑动时隐藏TAB" value={settings.tabBarMinimizeOnScroll ?? true} onChanged={(value: boolean) => update({ tabBarMinimizeOnScroll: value })} listRowInsets={{ top: 0, bottom: 0, leading: 30, trailing: 10 }} />
           <Toggle title="独立显示退出按钮" value={settings.showExitButton} onChanged={(value: boolean) => update({ showExitButton: value })} listRowInsets={{ top: 0, bottom: 0, leading: 30, trailing: 10 }} />

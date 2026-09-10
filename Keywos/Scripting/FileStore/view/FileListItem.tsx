@@ -94,7 +94,7 @@ export function FileListItem(props: FileListItemProps) {
   if (selectMode) {
     return (
       <Button action={selectMode.onToggle} listRowSeparator={hideTopSeparator ? { visibility: "hidden", edges: "top" } : undefined} onDrag={onDrag}>
-        <HStack spacing={12} alignment="center" padding={{ vertical: 4 }}>
+        <HStack spacing={12} alignment="center" padding={{ vertical: 4 }} frame={{ maxWidth: "infinity" }} contentShape="rect">
           <Image systemName={selectMode.isSelected ? "checkmark.circle.fill" : "circle"} frame={{ width: 28, height: 28 }} foregroundStyle={selectMode.isSelected ? "systemBlue" : "tertiaryLabel"} />
           <Image systemName={file.icon} frame={{ width: 28, height: 28 }} foregroundStyle={file.iconColor} />
           <VStack alignment="leading" spacing={2}>
@@ -142,6 +142,8 @@ export function FileListItem(props: FileListItemProps) {
         <HStack
           spacing={12}
           alignment="center"
+          frame={{ maxWidth: "infinity" }}
+          contentShape="rect"
           //background="#ccc"
         >
           <Image systemName={file.icon} frame={{ width: 28, height: 28 }} foregroundStyle={file.iconColor} />
@@ -188,6 +190,8 @@ export function FileListItem(props: FileListItemProps) {
         <HStack
           spacing={12}
           alignment="center"
+          frame={{ maxWidth: "infinity" }}
+          contentShape="rect"
           //background="#ccc"
         >
           <Image systemName={file.icon} frame={{ width: 28, height: 28 }} foregroundStyle={file.iconColor} />
@@ -230,7 +234,7 @@ export function FileListItem(props: FileListItemProps) {
       contextMenu={contextMenuConfig}
       onDrag={onDrag}
     >
-      <HStack spacing={12} alignment="center">
+      <HStack spacing={12} alignment="center" frame={{ maxWidth: "infinity" }} contentShape="rect">
         <Image systemName={file.icon} frame={{ width: 28, height: 28 }} foregroundStyle={file.iconColor} />
         <VStack alignment="leading" spacing={2}>
           <Text font="body" lineLimit={1}>
@@ -670,8 +674,9 @@ export function FileInfoPage({ filePath: fp }: { filePath: string }) {
 /**
  * 根据文件路径创建拖拽配置（ItemProvider + 预览视图）
  * 供 FileListItem 和 GeneralBrowser 的行组件使用
+ * isDirectory：文件夹拖拽预览用 folder.fill 图标（copyFile 支持递归复制目录）
  */
-export function makeDragConfig(filePath: string): {
+export function makeDragConfig(filePath: string, isDirectory?: boolean): {
   data: () => ItemProvider;
   preview: VirtualNode;
 } {
@@ -687,7 +692,7 @@ export function makeDragConfig(filePath: string): {
     },
     preview: (
       <HStack spacing={8} padding={12} background="systemGray">
-        <Image systemName="doc.fill" foregroundStyle="white" frame={{ width: 20, height: 20 }} />
+        <Image systemName={isDirectory ? "folder.fill" : "doc.fill"} foregroundStyle="white" frame={{ width: 20, height: 20 }} />
         <Text font="headline" foregroundStyle="white">
           {Path.basename(filePath)}
         </Text>

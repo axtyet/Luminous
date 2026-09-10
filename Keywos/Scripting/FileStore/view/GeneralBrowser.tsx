@@ -12,6 +12,7 @@ import {
   Text,
   Button,
   ScrollViewReader,
+  ScrollView,
   useState,
   useEffect,
   useMemo,
@@ -28,6 +29,7 @@ import {
   Menu,
   NavigationDestination,
   EmptyView,
+  LazyVGrid,
 } from "scripting";
 import {
   fmtSize,
@@ -54,6 +56,7 @@ import {
   buildSystemDirDefs,
 } from "../manager/utils";
 import { FileRowContent } from "./FileRowContent";
+import { FileGridContent } from "./FileGridContent";
 import { FileRowContextMenu } from "./FileRowContextMenu";
 import { FolderCountStore } from "./FolderCountLabel";
 import { DeepSearchResult } from "./SearchPanel";
@@ -149,6 +152,7 @@ function FileRowLink({
   onDropCompleted,
   onFolderCountChanged,
   isHomeScreenHost,
+  isGrid,
 }: {
   file: FileInfo;
   onRefresh: () => void;
@@ -170,6 +174,7 @@ function FileRowLink({
   onDropCompleted?: () => void;
   onFolderCountChanged?: (folderPath: string, count: number) => void;
   isHomeScreenHost?: boolean;
+  isGrid?: boolean;
 }) {
   const handleRename = async () => {
     const trimmed = await renameWithPrompt(file.name);
@@ -285,6 +290,26 @@ function FileRowLink({
 
   // ─ 选择模式 ─
   if (selectMode) {
+    if (isGrid) {
+      return (
+        <Button
+          buttonStyle="plain"
+          tag={file.path}
+          action={() => {
+            if (onToggleSelect) onToggleSelect(file.path);
+          }}
+        >
+          <FileGridContent
+            file={file}
+            folderCountStore={folderCountStore}
+            selectMode={{
+              isSelected: isSelected || false,
+              onToggle: onToggleSelect ? () => onToggleSelect(file.path) : () => { },
+            }}
+          />
+        </Button>
+      );
+    }
     return (
       <FileListItem
         file={file}
@@ -309,8 +334,14 @@ function FileRowLink({
   const isMarkdown = extension === ".md";
   const extractFolderName = !isDir ? sanitizeExtractDirName(file.name) : "";
 
+  // 拖放悬停反馈：文件拖到文件夹上时高亮提示“可以放入”
+  // （拖到普通文件上实际落入当前目录，不高亮，避免误导）
+  const [isDropTargeted, setIsDropTargeted] = useState(false);
+  const folderDropActive = isDropTargeted && file.isDirectory;
+
   return (
     <Button
+      buttonStyle="plain"
       tag={file.path}
       action={async () => {
         if (navPath) {
@@ -357,14 +388,14 @@ function FileRowLink({
           }
         }
       }}
-      listRowSeparator={hideTopSeparator ? { visibility: "hidden", edges: "top" } : undefined}
-      listRowBackground={isHighlighted ? <Rectangle fill="systemGray" opacity={0.15} /> : undefined}
-      trailingSwipeActions={{
+      listRowSeparator={isGrid ? { visibility: "hidden", edges: "all" } : hideTopSeparator ? { visibility: "hidden", edges: "top" } : undefined}
+      listRowBackground={isGrid ? <Rectangle fill="clear" /> : folderDropActive ? <Rectangle fill="systemBlue" opacity={0.18} /> : isHighlighted ? <Rectangle fill="systemGray" opacity={0.15} /> : undefined}
+      trailingSwipeActions={isGrid ? undefined : {
         // 不设 destructive role：该角色会让 SwiftUI 将滑动动作按“立即删除”处理，
         // 即使随后弹出确认框，取消后再次滑动也会触发原生状态崩溃。
         actions: [<Button title="删除" action={handleSwipeDelete} />, <Button title="简介" action={handleShowInfo} />],
       }}
-      leadingSwipeActions={{
+      leadingSwipeActions={isGrid ? undefined : {
         actions: [<Button title="重命名" action={handleRename} />],
       }}
       contextMenu={{
@@ -601,20 +632,29 @@ function FileRowLink({
           </>
         ),
       }}
-      onDrag={file.isDirectory ? undefined : makeDragConfig(file.path)}
+      onDrag={makeDragConfig(file.path, file.isDirectory)}
       onDrop={{
         types: DROP_ACCEPTED_TYPES,
         validateDrop: (info) => {
           const ok = info.hasItemsConforming(DROP_ACCEPTED_TYPES);
           return ok;
         },
-        dropEntered: () => { },
+        dropEntered: () => {
+          if (file.isDirectory) setIsDropTargeted(true);
+        },
+        dropExited: () => {
+          setIsDropTargeted(false);
+        },
         performDrop: (info) => {
+          setIsDropTargeted(false);
           const destDir = file.isDirectory ? file.path : dirPath;
           if (!destDir) return false;
           if (file.isDirectory) invalidateDirectoryCache(destDir);
           handleDropToDirectory(info, destDir, () => { })
-            .then(async () => {
+            .then(async (createdPaths) => {
+              if (file.isDirectory && createdPaths.length > 0) {
+                showToast(`已添加 ${createdPaths.length} 项到「${file.name}」`);
+              }
               if (file.isDirectory) {
                 try {
                   const children = await countDirectoryItems(destDir);
@@ -627,6 +667,7 @@ function FileRowLink({
               onDropCompleted?.();
             })
             .catch(async () => {
+              showToast("复制失败（可能含未下载的 iCloud 文件或目标不可写）");
               try {
                 await onRefresh();
               } catch { }
@@ -636,9 +677,20 @@ function FileRowLink({
         },
       }}
     >
-      <HStack spacing={12} alignment="center">
-        <FileRowContent file={file} folderCountStore={folderCountStore} />
-      </HStack>
+      {isGrid ? (
+        <VStack
+          spacing={0}
+          frame={{ maxWidth: "infinity" }}
+          background={folderDropActive ? <Rectangle fill="systemBlue" opacity={0.16} /> : undefined}
+          clipShape={folderDropActive ? { type: "rect", cornerRadius: 12 } : undefined}
+        >
+          <FileGridContent file={file} folderCountStore={folderCountStore} isDropTargeted={folderDropActive} />
+        </VStack>
+      ) : (
+        <HStack spacing={12} alignment="center">
+          <FileRowContent file={file} folderCountStore={folderCountStore} />
+        </HStack>
+      )}
     </Button>
   );
 }
@@ -746,6 +798,9 @@ function GeneralBrowser({
     () => normalizeSortOrder(settings?.defaultSortOrder || readSettings().defaultSortOrder || initialSortOrder || DEFAULT_SORT_ORDER),
   );
   const [filterType, setFilterType] = useState<string>(() => (isHomePage && settings?.defaultFilterType ? settings.defaultFilterType : initialFilterType || DEFAULT_FILTER_TYPE));
+  const [layoutMode, setLayoutMode] = useState<"list" | "grid">(
+    () => settings?.browserLayout || readSettings().browserLayout || "list"
+  );
 
   // 选择模式
   const [selectMode, setSelectMode] = useState(false);
@@ -805,6 +860,13 @@ function GeneralBrowser({
   const handleRowCopyPath = useCallback((path: string) => {
     updateCopiedPath(path);
   }, [updateCopiedPath]);
+
+  // 同步 settings.browserLayout
+  useEffect(() => {
+    if (settings?.browserLayout && settings.browserLayout !== layoutMode) {
+      setLayoutMode(settings.browserLayout);
+    }
+  }, [settings?.browserLayout]);
 
   // 同步外部剪贴板路径到本地状态（覆盖脏数据，避免粘贴旧内容）
   useEffect(() => {
@@ -2320,24 +2382,29 @@ function GeneralBrowser({
   }, []);
 
   const finishDroppedPaths = async (createdPaths: string[]) => {
-    // 乐观更新：立即显示新增文件，不等 refreshDirectory 慢加载
+    // 乐观更新：立即显示新增项（getFileInfo 区分文件夹/文件），不等 refreshDirectory 慢加载
     if (createdPaths.length > 0 && addFilesRef?.current) {
-      const newFiles = createdPaths.map(
-        (p) =>
-          ({
-            name: Path.basename(p),
-            path: p,
-            isDirectory: false,
-            isLink: false,
-            size: 0,
-            creationDate: Date.now(),
-            modificationDate: Date.now(),
-            extension: Path.extname(Path.basename(p)),
-            category: getFileCategory(Path.extname(Path.basename(p))),
-            mimeType: "",
-            icon: "doc.text",
-            iconColor: "systemGray",
-          }) as FileInfo,
+      const newFiles = await Promise.all(
+        createdPaths.map(async (p) => {
+          try {
+            return await getFileInfo(p);
+          } catch {
+            return {
+              name: Path.basename(p),
+              path: p,
+              isDirectory: false,
+              isLink: false,
+              size: 0,
+              creationDate: Date.now(),
+              modificationDate: Date.now(),
+              extension: Path.extname(Path.basename(p)),
+              category: getFileCategory(Path.extname(Path.basename(p))),
+              mimeType: "",
+              icon: "doc.text",
+              iconColor: "systemGray",
+            } as FileInfo;
+          }
+        }),
       );
       addFilesRef.current(newFiles);
       onFilesAdded?.(newFiles);
@@ -2450,41 +2517,24 @@ function GeneralBrowser({
     [titleDisplayPath, systemDirEntries, allBookmarks],
   );
 
-  const mainContent = (
-    <ZStack frame={{ maxWidth: "infinity", maxHeight: "infinity" }} onDrop={currentDirectoryDrop}>
-      <VStack frame={{ maxWidth: "infinity", maxHeight: "infinity" }}>
-        <ScrollViewReader>
-          {(proxy) => {
-            scrollProxy.current = proxy;
-            return (
-              <List
-                listStyle="plain"
-                navigationTitle={titleDisplayPath}
-                navigationBarTitleDisplayMode="inline"
-                navigationDestination={isHomePage ? homeNavigationDest : navigationDestination}
-                onDrop={currentDirectoryDrop}
-                searchable={{
-                  value: searchQuery,
-                  onChanged: setSearchQuery,
-                  placement: "navigationBarDrawer",
-                  prompt: "搜索当前目录...",
-                  presented: {
-                    value: showSearch,
-                    onChanged: (v: boolean) => {
-                      setShowSearch(v);
-                      if (!v) {
-                        setSearchQuery("");
-                        setDeepSearchResults([]);
-                      }
-                    },
-                  },
-                }}
-                toolbar={
-                  <Toolbar>
-                    <ToolbarItem placement="principal">{titleMenu}</ToolbarItem>
-                    {toolbarLeadingItems ?? <EmptyView />}
-                    {toolbarTrailingItems ?? <EmptyView />}
-                    <ToolbarItem placement="topBarTrailing">
+  // 计算当前目录路径（处理子文件夹导航：取导航栈中最新的 browser: 路径）
+  let effectiveDropDir = activeDirPath || "";
+  if (isHomePage && activeHomeNavPath.value.length > 0) {
+    for (let i = activeHomeNavPath.value.length - 1; i >= 0; i--) {
+      const p = activeHomeNavPath.value[i];
+      if (p.startsWith("browser:")) {
+        effectiveDropDir = p.slice(8);
+        break;
+      }
+    }
+  }
+
+  const browserToolbar = (
+    <Toolbar>
+      <ToolbarItem placement="principal">{titleMenu}</ToolbarItem>
+      {toolbarLeadingItems ?? <EmptyView />}
+      {toolbarTrailingItems ?? <EmptyView />}
+      <ToolbarItem placement="topBarTrailing">
                       <ToolbarMenu
                         key={"tm-" + (effectiveCopiedPath ? "1" : "0")}
                         selectMode={{
@@ -2513,6 +2563,16 @@ function GeneralBrowser({
                         filter={{
                           filterType: filterType,
                           onFilterChange: handleFilterChange,
+                        }}
+                        layout={{
+                          layout: layoutMode,
+                          onLayoutChange: (mode) => {
+                            setLayoutMode(mode);
+                            const current = settings || readSettings();
+                            const updated = { ...current, browserLayout: mode };
+                            saveSettings(updated);
+                            onSettingsChange?.(updated);
+                          },
                         }}
                         extraItems={
                           <Group key={"extra-" + (effectiveCopiedPath ? "1" : "0") + "-s" + serverTick}>
@@ -2701,159 +2761,123 @@ function GeneralBrowser({
                       />
                     </ToolbarItem>
                   </Toolbar>
-                }
-              >
-                {showSearch && activeDirPath ? (
-                  <SearchPanel
-                    searchQuery={searchQuery}
-                    dirPath={activeDirPath}
-                    onResultsChange={setDeepSearchResults}
-                    navPath={activeNavPath}
-                    resultTrailingActions={(result) => [
-                      {
-                        title: "简介",
-                        systemImage: "info.circle",
-                        action: () => {
-                          const fileInfo: FileInfo = {
-                            path: result.path,
-                            name: result.name,
-                            size: result.size,
-                            modificationDate: result.modificationDate,
-                            isDirectory: result.isDirectory,
-                            extension: Path.extname(result.name),
-                            category: result.category as FileInfo["category"],
-                            isLink: false,
-                            mimeType: "",
-                            icon: result.icon,
-                            iconColor: result.iconColor as FileInfo["iconColor"],
-                            creationDate: 0,
-                          };
-                          Navigation.present({ element: <FileInfoDialog file={fileInfo} />, modalPresentationStyle: "pageSheet" });
-                        },
-                      },
-                    ]}
-                    resultContextMenuItems={(result) => [
-                      {
-                        title: "重命名",
-                        systemImage: "pencil",
-                        action: async () => {
-                          const newName = await renameWithPrompt(result.name);
-                          if (newName) {
-                            try {
-                              const newPath = Path.join(Path.dirname(result.path), newName);
-                              await FileManager.rename(result.path, newPath);
-                              refreshDirectory();
-                            } catch (e) {
-                              console.log("重命名失败:", e);
-                            }
-                          }
-                        },
-                      },
-                      {
-                        title: "复制",
-                        systemImage: "doc.on.doc",
-                        action: async () => {
-                          await updateCopiedPath(result.path);
-                          showToast("已复制文件，前往目标目录后可粘贴");
-                        },
-                      },
-                      {
-                        title: "简介",
-                        systemImage: "info.circle",
-                        action: () => {
-                          const fileInfo = {
-                            path: result.path,
-                            name: result.name,
-                            size: result.size,
-                            modificationDate: result.modificationDate,
-                            isDirectory: result.isDirectory,
-                            extension: Path.extname(result.name),
-                            category: result.category,
-                            isLink: false,
-                            mimeType: "",
-                            icon: result.icon,
-                            iconColor: result.iconColor,
-                            creationDate: 0,
-                          };
-                          Navigation.present({ element: <FileInfoDialog file={fileInfo as FileInfo} />, modalPresentationStyle: "pageSheet" });
-                        },
-                      },
-                      {
-                        title: "删除",
-                        systemImage: "trash",
-                        role: "destructive",
-                        action: async () => {
-                          try {
-                            await FileManager.remove(result.path);
-                            refreshDirectory();
-                          } catch (e) {
-                            console.log("删除失败:", e);
-                          }
-                        },
-                      },
-                    ]}
-                    onResultTap={async (result) => {
-                      // 检查文件是否存在
-                      const exists = await FileManager.exists(result.path);
-                      if (!exists) {
-                        showToast("文件已不存在");
-                        return;
-                      }
-                      // 非目录文件：检查是否已被更新（修改时间不同说明索引已过期）
-                      if (!result.isDirectory) {
-                        try {
-                          const stat = await FileManager.stat(result.path);
-                          if (stat.modificationDate !== result.modificationDate) {
-                            showToast("文件已更新，请重新索引");
-                            return;
-                          }
-                        } catch {
-                          showToast("文件不存在");
-                          return;
-                        }
-                      }
-                      if (result.isDirectory && activeNavPath) {
-                        activeNavPath.setValue([...activeNavPath.value, "browser:" + result.path]);
-                      } else if (!result.isDirectory) {
-                        const prefix = await resolveOpenerForFile(result.path, result.category);
-                        if (prefix) {
-                          // editor 类型且有匹配行：直接 present 编辑器并跳转行号
-                          if (prefix === "editor:") {
-                            const line = result.matchedLine || (result.allMatches && result.allMatches.length > 0 ? result.allMatches[0].line : undefined);
-                            /* if (isHomeScreenHost) {
-                              await Navigation.present({
-                                element: <EditorPage path={result.path} mode="present" scrollToLine={line} />,
-                                modalPresentationStyle: "pageSheet",
-                              });
-                            } else */ if (activeNavPath) {
-                              activeNavPath.setValue([...activeNavPath.value, prefix + result.path + (line ? "::L" + line : "")]);
-                            }
-                          } else if (prefix === "archive:") {
-                            // 深度搜索打开压缩包始终使用 pageSheet；不走 NavigationStack 路由，
-                            // 以保持与目录列表中“查看压缩文件”一致的弹窗体验。
-                            await Navigation.present({
-                              element: <ArchiveBrowserPage filePath={result.path} />,
-                              modalPresentationStyle: "pageSheet",
-                            });
-                          } else if (prefix === "share:") {
-                            await shareFilePath(result.path, result.name);
-                          } else if (prefix === "pdf:") {
-                            await QuickLook.previewURLs([result.path], true);
-                          } else if (prefix === "webpage:") {
-                            const wv = new WebViewController();
-                            await wv.loadFile(result.path);
-                            await wv.present({ fullscreen: true, navigationTitle: result.name });
-                            wv.dispose();
-                          } else if (activeNavPath) {
-                            activeNavPath.setValue([...activeNavPath.value, prefix + result.path]);
-                          }
-                        }
-                      }
-                    }}
-                  />
+                );
+
+  const sharedContainerProps = {
+    navigationTitle: titleDisplayPath,
+    navigationBarTitleDisplayMode: "inline" as const,
+    navigationDestination: isHomePage ? homeNavigationDest : navigationDestination,
+    onDrop: currentDirectoryDrop,
+    refreshable: async () => {
+      await refreshDirectory();
+    },
+    searchable: {
+      value: searchQuery,
+      onChanged: setSearchQuery,
+      placement: "navigationBarDrawer" as const,
+      prompt: "搜索当前目录...",
+      presented: {
+        value: showSearch,
+        onChanged: (v: boolean) => {
+          setShowSearch(v);
+          if (!v) {
+            setSearchQuery("");
+            setDeepSearchResults([]);
+          }
+        },
+      },
+    },
+    toolbar: browserToolbar,
+  };
+
+  const searchPanelElement = showSearch && activeDirPath ? (
+    <SearchPanel
+      searchQuery={searchQuery}
+      dirPath={activeDirPath}
+      onResultsChange={setDeepSearchResults}
+      navPath={activeNavPath}
+    />
+  ) : null;
+
+  const footerSummary = (
+    <HStack spacing={12} alignment="center" listRowBackground={<></>} listRowSeparator={{ visibility: "hidden", edges: "all" }} padding={{ top: 20, bottom: 20 }}>
+      <Spacer />
+      <Text foregroundStyle="tertiaryLabel" font={10} monospaced>
+        文件夹 {folderCount} 文件 {fileCount} 大小 {fmtSize(totalSize)}
+      </Text>
+      <Spacer />
+    </HStack>
+  );
+
+  const mainContent = (
+    <ZStack frame={{ maxWidth: "infinity", maxHeight: "infinity" }} onDrop={currentDirectoryDrop}>
+      <VStack frame={{ maxWidth: "infinity", maxHeight: "infinity" }}>
+        {layoutMode === "grid" ? (
+          <ScrollView axes="vertical" {...sharedContainerProps}>
+            <VStack spacing={16} padding={{ top: 12, bottom: 24, leading: 16, trailing: 16 }} frame={{ maxWidth: "infinity" }}>
+              {searchPanelElement}
+
+              {/* 文件列表 - 深度搜索结果显示时隐藏 */}
+              {deepSearchResults.length === 0 ? (
+                visibleFiles.length === 0 ? (
+                  directoryBlankDropZone
                 ) : (
-                  <EmptyView />
-                )}
+                  <VStack spacing={16} frame={{ maxWidth: "infinity" }}>
+                    <LazyVGrid
+                      columns={[
+                        { size: { type: "adaptive", min: 80, max: 110 } },
+                      ]}
+                      spacing={12}
+                    >
+                      {visibleFiles.map((file, fileIdx) => (
+                        <Group key={file.path}>
+                          <FileRowLink
+                            key={file.path}
+                            file={file}
+                            onRefresh={refreshDirectory}
+                            onDeleteFile={handleDeleteFile}
+                            onRequestDelete={requestFileDelete}
+                            selectMode={selectMode}
+                            isSelected={selectedPaths.has(file.path)}
+                            onToggleSelect={toggleSelect}
+                            rootPath={rootPath || activeDirPath}
+                            rootName={rootName || dirName}
+                            navPath={activeNavPath}
+                            hideTopSeparator={fileIdx === 0}
+                            folderCountStore={folderCountStore}
+                            onCopyPath={handleRowCopyPath}
+                            isHighlighted={file.path === highlightedPath}
+                            copyToDirTitle={oppositeDirName}
+                            onCopyToDir={onCopyToOppositeDir}
+                            dirPath={effectiveDropDir}
+                            onDropCompleted={onDropCompleted}
+                            onFolderCountChanged={applyFolderCountUpdate}
+                            isHomeScreenHost={isHomeScreenHost}
+                            isGrid={true}
+                          />
+                        </Group>
+                      ))}
+                    </LazyVGrid>
+                    {hasMore ? <Button title="加载更多" action={() => preloadNextPage(visibleFiles.length)} /> : <EmptyView />}
+                  </VStack>
+                )
+              ) : (
+                <EmptyView />
+              )}
+
+              {deepSearchResults.length === 0 ? footerSummary : <EmptyView />}
+            </VStack>
+          </ScrollView>
+        ) : (
+          <ScrollViewReader>
+            {(proxy) => {
+              scrollProxy.current = proxy;
+              return (
+                <List
+                  listStyle="plain"
+                  {...sharedContainerProps}
+                >
+                  {searchPanelElement}
 
                 {/* 文件列表 - 深度搜索结果显示时隐藏 */}
                 {deepSearchResults.length === 0 ? (
@@ -2909,13 +2933,7 @@ function GeneralBrowser({
 
                 {deepSearchResults.length === 0 ? (
                   <Section>
-                    <HStack spacing={12} alignment="center" listRowBackground={<></>} listRowSeparator={{ visibility: "hidden", edges: "all" }} padding={{ top: 20, bottom: 20 }}>
-                      <Spacer />
-                      <Text foregroundStyle="tertiaryLabel" font={10} monospaced>
-                        文件夹 {folderCount} 文件 {fileCount} 大小 {fmtSize(totalSize)}
-                      </Text>
-                      <Spacer />
-                    </HStack>
+                    {footerSummary}
                   </Section>
                 ) : (
                   <EmptyView />
@@ -2924,22 +2942,11 @@ function GeneralBrowser({
             );
           }}
         </ScrollViewReader>
+        )}
       </VStack>
       <EmptyView />
     </ZStack>
   );
-
-  // 计算当前目录路径（处理子文件夹导航：取导航栈中最新的 browser: 路径）
-  let effectiveDropDir = activeDirPath || "";
-  if (isHomePage && activeHomeNavPath.value.length > 0) {
-    for (let i = activeHomeNavPath.value.length - 1; i >= 0; i--) {
-      const p = activeHomeNavPath.value[i];
-      if (p.startsWith("browser:")) {
-        effectiveDropDir = p.slice(8);
-        break;
-      }
-    }
-  }
 
   return isHomePage && !outerNavPath ? (
     <ZStack frame={{ maxWidth: "infinity", maxHeight: "infinity" }}>
@@ -2973,27 +2980,25 @@ function GeneralBrowser({
             handleDropToDirectory(info, destDir, () => { })
               .then(async (createdPaths) => {
                 invalidateDirectoryCache(destDir);
-                // 乐观更新：立即显示新增文件
+                // 乐观更新：立即显示新增项（getFileInfo 区分文件夹/文件）
                 if (createdPaths.length > 0 && addFilesRef?.current) {
-                  const newFiles = createdPaths.map(
-                    (p) =>
-                      ({
-                        name: Path.basename(p),
-                        path: p,
-                        isDirectory: false,
-                        isLink: false,
-                        size: 0,
-                        creationDate: Date.now(),
-                        modificationDate: Date.now(),
-                        extension: Path.extname(Path.basename(p)),
-                        category: getFileCategory(Path.extname(Path.basename(p))),
-                        mimeType: "",
-                        icon: "doc.text",
-                        iconColor: "systemGray",
-                      }) as FileInfo,
+                  const newFiles = await Promise.all(
+                    createdPaths.map(async (p) => {
+                      try {
+                        return await getFileInfo(p);
+                      } catch {
+                        return null;
+                      }
+                    }),
                   );
-                  addFilesRef.current(newFiles);
-                  onFilesAdded?.(newFiles);
+                  const valid = newFiles.filter((f): f is FileInfo => f != null);
+                  if (valid.length > 0) {
+                    addFilesRef.current(valid);
+                    onFilesAdded?.(valid);
+                  }
+                }
+                if (createdPaths.length > 0) {
+                  showToast(`已复制 ${createdPaths.length} 项到当前目录`);
                 }
                 // 如果导航到了子目录，强制 remount 子视图刷新
                 if (pathArray.length > 1) {
@@ -3007,6 +3012,7 @@ function GeneralBrowser({
                 onDropCompleted?.();
               })
               .catch(() => {
+                showToast("复制失败（可能含未下载的 iCloud 文件或目标不可写）");
                 refreshDirectory();
                 onDropCompleted?.();
               });

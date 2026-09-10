@@ -49,8 +49,18 @@ export interface FilterConfig<F extends string = string> {
   filterOptions?: FilterOption[];
 }
 
+/* ─── 视图布局配置 ─── */
+export interface LayoutConfig {
+  /** 当前布局模式 */
+  layout: "list" | "grid";
+  /** 布局变更回调 */
+  onLayoutChange: (layout: "list" | "grid") => void;
+}
+
 /* ─── 菜单配置 ─── */
 export interface ToolbarMenuProps<F extends string = string> {
+  /** 视图布局配置（可选） */
+  layout?: LayoutConfig;
   /** 选择模式配置（可选） */
   selectMode?: SelectModeConfig;
   /** 排序配置 */
@@ -65,14 +75,29 @@ export interface ToolbarMenuProps<F extends string = string> {
   bottomItem?: any;
 }
 
-export function ToolbarMenu<F extends string = string>({ selectMode, sort, filter, extraItems, otherItems, bottomItem }: ToolbarMenuProps<F>) {
+export function ToolbarMenu<F extends string = string>({ selectMode, sort, filter, layout, extraItems, otherItems, bottomItem }: ToolbarMenuProps<F>) {
   const hasSelectMode = selectMode?.enabled;
   const hasSort = !!sort;
   const filterOptions = filter?.filterOptions ?? FILE_FILTER_OPTIONS;
   const hasFilter = !!(filter && filterOptions.length > 0);
+  const hasLayout = !!layout;
 
   return (
     <Menu title="" systemImage="ellipsis">
+      {/* ─── 视图布局（网格 / 列表） ─── */}
+      {hasLayout ? (
+        <>
+          <Button
+            title={layout!.layout === "grid" ? "列表显示" : "网格显示"}
+            systemImage={layout!.layout === "grid" ? "list.bullet" : "square.grid.2x2"}
+            action={() => layout!.onLayoutChange(layout!.layout === "grid" ? "list" : "grid")}
+          />
+          <Divider />
+        </>
+      ) : (
+        <EmptyView />
+      )}
+
       {/* ─── 顶部菜单项（新建/导入等） ─── */}
       {otherItems ? (
         <>

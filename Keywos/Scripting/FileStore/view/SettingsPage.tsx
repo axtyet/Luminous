@@ -1,6 +1,6 @@
 // 设置标签 - 显示模式、关于
 
-import { Navigation, NavigationStack, List, Section, Text, Button, Toggle, HStack, VStack, Spacer, useState, Path } from "scripting";
+import { Navigation, NavigationStack, List, Section, Text, Button, Toggle, Picker, HStack, VStack, Spacer, useState, Path } from "scripting";
 import { AppSettings } from "../manager/Settings";
 import { getMaxIndexFileSizeKB, setMaxIndexFileSizeKB } from "../manager/SearchState";
 
@@ -64,6 +64,14 @@ export function SettingsPage({ settings, onUpdateSettings, onToggleFullscreen }:
     <NavigationStack>
       <List listStyle="plain" navigationTitle="设置" navigationBarTitleDisplayMode="inline">
         <Section title="显示模式">
+          <Picker
+            title="浏览视图"
+            value={settings.browserLayout ?? "list"}
+            onChanged={(val: string) => onUpdateSettings({ browserLayout: val as "list" | "grid" })}
+          >
+            <Text tag="list">列表视图</Text>
+            <Text tag="grid">网格图标视图</Text>
+          </Picker>
           <Toggle title="显示文件夹内项目个数" value={settings.showFolderItemCounts ?? true} onChanged={(value: boolean) => onUpdateSettings({ showFolderItemCounts: value })} />
           <Toggle title="滑动时隐藏TAB" value={settings.tabBarMinimizeOnScroll ?? true} onChanged={(value: boolean) => onUpdateSettings({ tabBarMinimizeOnScroll: value })} />
           <Toggle title="独立显示退出按钮" value={settings.showExitButton} onChanged={(value: boolean) => onUpdateSettings({ showExitButton: value })} />

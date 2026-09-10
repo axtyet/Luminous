@@ -12,7 +12,12 @@ export interface FileRowContentProps {
 /** 文件行图标 + 名称 + 副标题布局 */
 export function FileRowContent({ file, folderCountStore }: FileRowContentProps) {
   return (
-    <HStack spacing={12} alignment="center">
+    <HStack
+      spacing={12}
+      alignment="center"
+      frame={{ maxWidth: "infinity" }}
+      contentShape="rect"
+    >
       <Image
         systemName={file.icon}
         frame={{ width: 28, height: 28 }}

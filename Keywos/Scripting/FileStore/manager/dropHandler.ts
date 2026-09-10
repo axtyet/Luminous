@@ -98,19 +98,16 @@ async function readAndImportProvider(
 ): Promise<string | null> {
   const ts = makeTimestamp()
 
-  // ─── 0. 应用内拖拽：直接从记录的源路径复制文件（跳过 ItemProvider）───
+  // ─── 0. 应用内拖拽：直接从记录的源路径复制（跳过 ItemProvider）───
   const dragSource = getDragSourcePath()
   if (dragSource) {
     setDragSourcePath(null)
-    // 双栏及目录内拖放只复制文件；递归复制文件夹未实现，禁止进入 copyFile 路径。
-    if (await FileManager.isDirectory(dragSource)) {
-      console.log(`跳过文件夹拖拽复制: ${dragSource}`)
-      return null
-    }
+    // FileManager.copyFile 对应 NSFileManager.copyItem，支持递归复制整个目录
+    // （含文件夹拖到对面栏、目录内拖入子文件夹等场景）
     await directoryReady
     const name = Path.basename(dragSource)
     const { path: dest } = await writeToUniquePath(Path.join(dirPath, name), (targetPath) => FileManager.copyFile(dragSource, targetPath))
-    console.log(`应用内拖拽文件: ${name} -> ${dirPath}`)
+    console.log(`应用内拖拽复制: ${name} -> ${dirPath}`)
     return dest
   }
 

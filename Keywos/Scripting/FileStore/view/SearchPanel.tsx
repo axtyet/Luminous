@@ -25,30 +25,40 @@ interface SearchPanelProps {
 }
 
 function HighlightedText({ text, query }: { text: string; query: string }) {
+  // 截断超长字符串，防止没有空格的长代码或单行大文本在 HStack 中计算宽度时撑爆容器引起左右横滑
+  const rawText = text.trim();
+  const truncatedText = rawText.length > 150 ? rawText.slice(0, 150) + "…" : rawText;
+
   if (!query.trim()) {
     return (
-      <Text font={12} foregroundStyle="secondaryLabel" multilineTextAlignment="leading">
-        {text}
+      <Text
+        font={12}
+        foregroundStyle="secondaryLabel"
+        multilineTextAlignment="leading"
+        lineLimit={1}
+        truncationMode="tail"
+      >
+        {truncatedText}
       </Text>
     );
   }
 
-  const lowerText = text.toLowerCase();
+  const lowerText = truncatedText.toLowerCase();
   const lowerQuery = query.toLowerCase();
   const segments: (string | StyledText)[] = [];
 
   let pos = 0;
-  while (pos < text.length) {
+  while (pos < truncatedText.length) {
     const idx = lowerText.indexOf(lowerQuery, pos);
     if (idx === -1) {
-      segments.push({ content: text.slice(pos), foregroundColor: "secondaryLabel", font: 12 });
+      segments.push({ content: truncatedText.slice(pos), foregroundColor: "secondaryLabel", font: 12 });
       break;
     }
     if (idx > pos) {
-      segments.push({ content: text.slice(pos, idx), foregroundColor: "secondaryLabel", font: 12 });
+      segments.push({ content: truncatedText.slice(pos, idx), foregroundColor: "secondaryLabel", font: 12 });
     }
     segments.push({
-      content: text.slice(idx, idx + query.length),
+      content: truncatedText.slice(idx, idx + query.length),
       foregroundColor: "systemPink",
       fontWeight: "bold",
       font: 12,
@@ -58,8 +68,14 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
 
   if (segments.length === 0) {
     return (
-      <Text font={12} foregroundStyle="secondaryLabel" multilineTextAlignment="leading">
-        {text}
+      <Text
+        font={12}
+        foregroundStyle="secondaryLabel"
+        multilineTextAlignment="leading"
+        lineLimit={1}
+        truncationMode="tail"
+      >
+        {truncatedText}
       </Text>
     );
   }
@@ -68,6 +84,8 @@ function HighlightedText({ text, query }: { text: string; query: string }) {
     <Text
       font={12}
       multilineTextAlignment="leading"
+      lineLimit={1}
+      truncationMode="tail"
       styledText={{
         content: segments,
       }}
@@ -635,7 +653,14 @@ export function SearchPanel({
                     contentShape="rect"
                     contextMenu={{ menuItems: renderContextMenu(result) }}
                   >
-                    <HStack spacing={8} alignment="firstTextBaseline" padding={{ vertical: 6, leading: 36, trailing: 16 }} frame={{ maxWidth: "infinity", alignment: "leading" }} contentShape="rect">
+                    <HStack
+                      spacing={8}
+                      alignment="firstTextBaseline"
+                      padding={{ vertical: 6, leading: 36, trailing: 16 }}
+                      frame={{ maxWidth: "infinity", alignment: "leading" }}
+                      contentShape="rect"
+                      clipped
+                    >
                       <Text font={12} monospaced foregroundStyle="tertiaryLabel" frame={{ width: 44, alignment: "trailing" }}>
                         {m.line}
                       </Text>
