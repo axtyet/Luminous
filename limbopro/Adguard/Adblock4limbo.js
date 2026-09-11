@@ -95,7 +95,8 @@ const DMM_REGEX = /dmm\.co/i;
 const MDSP_REGEX = /d1skbu98kuldnf\.cloudfront\.net/i;
 const HUARENLIVE_REGEX = /(huaren|huavod)\.(live|top)\/player\/ec\.php/i;
 
-const TITLE_REGEX = /<head>/i;
+// const TITLE_REGEX = /<head>/i;
+const TITLE_REGEX = /<head\b[^>]*>/i;
 const BODY_REGEX = /<\/body>/i;
 const WINDOW_OPEN_REGEX = /window\.open\s*\(/g;
 

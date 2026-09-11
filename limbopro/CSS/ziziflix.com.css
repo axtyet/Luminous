@@ -1,0 +1,11 @@
+/* 强行隐藏透明遮罩并禁用其点击响应 */
+#overlay {
+    display: none !important;
+    pointer-events: none !important;
+    z-index: -99999 !important;
+}
+
+/* 确保底层的播放器界面可正常点击交互 */
+#player, .stage, .wrap {
+    pointer-events: auto !important;
+}

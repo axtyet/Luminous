@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo.[github]
 // @namespace    https://github.com/limbopro/Adblock4limbo/raw/main/Adguard/Adblock4limbo.user.js
-// @version      0.2026.08.26
+// @version      0.2026.09.11
 // @license      CC BY-NC-SA 4.0
 // @description  毒奶去网页广告计划用户脚本 For Quantumult X & Surge & Shadowrocket & Loon & Stash & 油猴 ；1.新增页面右下角导航；2.通过 JavaScript 移除特定网站网页广告 —— 搜索引擎（Bing/Google）广告及内容农场结果清除/低端影视/欧乐影院/iyf爱壹帆/哔滴影视/Pornhub/Javbus/Supjav/Jable(支持抓取M3U8链接)/MissAv/Njav/91porn(支持视频下载)/hitomi/紳士漫畫/禁漫天堂/等视频&ACG&小说&漫画网站上的弹窗广告&视频广告&Gif图片广告等，保持网页清爽干净无打扰！ P.S. 欢迎提交issue
 // @author       limbopro
@@ -60,6 +60,8 @@
 // @match        https://javday.app/*
 // @match        https://www.xvideos.com/*
 // @match        https://4hu.tv/*
+// @match        https://play.ziziflix.com/*
+// @match        https://ziziflix.com/*
 // @match        https://www.4hu.tv/*
 // @match        https://netflav.com/*
 // @match        https://t66y.com/*
@@ -278,7 +280,18 @@ console.log('是否（默认）开启成人🔞网站保护模式：' + getCooki
 // 如【不需要开启导航🧭按钮🔘】可直接将 daohang_build() 进行注释
 // //daohang_build() 就像这样
 // 注释后将【无法快捷唤起导航详情页】且导航功能无法使用
-daohang_build();
+
+
+
+// 获取当前页面是否被嵌入在 iframe 中
+const isIframe = window.self !== window.top;
+
+// 只要当前页面不是在 iframe 中运行，就执行函数
+if (!isIframe) {
+    daohang_build();
+}
+
+
 
 
 // 一些常量
@@ -424,6 +437,7 @@ var adsMax = {
         jkforum: "",
         javland: "img[src*='.gif'], a[href^=\"https://go.rmhfrtnd.com/\"] {display:none !important; pointer-events: none !important;}",  // jav.land
         _4hu: ".couplet-left, body[ontouchstart] > div[id^='content_'][style='display: block;'], div.row.col2 > dl, #btmBox, img[src*=gif],.col5 > dl#randomBox, script[src$=\"/base.js\"] + #couplet, body[ontouchstart] > #topBox,.wrap + #btmBox,.search + #midBox {opacity:0% !important; pointer-events: none !important; height: 0px !important}",
+        ziziflix: ".ad-desktop,.ad-mobile {display:none !important; pointer-events: none !important;}",
         // {opacity:0% !important; pointer-events: none !important; height: 0px !important}
         netflav: "iframe[src*=xlv],.ads_video_overlay_mobile, div.widget-container, a[href*=\"register\"][target=\"_blank\"],div.ads_video_close_button,div.ads_video_overlay_mobile,div.footer_root,div.ads_head_banner_container {display:none !important;}",
         supjav: '.video-wrap > div.right,#pop, .div_pop, #pop.div_pop, .movv-ad, #adsbox, div.right, div.movv-ad.ad_3_3, div.movv-ad.ad_3_2, .movv-ad, .adsbyexoclick, #adsbox, .adsbyexoclick  {display:none !important; pointer-events: none !important;}',
@@ -524,6 +538,8 @@ function values() {
         "av.jkforum.net",
         "jav.land",
         "4hu",
+        "play.ziziflix",
+        "ziziflix",
         "netflav",
         "javplayer",
         "filemoon",
@@ -1617,6 +1633,114 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
         case "4hu":
             css_adsRemove(adsMax.css._4hu);
             hrefAttribute_set();
+            break;
+
+        case "play.ziziflix":
+
+
+
+            (function () {
+                'use strict';
+
+                // 1. 劫持 window.open：从根源阻止弹出广告页面
+                const rawOpen = window.open;
+                window.open = function (url, name, specs) {
+                    if (url && (url.includes('decafeligiblyhad.com') || url.includes('abyss.to'))) {
+                        console.log('[防护] 已成功拦截广告弹窗跳转:', url);
+                        return null; // 阻止弹窗
+                    }
+                    return rawOpen.apply(this, arguments);
+                };
+
+                // 2. 清空/劫持配置中的弹窗 URL 数组
+                Object.defineProperty(window, 'abyssConfig', {
+                    set: function (config) {
+                        if (config && config.popups) {
+                            config.popups = []; // 强行清空广告链接
+                        }
+                        this._abyssConfig = config;
+                    },
+                    get: function () {
+                        return this._abyssConfig;
+                    },
+                    configurable: true
+                });
+
+                // 3. 动态监听 DOM：一旦发现 #overlay 节点出现，立即将其强行销毁
+                const killOverlay = () => {
+                    const overlay = document.getElementById('overlay');
+                    if (overlay) {
+                        overlay.remove(); // 移除全屏透明遮罩
+                        console.log('[防护] 已成功移除广告遮罩节点');
+                    }
+                };
+
+                // 页面还在加载时，开启监听器
+                const observer = new MutationObserver((mutations, obs) => {
+                    const overlay = document.getElementById('overlay');
+                    if (overlay) {
+                        killOverlay();
+                        obs.disconnect(); // 销毁遮罩后停止监听
+                    }
+                });
+
+                if (document.documentElement) {
+                    observer.observe(document.documentElement, { childList: true, subtree: true });
+                }
+
+                // 兜底机制：文档加载完成后再次确认清理
+                document.addEventListener('DOMContentLoaded', killOverlay);
+            })();
+
+            break;
+
+        case "ziziflix":
+            css_adsRemove(adsMax.css.ziziflix);
+
+
+            // cookie setting
+
+            (() => {
+                const getCookie2 = name => {
+                    const match = document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith(name + '='));
+                    return match ? match.substring(name.length + 1) : null;
+                };
+
+                const now = Math.floor(Date.now() / 1000);
+
+                const ts = getCookie2('ts_cwpop');
+                const zone = getCookie2('zone-cap-5685590');
+
+                const created = [];
+
+                if (!ts) {
+                    document.cookie = `ts_cwpop=${now}; path=/`;
+                    created.push('ts_cwpop');
+                }
+
+                if (!zone) {
+                    document.cookie = `zone-cap-5685590=1;${now}; path=/`;
+                    created.push('zone-cap-5685590');
+                }
+
+                console.log('========== Cookie 状态 ==========');
+                console.log('当前时间戳:', now);
+
+                if (created.length) {
+                    console.log('✅ 新创建:', created.join(', '));
+                } else {
+                    console.log('ℹ️ Cookie 已存在，未修改');
+                }
+
+                console.log('ts_cwpop:', getCookie2('ts_cwpop'));
+                console.log('zone-cap-5685590:', getCookie2('zone-cap-5685590'));
+            })();
+
+
+            noWindowOpenIf('window.open')
+            noWindowOpenIf('touchend')
             break;
         case "netflav":
             window_open_defuser(); // 打断 window.open 施法
