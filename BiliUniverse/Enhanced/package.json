@@ -1,11 +1,11 @@
 {
-	"name": "@biliuniverse/enhanced",
-	"organizationName": "🪐 BiliUniverse",
+	"name": "@biliverse/enhanced",
+	"organizationName": "🪐 Biliverse",
 	"displayName": "📺 BiliBili: ⚙️ Enhanced",
 	"description": "哔哩哔哩：增强模式\n中国站功能增强及UI自定义",
-	"homepage": "https://Enhanced.BiliUniverse.io",
+	"homepage": "https://biliverse.github.io/guide/enhanced",
 	"openUrl": "http://boxjs.com/#/app/BiliBili.Enhanced",
-	"icon": "https://github.com/BiliUniverse/Enhanced/raw/main/src/assets/icon_rounded.png",
+	"icon": "https://github.com/Biliverse/Enhanced/raw/main/src/assets/icon_rounded.png",
 	"keywords": [],
 	"contributors": [
 		"VirgilClyne[https://github.com/VirgilClyne]"
@@ -21,31 +21,47 @@
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/BiliUniverse/Enhanced.git"
+		"url": "https://github.com/Biliverse/Enhanced.git"
 	},
 	"directories": {
 		"example": "example"
 	},
 	"scripts": {
-		"serve": "webpack serve",
-		"build": "rspack build",
-		"build:dev": "rspack build -c rspack.dev.config.js --mode=development",
-		"build:args": "arguments-builder build",
-		"dts": "arguments-builder dts",
+		"dev": "BUILD_VERSION=dev.$(git rev-parse --short HEAD) npm-run-all --serial build:dev-args build:dev",
+		"dev:pages": "npx wrangler pages dev --port 8787",
+		"dev:workers": "npx wrangler dev -c wrangler.workers.jsonc",
+		"deploy:pages": "npx wrangler pages deploy",
+		"deploy:workers": "npx wrangler deploy --minify -c wrangler.workers.jsonc",
+		"build": "npm-run-all --serial build:args build:scripts",
+		"build:scripts": "rollup -c",
+		"build:dev": "rollup -c rollup.dev.config.mjs",
+		"build:dev-args": "arguments-builder build -c arguments-builder.dev.config.ts && npm run build:full-args",
+		"build:release-args": "arguments-builder build -c arguments-builder.release.config.ts",
+		"build:full-args": "arguments-builder boxjs -c arguments-builder.full.config.ts",
+		"build:args:rewrite": "arguments-builder build -c arguments-builder.rewrite.config.ts",
+		"build:args": "npm-run-all --serial build:release-args build:full-args",
+		"test": "node --test tests/*.test.mjs",
+		"dts": "arguments-builder dts -c arguments-builder.full.config.ts",
 		"update": "npm update --save"
 	},
 	"browserslist": [
 		"iOS >= 15"
 	],
 	"devDependencies": {
-		"@biomejs/biome": "2.4.3",
+		"@biomejs/biome": "2.5.11",
 		"@iringo/arguments-builder": "^1.8.5",
-		"@rspack/cli": "^1.7.6",
-		"@rspack/core": "^1.7.6",
-		"node-polyfill-webpack-plugin": "^4.0.0"
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-terser": "^1.0.0",
+		"npm-run-all": "^4.1.5",
+		"rollup": "^4.63.1",
+		"typescript": "^5.9.3",
+		"wrangler": "^4.127.1"
 	},
 	"dependencies": {
-		"@nsnanocat/url": "^1.2.5",
-		"@nsnanocat/util": "^2.1.5"
+		"@nsnanocat/grpc": "^1.1.0",
+		"@nsnanocat/url": "^1.2.6",
+		"@nsnanocat/util": "^2.7.4",
+		"@protobuf-ts/runtime": "^2.11.1",
+		"hono": "^4.13.5"
 	}
 }

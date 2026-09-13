@@ -1,63 +1,33 @@
 export interface Settings {
     Home?: {
     /**
-         * [首页] 启用此标签页自定义功能
+         * [首页] 启用自定义功能
          *
-         * 启用后可自定义首页标签页、顶栏按钮等内容。
+         * 启用后可自定义首页顶栏、标签页和底部导航栏内容。标签页由分区页的快捷访问决定。
          *
          * @defaultValue true
          */
         Switch?: boolean;
     /**
-         * [首页] 标签页
-         *
-         * 请选择启用的首页标签页，建议不超过7个。
-         *
-         * @remarks
-         *
-         * Possible values:
-         * - `'直播tab'` - 直播
-         * - `'推荐tab'` - 推荐
-         * - `'hottopic'` - 热门
-         * - `'bangumi'` - 番剧
-         * - `'anime'` - 动画（港澳台）
-         * - `'film'` - 影视
-         * - `'koreavtw'` - 韩综（港澳台）
-         * - `'game'` - 游戏
-         * - `'mctab'` - minecraft
-         * - `'dhtr'` - 动画同人
-         * - `'gaoxiao'` - 搞笑
-         * - `'school'` - 校园
-         * - `'kj'` - 数码
-         *
-         * @defaultValue ["直播tab","推荐tab","hottopic","bangumi","anime","film","koreavtw"]
-         */
-        Tab?: ('直播tab' | '推荐tab' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'mctab' | 'dhtr' | 'gaoxiao' | 'school' | 'kj')[];
-    /**
          * [首页] 默认标签页
          *
-         * 请选择启动APP时默认展示的标签页，需选择已启用的标签页。
+         * 请选择启动APP时默认展示的标签页，需先将该标签页加入分区页的快捷访问。
          *
          * @remarks
          *
          * Possible values:
-         * - `'直播tab'` - 直播
-         * - `'推荐tab'` - 推荐
-         * - `'hottopic'` - 热门
-         * - `'bangumi'` - 番剧
-         * - `'anime'` - 动画（港澳台）
-         * - `'film'` - 影视
-         * - `'koreavtw'` - 韩综（港澳台）
-         * - `'game'` - 游戏
-         * - `'mctab'` - minecraft
-         * - `'dhtr'` - 动画同人
-         * - `'gaoxiao'` - 搞笑
-         * - `'school'` - 校园
-         * - `'kj'` - 数码
+         * - `'2036'` - 直播
+         * - `'2037'` - 推荐
+         * - `'780'` - 热门
+         * - `'545'` - 番剧
+         * - `'774'` - 动画（港澳台）
+         * - `'151'` - 影视
+         * - `'801'` - 韩综（港澳台）
+         * - `'2280'` - 校园
          *
-         * @defaultValue "推荐tab"
+         * @defaultValue "2037"
          */
-        Tab_default?: '直播tab' | '推荐tab' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'mctab' | 'dhtr' | 'gaoxiao' | 'school' | 'kj';
+        Tab_default?: '2036' | '2037' | '780' | '545' | '774' | '151' | '801' | '2280';
     /**
          * [首页] 顶栏（左侧）按钮（用户头像）
          *
@@ -80,13 +50,27 @@ export interface Settings {
          * @remarks
          *
          * Possible values:
-         * - `'游戏中心Top'` - 游戏中心
-         * - `'会员购Top'` - 会员购
-         * - `'消息Top'` - 消息
+         * - `'game_center'` - 游戏中心
+         * - `'mall'` - 会员购
+         * - `'messages'` - 消息
          *
-         * @defaultValue ["消息Top"]
+         * @defaultValue ["messages"]
          */
-        Top?: ('游戏中心Top' | '会员购Top' | '消息Top')[];
+        Top?: ('game_center' | 'mall' | 'messages')[];
+    /**
+         * [首页] 顶栏（更多）按钮
+         *
+         * 请选择启用的首页顶栏更多按钮。
+         *
+         * @remarks
+         *
+         * Possible values:
+         * - `'categories'` - 更多分区
+         * - `'search'` - 搜索
+         *
+         * @defaultValue ["categories","search"]
+         */
+        Top_more?: ('categories' | 'search')[];
 };
     /**
      * [底部] 导航栏按钮
@@ -97,17 +81,16 @@ export interface Settings {
      *
      * Possible values:
      * - `'home'` - 首页
-     * - `'频道Bottom'` - 频道
      * - `'dynamic'` - 动态
      * - `'publish'` - 发布
      * - `'ogv'` - 节目（港澳台）
-     * - `'会员购Bottom'` - 会员购
-     * - `'消息Bottom'` - 消息
-     * - `'我的Bottom'` - 我的
+     * - `'mall'` - 会员购
+     * - `'messages'` - 消息
+     * - `'mine'` - 我的
      *
-     * @defaultValue ["home","dynamic","ogv","会员购Bottom","我的Bottom"]
+     * @defaultValue ["home","dynamic","ogv","mall","mine"]
      */
-    Bottom?: ('home' | '频道Bottom' | 'dynamic' | 'publish' | 'ogv' | '会员购Bottom' | '消息Bottom' | '我的Bottom')[];
+    Bottom?: ('home' | 'dynamic' | 'publish' | 'ogv' | 'mall' | 'messages' | 'mine')[];
     Region?: {
     /**
          * [分区] 启用此标签页自定义功能

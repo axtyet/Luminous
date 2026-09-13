@@ -1,0 +1,86 @@
+name: "{{@package 'displayName'}} β"
+desc: |-
+  {{#each (split (@package 'description') "\n")}}
+  {{{this}}}
+  {{/each}}
+openUrl: "{{@package 'openUrl'}}"
+author: |-
+  {{#each (@package 'contributors')}}
+  {{this}}
+  {{/each}}
+homepage: "{{@package 'homepage'}}"
+icon: "{{@package 'icon'}}"
+category: "{{@package 'organizationName'}}"
+date: "{{now "yyyy-MM-dd HH:mm:ss"}}"
+version: "{{version}}"
+
+http:
+  mitm:
+    - "biliverse.github.io"
+    - "app.bilibili.com"
+    - "app.biliapi.net"
+    - "grpc.biliapi.net"
+  script:
+    - match: ^https:\/\/app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$
+      name: Biliverse.Website
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Enhanced\/?|assets\/(?:app|navigation)\.mjs)(?:\?.*)?$
+      name: PreferencePanes.Web
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\/(?:get|set|delete))?\/?(?:\?.*)?$
+      name: PreferencePanes.API
+      type: request
+      require-body: true
+      max-size: 65536
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$
+      name: 📺 BiliBili.Enhanced.Config
+      type: request
+      require-body: false
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\?
+      name: 📺 BiliBili.Enhanced.response.dev
+      type: response
+      require-body: true
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$
+      name: 📺 BiliBili.Enhanced.request.dev
+      type: request
+      require-body: true
+      binary-mode: true
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionList$
+      name: 📺 BiliBili.Enhanced.RegionList.response.dev
+      type: response
+      require-body: true
+      binary-mode: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\?
+      name: 📺 BiliBili.Enhanced.response.dev
+      type: response
+      require-body: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\?
+      name: 📺 BiliBili.Enhanced.response.dev
+      type: response
+      require-body: true
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\?
+      name: 📺 BiliBili.Enhanced.response.dev
+      type: response
+      require-body: true
+
+script-providers:
+  Biliverse.Website:
+    url: https://biliverse.github.io/settings/mock.js
+    interval: 86400
+  PreferencePanes.Web:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
+    interval: 86400
+  PreferencePanes.API:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+    interval: 86400
+  📺 BiliBili.Enhanced.Config:
+    url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/config.dev.bundle.js
+    interval: 86400
+  📺 BiliBili.Enhanced.request.dev:
+    url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/request.dev.bundle.js
+    interval: 86400
+  📺 BiliBili.Enhanced.response.dev:
+    url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+    interval: 86400

@@ -1,0 +1,16 @@
+#!name = {{@package 'displayName'}} (Rewrite)
+#!desc = {{inline (@package 'description')}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!arguments = {{{arguments}}}
+#!arguments-desc = {{{argumentsDesc}}}
+
+[Rewrite]
+^https?:\/\/(www\.bilibili\.com)\/(bangumi\/play\/(?:ss|ep)\d+\/?.*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+^https?:\/\/((?:grpc|app)\.bili(?:bili\.com|api\.net))\/(bilibili\/(?:app\/viewunite\/v1\/View\/View|app\/playerunite\/v1\/Player\/PlayViewUnite|pgc\/gateway\/player\/v2\/PlayURL\/PlayView|polymer\/app\/search\/v1\/Search\/(?:SearchAll|SearchByType)).*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+^https?:\/\/(api\.bili(?:bili\.com|api\.net))\/((?:pgc\/(?:view\/(?:v2\/app|web|pc)\/(?:season|ep\/list)|player\/(?:api|web)\/playurl(?:\/html5)?|player\/web\/v2\/playurl)|x\/(?:web-interface\/(?:wbi\/)?search\/(?:all\/v2|type)|space\/(?:wbi\/)?acc\/info)).*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+^https?:\/\/(app\.bili(?:bili\.com|api\.net))\/(x\/v2\/(?:search(?:\/type)?|space).*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+^https?:\/\/(search\.bilibili\.com)\/(all.*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+
+[MITM]
+hostname = biliverse.github.io, www.bilibili.com, search.bilibili.com, app.bilibili.com, app.biliapi.net, api.bilibili.com, api.biliapi.net, grpc.biliapi.net

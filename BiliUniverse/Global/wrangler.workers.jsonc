@@ -1,0 +1,13 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "global",
+	"main": "src/Hono.js",
+	"compatibility_date": "2026-09-01",
+	"compatibility_flags": ["nodejs_compat"],
+	"observability": {
+		"enabled": true,
+		"logs": { "enabled": true, "head_sampling_rate": 1, "persist": true, "invocation_logs": true },
+		"traces": { "enabled": true, "persist": true, "head_sampling_rate": 0.01 }
+	},
+	"placement": { "mode": "smart" }
+}

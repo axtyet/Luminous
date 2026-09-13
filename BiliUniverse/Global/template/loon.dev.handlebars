@@ -1,0 +1,47 @@
+#!name = {{@package 'displayName'}} β
+#!desc = {{inline (@package 'description')}}
+#!openUrl = {{@package 'openUrl'}}
+#!author = {{@package 'contributors'}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!tag = {{@package 'organizationName'}}
+#!system = {{@package 'system'}}
+#!date = {{now "yyyy-MM-dd HH:mm:ss"}}
+#!version = {{version}}
+#!system_version = {{ @package 'systemVersion'}}
+
+[Argument]
+{{{arguments}}}
+
+[Rewrite]
+response if ${url} ~= /^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Global(?:\?.*)?$/ then response.body.mock_file("json", "https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/BiliBili.Global.dev.boxjs.json", 200) | response.header.set("X-PreferencePanes-Version", "{{version}}") | response.header.set("Cache-Control", "no-store")
+
+[Script]
+http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Global\/?|assets\/app\.mjs)(?:\?.*)?$ script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js, tag=PreferencePanes.Web
+http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Global(?:\/(?:get|set|delete))?\/?(?:\?.*)?$ requires-body=1, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js, tag=PreferencePanes.API
+http-request ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/? requires-body=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.bangumi.play.html, argument={{{scriptParams}}}
+
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$ requires-body=1, binary-body-mode=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.viewunite.v1.View.grpc, argument={{{scriptParams}}}
+http-response ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$ requires-body=1, binary-body-mode=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/response.dev.bundle.js, tag=📺 BiliBili.Global.viewunite.v1.View.grpc, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.season.json, argument={{{scriptParams}}}
+http-response ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\? requires-body=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/response.dev.bundle.js, tag=📺 BiliBili.Global.season.json, argument={{{scriptParams}}}
+http-response ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/ep\/list\? requires-body=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/response.dev.bundle.js, tag=📺 BiliBili.Global.ep.list.json, argument={{{scriptParams}}}
+
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$ requires-body=1, binary-body-mode=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.playerunite.v1.Player.grpc, argument={{{scriptParams}}}
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$ requires-body=1, binary-body-mode=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.player.v2.PlayURL.grpc, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/(api|web)\/playurl(\/html5)?\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.player.playurl.json, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/web\/v2\/playurl\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.player.v2.playurl.json, argument={{{scriptParams}}}
+
+http-request ^https?:\/\/search\.bilibili\.com\/all\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.search.html, argument={{{scriptParams}}}
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/(SearchAll|SearchByType)$ requires-body=1, binary-body-mode=1, script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.search.grpc, argument={{{scriptParams}}}
+http-request ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/search(\/type)?\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.search.app.json, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/wbi\/search\/(all\/v2|type)\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.search.wbi.json, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/search\/(all\/v2|type)\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.search.pc.json, argument={{{scriptParams}}}
+
+http-request ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/space\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.space.app.json, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/wbi\/acc\/info\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.space.wbi.json, argument={{{scriptParams}}}
+http-request ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/acc\/info\? script-path=https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js, tag=📺 BiliBili.Global.space.pc.json, argument={{{scriptParams}}}
+
+[MitM]
+hostname = biliverse.github.io, www.bilibili.com, app.bilibili.com, app.biliapi.net, search.bilibili.com, api.bilibili.com, api.global.bilibili.com, api.biliapi.net, grpc.biliapi.net
+h2 = true

@@ -1,39 +1,41 @@
-import { Hono } from "hono";
+import { KV as Storage } from "@auraflare/shared";
 import { fetch } from "@nsnanocat/util";
+import { Hono } from "hono/tiny";
+import HonoWorkerAdapter from "./class/HonoWorkerAdapter.mjs";
 import { Request } from "./process/Request.mjs";
 import { Response } from "./process/Response.mjs";
+/***************** 处理 *****************/
 /***************** Processing *****************/
-export default new Hono().all("/:rest{.*}", async c => {
-    const url = new URL(c.req.url);
-    switch (true) {
-        case url.hostname.startsWith("test."): {
-            url.hostname = "app.bilibili.com";
-            break;
-        }
-        default: {
-            const [host, ...path] = c.req.param("rest").split("/");
-            url.protocol = "https:";
-            url.hostname = host;
-            url.port = "443";
-			url.pathname = path.join("/");
-        }
-    }
-    let $request = {
-        method: c.req.method,
-        url: url.toString(),
-        headers: c.req.header(),
-        body: await c.req.arrayBuffer().then(r => r.byteLength ? r : undefined),
-    };
-    let $response;
-    ({ $request, $response } = await Request($request));
-    if (!$response) {
-        delete $request.headers["host"];
-        delete $request.headers["cf-connecting-ip"];
-        $response = await fetch($request);
-        $response = await Response($request, $response);
-    };
-    Object.keys($response.headers).map(k => c.header(k, $response.headers[k]));
-    delete $response.headers["content-length"];
-    delete $response.headers["transfer-encoding"];
-    return c.body($response.body);
-});
+export default new Hono()
+	.get("/", c => c.text("OK"))
+	.all("/:rest{.*}", async c => {
+		let $request = await HonoWorkerAdapter.buildRequest(c.req);
+		$request = HonoWorkerAdapter.buildArgument($request);
+		let $response;
+		const KV = c.env
+			? new Storage({
+					env: {
+						namespaces: new Map([
+							["", c.env.PersistentStore],
+							["@BiliBili.ADBlock", c.env.ADBlock],
+						]),
+					},
+				})
+			: undefined;
+		({ $request, $response } = await Request($request, KV));
+		switch (typeof $response) {
+			case "undefined":
+				$response = await fetch($request);
+				$response = await Response($request, $response, KV);
+				break;
+			case "object":
+				break;
+			default:
+				throw new TypeError(`Invalid response type: ${typeof $response}`);
+		}
+		return HonoWorkerAdapter.writeResponse(c, $response);
+	})
+	.onError((error, c) => {
+		console.error(error);
+		return c.body(error.message, 500);
+	});

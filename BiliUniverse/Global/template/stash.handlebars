@@ -12,10 +12,11 @@ homepage: "{{@package 'homepage'}}"
 icon: "{{@package 'icon'}}"
 category: "{{@package 'organizationName'}}"
 date: "{{now "yyyy-MM-dd HH:mm:ss"}}"
-version: "{{@package 'version'}}"
+version: "{{version}}"
 
 http:
   mitm:
+    - "biliverse.github.io"
     - "www.bilibili.com"
     - "search.bilibili.com"
     - "app.bilibili.com"
@@ -24,6 +25,19 @@ http:
     - "api.biliapi.net"
     - "grpc.biliapi.net"
   script:
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Global(?:\?.*)?$
+      name: PreferencePanes.Config.Global
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Global\/?|assets\/app\.mjs)(?:\?.*)?$
+      name: PreferencePanes.Web
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Global(?:\/(?:get|set|delete))?\/?(?:\?.*)?$
+      name: PreferencePanes.API
+      type: request
+      require-body: true
+      max-size: 65536
     - match: ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/?
       name: 📺 BiliBili.Global.request
       type: request
@@ -113,9 +127,18 @@ http:
       argument:
 
 script-providers:
+  PreferencePanes.Config.Global:
+    url: https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/config.bundle.js
+    interval: 86400
+  PreferencePanes.Web:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
+    interval: 86400
+  PreferencePanes.API:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+    interval: 86400
   📺 BiliBili.Global.request:
-    url: https://github.com/BiliUniverse/Global/releases/download/v{{@package 'version'}}/request.bundle.js
+    url: https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/request.bundle.js
     interval: 86400
   📺 BiliBili.Global.response:
-    url: https://github.com/BiliUniverse/Global/releases/download/v{{@package 'version'}}/response.bundle.js
+    url: https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/response.bundle.js
     interval: 86400

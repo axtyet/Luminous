@@ -7,17 +7,31 @@
 #!tag = {{@package 'organizationName'}}
 #!system = {{@package 'system'}}
 #!date = {{now "yyyy-MM-dd HH:mm:ss"}}
-#!version = {{@package 'version'}}
+#!version = {{version}}
 #!system_version = {{ @package 'systemVersion'}}
 
 [Argument]
 {{{arguments}}}
 
+[Rewrite]
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$/ then response.body.mock_file("html", "https://biliverse.github.io/settings/", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$/ then response.body.mock_file("javascript", "https://biliverse.github.io/settings/index.mjs", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Biliverse_subject.png", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Enhanced_subject.png", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Global_subject.png", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Redirect_subject.png", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$/ then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/ADBlock_subject.png", 200) | response.header.set("Cache-Control", "no-store")
+response if ${url} ~= /^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$/ then response.body.mock_file("json", "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/BiliBili.Enhanced.boxjs.json", 200) | response.header.set("X-PreferencePanes-Version", "{{version}}") | response.header.set("Cache-Control", "no-store")
+
 [Script]
-http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}
-http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.account.mine, argument={{{scriptParams}}}
-http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.region.index, argument={{{scriptParams}}}
-http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? requires-body=1, script-path=https://github.com/BiliUniverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.channel.region.list, argument={{{scriptParams}}}
+http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Enhanced\/?|assets\/(?:app|navigation)\.mjs)(?:\?.*)?$ script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js, tag=PreferencePanes.Web
+http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\/(?:get|set|delete))?\/?(?:\?.*)?$ requires-body=1, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js, tag=PreferencePanes.API
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}
+http-request ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$ requires-body=1, binary-body-mode=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/request.bundle.js, tag=📺 BiliBili.Enhanced.show.v1.Mixture.RegionShortcut.request.grpc, argument={{{scriptParams}}}
+http-response ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionList$ requires-body=1, binary-body-mode=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.show.v1.Mixture.RegionList.response.grpc, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.account.mine, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.region.index, argument={{{scriptParams}}}
+http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 BiliBili.Enhanced.x.v2.channel.region.list, argument={{{scriptParams}}}
 
 [MitM]
-hostname = app.bilibili.com, app.biliapi.net
+hostname = biliverse.github.io, app.bilibili.com, app.biliapi.net, grpc.biliapi.net

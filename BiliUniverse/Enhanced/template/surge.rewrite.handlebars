@@ -1,0 +1,12 @@
+#!name = {{@package 'displayName'}} (Rewrite)
+#!desc = {{inline (@package 'description')}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!arguments = {{{arguments}}}
+#!arguments-desc = {{{argumentsDesc}}}
+
+[URL Rewrite]
+^https?:\/\/(app\.bili(?:bili\.com|api\.net))\/((?:x\/resource\/show\/tab\/v2|x\/v2\/account\/mine(?:\/ipad)?|x\/v2\/region\/index|x\/v2\/channel\/region\/list).*)$ https:\/\/\{{{endpoint}}}\/$1\/$2 header
+
+[MITM]
+hostname = biliverse.github.io, app.bilibili.com, app.biliapi.net

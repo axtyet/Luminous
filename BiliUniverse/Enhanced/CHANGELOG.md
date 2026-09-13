@@ -1,3 +1,6 @@
+### 🔄 Other Changes
+  * 设置页面资源与模块 API 分离，分别使用 PreferencePanes 1.0.0 的 `web.js` 和 `api.js`
+
 ### 🆕 New Features
   * 新增了首页、分区、我的标签页的自定义功能开关
     * 现在可以控制只修改某个特定页面的内容了

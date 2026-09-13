@@ -1,0 +1,25 @@
+#!name = {{@package 'displayName'}} β
+#!desc = {{inline (@package 'description')}}
+#!openUrl = {{@package 'openUrl'}}
+#!author = {{@package 'contributors'}}
+#!homepage = {{@package 'homepage'}}
+#!icon = {{@package 'icon'}}
+#!category = {{@package 'organizationName'}}
+#!date = {{now "yyyy-MM-dd HH:mm:ss"}}
+#!version = {{version}}
+
+#[rewrite_local]
+^https:\/\/app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?(?:\?[^#]*)?$ url script-echo-response https://biliverse.github.io/settings/mock.js
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Enhanced\/?|assets\/(?:app|navigation)\.mjs)(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\/(?:get|set|delete))?\/?(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+# Biliverse 本地设置
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$ url script-echo-response https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/config.dev.bundle.js
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$ url script-request-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/request.dev.bundle.js
+^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionList$ url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\? url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\? url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\? url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
+
+#[mitm]
+hostname = biliverse.github.io, app.bilibili.com, app.biliapi.net, grpc.biliapi.net

@@ -2,23 +2,23 @@
 #!desc=(BETA) 哔哩国际：全球模式（国际站自动线路及全区搜索）
 #!openUrl=http://boxjs.com/#/app/BiliIntl.Global.beta
 #!author=VirgilClyne
-#!homepage=https://global.biliuniverse.io
-#!manual=https://manual.biliuniverse.io
+#!homepage=https://biliverse.github.io/guide/global
+#!manual=https://biliverse.github.io/guide/global
 #!icon=https://raw.githubusercontent.com/Koolson/Qure/master/IconSet/Color/bilibili.png
-#!category=📺 BiliUniverse
+#!category=📺 Biliverse
 
 [Script]
-BiliIntl.Global.anime.html = type=http-request, pattern=^https?:\/\/www\.bilibili\.tv\/([a-z]{2})\/anime?(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
-BiliIntl.Global.play.html = type=http-request, pattern=^https?:\/\/www\.bilibili\.tv\/([a-z]{2})\/play\/\d+(\/\d+)?(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.anime.html = type=http-request, pattern=^https?:\/\/www\.bilibili\.tv\/([a-z]{2})\/anime?(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.play.html = type=http-request, pattern=^https?:\/\/www\.bilibili\.tv\/([a-z]{2})\/play\/\d+(\/\d+)?(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
 
-BiliIntl.Global.season.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/ogv\/view\/app\/season2(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, ability=http-client-policy, argument=
+BiliIntl.Global.season.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/ogv\/view\/app\/season2(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, ability=http-client-policy, argument=
 
-BiliIntl.Global.playurl.app.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/ogv\/playurl(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
-BiliIntl.Global.playurl.web.json = type=http-request, pattern=^https?:\/\/api\.bilibili\.tv\/intl\/gateway\/web\/playurl(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.playurl.app.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/ogv\/playurl(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.playurl.web.json = type=http-request, pattern=^https?:\/\/api\.bilibili\.tv\/intl\/gateway\/web\/playurl(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
 
-BiliIntl.Global.search.app.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/app\/search\/(type|v2)(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.search.app.json = type=http-request, pattern=^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/app\/search\/(type|v2)(\?.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
 
-BiliIntl.Global.all.json = type=http-request, pattern=^https?:\/\/(app|passport)\.biliintl\.com\/(.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/BiliUniverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
+BiliIntl.Global.all.json = type=http-request, pattern=^https?:\/\/(app|passport)\.biliintl\.com\/(.+)?$, engine=webview, timeout=15, debug=1, script-path=https://raw.githubusercontent.com/Biliverse/Global/beta/js/BiliIntl.Global.request.beta.js, argument=
 
 [MITM]
 hostname = %APPEND% www.bilibili.tv, api.bilibili.tv, app.biliintl.com, passport.biliintl.com

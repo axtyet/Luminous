@@ -1,11 +1,11 @@
 {
-	"name": "@biliuniverse/global",
-	"organizationName": "🪐 BiliUniverse",
+	"name": "@biliverse/global",
+	"organizationName": "🪐 Biliverse",
 	"displayName": "📺 BiliBili: 🌐 Global",
 	"description": "哔哩哔哩：全球模式\n中国站自动线路及全区搜索",
-	"homepage": "https://Global.BiliUniverse.io",
+	"homepage": "https://biliverse.github.io/guide/global",
 	"openUrl": "http://boxjs.com/#/app/BiliBili.Global",
-	"icon": "https://github.com/BiliUniverse/Global/raw/main/src/assets/icon_rounded.png",
+	"icon": "https://github.com/Biliverse/Global/raw/main/src/assets/icon_rounded.png",
 	"keywords": [],
 	"contributors": [
 		"VirgilClyne[https://github.com/VirgilClyne]"
@@ -21,17 +21,27 @@
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/BiliUniverse/Global.git"
+		"url": "https://github.com/Biliverse/Global.git"
 	},
 	"directories": {
 		"example": "example"
 	},
 	"scripts": {
-		"serve": "webpack serve",
-		"build": "rspack build",
-		"build:dev": "rspack build -c rspack.dev.config.js --mode=development",
-		"build:args": "arguments-builder build",
-		"dts": "arguments-builder dts",
+		"dev": "BUILD_VERSION=dev.$(git rev-parse --short HEAD) npm-run-all --serial build:dev-args build:dev",
+		"dev:pages": "npx wrangler pages dev --port 8787",
+		"dev:workers": "npx wrangler dev -c wrangler.workers.jsonc",
+		"deploy:pages": "npx wrangler pages deploy",
+		"deploy:workers": "npx wrangler deploy --minify -c wrangler.workers.jsonc",
+		"build": "npm-run-all --serial build:args build:scripts",
+		"build:scripts": "rollup -c",
+		"build:dev": "rollup -c rollup.dev.config.mjs",
+		"build:dev-args": "arguments-builder build -c arguments-builder.dev.config.ts",
+		"build:release-args": "arguments-builder build -c arguments-builder.release.config.ts",
+		"build:full-args": "arguments-builder boxjs -c arguments-builder.full.config.ts",
+		"build:args:rewrite": "arguments-builder build -c arguments-builder.rewrite.config.ts",
+		"build:args": "npm-run-all --serial build:release-args build:full-args",
+		"test": "node --test tests/*.test.mjs",
+		"dts": "arguments-builder dts -c arguments-builder.full.config.ts",
 		"submodule": "git submodule update --remote",
 		"update": "npm update --save"
 	},
@@ -39,19 +49,23 @@
 		"iOS >= 15"
 	],
 	"devDependencies": {
+		"@biomejs/biome": "2.5.11",
 		"@iringo/arguments-builder": "^1.8.5",
-		"@protobuf-ts/plugin": "^2.11.1",
-		"@rspack/cli": "^1.7.6",
-		"@rspack/core": "^1.7.6",
-		"node-polyfill-webpack-plugin": "^4.0.0",
+		"@rollup/plugin-node-resolve": "^16.0.3",
+		"@rollup/plugin-terser": "^1.0.0",
+		"npm-run-all": "^4.1.5",
 		"pako": "^2.1.0",
-		"typescript": "^5.9.3"
+		"rollup": "^4.63.1",
+		"typescript": "^5.9.3",
+		"wrangler": "^4.127.1"
 	},
 	"dependencies": {
-		"@nsnanocat/grpc": "^1.0.0",
-		"@nsnanocat/url": "^1.2.5",
-		"@nsnanocat/util": "^2.1.5",
+		"@nsnanocat/grpc": "^1.1.0",
+		"@nsnanocat/url": "^1.2.6",
+		"@nsnanocat/util": "^2.7.4",
+		"@biliverse/protobuf": "^1.0.0",
 		"@protobuf-ts/runtime": "^2.11.1",
-		"@protobuf-ts/runtime-rpc": "^2.11.1"
+		"@protobuf-ts/runtime-rpc": "^2.11.1",
+		"hono": "^4.13.5"
 	}
 }

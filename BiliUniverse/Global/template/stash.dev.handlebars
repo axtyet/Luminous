@@ -1,0 +1,144 @@
+name: "{{@package 'displayName'}} β"
+desc: |-
+  {{#each (split (@package 'description') "\n")}}
+  {{{this}}}
+  {{/each}}
+openUrl: "{{@package 'openUrl'}}"
+author: |-
+  {{#each (@package 'contributors')}}
+  {{this}}
+  {{/each}}
+homepage: "{{@package 'homepage'}}"
+icon: "{{@package 'icon'}}"
+category: "{{@package 'organizationName'}}"
+date: "{{now "yyyy-MM-dd HH:mm:ss"}}"
+version: "{{version}}"
+
+http:
+  mitm:
+    - "biliverse.github.io"
+    - "www.bilibili.com"
+    - "search.bilibili.com"
+    - "app.bilibili.com"
+    - "app.biliapi.net"
+    - "api.bilibili.com"
+    - "api.biliapi.net"
+    - "grpc.biliapi.net"
+  script:
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Global(?:\?.*)?$
+      name: PreferencePanes.Config.Global
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:Global\/?|assets\/app\.mjs)(?:\?.*)?$
+      name: PreferencePanes.Web
+      type: request
+      require-body: false
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Global(?:\/(?:get|set|delete))?\/?(?:\?.*)?$
+      name: PreferencePanes.API
+      type: request
+      require-body: true
+      max-size: 65536
+    - match: ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.viewunite\.v1\.View\/View$
+      name: 📺 BiliBili.Global.response
+      type: response
+      require-body: true
+      binary-mode: true
+      max-size: 262144
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/season\?
+      name: 📺 BiliBili.Global.response
+      type: response
+      require-body: true
+      max-size: 262144
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/view\/(v2\/app|web|pc)\/ep\/list\?
+      name: 📺 BiliBili.Global.response
+      type: response
+      require-body: true
+      max-size: 262144
+      argument:
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.playerunite\.v1\.Player\/PlayViewUnite$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.pgc\.gateway\.player\.v2\.PlayURL\/PlayView$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/(api|web)\/playurl(\/html5)?\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/pgc\/player\/web\/v2\/playurl\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.polymer\.app\.search\.v1\.Search\/(SearchAll|SearchByType)$
+      name: 📺 BiliBili.Global.request
+      type: request
+      require-body: true
+      binary-mode: true
+      argument:
+    - match: ^https?:\/\/search\.bilibili\.com\/all\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/search(\/type)?\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/wbi\/search\/(all\/v2|type)\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/web-interface\/search\/(all\/v2|type)\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/space\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/wbi\/acc\/info\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+    - match: ^https?:\/\/api\.bili(bili\.com|api\.net)\/x\/space\/acc\/info\?
+      name: 📺 BiliBili.Global.request
+      type: request
+      argument:
+
+script-providers:
+  PreferencePanes.Config.Global:
+    url: https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/config.dev.bundle.js
+    interval: 86400
+  PreferencePanes.Web:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
+    interval: 86400
+  PreferencePanes.API:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+    interval: 86400
+  📺 BiliBili.Global.request:
+    url: https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/request.dev.bundle.js
+    interval: 86400
+  📺 BiliBili.Global.response:
+    url: https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/response.dev.bundle.js
+    interval: 86400

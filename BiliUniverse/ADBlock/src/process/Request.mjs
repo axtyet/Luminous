@@ -1,34 +1,40 @@
-import { Console, Lodash as _ } from "@nsnanocat/util";
-import database from "../function/database.mjs";
-import setENV from "../function/setENV.mjs";
+import gRPC from "@nsnanocat/grpc";
+import { Console } from "@nsnanocat/util";
 import MD5 from "crypto-js/md5.js";
+import { cacheAirborneRequest } from "../function/airborne.mjs";
+import database from "../function/database.mjs";
+import fixHeaders from "../function/fixHeaders.mjs";
+import setENV from "../function/setENV.mjs";
 /***************** Processing *****************/
-export async function Request($request) {
+export async function Request($request, KV) {
 	// 构造回复数据
-    let $response = undefined;
+	let $response;
 	// 解构URL
 	const url = new URL($request.url);
-	Console.info(`url: ${url.toJSON()}`);
 	// 获取连接参数
 	const PATHs = url.pathname.split("/").filter(Boolean);
-	Console.info(`PATHs: ${PATHs}`);
 	// 解析格式
 	const FORMAT = ($request.headers?.["Content-Type"] ?? $request.headers?.["content-type"])?.split(";")?.[0];
-	Console.info(`FORMAT: ${FORMAT}`);
 	/**
 	 * 设置
 	 * @type {{Settings: import('./types').Settings}}
 	 */
-	const { Settings, Caches, Configs } = setENV("BiliBili", "ADBlock", database);
+	const { Settings, Caches } = await setENV("BiliBili", "ADBlock", database, KV);
+	// 原实现还会解构 Configs；当前流程暂未使用，保留下面的原结构供后续功能恢复。
+	// const { Settings, Caches, Configs } = await setENV("BiliBili", "ADBlock", database, KV);
 	Console.logLevel = Settings.LogLevel;
-	// 创建空数据
-	const body = { code: 0, message: "0", data: {} };
+	// 重要：环境合并完成后才能输出分级日志，确保整次执行只使用 BoxJS 最终确定的日志等级。
+	Console.info(`url: ${url.toJSON()}`);
+	Console.info(`PATHs: ${PATHs}`);
+	Console.info(`FORMAT: ${FORMAT}`);
+	// 预留的通用响应结构，当前请求处理流程暂未使用。
+	// const body = { code: 0, message: "0", data: {} };
 	// 方法判断
 	switch ($request.method) {
 		case "POST":
 		case "PUT":
 		case "PATCH":
-		// biome-ignore lint/suspicious/noFallthroughSwitchClause: <explanation>
+		// biome-ignore lint/suspicious/noFallthroughSwitchClause: inspect the request body before URL routing
 		case "DELETE":
 			// 格式判断
 			switch (FORMAT) {
@@ -72,8 +78,9 @@ export async function Request($request) {
 				case "application/x-protobuf":
 				case "application/vnd.google.protobuf":
 				case "application/grpc":
+				case "application/grpc-web":
 				case "application/grpc+proto":
-				case "applecation/octet-stream": {
+				case "application/octet-stream": {
 					//Console.debug(`$request.body: ${JSON.stringify($request.body)}`);
 					//let rawBody = $app === "Quantumult X" ? new Uint8Array($request.bodyBytes ?? []) : ($request.body ?? new Uint8Array());
 					//Console.debug(`isBuffer? ${ArrayBuffer.isView(rawBody)}: ${JSON.stringify(rawBody)}`);
@@ -91,10 +98,33 @@ export async function Request($request) {
 					break;
 				case "search.bilibili.com":
 					break;
-				case "app.bilibili.com":
+				case "grpc.biliapi.net":
 				case "app.biliapi.net":
-					// 路径判断
+				case "app.bilibili.com":
+				case "app.biliapi.com":
 					switch (url.pathname) {
+						case "/bilibili.community.service.dm.v1.DM/DmSegMobile":
+							switch (Settings?.DM?.Airborne) {
+								case true: {
+									cacheAirborneRequest($request);
+									break;
+								}
+								case false:
+								default:
+									break;
+							}
+							break;
+						case "/bilibili.app.interface.v1.Search/DefaultWords":
+							$response = {
+								status: 200,
+								headers: fixHeaders($request.headers, {
+									"Content-Type": "application/grpc",
+									"Content-Length": "5",
+								}),
+								body: gRPC.encode(new Uint8Array()),
+							};
+							Console.info("✅ 搜索默认关键词已返回空 gRPC 响应");
+							break;
 						case "/x/v2/splash/show": // 开屏页
 						case "/x/v2/splash/list": // 开屏页
 						case "/x/v2/splash/brand/list": // 开屏页
@@ -155,13 +185,89 @@ export async function Request($request) {
 							break;
 					}
 					break;
+				case "cm.bilibili.com":
+					switch (url.pathname) {
+						case "/cm/api/conversion/mobile/v2":
+							switch (true) {
+								case Settings?.Privacy?.BlockBiliCommercial:
+								case Settings?.Privacy?.Strict:
+									$response = {
+										status: 200,
+										headers: { "Content-Type": "application/json; charset=utf-8" },
+										body: JSON.stringify({ code: 0, message: "success" }),
+									};
+									Console.info("✅ B站商业转化上报已本地响应");
+									break;
+								default:
+									break;
+							}
+							break;
+						case "/cm/api/fees/wise":
+							switch (true) {
+								case Settings?.Privacy?.BlockBiliCommercial:
+								case Settings?.Privacy?.Strict:
+									$response = {
+										status: 200,
+										headers: { "Content-Type": "application/json; charset=utf-8" },
+										body: JSON.stringify({ code: 0 }),
+									};
+									Console.info("✅ B站商业曝光上报已本地响应");
+									break;
+								default:
+									break;
+							}
+							break;
+					}
+					break;
+				case "adtrack.qianwen.com":
+					switch (true) {
+						case Settings?.Privacy?.BlockThirdParty:
+						case Settings?.Privacy?.Strict:
+							switch (true) {
+								case /^\/v3\/ad\/(?:show\/)?bilibili$/.test(url.pathname):
+									$response = {
+										status: 200,
+										headers: { "Content-Type": "text/plain; charset=utf-8" },
+										body: "",
+									};
+									Console.info("✅ 千问广告归因请求已本地响应");
+									break;
+								default:
+									break;
+							}
+							break;
+						default:
+							break;
+					}
+					break;
+				case "tkio-redirect.solar-engine.com":
+					switch (true) {
+						case Settings?.Privacy?.BlockThirdParty:
+						case Settings?.Privacy?.Strict:
+							switch (true) {
+								case url.pathname.startsWith("/receive/turl/"):
+									$response = {
+										status: 200,
+										headers: { "Content-Type": "application/json; charset=utf-8" },
+										body: JSON.stringify({ status: 0 }),
+									};
+									Console.info("✅ Solar Engine广告归因请求已本地响应");
+									break;
+								default:
+									break;
+							}
+							break;
+						default:
+							break;
+					}
+					break;
 			}
 			break;
 		case "CONNECT":
 		case "TRACE":
 			break;
 	}
-    $request.url = url.toString();
-    Console.debug(`$request.url: ${$request.url}`);
-    return { $request, $response };
+	$request.url = url.toString();
+	Console.debug(`$request.url: ${$request.url}`);
+	return { $request, $response };
 }
