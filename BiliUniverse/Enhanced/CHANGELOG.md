@@ -1,5 +1,5 @@
 ### 🔄 Other Changes
-  * 设置页面资源与模块 API 分离，分别使用 PreferencePanes 1.0.0 的 `web.js` 和 `api.js`
+  * 由 Enhanced 唯一安装 PreferencePanes 1.1.1 的通用 `web.js`，统一服务全部模块设置页；`api.js` 仅处理 Enhanced 配置探测与持久化
 
 ### 🆕 New Features
   * 新增了首页、分区、我的标签页的自定义功能开关
