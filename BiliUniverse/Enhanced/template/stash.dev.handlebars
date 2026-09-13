@@ -29,12 +29,12 @@ http:
       name: PreferencePanes.Web
       type: request
       require-body: false
-    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\/(?:get|set|delete))?\/?(?:\?.*)?$
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$
       name: PreferencePanes.API
       type: request
       require-body: true
       max-size: 65536
-    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/configs\/Enhanced(?:\?.*)?$
+    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$
       name: 📺 BiliBili.Enhanced.Config
       type: request
       require-body: false

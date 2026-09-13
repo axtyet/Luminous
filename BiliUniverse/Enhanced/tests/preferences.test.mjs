@@ -23,26 +23,26 @@ test("BoxJS paths match the persistence consumed by business requests", async ()
 	assert.equal(JSON.parse(store.get("BiliBili")).Global.sentinel, true);
 });
 
-test("settings integration installs the only generic web script and the Enhanced API", async () => {
+test("settings integration installs the only generic web and API scripts", async () => {
 	for (const name of await readdir(new URL("../template/", import.meta.url))) {
 		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		assert.ok(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js"), name);
 		assert.equal((template.match(/https:\/\/github\.com\/NSNanoCat\/PreferencePanes\/releases\/latest\/download\/web\.js/g) ?? []).length, 1, name);
-		assert.ok(template.includes("api\\/Enhanced(?:\\/(?:get|set|delete))?\\/?"), name);
+		assert.ok(template.includes("api\\/(?:get|set|delete)"), name);
 		assert.ok(template.includes("settings\\/(?:[a-zA-Z0-9_-]+\\/?|assets\\/(?:index|navigation)\\.mjs)"), name);
 		assert.doesNotMatch(template, /api\\\/\(\?:get\|set\|delete\)\|settings/);
 		assert.doesNotMatch(template, /assets\\\/(?:index\|host|host\|index)\)\\\.mjs/);
 		assert.doesNotMatch(template, /Enhanced\.request\.js|PreferencePanes\.request\.js|settings\/assets\/index\.html/);
-		const line = template.split("\n").find(line => line.includes("configs") && line.includes("biliverse"));
+		const line = template.split("\n").find(line => line.includes("api") && line.includes("Enhanced") && line.includes("biliverse"));
 		assert.ok(line, name);
 		const pattern = line.startsWith("response if") ? line.match(/~= \/(.+)\/ then/)[1] : name.startsWith("shadowrocket") ? line.match(/pattern=([^,]+)/)[1] : name.startsWith("stash") ? line.trim().slice("- match: ".length) : line.split(" ")[0];
 		const matcher = new RegExp(pattern);
-		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced"));
-		assert.ok(matcher.test("https://app.bilibili.com/configs/Enhanced"));
+		assert.ok(matcher.test("https://biliverse.github.io/api/Enhanced"));
+		assert.ok(matcher.test("https://app.bilibili.com/api/Enhanced"));
 		assert.equal(matcher.test("https://app.bilibili.com/x/v2/account/mine"), false);
-		assert.ok(matcher.test("https://biliverse.github.io/configs/Enhanced?v=1"));
-		for (const pathname of ["/api/Enhanced/", "/settings/", "/settings/Enhanced", "/configs/Global", "/settings/assets/Enhanced.boxjs.json", "/settings/assets/Enhanced.config.js"]) assert.equal(matcher.test(`https://biliverse.github.io${pathname}`), false, name);
+		assert.ok(matcher.test("https://biliverse.github.io/api/Enhanced?v=1"));
+		for (const pathname of ["/api/Enhanced/", "/api/Enhanced/get", "/settings/", "/settings/Enhanced", "/configs/Enhanced", "/api/Global", "/settings/assets/Enhanced.boxjs.json", "/settings/assets/Enhanced.config.js"]) assert.equal(matcher.test(`https://biliverse.github.io${pathname}`), false, name);
 		assert.doesNotMatch(template, /biliverse\.github\.io\/settings\/assets\/.*boxjs/);
 		const webLine = template.split("\n").find(line => line.includes("settings\\/(?:[a-zA-Z0-9_-]+"));
 		assert.ok(webLine, name);
@@ -58,6 +58,20 @@ test("settings integration installs the only generic web script and the Enhanced
 			assert.ok(webMatcher.test(`https://app.bilibili.com${pathname}`), `${name}: ${pathname}`);
 		for (const pathname of ["/settings/", "/settings/index.mjs", "/settings/assets/app.mjs", "/configs/Enhanced", "/api/Enhanced"])
 			assert.equal(webMatcher.test(`https://app.bilibili.com${pathname}`), false, `${name}: ${pathname}`);
+		const apiLine = template.split("\n").find(line => line.includes("api\\/(?:get|set|delete)"));
+		assert.ok(apiLine, name);
+		const apiPattern = apiLine.startsWith("response if")
+			? apiLine.match(/~= \/(.+)\/ then/)[1]
+			: /^(?:shadowrocket|surge)/.test(name)
+				? apiLine.match(/pattern=([^,]+)/)[1]
+				: name.startsWith("stash")
+					? apiLine.trim().slice("- match: ".length)
+					: apiLine.match(/(?:http-request )?(\^https[^ ]+)/)[1];
+		const apiMatcher = new RegExp(apiPattern);
+		for (const pathname of ["/api/get", "/api/set", "/api/delete"])
+			assert.ok(apiMatcher.test(`https://app.bilibili.com${pathname}`), `${name}: ${pathname}`);
+		for (const pathname of ["/api/Enhanced", "/api/Global", "/api/Redirect", "/api/ADBlock", "/api/get/", "/api/Enhanced/get", "/configs/Enhanced", "/settings/Enhanced"])
+			assert.equal(apiMatcher.test(`https://app.bilibili.com${pathname}`), false, `${name}: ${pathname}`);
 		const development = name.includes(".dev.");
 		const source = development ? "https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/" : "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/";
 		const file = /^(surge|loon)/.test(name) ? `BiliBili.Enhanced${development ? ".dev" : ""}.boxjs.json` : `config${development ? ".dev" : ""}.bundle.js`;
@@ -81,7 +95,7 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 				false,
 				name,
 			);
-		for (const pathname of ["/settings/home.js", "/settings/bilibili.mjs", "/settings/assets/navigation.mjs", "/settings/Enhanced", "/settings/assets/index.mjs", "/settings/assets/host.mjs", "/configs/Enhanced", "/api/get", "/x/v2/account/mine", "/settings/theme.css"])
+		for (const pathname of ["/settings/home.js", "/settings/bilibili.mjs", "/settings/assets/navigation.mjs", "/settings/Enhanced", "/settings/assets/index.mjs", "/settings/assets/host.mjs", "/configs/Enhanced", "/api/Enhanced", "/api/get", "/x/v2/account/mine", "/settings/theme.css"])
 			assert.equal(
 				patterns.some(pattern => pattern.test(`https://app.bilibili.com${pathname}`)),
 				false,

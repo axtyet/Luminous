@@ -1,5 +1,5 @@
 ### 🔄 Other Changes
-  * 移除重复的 PreferencePanes `web.js` 和 `/settings/**` 规则，仅保留 1.1.1 `api.js`；设置前端统一由 Enhanced 提供
+  * 将 `HEAD/GET /api/ADBlock` 直接 Mock 到同版 BoxJS；移除旧 `/configs/ADBlock` 以及全部 PreferencePanes `web.js`、`api.js` 和 `/settings/**` 规则
 
 ### 🛠️ Bug Fixes
   * 修复 grpc 响应头缺失的问题 by @VirgilClyne
