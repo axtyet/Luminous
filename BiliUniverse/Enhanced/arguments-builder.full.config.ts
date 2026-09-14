@@ -44,6 +44,49 @@ export const args: ArgumentItem[] = [
 		description: "启用后可自定义首页顶栏、标签页和底部导航栏内容。标签页由分区页的快捷访问决定。",
 	},
 	{
+		key: "Home.Tab",
+		name: "[首页] 标签页",
+		defaultValue: ["2036", "2037", "780", "545", "151"],
+		type: "array",
+		boxJsType: "checkboxes",
+		exclude: ["boxjs"],
+		description: "请选择启用的首页标签页，建议不超过7个。",
+		options: [
+			{
+				key: "2036",
+				label: "直播",
+			},
+			{
+				key: "2037",
+				label: "推荐",
+			},
+			{
+				key: "780",
+				label: "热门",
+			},
+			{
+				key: "545",
+				label: "番剧",
+			},
+			{
+				key: "774",
+				label: "动画（港澳台）",
+			},
+			{
+				key: "151",
+				label: "影视",
+			},
+			{
+				key: "801",
+				label: "韩综（港澳台）",
+			},
+			{
+				key: "2280",
+				label: "校园",
+			},
+		],
+	},
+	{
 		key: "Home.Tab_default",
 		name: "[首页] 默认标签页",
 		defaultValue: "2037",

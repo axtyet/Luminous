@@ -114,3 +114,10 @@ test("BoxJS no longer exposes the Home.Tab checkbox", () => {
 	assert.ok(!settings.some(setting => setting.id === "@BiliBili.Enhanced.Settings.Home.Tab"));
 	assert.ok(settings.some(setting => setting.id === "@BiliBili.Enhanced.Settings.Home.Tab_default"));
 });
+
+test("argument config uses RegionList IDs for Home.Tab outside BoxJS", () => {
+	const config = readFileSync(new URL("../arguments-builder.full.config.ts", import.meta.url), "utf8");
+	assert.match(config, /key: "Home\.Tab"[\s\S]*defaultValue: \["2036", "2037", "780", "545", "151"\][\s\S]*exclude: \["boxjs"\]/);
+	for (const key of ["2036", "2037", "780", "545", "774", "151", "801", "2280"]) assert.match(config, new RegExp(`key: "${key}"`));
+	for (const key of ["live", "recommend", "hottopic", "bangumi", "anime", "film", "koreavtw"]) assert.doesNotMatch(config, new RegExp(`key: "${key}"`));
+});

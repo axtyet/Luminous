@@ -9,6 +9,31 @@ export interface Settings {
          */
         Switch?: boolean;
     /**
+         * [首页] 标签页
+         *
+         * 请选择启用的首页标签页，建议不超过7个。
+         *
+         * @remarks
+         *
+         * Possible values:
+         * - `'live'` - 直播
+         * - `'recommend'` - 推荐
+         * - `'hottopic'` - 热门
+         * - `'bangumi'` - 番剧
+         * - `'anime'` - 动画（港澳台）
+         * - `'film'` - 影视
+         * - `'koreavtw'` - 韩综（港澳台）
+         * - `'game'` - 游戏
+         * - `'minecraft'` - minecraft
+         * - `'anime_fan'` - 动画同人
+         * - `'funny'` - 搞笑
+         * - `'school'` - 校园
+         * - `'digital'` - 数码
+         *
+         * @defaultValue ["live","recommend","hottopic","bangumi","anime","film","koreavtw"]
+         */
+        Tab?: ('live' | 'recommend' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'minecraft' | 'anime_fan' | 'funny' | 'school' | 'digital')[];
+    /**
          * [首页] 默认标签页
          *
          * 请选择启动APP时默认展示的标签页，需先将该标签页加入分区页的快捷访问。

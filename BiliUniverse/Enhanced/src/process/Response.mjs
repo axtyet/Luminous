@@ -65,7 +65,17 @@ export async function Response($request, $response) {
 							// 顶栏-右侧
 							body.data.top = Configs.Tab.top
 								.map(e => {
-									if (Settings.Home.Top.includes(e.tab_id)) return e;
+									if (Settings.Home.Top.includes(e.id)) return e;
+								})
+								.filter(Boolean)
+								.map((e, i) => {
+									e.pos = i + 1;
+									return e;
+								});
+							// 顶栏-更多
+							body.data.top_more = Configs.Tab.top_more
+								.map(e => {
+									if (Settings.Home.Top_more.includes(e.id)) return e;
 								})
 								.filter(Boolean)
 								.map((e, i) => {
@@ -77,7 +87,7 @@ export async function Response($request, $response) {
 							// 底部导航栏
 							body.data.bottom = Configs.Tab.bottom
 								.map(e => {
-									if (Settings.Bottom.includes(e.tab_id)) return e;
+									if (Settings.Bottom.includes(e.id)) return e;
 								})
 								.filter(Boolean)
 								.map((e, i) => {

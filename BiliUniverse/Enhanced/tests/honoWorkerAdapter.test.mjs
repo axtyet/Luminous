@@ -69,3 +69,32 @@ test("returns a fully local Tab response during request processing", async () =>
 	);
 	assert.ok(body.data.tab.every(item => typeof item.id === "number"));
 });
+
+test("uses semantic IDs for top and bottom response filtering", async () => {
+	HonoWorkerAdapter.buildArgument({
+		url: "https://app.bilibili.com/x/resource/show/tab/v2",
+		headers: {
+			"biliverse-args": "Home.Switch=true&Home.Top=messages&Home.Top_more=categories,search&Bottom=home,dynamic,ogv,mall,mine&LogLevel=OFF",
+		},
+	});
+	const response = {
+		status: 200,
+		headers: { "content-type": "application/json" },
+		body: JSON.stringify({ code: 0, message: "0", data: {} }),
+	};
+	const result = await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2" }, response);
+	const body = JSON.parse(result.body);
+
+	assert.deepEqual(
+		body.data.top.map(item => item.id),
+		["messages"],
+	);
+	assert.deepEqual(
+		body.data.top_more.map(item => item.id),
+		["categories", "search"],
+	);
+	assert.deepEqual(
+		body.data.bottom.map(item => item.id),
+		["home", "dynamic", "ogv", "mall", "mine"],
+	);
+});
