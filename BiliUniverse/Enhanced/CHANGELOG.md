@@ -1,4 +1,5 @@
 ### 🔄 Other Changes
+  * 为模块页 Header 指定的 Biliverse 线上主题 CSS 补充各平台代理模板 Mock
   * 将 `HEAD/GET /api/Enhanced` 直接 Mock 到同版 BoxJS；由 Enhanced 唯一安装 PreferencePanes 1.1.3 的通用 `web.js` 与固定 `/api/get|set|delete` 存储 API
 
 ### 🆕 New Features

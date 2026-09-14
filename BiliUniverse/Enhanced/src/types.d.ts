@@ -83,9 +83,9 @@ export interface Settings {
          */
         Top?: ('game_center' | 'mall' | 'messages')[];
     /**
-         * [首页] 顶栏（更多）按钮
+         * [首页] 标签栏右侧按钮
          *
-         * 请选择启用的首页顶栏更多按钮。
+         * 请选择启用的首页标签栏右侧按钮。
          *
          * @remarks
          *

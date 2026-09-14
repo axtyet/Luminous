@@ -170,11 +170,11 @@ export const args: ArgumentItem[] = [
 	},
 	{
 		key: "Home.Top_more",
-		name: "[首页] 顶栏（更多）按钮",
+		name: "[首页] 标签栏右侧按钮",
 		defaultValue: ["categories", "search"],
 		type: "array",
 		boxJsType: "checkboxes",
-		description: "请选择启用的首页顶栏更多按钮。",
+		description: "请选择启用的首页标签栏右侧按钮。",
 		options: [
 			{
 				key: "categories",

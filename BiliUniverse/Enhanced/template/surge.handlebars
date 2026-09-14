@@ -21,6 +21,7 @@
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$ data-type=file data="https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/BiliBili.Enhanced.boxjs.json" status-code=200 header="Content-Type:application/json; charset=utf-8|Cache-Control:no-store|X-PreferencePanes-Version:{{version}}"
 
 [Script]
+Biliverse.Website = type=http-request, pattern=^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$, script-path=https://biliverse.github.io/settings/mock.js
 PreferencePanes.Web = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
 PreferencePanes.API = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$, requires-body=1, max-size=65536, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 📺 BiliBili.Enhanced.x.resource.show.tab.v2 = type=http-response, pattern=^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\?, requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, argument={{{scriptParams}}}

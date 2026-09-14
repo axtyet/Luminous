@@ -14,4 +14,4 @@ App 中的 Biliverse 入口仍由 Enhanced 注入，地址为 [本地设置](htt
 
 配置探测的响应头 `X-PreferencePanes-Version` 与本次脚本构建版本一致：dev 为 `dev.<commit>`，正式版为发布版本。主页只发送 HEAD，不读取设置。Loon 使用原生 `rewrite_v2` Mock 与响应头动作，需要 Loon 3.5.1 或更新版本。
 
-设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com`。配置仍由 Enhanced 的同版 Gist / Release 提供；通用模块页面只由 Enhanced 安装的 `web.js` 提供，Global、Redirect、ADBlock 不再携带前端规则。Enhanced 还映射 Biliverse 主页、主页唯一的 `index.mjs` 和五张透明前景图标；该页面脚本直接调用 Bilibili 官方 JSBridge SDK，并使用 PreferencePanes 提供的客户端无关网页组件。
+设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com`。配置仍由 Enhanced 的同版 Gist / Release 提供；通用模块页面只由 Enhanced 安装的 `web.js` 提供，Global、Redirect、ADBlock 不再携带前端规则。Enhanced 还映射 Biliverse 主页、主页唯一的 `index.mjs` 和五张透明前景图标，并通过网站 `mock.js` 接管模块页 Header 指定的线上 `theme.css`；该页面脚本直接调用 Bilibili 官方 JSBridge SDK，并使用 PreferencePanes 提供的客户端无关网页组件。

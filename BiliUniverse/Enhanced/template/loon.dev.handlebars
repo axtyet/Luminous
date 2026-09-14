@@ -24,6 +24,7 @@ response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_
 response if ${url} ~= /^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$/ then response.body.mock_file("json", "https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/BiliBili.Enhanced.dev.boxjs.json", 200) | response.header.set("X-PreferencePanes-Version", "{{version}}") | response.header.set("Cache-Control", "no-store")
 
 [Script]
+http-request ^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$ script-path=https://biliverse.github.io/settings/mock.js, tag=Biliverse.Website
 http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$ script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js, tag=PreferencePanes.Web
 http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ requires-body=1, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js, tag=PreferencePanes.API
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? requires-body=1, script-path=https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js, tag=📺 BiliBili.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}
