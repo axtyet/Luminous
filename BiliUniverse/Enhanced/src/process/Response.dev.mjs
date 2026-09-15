@@ -5,7 +5,7 @@ import database from "../function/database.mjs";
 import fixHeaders from "../function/fixHeaders.mjs";
 import setENV from "../function/setENV.mjs";
 import { addSettingsEntry } from "../function/settingsEntry.mjs";
-import { RegionListReply } from "../protobuf/bilibili/app/show/v1/mixture.js";
+import { RegionListReply } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 /***************** Processing *****************/
 export async function Response($request, $response) {
 	// 解构URL

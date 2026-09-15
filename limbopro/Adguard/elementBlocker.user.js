@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name         元素屏蔽/追踪器 (V26.39.10 - 拦截程序化点击和 PostMessage)
+// @name         元素屏蔽/追踪器 (V26.40 - 拦截程序化点击和 PostMessage)
 // @namespace    http://tampermonkey.net/
-// @version      26.39.12
+// @version      26.40
 // @description  V26.39.11：在 V26.39.9 同步中断的基础上，新增拦截 Element.prototype.click（用于程序化重定向）和 window.postMessage（用于跨框架侧信道重定向）。这是对高级绕过机制的最后防线。
 // @author       Gemini
 // @match        *://*/*
@@ -817,6 +817,22 @@
         const style = document.createElement('style');
         style.textContent = `
        
+       #gemini-main-container,
+#gemini-float-window {
+    /* 1. 禁用任何 CSS 过渡动画，防止拖拽坐标延迟 */
+    transition: none !important;
+    -webkit-transition: none !important;
+
+    /* 2. 隔离移动端手势与文本选中 */
+    touch-action: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+
+    /* 3. 关闭移动端极其耗费 GPU 性能的滤镜，消除拖拽残影 */
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+}
+
 
         .gemini-debug-exit {
         position: absolute !important; 
@@ -1470,103 +1486,74 @@ border: white !important;
 * @param {string} selectorOrId - 遮罩层的 ID
 */
 
-
     window.makeModalDraggable = function makeModalDraggable(elementId) {
         const el = document.getElementById(elementId);
         if (!el || el.dataset.dragInitialized) return;
 
-        // 核心修正：如果元素本身就是窗口，则直接使用 el；否则才去找子元素
-        const target = el.classList.contains('sel-result-window') ? el : el.firstElementChild;
+        // 确定拖拽主体（优先寻找实际的框体元素）
+        const target = el.classList.contains('sel-result-window') ? el : (el.firstElementChild || el);
         if (!target) return;
 
         let isDragging = false;
-        let startX, startY, initialLeft, initialTop;
+        let startX = 0, startY = 0;
+        let currentX = 0, currentY = 0;
+        let rafId = null;
 
         const startAction = (e) => {
-
-            // 增加排除判断：如果点的是 tips 区域内的按钮或文本，允许拖拽（但按钮本身除外）
-            if (e.target.closest('button, code, #sel-output')) return;
-
-
-            // 2. 【关键修正】排除 #targetInform 区域：
-            // 如果点击的是 #targetInform 或其子元素，我们不触发拖拽逻辑
-            // 这样它原有的 overflow: auto 滚动功能就能正常工作
-            if (e.target.closest('#targetInform')) {
-                return;
-            }
+            // 过滤按钮、输入框、代码块等区域，避免破坏点击事件
+            if (e.target.closest('button, input, textarea, code, #sel-output, #targetInform')) return;
 
             const touch = e.touches ? e.touches[0] : e;
             isDragging = true;
 
-            const rect = target.getBoundingClientRect();
-            startX = touch.clientX;
-            startY = touch.clientY;
-            initialLeft = rect.left;
-            initialTop = rect.top;
+            // 记录起点（减去已经移动过的距离，防止跳变）
+            startX = touch.clientX - currentX;
+            startY = touch.clientY - currentY;
 
-            // --- 关键修正：彻底击穿内联 inset ---
-            target.style.setProperty('position', 'fixed', 'important');
-            target.style.setProperty('inset', 'auto', 'important'); // 清除整体
-            target.style.setProperty('bottom', 'auto', 'important'); // 显式清除
-            target.style.setProperty('right', 'auto', 'important');  // 显式清除
-            target.style.setProperty('margin', '0', 'important');
-            target.style.setProperty('transform', 'none', 'important');
-
-            target.style.setProperty('left', initialLeft + 'px', 'important');
-            target.style.setProperty('top', initialTop + 'px', 'important');
-
+            // 拖拽开始时才拦截默认行为
             if (e.cancelable) e.preventDefault();
         };
-
-        /*
-        const startAction = (e) => {
-            // 排除掉代码块和按钮，防止无法点击/复制代码
-            if (e.target.closest('button, code, #sel-output')) return;
-
-            const touch = e.touches ? e.touches[0] : e;
-            isDragging = true;
-
-            const rect = target.getBoundingClientRect();
-            startX = touch.clientX;
-            startY = touch.clientY;
-            initialLeft = rect.left;
-            initialTop = rect.top;
-
-            // 核心修正：移除 CSS 中可能存在的居中偏移和内联 inset 干扰
-            target.style.setProperty('margin', '0', 'important');
-            target.style.setProperty('transform', 'none', 'important');
-            target.style.setProperty('position', 'fixed', 'important'); // 确保在 body 下自由浮动
-            target.style.setProperty('inset', 'auto', 'important'); // 清除原本 style 中的 inset 限制
-
-            target.style.setProperty('left', initialLeft + 'px', 'important');
-            target.style.setProperty('top', initialTop + 'px', 'important');
-
-            if (e.cancelable) e.preventDefault();
-        };
-        */
 
         const moveAction = (e) => {
             if (!isDragging) return;
+            // 拖拽中必须阻止默认的页面滚动
             if (e.cancelable) e.preventDefault();
+
             const touch = e.touches ? e.touches[0] : e;
-            target.style.setProperty('left', (initialLeft + (touch.clientX - startX)) + 'px', 'important');
-            target.style.setProperty('top', (initialTop + (touch.clientY - startY)) + 'px', 'important');
+            currentX = touch.clientX - startX;
+            currentY = touch.clientY - startY;
+
+            // 帧率节流，确保不卡顿
+            if (rafId) cancelAnimationFrame(rafId);
+            rafId = requestAnimationFrame(() => {
+                if (!isDragging) return;
+                // 直接赋值 translate2d，不再依赖 CSS 变量，确保 100% 生效
+                target.style.setProperty('transform', `translate(${currentX}px, ${currentY}px)`, 'important');
+            });
         };
 
-        const endAction = () => { isDragging = false; };
+        const endAction = () => {
+            isDragging = false;
+            if (rafId) {
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            }
+        };
 
-        // 绑定事件（兼容移动端）
+        // 绑定触摸事件（确保作用域只在拖拽区域）
         target.style.setProperty('touch-action', 'none', 'important');
-        target.addEventListener('mousedown', startAction);
         target.addEventListener('touchstart', startAction, { passive: false });
-        document.addEventListener('mousemove', moveAction, { passive: false });
-        document.addEventListener('touchmove', moveAction, { passive: false });
+        target.addEventListener('touchmove', moveAction, { passive: false });
+        target.addEventListener('touchend', endAction);
+        target.addEventListener('touchcancel', endAction);
+
+        // 兼容桌面端鼠标事件
+        target.addEventListener('mousedown', startAction);
+        document.addEventListener('mousemove', moveAction);
         document.addEventListener('mouseup', endAction);
-        document.addEventListener('touchend', endAction);
 
         el.dataset.dragInitialized = "true";
     };
-
 
 
 
@@ -2030,14 +2017,14 @@ border: white !important;
             z-index: 2147483631; width: 90%; max-width: 450px; height:auto !important;
             background: #ffffff !important; border-radius: 6px !important;
             box-shadow: 0 10px 40px rgba(0,0,0,0.4) !important; font-family: sans-serif !important; 
-            padding: 16px !important; border: 1px solid #ddd !important; display: none;
+            padding: 20px !important; border: 1px solid #ddd !important; display: none;
             box-sizing: border-box !important; touch-action: none !important; 
             user-select: none !important; -webkit-user-select: none !important;
         }
         .sel-title { 
             font-size: 14px !important; font-weight: bold !important; color: #333 !important; 
             margin-bottom: 12px !important; display: block !important; 
-            cursor: move !important; padding: 10px 0 !important; border-bottom: 1px solid #eee !important;
+            padding: 10px 0 !important; border-bottom: 1px solid #eee !important;
         }
         .sel-code { 
             line-height: 1.25;
@@ -2076,19 +2063,9 @@ border: white !important;
         // --- 1. UI 渲染 ---
         resultWin.innerHTML = `
 
-        <!--div id="sel-close-main" style="
-        position: absolute;
-        top: 8px;
-        right: 12px;
-        cursor: pointer;
-        font-size: 20px;
-        color: #999;
-        font-weight: bold;
-        line-height: 1;
-        z-index: 10;
-    " onmouseover="this.style.color='#ff4d4f'" onmouseout="this.style.color='#999'">&times;</div--!>
+        
 
-    <span class="sel-title">元素CSS选择器获取与调试 (测试中...)</span>
+   <div id='nodrag' style=" display: none; "> <span class="sel-title">元素CSS选择器获取与调试 (测试中...)</span></div>
   <div class="warm-tips" style="box-shadow: inset 1px 1px 4px 4px rgba(0, 0, 0, 0.2);background: #f0f5ff !important;border: 1px solid #adc6ff;padding: 10px 12px;border-radius: 4px;margin: 5px 0 10px 0;font-size: 11px;color: #1d39c4;line-height: 1.6;">
     • <b>逐级泛化：</b>点击 <button class="t-sel-hint-box" style="font-weight:bolder; cursor:pointer; border:1px solid #85a5ff; border-radius:2px; background:#fff; padding:0 4px; font-size:10px; color: #1d39c4; vertical-align: middle;">逐级泛化</button> 移除末尾属性/索引限制，扩展匹配范围。<br>
     • <b>逐级精简：</b>点击 <button id="t-sel-simplify-box" style="font-weight:bolder; cursor:pointer; border:1px solid #85a5ff; border-radius:2px; background:#fff; padding:0 4px; font-size:10px; color: #1d39c4; vertical-align: middle;">逐级精简</button> 智能剔除冗余父级与索引，仅保留唯一性核心路径。<br>
@@ -2602,11 +2579,11 @@ border: white !important;
             }
         };
 
-/*
-resultWin.querySelector('sel-close-main').onclick = resetMode;
-*/
+        /*
+        resultWin.querySelector('sel-close-main').onclick = resetMode;
+        */
 
-resultWin.querySelector('#sel-reset').onclick = resetMode;
+        resultWin.querySelector('#sel-reset').onclick = resetMode;
         //resultWin.querySelector('#sel-exit')?.onclick = destroyTool;
         document.addEventListener('mousemove', onMove, true);
         document.addEventListener('click', onClick, true);
@@ -3597,7 +3574,7 @@ resultWin.querySelector('#sel-reset').onclick = resetMode;
 
         windowDiv.innerHTML = `
             <div id="gemini-header">
-                <strong>🔍 元素屏蔽/追踪器 (V26.39.12)</strong>
+                <strong>🔍 元素屏蔽/追踪器 (V26.40)</strong>
                 <button id="gemini-pin-btn">📌</button>
                 <span id="gemini-close-btn">&times;</span>
             </div>
@@ -3908,7 +3885,7 @@ resultWin.querySelector('#sel-reset').onclick = resetMode;
 
             // 检查事件是否发生在任一容器内部
             // 如果 target.closest 找到匹配元素，则条件为真
-            if (target.closest(`#${containerId}`) || target.closest('[id*="script-viewer"],[class*="confirm]') || target.closest('#confirmMask')) {
+            if (target.closest(`#${containerId}`)  || target.closest('[id*="script-viewer"],[class*="confirm]') || target.closest('#confirmMask')) {
                 // 事件发生在受保护的容器内部
                 e.stopPropagation(); // 阻止其冒泡到父元素
                 return;              // 退出函数，不执行后续的阻止默认行为
@@ -4376,11 +4353,11 @@ resultWin.querySelector('#sel-reset').onclick = resetMode;
 
 
 
-if (e.target && e.target.id === 'sel-close-main') {
-            if (typeof resetMode== 'function') {
-                resetMode(); 
+        if (e.target && e.target.id === 'sel-close-main') {
+            if (typeof resetMode == 'function') {
+                resetMode();
             }
-}
+        }
 
 
 

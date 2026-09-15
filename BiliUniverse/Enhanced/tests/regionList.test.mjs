@@ -1,12 +1,12 @@
 import assert from "node:assert/strict";
 import { rmSync, writeFileSync } from "node:fs";
 import { after, beforeEach, test } from "node:test";
+import { RegionListReply, RegionShortcutReq } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
 import { Storage } from "@nsnanocat/util";
 import database from "../src/function/database.mjs";
 import { Request } from "../src/process/Request.mjs";
 import { Response } from "../src/process/Response.mjs";
-import { RegionListReply, RegionShortcutReq } from "../src/protobuf/bilibili/app/show/v1/mixture.js";
 
 globalThis.$argument = {};
 const storageFile = `/tmp/biliverse-enhanced-region-list-${process.pid}.json`;
@@ -15,6 +15,7 @@ Storage.dataFile = storageFile;
 beforeEach(() => {
 	writeFileSync(storageFile, "{}\n");
 	Storage.data = null;
+	globalThis.$argument = {};
 });
 
 after(() => rmSync(storageFile, { force: true }));
@@ -101,18 +102,27 @@ test("empty RegionList shortcut uses the Enhanced default tabs", async () => {
 	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Settings", {}), {});
 });
 
-test("RegionShortcut request is consumed locally and returns an empty gRPC response", async () => {
-	const { $response } = await Request({
-		method: "POST",
-		url: "https://grpc.biliapi.net/bilibili.app.show.v1.Mixture/RegionShortcut",
-		headers: { "Content-Type": "application/grpc" },
-		body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: ["801", "999999", "774", "65552"] })),
-	});
+test("RegionShortcut is consumed locally with a trailers-only gRPC success response on every observed host", async () => {
+	const uniqueIds = ["801", "999999", "774", "65552"];
+	for (const hostname of ["grpc.biliapi.net", "app.bilibili.com", "app.biliapi.net"]) {
+		const { $response } = await Request({
+			method: "POST",
+			url: `https://${hostname}/bilibili.app.show.v1.Mixture/RegionShortcut`,
+			headers: { "Content-Type": "application/grpc" },
+			body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: uniqueIds })),
+		});
 
-	assert.deepEqual($response.headers, { "Content-Type": "application/grpc" });
-	assert.deepEqual(gRPC.decode($response.body), new Uint8Array());
-	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Settings", {}).Home.Tab, ["801", "999999", "774", "65552"]);
-	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Caches", {}), {});
+		assert.equal($response.status, 200);
+		assert.deepEqual($response.headers, {
+			"Content-Type": "application/grpc",
+			"grpc-status": "0",
+			"grpc-message": "",
+			"bili-status-code": "0",
+		});
+		assert.equal($response.body, undefined);
+		assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Settings", {}).Home.Tab, uniqueIds);
+		assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Caches", {}), {});
+	}
 });
 
 test("empty RegionShortcut request remains empty", async () => {
@@ -172,6 +182,35 @@ test("RegionShortcut setting is used to build both shortcut icons and home tabs"
 	assert.deepEqual(
 		tabs.map(tab => tab.pos),
 		[1, 2, 3, 4, 5],
+	);
+});
+
+test("saved RegionShortcut tabs override module argument defaults in later responses", async () => {
+	globalThis.$argument = {
+		Storage: "Argument",
+		Home: { Tab: ["2036", "2037", "780", "545", "151"] },
+		LogLevel: "OFF",
+	};
+	const uniqueIds = ["1028", "884", "801", "774"];
+	await Request({
+		method: "POST",
+		url: "https://grpc.biliapi.net/bilibili.app.show.v1.Mixture/RegionShortcut",
+		headers: { "Content-Type": "application/grpc" },
+		body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: uniqueIds })),
+	});
+	const regionListResponse = await runRegionList(RegionListReply.create({ contents: [] }));
+	const regionList = RegionListReply.fromBinary(gRPC.decode(regionListResponse.body));
+	const homeResponse = await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
+	const tabs = JSON.parse(homeResponse.body).data.tab;
+
+	assert.deepEqual(Storage.getItem("@BiliBili.Enhanced.Settings", {}).Home.Tab, uniqueIds);
+	assert.deepEqual(
+		regionList.shortcut.icons.map(icon => icon.uniqueId),
+		uniqueIds,
+	);
+	assert.deepEqual(
+		tabs.map(tab => String(tab.id)),
+		uniqueIds,
 	);
 });
 

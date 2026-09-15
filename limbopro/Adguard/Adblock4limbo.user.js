@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo.[github]
 // @namespace    https://github.com/limbopro/Adblock4limbo/raw/main/Adguard/Adblock4limbo.user.js
-// @version      0.2026.09.11
+// @version      0.2026.09.15
 // @license      CC BY-NC-SA 4.0
 // @description  毒奶去网页广告计划用户脚本 For Quantumult X & Surge & Shadowrocket & Loon & Stash & 油猴 ；1.新增页面右下角导航；2.通过 JavaScript 移除特定网站网页广告 —— 搜索引擎（Bing/Google）广告及内容农场结果清除/低端影视/欧乐影院/iyf爱壹帆/哔滴影视/Pornhub/Javbus/Supjav/Jable(支持抓取M3U8链接)/MissAv/Njav/91porn(支持视频下载)/hitomi/紳士漫畫/禁漫天堂/等视频&ACG&小说&漫画网站上的弹窗广告&视频广告&Gif图片广告等，保持网页清爽干净无打扰！ P.S. 欢迎提交issue
 // @author       limbopro
@@ -284,12 +284,12 @@ console.log('是否（默认）开启成人🔞网站保护模式：' + getCooki
 
 
 // 获取当前页面是否被嵌入在 iframe 中
-const isIframe = window.self !== window.top;
+// const isIframe = window.self !== window.top;
 
 // 只要当前页面不是在 iframe 中运行，就执行函数
-if (!isIframe) {
-    daohang_build();
-}
+//if (!isIframe) {
+daohang_build();
+//}
 
 
 
@@ -400,7 +400,7 @@ var adsMax = {
         manhuapicaheight: "/*li[class*=lindex],*/.row.alert,.my-insert-flag,[role=alert],img[src*=gif] {height:0px !important} ", // 嗶咔picacg免費網頁版
         dmm: "",
         /* @media (min-width:640px){.sm\\:hidden{margin:6px 0 0;padding:0;display:flex !important}} */
-        missav: ".under_player,ul.list-none,div[class*='slide'],a[href^='https://theporndude.com'],a[href*='mycomic'],a[href*=myavlive],[href*='bit.ly'],[href*='bit.ly'][target=_blank],a[href*='/vip'],img[src*='.gif'],iframe,#a[href*='//bit.ly/'],div[style*='z-index: 1001'],ul.space-y-2.mb-4.ml-4.list-disc.text-nord14,div.space-y-5.mb-5,div.under_player,div[style=\"width: 300px; height: 250px;\"]{display:none !important;pointer-events:none !important}body{overflow-x:hidden}", //  MissAV
+        missav: 'div.lg\\:hidden,div.space-y-5 > div, ul.mb-4 > li > a {display:none !important;pointer-events:none !important}body{overflow-x:hidden}', //  MissAVX
         javtiful: "button[data-front-share-toggle],front-home-premium-alert,a[href*='rdx.jav.si'],a[href*='r.trwl1.com'],.front-watch-text-feature,.front-feature-placement-close {display:none !important; pointer-events: none !important;}",
         bigirl: 'div#container + div, h4.adblock_title,div.adblock_subtitle,[class^=\'adblock\'],div[class^=\'ad_\'], .toppage_av {display:none !important; pointer-events: none !important;}', // https://bi-girl.net/
         marketcap: '.ad-tr {display:none !important; pointer-events: none !important;}', // https://8marketcap.com/
@@ -436,7 +436,7 @@ var adsMax = {
         javdb: "nav.app-desktop-banner,div.moj-content {display:none !important}",
         jkforum: "",
         javland: "img[src*='.gif'], a[href^=\"https://go.rmhfrtnd.com/\"] {display:none !important; pointer-events: none !important;}",  // jav.land
-        _4hu: ".couplet-left, body[ontouchstart] > div[id^='content_'][style='display: block;'], div.row.col2 > dl, #btmBox, img[src*=gif],.col5 > dl#randomBox, script[src$=\"/base.js\"] + #couplet, body[ontouchstart] > #topBox,.wrap + #btmBox,.search + #midBox {opacity:0% !important; pointer-events: none !important; height: 0px !important}",
+        _4hu: 'body > #__nuxt:first-child > div > .footer > .floatWindow + div[data-tag],body > #__nuxt:first-child > div > .container > .top-menu + div[class],a[href*="?invite_code="] > img[src*=".com"],.couplet-left, body[ontouchstart] > div[id^="content_"][style="display: block;"], div.row.col2 > dl, #btmBox, img[src*=gif],.col5 > dl#randomBox, script[src$=\"/base.js\"] + #couplet, body[ontouchstart] > #topBox,.wrap + #btmBox,.search + #midBox {opacity:0% !important; pointer-events: none !important; height: 0px !important}',
         ziziflix: ".ad-desktop,.ad-mobile {display:none !important; pointer-events: none !important;}",
         // {opacity:0% !important; pointer-events: none !important; height: 0px !important}
         netflav: "iframe[src*=xlv],.ads_video_overlay_mobile, div.widget-container, a[href*=\"register\"][target=\"_blank\"],div.ads_video_close_button,div.ads_video_overlay_mobile,div.footer_root,div.ads_head_banner_container {display:none !important;}",
@@ -2400,186 +2400,212 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
         case 'njavtv.com':
         case 'missav':
 
-            window.addEventListener('load', function () {
 
-                // 你要追加的 CSS 内容
-                const css = `
+            document.body.style.setProperty('background-color', '#000000', 'important');
+
+            // window.addEventListener('load', function () {
+
+            // 将三个选择器用逗号连接传入（注意转义字符 lg\\:hidden）
+
+            // 示例 1：移除所有 ID 包含 "model" 的元素
+            autoRemoveElements('[id*="model"]');
+
+            // 示例 2：同时移除多个选择器匹配的广告/弹窗元素
+            autoRemoveElements('div[style*="300px"], a[href*="//bit.ly/"], .pop-up-banner');
+            autoRemoveElements('div.lg\\:hidden, div.space-y-5 > div, ul.mb-4 > li > a');
+
+            // 示例：仅移除包含外部跟踪链接，或者高度/宽度固定为特定广告尺寸的动态节点
+            const safeSelector = [
+                'div.space-y-5 > div:has(a[href*="//bit.ly/"])', // 仅当子元素包含特定的推广链接时才删除
+                'div.space-y-5 > div:has(iframe)',                // 仅当内部包含广告 iframe 时删除
+                'div.lg\\:hidden:has(a[target="_blank"])'         // 结合点击行为特征匹配
+            ].join(',');
+
+            autoRemoveElements(safeSelector);
+
+
+            // 你要追加的 CSS 内容
+            const css = `
                 @media (min-width: 640px) {
                .sm\\:hidden {
         display: flex !important;
       }
     }
   `
-                // 方法 1：使用 <style> 标签（推荐，兼容性好）
-                const styleSheet = document.createElement('style');
-                styleSheet.textContent = css;
-                //document.head.appendChild(styleSheet);
-
-                window.onload = function () {
-                    if (document.location.href.search('search') !== -1) {
-                        let regex = /.*\/search\//;
-                        let code = window.location.pathname.replace(regex, '').replace('/', '').toLowerCase()
-                        setTimeout(() => {
-                            tmd('h1', code, '试试其他搜索：');
-                        }, 2000)
-                        console.log("生成搜索链接🔗");
-                    }
 
 
+            // 方法 1：使用 <style> 标签（推荐，兼容性好）
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = css;
+            //document.head.appendChild(styleSheet);
+
+            window.onload = function () {
+                if (document.location.href.search('search') !== -1) {
+                    let regex = /.*\/search\//;
+                    let code = window.location.pathname.replace(regex, '').replace('/', '').toLowerCase()
                     setTimeout(() => {
-                        if (document.querySelector('.plyr__poster') !== null) { // 播放页插入其他站点播放链接
-                            let code = document.querySelectorAll('span.font-medium')[0].textContent;
-                            if (document.querySelector('#p1') == null) {
-                                console.log('开始生成在线预览链接...')
-                                tmd('h1.text-base', code, '在其他站点播放：');
-                            }
-                            console.log("生成在其他站点播放链接🔗");
-                        }
-                    }, 2500)
-
-                }()
-
-                css_adsRemove(adsMax.css.missav, 100, 'missavx');
-                window_open_defuser(); // 打断 window.open 施法
-                var ua_missav = navigator.userAgent.toLowerCase();
-                var mobile_missav = "mobile";
-                //cloudflare_captchaBypass();
-
-                setTimeout(() => {
-
-                    // 在浏览器控制台直接运行即可
-                    (function () {
-                        const videos = document.querySelectorAll('video');
-                        for (let video of videos) {
-                            if (video.src && video.src.includes('.m3u8')) {
-                                console.log('直接 src 是 m3u8:', video.src);
-                                //alert(video.src);
-
-                                window.m3u8SRC = video.src // 获取src
-                                return video.src; //
-                            }
-
-                            // hls.js / video.js / 大部分播放器都会把实例挂在 video.hls 或 video.player 上
-                            if (video.hls && video.hls.url) {
-                                console.log('hls.js url:', video.hls.url);
-                                //alert(video.hls.url);
-                                //mp4URL = video.hls.url
-                                return video.hls.url;
-                            }
-                            if (video.hls && typeof video.hls.currentLevel === 'object') {
-                                console.log('hls.js url:', video.hls.config.loader.config.url || video.hls.levels[video.hls.currentLevel]?.url);
-                            }
-
-                            // 有些站点用的是 xgplayer、dplayer、ckplayer 等
-                            if (window.player && player.currentSrc) {
-                                console.log('player.currentSrc:', player.currentSrc());
-                            }
-                            if (window.hls && hls.url) {
-                                console.log('全局 hls.url:', hls.url);
-                            }
-                        }
-                    })();
-
-                    var button_download = document.createElement('button')
-                    button_download.style = "margin-left: 0px; margin-top: 5px; position: static; font-size: smaller !important; background: #2563eb !important; margin-right: 5px; padding: 6px 6px 6px 6px; display: inline-block; color: white; border-right: 6px solid #38a3fd; border-left: #292f33 !important; border-top: #292f33 !important; border-bottom: #292f33 !important; background: #2563eb; border-radius: 0px 0px 0px 0px; font-weight: 800 !important; text-align: right !important;"
-
-                    /*if (hls.url.indexOf('.mp4') !== -1) {
-                        button_download.textContent = '复制视频下载地址'
-                    } else {
-                        button_download.textContent = '复制M3U8文件地址'
-                    }
-
-*/
-                    button_download.textContent = '复制M3U8文件地址'
-
-                    button_download.id = 'copyURL'
-
-                    button_download.addEventListener('click', (() => {
-
-                        //alert('wtf')
-                        if (window.m3u8SRC) {
-                            const textarea = document.createElement('textarea') // 创建 textarea 元素 并将选中内容填充进去
-                            textarea.id = 'fuck91porn'
-                            document.querySelector('#copyURL').appendChild(textarea)
-                            textarea.value = window.m3u8SRC
-                            textarea.select();
-                            document.execCommand('copy', true); // 执行复制
-                            document.querySelector('#copyURL').classList.add('copysuccess')  // 复制成功提醒
-                            document.querySelector('#copyURL').textContent = '复制成功'
-
-                            setTimeout(() => { // ↩️按钮恢复原状
-                                document.querySelector('#copyURL').classList.remove('copysuccess')
-                                document.querySelector('#copyURL').textContent = '复制M3U8文件地址'
-                            }, 2500)
-
-                            if (document.getElementById('fuck91porn')) { // 删除刚刚创建的 textarea 元素
-                                document.getElementById('ffuck91porn').remove()
-                            }
-                        } else {
-                            alert('未找到视频下载地址！')
-                        }
-                    }))
-
-                    let cssText = "font-size: smaller !important; background: #2563eb !important; left: 0px; top: 110px; margin-right: 5px; margin-top: 5px;" + "padding: 6px 6px 6px 6px; display: inline-block; color: white;z-index: 114154 !important; border-right: 6px solid #38a3fd; border-left: #292f33 !important; border-top: #292f33 !important; border-bottom: #292f33 !important; background: #2563eb; border-radius: 0px 0px 0px 0px; font-weight: 800 !important; text-align: right !important;"
-
-                    if (ua_missav.indexOf(mobile_missav) === -1) {
-
-                        if (document.querySelector('div.mt-4') !== null && document.querySelector('div.mt-4').querySelector('h1') !== null && document.querySelector('#how') === null) {
-                            ele_dynamicAppend("div.mt-4", "onclick", "离开页面视频继续播放", cssText, "", "missavX", 2, "button");
-                            ele_dynamicAppend("div.mt-4", "onclick", "暂停", cssText, "", "missavP", 3, "button");
-                            document.querySelector('div.mt-4').insertBefore(button_download, document.querySelector('div.mt-4').children[3])
-                            ele_dynamicAppend("div.mt-4", "href", "如何下载本视频？", cssText, "https://limbopro.com/archives/M3U8-Downloader.html", "how", 5, "a");
-                        }
-
-                        if (document.getElementById("how") !== null) {
-                            document.getElementById("how").target = "_blank";
-                        }
-
-                        // 添加监听器
-                        if (document.getElementById("missavX")) {
-                            addListenerById("missavX", () => { video_loopPlay('loop') }, 1000);
-                        }
-
-                        if (document.getElementById("missavP")) {
-                            addListenerById("missavP", () => { video_loopPlay('pause') }, 1000);
-                        }
-
-
-
-                        fastForward('[playsinline][data-poster]', 'div.flex-1.order-first > div[x-init]') // 快进快退
-
-                    } else if (ua_missav.indexOf(mobile_missav) > -1 && document.querySelector('#missavFullScreen') === null) {
-                        ele_dynamicAppend("div.mt-4", "onclick", "免广告播放", cssText, "video_Play()", "missavX", 0, "button");
-                        ele_dynamicAppend("div.mt-4", "onclick", "进入全屏", cssText, "fullscreen()", "missavFullScreen", 2, "button");
-                        ele_dynamicAppend("div.mt-4", "onclick", "暂停", cssText, "video_pause()", "missavPause", 1, "button");
-                        ele_dynamicAppend("div.mt-4", "href", "如何下载本视频？", cssText, "https://limbopro.com/archives/M3U8-Downloader.html", "how", 4, "a");
-                        document.querySelector('div.mt-4').insertBefore(button_download, document.querySelector('div.mt-4').children[3])
-                        // 添加监听器
-
-                        if (document.getElementById("how") !== null) {
-                            document.getElementById("how").target = "_blank";
-                        }
-
-                        addListenerById("missavX", () => { video_Play() }, 1000);
-                        addListenerById("missavFullScreen", () => { fullscreen() }, 1000);
-                        addListenerById("missavPause", () => { video_pause() }, 1000);
-                    }
-                }, 3000)
-
-
-                if (window.innerWidth > 640) {
-                    fastForward('[playsinline][data-poster]', 'div.flex-1.order-first > div[x-init]') // 快进快退
+                        tmd('h1', code, '试试其他搜索：');
+                    }, 2000)
+                    console.log("生成搜索链接🔗");
                 }
 
-                document.querySelectorAll('div.grid').forEach(
-                    (x) => {
-                        if (x.querySelector('img[src*="mio.jpg"]')) { // 移除 missav 播放页广告
-                            x.style = 'display:none !important;'
+
+                setTimeout(() => {
+                    if (document.querySelector('.plyr__poster') !== null) { // 播放页插入其他站点播放链接
+                        let code = document.querySelectorAll('span.font-medium')[0].textContent;
+                        if (document.querySelector('#p1') == null) {
+                            console.log('开始生成在线预览链接...')
+                            tmd('h1.text-base', code, '在其他站点播放：');
+                        }
+                        console.log("生成在其他站点播放链接🔗");
+                    }
+                }, 2500)
+
+            }()
+
+            window_open_defuser(); // 打断 window.open 施法
+            var ua_missav = navigator.userAgent.toLowerCase();
+            var mobile_missav = "mobile";
+            //cloudflare_captchaBypass();
+
+            setTimeout(() => {
+
+                // 在浏览器控制台直接运行即可
+                (function () {
+                    const videos = document.querySelectorAll('video');
+                    for (let video of videos) {
+                        if (video.src && video.src.includes('.m3u8')) {
+                            console.log('直接 src 是 m3u8:', video.src);
+                            //alert(video.src);
+
+                            window.m3u8SRC = video.src // 获取src
+                            return video.src; //
+                        }
+
+                        // hls.js / video.js / 大部分播放器都会把实例挂在 video.hls 或 video.player 上
+                        if (video.hls && video.hls.url) {
+                            console.log('hls.js url:', video.hls.url);
+                            //alert(video.hls.url);
+                            //mp4URL = video.hls.url
+                            return video.hls.url;
+                        }
+                        if (video.hls && typeof video.hls.currentLevel === 'object') {
+                            console.log('hls.js url:', video.hls.config.loader.config.url || video.hls.levels[video.hls.currentLevel]?.url);
+                        }
+
+                        // 有些站点用的是 xgplayer、dplayer、ckplayer 等
+                        if (window.player && player.currentSrc) {
+                            console.log('player.currentSrc:', player.currentSrc());
+                        }
+                        if (window.hls && hls.url) {
+                            console.log('全局 hls.url:', hls.url);
                         }
                     }
-                )
+                })();
 
-            });
+                var button_download = document.createElement('button')
+                button_download.style = "margin-left: 0px; margin-top: 5px; position: static; font-size: smaller !important; background: #2563eb !important; margin-right: 5px; padding: 6px 6px 6px 6px; display: inline-block; color: white; border-right: 6px solid #38a3fd; border-left: #292f33 !important; border-top: #292f33 !important; border-bottom: #292f33 !important; background: #2563eb; border-radius: 0px 0px 0px 0px; font-weight: 800 !important; text-align: right !important;"
+
+                /*if (hls.url.indexOf('.mp4') !== -1) {
+                    button_download.textContent = '复制视频下载地址'
+                } else {
+                    button_download.textContent = '复制M3U8文件地址'
+                }
+        
+        */
+                button_download.textContent = '复制M3U8文件地址'
+
+                button_download.id = 'copyURL'
+
+                button_download.addEventListener('click', (() => {
+
+                    //alert('wtf')
+                    if (window.m3u8SRC) {
+                        const textarea = document.createElement('textarea') // 创建 textarea 元素 并将选中内容填充进去
+                        textarea.id = 'fuck91porn'
+                        document.querySelector('#copyURL').appendChild(textarea)
+                        textarea.value = window.m3u8SRC
+                        textarea.select();
+                        document.execCommand('copy', true); // 执行复制
+                        document.querySelector('#copyURL').classList.add('copysuccess')  // 复制成功提醒
+                        document.querySelector('#copyURL').textContent = '复制成功'
+
+                        setTimeout(() => { // ↩️按钮恢复原状
+                            document.querySelector('#copyURL').classList.remove('copysuccess')
+                            document.querySelector('#copyURL').textContent = '复制M3U8文件地址'
+                        }, 2500)
+
+                        if (document.getElementById('fuck91porn')) { // 删除刚刚创建的 textarea 元素
+                            document.getElementById('ffuck91porn').remove()
+                        }
+                    } else {
+                        alert('未找到视频下载地址！')
+                    }
+                }))
+
+                let cssText = "font-size: smaller !important; background: #2563eb !important; left: 0px; top: 110px; margin-right: 5px; margin-top: 5px;" + "padding: 6px 6px 6px 6px; display: inline-block; color: white;z-index: 114154 !important; border-right: 6px solid #38a3fd; border-left: #292f33 !important; border-top: #292f33 !important; border-bottom: #292f33 !important; background: #2563eb; border-radius: 0px 0px 0px 0px; font-weight: 800 !important; text-align: right !important;"
+
+                if (ua_missav.indexOf(mobile_missav) === -1) {
+
+                    if (document.querySelector('div.mt-4') !== null && document.querySelector('div.mt-4').querySelector('h1') !== null && document.querySelector('#how') === null) {
+                        ele_dynamicAppend("div.mt-4", "onclick", "离开页面视频继续播放", cssText, "", "missavX", 2, "button");
+                        ele_dynamicAppend("div.mt-4", "onclick", "暂停", cssText, "", "missavP", 3, "button");
+                        document.querySelector('div.mt-4').insertBefore(button_download, document.querySelector('div.mt-4').children[3])
+                        ele_dynamicAppend("div.mt-4", "href", "如何下载本视频？", cssText, "https://limbopro.com/archives/M3U8-Downloader.html", "how", 5, "a");
+                    }
+
+                    if (document.getElementById("how") !== null) {
+                        document.getElementById("how").target = "_blank";
+                    }
+
+                    // 添加监听器
+                    if (document.getElementById("missavX")) {
+                        addListenerById("missavX", () => { video_loopPlay('loop') }, 1000);
+                    }
+
+                    if (document.getElementById("missavP")) {
+                        addListenerById("missavP", () => { video_loopPlay('pause') }, 1000);
+                    }
+
+
+
+                    fastForward('[playsinline][data-poster]', 'div.flex-1.order-first > div[x-init]') // 快进快退
+
+                } else if (ua_missav.indexOf(mobile_missav) > -1 && document.querySelector('#missavFullScreen') === null) {
+                    ele_dynamicAppend("div.mt-4", "onclick", "免广告播放", cssText, "video_Play()", "missavX", 0, "button");
+                    ele_dynamicAppend("div.mt-4", "onclick", "进入全屏", cssText, "fullscreen()", "missavFullScreen", 2, "button");
+                    ele_dynamicAppend("div.mt-4", "onclick", "暂停", cssText, "video_pause()", "missavPause", 1, "button");
+                    ele_dynamicAppend("div.mt-4", "href", "如何下载本视频？", cssText, "https://limbopro.com/archives/M3U8-Downloader.html", "how", 4, "a");
+
+                    if (document.querySelector('div.mt-4') !== null) {
+                        document.querySelector('div.mt-4').insertBefore(button_download, document.querySelector('div.mt-4').children[3])
+                        // 添加监听器
+                    }
+
+                    if (document.getElementById("how") !== null) {
+                        document.getElementById("how").target = "_blank";
+                    }
+
+                    addListenerById("missavX", () => { video_Play() }, 1000);
+                    addListenerById("missavFullScreen", () => { fullscreen() }, 1000);
+                    addListenerById("missavPause", () => { video_pause() }, 1000);
+                }
+            }, 3000)
+
+
+            if (window.innerWidth > 640) {
+                fastForward('[playsinline][data-poster]', 'div.flex-1.order-first > div[x-init]') // 快进快退
+            }
+
+            document.querySelectorAll('div.grid').forEach(
+                (x) => {
+                    if (x.querySelector('img[src*="mio.jpg"]')) { // 移除 missav 播放页广告
+                        x.style = 'display:none !important;'
+                    }
+                }
+            )
+
+            // });
 
             break;
 
@@ -5777,3 +5803,60 @@ setInterval(() => {
 }, 5000)
 
 // 动态移除鸟鸟韩漫透明弹窗
+
+
+// 动态移除符合选择器的任何元素
+
+/**
+ * 动态监听并自动移除符合选择器的元素
+ * @param {string} selector - CSS 选择器字符串（例如：'[id*="model"]' 或 '.ad-box'）
+ */
+function autoRemoveElements(selector) {
+    // 1. 定义清理逻辑
+    const removeTargets = () => {
+        const targets = document.querySelectorAll(selector);
+        targets.forEach(el => el.remove());
+    };
+
+    // 2. 页面加载完成后先立即执行一次清理（清理现有 DOM）
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', removeTargets);
+    } else {
+        removeTargets();
+    }
+
+    // 3. 创建 MutationObserver 实例监听后续动态插入的节点
+    const observer = new MutationObserver((mutations) => {
+        let shouldClean = false;
+
+        for (const mutation of mutations) {
+            // 检查是否有新节点被添加到 DOM 树中
+            if (mutation.addedNodes.length > 0) {
+                shouldClean = true;
+                break;
+            }
+        }
+
+        // 若有新节点生成，触发一次清理
+        if (shouldClean) {
+            removeTargets();
+        }
+    });
+
+    // 4. 开启监听（配置监听 body 及其所有后代节点的变化）
+    observer.observe(document.documentElement || document.body, {
+        childList: true, // 监听子节点的添加和删除
+        subtree: true    // 深度监听所有后代节点
+    });
+
+    // 返回观察者实例，方便需要时随时停止监听 (observer.disconnect())
+    return observer;
+}
+
+// ==================== 使用示例 ====================
+
+// 示例 1：移除所有 ID 包含 "model" 的元素
+// autoRemoveElements('[id*="model"]');
+
+// 示例 2：同时移除多个选择器匹配的广告/弹窗元素
+// autoRemoveElements('div[style*="300px"], a[href*="//bit.ly/"], .pop-up-banner');

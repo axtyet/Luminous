@@ -17,6 +17,9 @@ export default function setENV(name, platforms, database) {
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
 	// 本地配置的叶子值（包括空数组）覆盖默认值；保留未设置的父级下其它默认字段。
 	if (globalThis.$argument.Storage === "PersistentStore") applyStoredSettings(Settings, storedSettings);
+	// App 内保存的标签页顺序是运行时权威值，不受模块参数的配置优先级覆盖。
+	// The tab order saved in-app is authoritative at runtime and overrides module argument precedence.
+	if (Reflect.has(storedSettings.Home ?? {}, "Tab")) _.set(Settings, "Home.Tab", storedSettings.Home.Tab);
 	globalThis.$argument.Storage = argumentStorage;
 	/***************** Settings *****************/
 	// 单值或空值转换为数组

@@ -1,9 +1,9 @@
+import { RegionShortcutReq } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
 import { $app, Console, Storage } from "@nsnanocat/util";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
-import { RegionShortcutReq } from "../protobuf/bilibili/app/show/v1/mixture.js";
 /***************** Processing *****************/
 export async function Request($request) {
 	let $response;
@@ -37,8 +37,13 @@ export async function Request($request) {
 							Settings.Home.Tab = request.uniqueId;
 							Storage.setItem("@BiliBili.Enhanced.Settings", Settings);
 							$response = {
-								headers: { "Content-Type": "application/grpc" },
-								body: gRPC.encode(),
+								status: 200,
+								headers: {
+									"Content-Type": "application/grpc",
+									"grpc-status": "0",
+									"grpc-message": "",
+									"bili-status-code": "0",
+								},
 							};
 							break;
 						}
