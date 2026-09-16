@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-09-16 18:39:29(GMT+8)
-! Total count: 39482
+! Version: 2026-09-16 23:55:31(GMT+8)
+! Total count: 39505
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -624,6 +624,7 @@
 ##.content > .myads
 ##.content > .small-icon-container > a.small-icon-div[target="_blank"]
 ##.content > a > .topline
+##.content-ad-stack
 ##.content-video > .ads
 ##.content-video > .ads-player
 ##.content_ad_300
@@ -1385,6 +1386,7 @@
 ##a.checkNum[target="_blank"] > img[data-src]
 ##a.gggg[href^="https"]
 ##a.hengfu > img.hengfu
+##a[class="home-ad-banner"]
 ##a[clickmode="ad"]
 ##a[clickmode="cpt"]
 ##a[data-ad_type="1"]
@@ -3009,7 +3011,9 @@ $websocket,domain=wap.yushuwu.cloud
 /static/js/gold_daddy.js
 /static/js/headad.js
 /static/js/miniyyrtv-config.js
+/static/js/pages/dialogAd.js
 /static/js/pop_promotion.js?v=
+/static/js/squarePromo.
 /static/lbsite/*/*.js?v=$third-party
 /static/tb/kyqp.gif
 /statics/govv.js$~third-party
@@ -7831,7 +7835,6 @@ bigpixel.cn##+js(set-constant, killads, true)
 bigpuzzle.ru##td[valign="top"][width="200px"][height="600"] > div[style]
 bigpuzzle.ru##td[valign="top"][width="240px"][height="600"]
 bike-urious.com,blwideas.com,entertainment-focus.com,foreverconscious.com,goodnewsnetwork.org,greenarrowtv.com,hodgepodgehippie.com,knowyourphrase.com,lizs-early-learning-spot.com,mjsbigblog.com,prepared-housewives.com,redcarpet-fashionawards.com,spring.org.uk,stevivor.com,tamaratattles.com,tastefullyeclectic.com,theavtimes.com,thechroniclesofhome.com,usersub.com,utahsweetsavings.com,yummytummyaarthi.com#$#abort-on-property-read g00gletag
-bilibili.com###app > DIV.bili-header-m.report-wrap-module:first-child > DIV.nav-menu:first-child > DIV.nav-wrapper.clearfix.bili-wrapper:last-child > DIV.nav-con.fl:first-child > UL > LI.nav-item.mobile:last-child
 bilibili.com###b_app_link
 bilibili.com###fixed_app_download
 bilibili.com###openAppBtn
@@ -7879,7 +7882,6 @@ bilibili.com##.layerWrapperRoot > div[style^="width: 1220px;"]
 bilibili.com##.mobile.nav-item
 bilibili.com##.online + .adpos
 bilibili.com##.open-app-bar
-bilibili.com##.open-btn
 bilibili.com##.operate-card[data-target-url*=".miaozhen."]
 bilibili.com##.operate-card[data-target-url*="doubleclick."]
 bilibili.com##.recommended-container_floor-aside .container > div[class$="feed-card"]:has(div[style$="56.25%;"] > div[class]:matches-css(before, content: /AdGuard/))
@@ -7905,8 +7907,8 @@ bilibili.com##a[href="//app.bilibili.com"]
 bilibili.com##a[href="/video/av8587236/?tg"]
 bilibili.com##div[style*="height:"][data-loc-id]
 bilibili.com##span[style*="height:"][data-loc-id]
-bilibili.com#?#.float-btn:contains(打开App)
 bilibili.com#?#.is-rcmd:-abp-has(>div:not(div:-abp-has(div)))
+bilibili.com#?#.left-entry__item-trigger:contains(下载客户端)
 bilibili.com#?#.van-popover__reference:contains(下载)
 bilibili.com#@#.bili-dialog-m
 bilibili.com#@#.btn-ctnr
@@ -11398,6 +11400,7 @@ huamu.cn##.banner_Ad
 huamu.cn##.midle-ad-list
 huanggua22.com##[href^="https://oxs31.pdom3k.icu/"]
 huanggua22.com##[src^="https://tutu.facaiimage.com/"]
+huangguoai.com##.hg-ssp-slot
 huanqiu.com###winNext
 huanqiu.com##+js(set-constant, AD_SURVEY_Add_AdPos, noopFunc)
 huanqiu.com##+js(set-constant, AD_SURVEY_Add_AdPos_Simple, noopFunc)
@@ -13276,19 +13279,34 @@ m.baidu.com##.suggest-hot
 m.baidu.com##.water-container.tab-news-content
 m.baidu.com##DIV#se-recommend-word-list-container.se-recommend-word-list-container
 m.baidu.com##a[href*="m.lecai.com"]
+m.bilibili.com##.dialog > .m-open-app
+m.bilibili.com##.gsl-poster-tips
+m.bilibili.com##.guide-mask
 m.bilibili.com##.m-home-float-openapp
 m.bilibili.com##.m-nav-openapp.m-open-app
 m.bilibili.com##.m-video2-awaken-btn
 m.bilibili.com##.m-video2-float-openapp
-m.bilibili.com##.natural-margin.visible-open-app-btn.m-video-main-launchapp.launch-app-btn
 m.bilibili.com##.nav-open-app-img
+m.bilibili.com##.open-app-img
+m.bilibili.com##.open-app.weakened
+m.bilibili.com##.open-btn
+m.bilibili.com##.openapp-btn
+m.bilibili.com##.player-mask
+m.bilibili.com##.v-card-toapp
+m.bilibili.com##div[class*="GoApp"]
+m.bilibili.com##div[class*="OpenApp"]
+m.bilibili.com##div[class*="TopBar_downloadEntry"]
+m.bilibili.com##div[class*="VideoCover_bottomMask"]
+m.bilibili.com##div[class*="launchapp"]
 m.bilibili.com##div[class*="mplayer-control-btn mplayer-control-btn-callapp mplayer-control-btn-speed"]
 m.bilibili.com##div[class*="mplayer-widescreen-callapp"]
-m.bilibili.com##div[class*="openapp"]
-m.bilibili.com##div[class^="open-app-btn"]
+m.bilibili.com##div[class*="open-app-btn"]
+m.bilibili.com##i[class*="MainButton_icon"]
+m.bilibili.com##m-open-app[class*="MainButton_btnWrap"]:style(height: 0 !important; overflow: hidden !important; padding: 0 !important;)
+m.bilibili.com##m-open-app[class*="download"]
 m.bilibili.com#?#.bottom-tab:contains(App)
 m.bilibili.com#?#.container:contains(打开App)
-m.bilibili.com#?#.launch-app-btn > a:contains(App)
+m.bilibili.com#?#.float-btn:contains(打开App)
 m.bilibili.com#?#.launch-app-btn:contains(打开APP)
 m.biqiugege8.com##+js(set-constant, lists, undefined)
 m.biquge12345.com,69shumi.com,biquge543.com,beqg.cc,biquge321.com##+js(addEventListener-defuser, touchend, window.location.href)
@@ -20308,6 +20326,7 @@ zzzyk.com###Tinfo
 ||5s98.com/img/
 ||5sghirlr5b.com^
 ||5t5z6augl3.com^
+||5tf1zp1jgb.com^
 ||5tmobi.cn^$3p
 ||5u1zleadi.com^
 ||5u3tzh6tc.com^
@@ -20923,6 +20942,7 @@ zzzyk.com###Tinfo
 ||9pzoz6taf.com^
 ||9r0v0go0el.com^
 ||9rkh7nbaj.com^
+||9s3g5vd8or.com^
 ||9soefyenw.com^
 ||9swovqnp52.com^
 ||9t9r2tkr9.com^
@@ -27110,6 +27130,7 @@ zzzyk.com###Tinfo
 ||gmxvmvptfm.com^
 ||gn01.top^
 ||gn4yz5v9z.com^
+||gnczi.cn^
 ||gndmnrh.cn^
 ||gndrzx.cn^
 ||gnfr03906.com^
@@ -30048,6 +30069,7 @@ zzzyk.com###Tinfo
 ||l.glrcy.cn^
 ||l.qq.com/lview?
 ||l.ykimg.com^
+||l0npl51iwv.com^
 ||l1bj5pxqzk.com^
 ||l1owmrzjdw.com^
 ||l1y267efmn.com^
@@ -37080,6 +37102,7 @@ zzzyk.com###Tinfo
 ||vlgkotr.cn^
 ||vlion.cn^$3p
 ||vlpq.cn^
+||vlrvrntcxjljnu.com^
 ||vlujojf.icu^
 ||vlxmfvvknsxldw.com^
 ||vm.aty.sohu.com^
