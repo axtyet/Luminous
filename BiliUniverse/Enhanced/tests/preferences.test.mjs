@@ -5,7 +5,7 @@ import test from "node:test";
 const config = JSON.parse(await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
 const store = new Map();
 globalThis.$environment = { "surge-version": "preferences-test" };
-globalThis.$argument = { Storage: "Argument", LogLevel: "OFF" };
+globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
 globalThis.$persistentStore = {
 	read: key => store.get(key),
 	write: (value, key) => {
@@ -24,7 +24,9 @@ function extractTemplatePattern(name, line) {
 
 test("BoxJS paths match the persistence consumed by business requests", async () => {
 	assert.ok(config.every(field => field.id.startsWith("@BiliBili.Enhanced.Settings.")));
-	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { Storage: "PersistentStore", Home: { Top: [] } } }, Global: { sentinel: true } }));
+	const storage = config.find(field => field.id === "@BiliBili.Enhanced.Settings.Storage");
+	assert.equal(storage, undefined);
+	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { Home: { Top: [] } } }, Global: { sentinel: true } }));
 	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
 	assert.deepEqual(JSON.parse(result.$response.body).data.top, []);
 	assert.equal(JSON.parse(store.get("BiliBili")).Global.sentinel, true);
