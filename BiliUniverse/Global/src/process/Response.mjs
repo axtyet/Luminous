@@ -21,7 +21,7 @@ export async function Response($request, $response) {
 	 * 设置
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Caches, Configs } = setENV("BiliBili", "Global", database);
+	const { Settings, Caches, Configs } = setENV("Biliverse", "Global", database);
 	Console.logLevel = Settings.LogLevel;
 	// 创建空数据
 	let body = { code: 0, message: "0", data: {} };
@@ -549,7 +549,7 @@ function setCache(infoGroup = { seasonTitle: undefined, seasonId: undefined, epI
 		episodes.forEach(episode => cache.ep.set(episode?.id, infoGroup.locales));
 		cache.ss = Array.from(cache.ss).slice(-100); // Map转Array.限制缓存大小
 		cache.ep = Array.from(cache.ep).slice(-1000); // Map转Array.限制缓存大小
-		isSaved = Storage.setItem("@BiliBili.Global.Caches", cache);
+		isSaved = Storage.setItem("@Biliverse.Global.Caches", cache);
 	}
 	Console.log("✅ Set Cache", `locales: ${infoGroup.locales}`, `isSaved: ${isSaved}`);
 	return isSaved;

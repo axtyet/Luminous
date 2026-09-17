@@ -1,33 +1,49 @@
+import { RegionListReply } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
 import { $app, Console } from "@nsnanocat/util";
+import Mine from "../class/Mine.mjs";
+import Region from "../class/Region.mjs";
+import Tab from "../class/Tab.mjs";
 import database from "../function/database.mjs";
 import fixHeaders from "../function/fixHeaders.mjs";
 import setENV from "../function/setENV.mjs";
-import { addSettingsEntry } from "../function/settingsEntry.mjs";
-import { RegionListReply } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
-/***************** Processing *****************/
+/**
+ * 处理拦截响应。
+ * Process an intercepted response.
+ * @param {object} $request - 原始请求 / Original request.
+ * @param {object} $response - 原始响应 / Original response.
+ * @returns {Promise<object>} 处理后的响应 / Processed response.
+ */
 export async function Response($request, $response) {
-	// 解构URL
+	// 解构 URL。
+	// Destructure the URL.
 	const url = new URL($request.url);
 	Console.info(`url: ${url.toJSON()}`);
-	// 获取连接参数
+	// 获取连接参数。
+	// Get connection parameters.
 	const PATHs = url.pathname.split("/").filter(Boolean);
 	Console.info(`PATHs: ${PATHs}`);
-	// 解析格式
+	// 解析格式。
+	// Parse the format.
 	const FORMAT = ($response.headers?.["Content-Type"] ?? $response.headers?.["content-type"])?.split(";")?.[0];
 	Console.info(`FORMAT: ${FORMAT}`);
 	/**
-	 * 设置
+	 * 当前模块设置。
+	 * Current module settings.
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Configs } = setENV("BiliBili", "Enhanced", database);
+	const { Settings, Configs } = setENV("Biliverse", "Enhanced", database);
 	Console.logLevel = Settings.LogLevel;
-	// 创建空数据
+	// 创建空数据。
+	// Create empty data.
 	let body = { code: 0, message: "0", data: {} };
-	// 格式判断
+	// 格式判断。
+	// Format handling.
 	switch (FORMAT) {
-		case undefined: // 视为无body
+		case undefined:
+			// 视为无 body。
+			// Treat as no body.
 			break;
 		case "application/x-www-form-urlencoded":
 		case "text/plain":
@@ -51,140 +67,45 @@ export async function Response($request, $response) {
 		case "text/json":
 		case "application/json":
 			body = JSON.parse($response.body ?? "{}");
-			// 解析链接
+			// 解析链接。
+			// Parse the URL.
 			switch (url.hostname) {
 				case "www.bilibili.com":
 					break;
 				case "app.bilibili.com":
 				case "app.biliapi.net":
 					switch (url.pathname) {
-						case "/x/resource/show/tab/v2": // 首页-Tab
-							if (!Settings.Home?.Switch) break;
-							// 顶栏-左侧
-							body.data.top_left = Configs.Tab.top_left[Settings.Home.Top_left];
-							// 顶栏-右侧
-							body.data.top = Configs.Tab.top
-								.map(e => {
-									if (Settings.Home.Top.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => {
-									e.pos = i + 1;
-									return e;
-								});
-							// 顶栏-更多
-							body.data.top_more = Configs.Tab.top_more
-								.map(e => {
-									if (Settings.Home.Top_more.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => {
-									e.pos = i + 1;
-									return e;
-								});
-							// 标签栏
-							body.data.tab = buildTabs(Settings.Home.Tab, Configs.RegionList, Settings.Home.Tab_default);
-							// 底部导航栏
-							body.data.bottom = Configs.Tab.bottom
-								.map(e => {
-									if (Settings.Bottom.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => {
-									e.pos = i + 1;
-									return e;
-								});
+						case "/x/resource/show/tab/v2":
+							// 首页标签页。
+							// Homepage tabs.
+							if (Settings.Home?.Switch) {
+								Tab.replace(body.data, Settings, Configs);
+							}
 							break;
-						case "/x/resource/show/tab/bubble": // 首页-Tab-?
+						case "/x/resource/show/tab/bubble":
+							// 首页标签页气泡。
+							// Homepage tab bubble.
 							break;
-						case "/x/v2/account/mine": // 账户信息-我的
-							if (!Settings.Mine?.Switch) break;
-							body.data.sections_v2 = Configs.Mine.sections_v2.map(e => {
-								switch (e.title) {
-									case "创作中心":
-										e.items = e.items
-											.map(item => {
-												if (Settings.Mine.CreatorCenter.includes(item.id)) return item;
-											})
-											.filter(Boolean);
-										break;
-									case "推荐服务":
-										e.items = e.items
-											.map(item => {
-												if (Settings.Mine.Recommend.includes(item.id)) return item;
-											})
-											.filter(Boolean);
-										break;
-									case "更多服务":
-										e.items = e.items
-											.map(item => {
-												if (Settings.Mine.More.includes(item.id)) return item;
-											})
-											.filter(Boolean);
-										break;
-								}
-								if (!e.items.some(() => true)) e = {};
-								return e;
-							});
+						case "/x/v2/account/mine":
+							// 我的账户信息。
+							// Mine account information.
+							if (Settings.Mine?.Switch) {
+								Mine.replaceSections(body.data, Settings.Mine);
+							}
+							if (body.code === 0 && body.data) Mine.addEntry(body.data);
 							break;
-						case "/x/v2/account/mine/ipad": // 账户信息-我的(pad)
-							if (!Settings.Mine?.iPad?.Switch) break;
-							body.data.ipad_upper_sections = Configs.Mine.ipad_upper_sections
-								.map(item => {
-									if (Settings.Mine.iPad.Upper.includes(item.id)) return item;
-								})
-								.filter(Boolean);
-							body.data.ipad_recommend_sections = Configs.Mine.ipad_recommend_sections
-								.map(item => {
-									if (Settings.Mine.iPad.Recommend.includes(item.id)) return item;
-								})
-								.filter(Boolean);
-							body.data.ipad_more_sections = Configs.Mine.ipad_more_sections
-								.map(item => {
-									if (Settings.Mine.iPad.More.includes(item.id)) return item;
-								})
-								.filter(Boolean);
+						case "/x/v2/account/mine/ipad":
+							// iPad 我的账户信息。
+							// iPad Mine account information.
+							if (Settings.Mine?.iPad?.Switch) {
+								Mine.replacePadSections(body.data, Settings.Mine.iPad);
+							}
+							if (body.code === 0 && body.data) Mine.addEntry(body.data, true);
 							break;
 						case "/x/v2/region/index":
 						case "/x/v2/channel/region/list": {
-							if (!Settings.Region?.Switch) break;
-							// 分区页面-索引
-							body.data.push(...Configs.Region.index, ...Configs.Region.modify); // 末尾插入全部分区
-							body.data = uniqueFunc(body.data, "tid"); // 去重
-							body.data = body.data.sort(compareFn("tid")); // 排序
-							body.data = body.data
-								.map(e => {
-									// 过滤
-									if (Settings.Region.Index.includes(e.tid)) return e;
-								})
-								.filter(Boolean);
-							// 特殊处理
-							switch (url.pathname) {
-								case "/x/v2/region/index":
-									break;
-								case "/x/v2/channel/region/list":
-									body.data = body.data.map(e => {
-										if (e.goto === "0") e.goto = "";
-										e.children = undefined;
-										e.config = undefined;
-										return e;
-									});
-									break;
-							}
-
-							function uniqueFunc(array, property) {
-								// 数组去重
-								const res = new Map();
-								return array.filter(item => !res.has(item[property]) && res.set(item[property], 1));
-							}
-
-							function compareFn(property) {
-								// 比较函数
-								return (m, n) => {
-									const a = m[property];
-									const b = n[property];
-									return a - b; // 升序
-								};
+							if (Settings.Region?.Switch) {
+								body.data = Region.replaceIndex(body.data, url.pathname, Settings.Region);
 							}
 							break;
 						}
@@ -194,7 +115,6 @@ export async function Response($request, $response) {
 				case "api.biliapi.net":
 					break;
 			}
-			if (["app.bilibili.com", "app.biliapi.net"].includes(url.hostname) && ["/x/v2/account/mine", "/x/v2/account/mine/ipad"].includes(url.pathname) && body.code === 0 && body.data) addSettingsEntry(body.data, url.pathname.endsWith("/ipad"));
 			$response.body = JSON.stringify(body);
 			break;
 		case "application/protobuf":
@@ -216,13 +136,8 @@ export async function Response($request, $response) {
 							switch (url.pathname) {
 								case "/bilibili.app.show.v1.Mixture/RegionList": {
 									body = RegionListReply.fromBinary(rawBody);
-									body.contents = mergeRegionList(body.contents, Configs.RegionList);
-									const shortcutIcons = Settings.Home.Tab.map(uniqueId => {
-										const item = Configs.RegionList.items[uniqueId];
-										if (!item) return;
-										return { img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid };
-									}).filter(Boolean);
-									body.shortcut = { title: "自定义标签页", icons: shortcutIcons };
+									body.contents = Region.mergeLists(body.contents, Configs.RegionList);
+									body.shortcut = { title: "自定义标签页", icons: Region.buildShortcutIcons(Settings.Home.Tab, Configs.RegionList) };
 									rawBody = RegionListReply.toBinary(body);
 									break;
 								}
@@ -232,45 +147,11 @@ export async function Response($request, $response) {
 					rawBody = gRPC.encode(rawBody);
 					break;
 			}
-			// 写入二进制数据
+			// 写入二进制数据。
+			// Write binary data.
 			$response.body = rawBody;
 			break;
 		}
 	}
 	return $response;
-}
-
-function mergeRegionList(onlineContents, localRegionList) {
-	const contents = onlineContents.map(content => ({ ...content, icons: [...content.icons] }));
-	const groups = new Map(contents.map(content => [content.title, content]));
-	const uniqueIds = new Set(contents.flatMap(content => content.icons.map(icon => icon.uniqueId)));
-	for (const group of localRegionList.groups) {
-		const content = groups.get(group.title) ?? { title: group.title, icons: [] };
-		for (const uniqueId of group.ids) {
-			if (uniqueIds.has(uniqueId)) continue;
-			const item = localRegionList.items[uniqueId];
-			content.icons.push({ img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid });
-			uniqueIds.add(uniqueId);
-		}
-		groups.set(group.title, content);
-	}
-	const configuredTitles = new Set(localRegionList.groups.map(group => group.title));
-	return [...localRegionList.groups.map(group => groups.get(group.title)), ...contents.filter(content => !configuredTitles.has(content.title))];
-}
-
-function buildTabs(uniqueIds, regionList, defaultTab) {
-	return uniqueIds
-		.map(uniqueId => {
-			const item = regionList.items[uniqueId];
-			if (!item) return;
-			const tab = { id: Number(uniqueId), name: item.title, uri: item.url, tab_id: item.tab_id };
-			if (item.color) tab.color = item.color;
-			if (uniqueId === defaultTab) tab.default_selected = 1;
-			return tab;
-		})
-		.filter(Boolean)
-		.map((tab, index) => {
-			tab.pos = index + 1;
-			return tab;
-		});
 }

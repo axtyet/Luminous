@@ -1,41 +1,48 @@
-import { RegionShortcutReq } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
-import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
-import { $app, Console, Storage } from "@nsnanocat/util";
+import { Console } from "@nsnanocat/util";
+import Region from "../class/Region.mjs";
+import Tab from "../class/Tab.mjs";
 import database from "../function/database.mjs";
 import setENV from "../function/setENV.mjs";
-/***************** Processing *****************/
+/**
+ * 处理拦截请求。
+ * Process an intercepted request.
+ * @param {object} $request - 拦截请求 / Intercepted request.
+ * @returns {Promise<{$request: object, $response?: object}>} 处理后的请求与可选本地响应 / Processed request and optional local response.
+ */
 export async function Request($request) {
 	let $response;
-	// 解构URL
+	// 解构 URL。
+	// Destructure the URL.
 	const url = new URL($request.url);
 	Console.info(`url: ${url.toJSON()}`);
-	// 获取连接参数
+	// 获取连接参数。
+	// Get connection parameters.
 	const PATHs = url.pathname.split("/").filter(Boolean);
 	Console.info(`PATHs: ${PATHs}`);
 	/**
-	 * 设置
+	 * 当前模块设置。
+	 * Current module settings.
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Configs } = setENV("BiliBili", "Enhanced", database);
+	const { Settings, Configs } = setENV("Biliverse", "Enhanced", database);
 	Console.logLevel = Settings.LogLevel;
-	// 方法判断
+	// 方法判断。
+	// Method handling.
 	switch ($request.method) {
 		case "GET":
 		case "HEAD":
 		case "OPTIONS":
 		default:
-			// 主机判断
+			// 主机判断。
+			// Host handling.
 			switch (url.hostname) {
 				case "grpc.biliapi.net":
 				case "app.bilibili.com":
 				case "app.biliapi.net":
 					switch (url.pathname) {
 						case "/bilibili.app.show.v1.Mixture/RegionShortcut": {
-							const rawBody = $app === "Quantumult X" ? new Uint8Array($request.bodyBytes ?? []) : ($request.body ?? new Uint8Array());
-							const request = RegionShortcutReq.fromBinary(gRPC.decode(rawBody));
-							Settings.Home.Tab = request.uniqueId;
-							Storage.setItem("@BiliBili.Enhanced.Settings", Settings);
+							Region.saveShortcuts($request, Settings);
 							$response = {
 								status: 200,
 								headers: {
@@ -48,43 +55,21 @@ export async function Request($request) {
 							break;
 						}
 						case "/x/resource/show/tab/v2": {
-							// 首页-Tab
-							if (!Settings.Home?.Switch) break;
-							const body = {
-								code: 0,
-								config: { ...Configs.Tab.config },
-								data: {},
-								message: "0",
-							};
-							// 顶栏-左侧
-							body.data.top_left = { ...Configs.Tab.top_left[Settings.Home.Top_left] };
-							// 顶栏-右侧
-							body.data.top = Configs.Tab.top
-								.map(e => {
-									if (Settings.Home.Top.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => ({ ...e, pos: i + 1 }));
-							// 顶栏-更多
-							body.data.top_more = Configs.Tab.top_more
-								.map(e => {
-									if (Settings.Home.Top_more.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => ({ ...e, pos: i + 1 }));
-							// 标签栏
-							body.data.tab = buildTabs(Settings.Home.Tab, Configs.RegionList, Settings.Home.Tab_default);
-							// 底部导航栏
-							body.data.bottom = Configs.Tab.bottom
-								.map(e => {
-									if (Settings.Bottom.includes(e.id)) return e;
-								})
-								.filter(Boolean)
-								.map((e, i) => ({ ...e, pos: i + 1 }));
-							$response = {
-								headers: { "Content-Type": "application/json; charset=utf-8" },
-								body: JSON.stringify(body),
-							};
+							// 首页标签页。
+							// Homepage tabs.
+							if (Settings.Home?.Switch) {
+								const body = {
+									code: 0,
+									config: { ...Configs.Tab.config },
+									data: {},
+									message: "0",
+								};
+								Tab.replace(body.data, Settings, Configs);
+								$response = {
+									headers: { "Content-Type": "application/json; charset=utf-8" },
+									body: JSON.stringify(body),
+								};
+							}
 							break;
 						}
 					}
@@ -93,21 +78,4 @@ export async function Request($request) {
 			break;
 	}
 	return { $request, $response };
-}
-
-function buildTabs(uniqueIds, regionList, defaultTab) {
-	return uniqueIds
-		.map(uniqueId => {
-			const item = regionList.items[uniqueId];
-			if (!item) return;
-			const tab = { id: Number(uniqueId), name: item.title, uri: item.url, tab_id: item.tab_id };
-			if (item.color) tab.color = item.color;
-			if (uniqueId === defaultTab) tab.default_selected = 1;
-			return tab;
-		})
-		.filter(Boolean)
-		.map((tab, index) => {
-			tab.pos = index + 1;
-			return tab;
-		});
 }

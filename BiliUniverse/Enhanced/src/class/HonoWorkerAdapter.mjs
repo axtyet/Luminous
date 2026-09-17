@@ -60,9 +60,10 @@ export default class HonoWorkerAdapter {
 			case url.hostname.endsWith(".pages.dev"):
 			case url.hostname.endsWith(".workers.dev"): {
 				const [host, ...path] = `${restPath}`.split("/");
-				if (!host) break;
-				url.hostname = host;
-				url.pathname = `/${path.join("/")}`;
+				if (host) {
+					url.hostname = host;
+					url.pathname = `/${path.join("/")}`;
+				}
 				break;
 			}
 			case url.hostname.startsWith("app."):

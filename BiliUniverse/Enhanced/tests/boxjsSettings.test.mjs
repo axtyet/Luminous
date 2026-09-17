@@ -11,8 +11,8 @@ test("BoxJS mock replaces the legacy Home.Tab setting with a URL", async () => {
 	await writeFile(
 		file,
 		JSON.stringify([
-			{ id: "@BiliBili.Enhanced.Settings.Home.Switch", type: "boolean", val: true },
-			{ id: "@BiliBili.Enhanced.Settings.Home.Tab_default", type: "selects", val: "2037" },
+			{ id: "@Biliverse.Enhanced.Settings.Home.Switch", type: "boolean", val: true },
+			{ id: "@Biliverse.Enhanced.Settings.Home.Tab_default", type: "selects", val: "2037" },
 		]),
 	);
 
@@ -20,10 +20,10 @@ test("BoxJS mock replaces the legacy Home.Tab setting with a URL", async () => {
 		await prepareBoxJs(file);
 		await prepareBoxJs(file);
 		const settings = JSON.parse(await readFile(file, "utf8"));
-		const tabSettings = settings.filter(({ id }) => id === "@BiliBili.Enhanced.Settings.Home.Tab");
+		const tabSettings = settings.filter(({ id }) => id === "@Biliverse.Enhanced.Settings.Home.Tab");
 		assert.deepEqual(tabSettings, [
 			{
-				id: "@BiliBili.Enhanced.Settings.Home.Tab",
+				id: "@Biliverse.Enhanced.Settings.Home.Tab",
 				name: "[首页] 标签页",
 				type: "url",
 				val: "bilibili://main/regionv2",

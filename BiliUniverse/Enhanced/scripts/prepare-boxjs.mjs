@@ -2,7 +2,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { pathToFileURL } from "node:url";
 
 const tabSetting = {
-	id: "@BiliBili.Enhanced.Settings.Home.Tab",
+	id: "@Biliverse.Enhanced.Settings.Home.Tab",
 	name: "[首页] 标签页",
 	type: "url",
 	val: "bilibili://main/regionv2",
@@ -12,7 +12,7 @@ const tabSetting = {
 export async function prepareBoxJs(path) {
 	const settings = JSON.parse(await readFile(path, "utf8"));
 	const filteredSettings = settings.filter(({ id }) => id !== tabSetting.id);
-	const tabDefaultIndex = filteredSettings.findIndex(({ id }) => id === "@BiliBili.Enhanced.Settings.Home.Tab_default");
+	const tabDefaultIndex = filteredSettings.findIndex(({ id }) => id === "@Biliverse.Enhanced.Settings.Home.Tab_default");
 	if (tabDefaultIndex < 0) throw new Error(`Missing Home.Tab_default in ${path}`);
 	filteredSettings.splice(tabDefaultIndex, 0, tabSetting);
 	await writeFile(path, JSON.stringify(filteredSettings));

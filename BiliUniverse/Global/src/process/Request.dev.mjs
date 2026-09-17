@@ -24,7 +24,7 @@ export async function Request($request) {
 	 * 设置
 	 * @type {{Settings: import('../types').Settings}}
 	 */
-	const { Settings, Caches, Configs } = setENV("BiliBili", "Global", database);
+	const { Settings, Caches, Configs } = setENV("Biliverse", "Global", database);
 	Console.logLevel = Settings.LogLevel;
 	// 创建空数据
 	let body = { code: 0, message: "0", data: {} };

@@ -31,7 +31,7 @@ export const output = {
 	},
 	boxjsSettings: {
 		path: "./template/boxjs.settings.json",
-		scope: "@BiliBili.Enhanced.Settings",
+		scope: "@Biliverse.Enhanced.Settings",
 	},
 };
 

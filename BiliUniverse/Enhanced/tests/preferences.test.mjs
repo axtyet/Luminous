@@ -23,13 +23,13 @@ function extractTemplatePattern(name, line) {
 }
 
 test("BoxJS paths match the persistence consumed by business requests", async () => {
-	assert.ok(config.every(field => field.id.startsWith("@BiliBili.Enhanced.Settings.")));
-	const storage = config.find(field => field.id === "@BiliBili.Enhanced.Settings.Storage");
+	assert.ok(config.every(field => field.id.startsWith("@Biliverse.Enhanced.Settings.")));
+	const storage = config.find(field => field.id === "@Biliverse.Enhanced.Settings.Storage");
 	assert.equal(storage, undefined);
-	store.set("BiliBili", JSON.stringify({ Enhanced: { Settings: { Home: { Top: [] } } }, Global: { sentinel: true } }));
+	store.set("Biliverse", JSON.stringify({ Enhanced: { Settings: { Home: { Top: [] } } }, Global: { sentinel: true } }));
 	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
 	assert.deepEqual(JSON.parse(result.$response.body).data.top, []);
-	assert.equal(JSON.parse(store.get("BiliBili")).Global.sentinel, true);
+	assert.equal(JSON.parse(store.get("Biliverse")).Global.sentinel, true);
 });
 
 test("settings integration installs the only generic web and API scripts", async () => {

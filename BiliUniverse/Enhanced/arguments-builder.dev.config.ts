@@ -10,6 +10,6 @@ export default defineConfig({
 			{ path: "./dist/BiliBili.Enhanced.dev.snippet", template: "./template/quantumultx.dev.handlebars" },
 			{ path: "./dist/BiliBili.Enhanced.dev.stoverride", template: "./template/stash.dev.handlebars" },
 		],
-		boxjsSettings: { path: "./dist/BiliBili.Enhanced.dev.boxjs.json", scope: "@BiliBili.Enhanced.Settings" },
+		boxjsSettings: { path: "./dist/BiliBili.Enhanced.dev.boxjs.json", scope: "@Biliverse.Enhanced.Settings" },
 	},
 });
