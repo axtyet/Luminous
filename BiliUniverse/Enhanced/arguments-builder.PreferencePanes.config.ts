@@ -1,5 +1,5 @@
 import { defineConfig } from "@iringo/arguments-builder";
-import { bottom, homeSwitch, homeTabDefault, homeTop, homeTopLeft, homeTopMore, logLevel, mineIPadSwitch, mineSwitch, regionSwitch } from "./arguments-builder.full.config.ts";
+import { bottom, homeSwitch, homeTabDefault, homeTop, homeTopLeft, homeTopMore, logLevel, mineCreatorCenter, mineIPadMore, mineIPadRecommend, mineIPadSwitch, mineIPadUpper, mineMore, mineRecommend, mineSwitch, regionIndex, regionSwitch } from "./arguments-builder.full.config.ts";
 
 export const homeTab = {
 	id: "@Biliverse.Enhanced.Settings.Home.Tab",
@@ -10,6 +10,6 @@ export const homeTab = {
 };
 
 export default defineConfig({
-	args: [homeSwitch, homeTabDefault, homeTopLeft, homeTop, homeTopMore, bottom, regionSwitch, mineSwitch, mineIPadSwitch, logLevel],
+	args: [homeSwitch, homeTabDefault, homeTopLeft, homeTop, homeTopMore, bottom, regionSwitch, regionIndex, mineSwitch, mineCreatorCenter, mineRecommend, mineMore, mineIPadSwitch, mineIPadUpper, mineIPadRecommend, mineIPadMore, logLevel],
 	output: { boxjsSettings: { path: "./template/Biliverse.Enhanced.PreferencePanes.json", scope: "@Biliverse.Enhanced.Settings" } },
 });

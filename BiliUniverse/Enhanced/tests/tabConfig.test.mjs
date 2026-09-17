@@ -160,3 +160,33 @@ test("static settings never expose the argument-only Storage option", () => {
 		assert.ok(!settings.some(setting => setting.id === "@Biliverse.Enhanced.Settings.Storage"), name);
 	}
 });
+
+test("persistent-only settings stay in full, BoxJS and PreferencePanes definitions", () => {
+	const full = readFileSync(new URL("../arguments-builder.full.config.ts", import.meta.url), "utf8");
+	const groups = new Map([
+		["Region.Index", "分区"],
+		["Mine.CreatorCenter", "我的"],
+		["Mine.Recommend", "我的"],
+		["Mine.More", "我的"],
+		["Mine.iPad.Upper", "我的 iPad版"],
+		["Mine.iPad.Recommend", "我的 iPad版"],
+		["Mine.iPad.More", "我的 iPad版"],
+	]);
+	const keys = [...groups.keys()];
+	for (const key of keys) {
+		assert.match(full, new RegExp(`key: "${key.replaceAll(".", "\\.")}"[\\s\\S]*?exclude: \\["surge", "loon"\\]`), key);
+	}
+	for (const name of ["Biliverse.Enhanced.BoxJS.json", "Biliverse.Enhanced.PreferencePanes.json"]) {
+		const settings = JSON.parse(readFileSync(new URL(`../template/${name}`, import.meta.url), "utf8"));
+		const settingsById = new Map(settings.map(setting => [setting.id, setting]));
+		for (const [key, group] of groups) {
+			const setting = settingsById.get(`@Biliverse.Enhanced.Settings.${key}`);
+			assert.ok(setting, `${name}: ${key}`);
+			assert.match(setting.name, new RegExp(`^\\[${group.replaceAll(" ", "\\s")}\\] `), `${name}: ${key}`);
+		}
+		const more = settings.find(({ id }) => id === "@Biliverse.Enhanced.Settings.Mine.More");
+		assert.equal(more.items.find(({ key }) => key === "741").label, "我的钱包（白色版）");
+		assert.equal(more.items.find(({ key }) => key === "742").label, "稿件管理（白色版）");
+		assert.equal(more.items.find(({ key }) => key === "950").label, "青少年模式（概念版）");
+	}
+});
