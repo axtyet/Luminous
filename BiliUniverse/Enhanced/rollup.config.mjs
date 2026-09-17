@@ -13,7 +13,7 @@ export function configAsset(suffix = "") {
 	return {
 		name: "boxjs-config",
 		async generateBundle() {
-			const body = await readFile(`./dist/BiliBili.Enhanced${suffix}.boxjs.json`, "utf8");
+			const body = await readFile(`./dist/Biliverse.Enhanced${suffix}.PreferencePanes.json`, "utf8");
 			const version = process.env.BUILD_VERSION || pkg.version || "dev";
 			const source = `const response = {status: 200, headers: {"Content-Type":"application/json; charset=utf-8","Cache-Control":"no-store","X-PreferencePanes-Version":${JSON.stringify(version)}}, body: $request.method === "HEAD" ? "" : ${JSON.stringify(body)}};\n$done(typeof $task === "undefined" ? {response} : {...response, status:"HTTP/1.1 200 OK"});\n`;
 			this.emitFile({ type: "asset", fileName: `config${suffix}.bundle.js`, source });

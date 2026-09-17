@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
@@ -46,4 +46,9 @@ test("both release channels compile configuration responses from their own JSON 
 		process.chdir(original);
 		await rm(root, { recursive: true, force: true });
 	}
+});
+
+test("BoxJs settings exclude the runtime Storage selector", async () => {
+	const settings = JSON.parse(await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
+	assert.ok(settings.every(({ id }) => id !== "@Biliverse.Global.Settings.Storage"));
 });

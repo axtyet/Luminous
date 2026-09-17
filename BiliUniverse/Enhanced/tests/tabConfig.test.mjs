@@ -90,8 +90,8 @@ test("RegionShortcut uses only the request script while RegionList stays respons
 		const requestBlock = lines.slice(requestIndex, requestIndex + 6).join("\n");
 		assert.match(responseBlock, /response/, `${template} must use the response script`);
 		assert.match(requestBlock, /request/, `${template} must use the request script for RegionShortcut`);
-		if (template === "stash.handlebars") assert.match(responseBlock, /name: 📺 BiliBili\.Enhanced\.response/, `${template} must reference its response provider`);
-		if (template === "stash.dev.handlebars") assert.match(responseBlock, /name: 📺 BiliBili\.Enhanced\.response\.dev/, `${template} must reference its response provider`);
+		if (template === "stash.handlebars") assert.match(responseBlock, /name: 📺 Biliverse\.Enhanced\.response/, `${template} must reference its response provider`);
+		if (template === "stash.dev.handlebars") assert.match(responseBlock, /name: 📺 Biliverse\.Enhanced\.response\.dev/, `${template} must reference its response provider`);
 		assert.match(template.startsWith("stash") ? content : requestBlock, /request(\.dev)?\.bundle/, `${template} must reference the Enhanced request bundle`);
 		assert.match(requestBlock, /\(grpc\|app\)/, `${template} must intercept both RegionShortcut hosts`);
 		assert.ok(!lines.some(line => line.includes("Mixture") && line.includes("(RegionList|RegionShortcut)")), `${template} must not combine RegionList and RegionShortcut response matching`);
@@ -111,15 +111,52 @@ test("RegionShortcut uses only the request script while RegionList stays respons
 	}
 });
 
-test("BoxJS no longer exposes the Home.Tab checkbox", () => {
-	const settings = JSON.parse(readFileSync(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
-	assert.ok(!settings.some(setting => setting.id === "@Biliverse.Enhanced.Settings.Home.Tab"));
+test("PreferencePanes exposes Home.Tab as a URL", () => {
+	const settings = JSON.parse(readFileSync(new URL("../template/Biliverse.Enhanced.PreferencePanes.json", import.meta.url), "utf8"));
+	const tab = settings.find(setting => setting.id === "@Biliverse.Enhanced.Settings.Home.Tab");
+	assert.equal(tab.type, "url");
+	assert.equal(tab.val, "bilibili://main/regionv2");
 	assert.ok(settings.some(setting => setting.id === "@Biliverse.Enhanced.Settings.Home.Tab_default"));
 });
 
-test("argument config uses RegionList IDs for Home.Tab outside BoxJS", () => {
-	const config = readFileSync(new URL("../arguments-builder.full.config.ts", import.meta.url), "utf8");
-	assert.match(config, /key: "Home\.Tab"[\s\S]*defaultValue: \["2036", "2037", "780", "545", "151"\][\s\S]*exclude: \["boxjs"\]/);
-	for (const key of ["2036", "2037", "780", "545", "774", "151", "801", "2280"]) assert.match(config, new RegExp(`key: "${key}"`));
-	for (const key of ["live", "recommend", "hottopic", "bangumi", "anime", "film", "koreavtw"]) assert.doesNotMatch(config, new RegExp(`key: "${key}"`));
+test("BoxJS exposes current Home.Tab IDs", () => {
+	const settings = JSON.parse(readFileSync(new URL("../template/Biliverse.Enhanced.BoxJS.json", import.meta.url), "utf8"));
+	const tab = settings.find(setting => setting.id === "@Biliverse.Enhanced.Settings.Home.Tab");
+	assert.equal(tab.type, "checkboxes");
+	assert.deepEqual(tab.val, ["2036", "2037", "780", "545", "151"]);
+	assert.deepEqual(
+		tab.items.map(({ key }) => key),
+		["2036", "2037", "780", "545", "774", "151", "801", "2280"],
+	);
+	assert.match(tab.desc, /接近60个快捷访问选项/);
+	assert.match(tab.desc, /App 分区页.*原生“快捷访问”/);
+});
+
+test("ordinary config generates arguments and BoxJS while PreferencePanes owns its URL setting", () => {
+	const full = readFileSync(new URL("../arguments-builder.full.config.ts", import.meta.url), "utf8");
+	const config = readFileSync(new URL("../arguments-builder.config.ts", import.meta.url), "utf8");
+	const preferencePanes = readFileSync(new URL("../arguments-builder.PreferencePanes.config.ts", import.meta.url), "utf8");
+	assert.doesNotMatch(full, /\.map\(/);
+	assert.match(config, /import \{ args, output \} from "\.\/arguments-builder\.full\.config"/);
+	assert.match(config, /boxjsSettings: \{[\s\S]*Biliverse\.Enhanced\.BoxJS\.json/);
+	assert.match(full, /const homeTab: ArgumentItem = \{[\s\S]*boxJsType: "checkboxes"/);
+	assert.deepEqual(
+		[...full.matchAll(/export const (\w+): ArgumentItem\[\] = \[/g)].map(([, name]) => name),
+		["args"],
+	);
+	assert.doesNotMatch(preferencePanes, /\.\.\./);
+	assert.match(preferencePanes, /export const homeTab = \{[\s\S]*type: "url"/);
+	assert.match(full, /export const storage: ArgumentItem = \{[\s\S]*key: "Storage"[\s\S]*exclude: \["boxjs"\]/);
+	assert.doesNotMatch(config, /\bStorage\b/);
+	assert.doesNotMatch(preferencePanes, /\bStorage\b/);
+	for (const key of ["2036", "2037", "780", "545", "774", "151", "801", "2280"]) assert.match(full, new RegExp(`key: "${key}"`));
+	const setENV = readFileSync(new URL("../src/function/setENV.mjs", import.meta.url), "utf8");
+	assert.doesNotMatch(setENV, /legacy(?:HomeTab|Top|Bottom)Ids/);
+});
+
+test("static settings never expose the argument-only Storage option", () => {
+	for (const name of ["Biliverse.Enhanced.BoxJS.json", "Biliverse.Enhanced.PreferencePanes.json"]) {
+		const settings = JSON.parse(readFileSync(new URL(`../template/${name}`, import.meta.url), "utf8"));
+		assert.ok(!settings.some(setting => setting.id === "@Biliverse.Enhanced.Settings.Storage"), name);
+	}
 });

@@ -14,7 +14,7 @@ test("both release channels compile configuration responses from their own JSON 
 		process.chdir(root);
 		for (const suffix of ["", ".dev"]) {
 			const json = [{ id: "@Root.Module.Settings.flag", name: suffix || "release", type: "boolean", val: true }];
-			await writeFile(`dist/BiliBili.Enhanced${suffix}.boxjs.json`, JSON.stringify(json));
+			await writeFile(`dist/Biliverse.Enhanced${suffix}.PreferencePanes.json`, JSON.stringify(json));
 			const files = new Map();
 			await configAsset(suffix).generateBundle.call({ emitFile: ({ fileName, source }) => files.set(fileName, source) });
 			assert.deepEqual([...files.keys()], [`config${suffix}.bundle.js`]);

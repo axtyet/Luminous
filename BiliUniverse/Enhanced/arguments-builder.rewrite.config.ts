@@ -15,11 +15,11 @@ const endpoint = {
 export default defineConfig({
 	args: [endpoint],
 	output: {
-		surge: { path: "./dist/BiliBili.Enhanced.Rewrite.sgmodule", template: "./template/surge.rewrite.handlebars", transformEgern: { enable: true, path: "./dist/BiliBili.Enhanced.Rewrite.yaml" } },
-		loon: { path: "./dist/BiliBili.Enhanced.Rewrite.plugin", template: "./template/loon.rewrite.handlebars" },
+		surge: { path: "./dist/Biliverse.Enhanced.Rewrite.sgmodule", template: "./template/surge.rewrite.handlebars", transformEgern: { enable: true, path: "./dist/Biliverse.Enhanced.Rewrite.yaml" } },
+		loon: { path: "./dist/Biliverse.Enhanced.Rewrite.plugin", template: "./template/loon.rewrite.handlebars" },
 		customItems: [
-			{ path: "./dist/BiliBili.Enhanced.Rewrite.srmodule", template: "./template/shadowrocket.rewrite.handlebars" },
-			{ path: "./dist/BiliBili.Enhanced.Rewrite.stoverride", template: "./template/stash.rewrite.handlebars" },
+			{ path: "./dist/Biliverse.Enhanced.Rewrite.srmodule", template: "./template/shadowrocket.rewrite.handlebars" },
+			{ path: "./dist/Biliverse.Enhanced.Rewrite.stoverride", template: "./template/stash.rewrite.handlebars" },
 		],
 	},
 });

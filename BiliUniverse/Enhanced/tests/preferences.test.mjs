@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { readdir, readFile } from "node:fs/promises";
 import test from "node:test";
 
-const config = JSON.parse(await readFile(new URL("../template/boxjs.settings.json", import.meta.url), "utf8"));
+const config = JSON.parse(await readFile(new URL("../template/Biliverse.Enhanced.PreferencePanes.json", import.meta.url), "utf8"));
 const store = new Map();
 globalThis.$environment = { "surge-version": "preferences-test" };
 globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
@@ -16,7 +16,7 @@ globalThis.$persistentStore = {
 const { Request } = await import("../src/process/Request.mjs");
 
 function extractTemplatePattern(name, line) {
-	if (line.startsWith("response if")) return line.match(/~= \/(.+)\/ then/)[1];
+	if (line.startsWith("response if")) return line.match(/~= \/(.+)\/[a-z]* then/)[1];
 	if (line.includes("pattern=")) return line.match(/pattern=([^,]+)/)[1];
 	if (name.startsWith("stash")) return line.trim().slice("- match: ".length);
 	return line.match(/(?:http-request )?(\^https[^ ]+)/)[1];
@@ -30,6 +30,36 @@ test("BoxJS paths match the persistence consumed by business requests", async ()
 	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
 	assert.deepEqual(JSON.parse(result.$response.body).data.top, []);
 	assert.equal(JSON.parse(store.get("Biliverse")).Global.sentinel, true);
+});
+
+test("BoxJs checkbox values use current page IDs directly", async () => {
+	globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
+	store.set(
+		"Biliverse",
+		JSON.stringify({
+			Enhanced: {
+				Settings: {
+					Home: { Tab: ["2036", "2037", "545"], Tab_default: "2037", Top: ["game_center", "messages"] },
+					Bottom: ["home", "channel", "mall", "mine"],
+				},
+			},
+		}),
+	);
+	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
+	const data = JSON.parse(result.$response.body).data;
+	assert.deepEqual(
+		data.tab.map(tab => tab.id),
+		[2036, 2037, 545],
+	);
+	assert.equal(data.tab.find(tab => tab.id === 2037).default_selected, 1);
+	assert.deepEqual(
+		data.top.map(item => item.id),
+		["game_center", "messages"],
+	);
+	assert.deepEqual(
+		data.bottom.map(item => item.id),
+		["home", "channel", "mall", "mine"],
+	);
 });
 
 test("settings integration installs the only generic web and API scripts", async () => {
@@ -68,7 +98,7 @@ test("settings integration installs the only generic web and API scripts", async
 		for (const pathname of ["/api/Enhanced", "/api/Global", "/api/Redirect", "/api/ADBlock", "/api/get/", "/api/Enhanced/get", "/configs/Enhanced", "/settings/Enhanced"]) assert.equal(apiMatcher.test(`https://app.bilibili.com${pathname}`), false, `${name}: ${pathname}`);
 		const development = name.includes(".dev.");
 		const source = development ? "https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/" : "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/";
-		const file = /^(surge|loon)/.test(name) ? `BiliBili.Enhanced${development ? ".dev" : ""}.boxjs.json` : `config${development ? ".dev" : ""}.bundle.js`;
+		const file = /^(surge|loon)/.test(name) ? `Biliverse.Enhanced${development ? ".dev" : ""}.PreferencePanes.json` : `config${development ? ".dev" : ""}.bundle.js`;
 		assert.ok(template.includes(source + file), name);
 	}
 });
@@ -81,7 +111,9 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 		const native = /^(surge|loon)/.test(name);
 		const candidates = lines.filter(
 			line =>
-				(line.includes("app\\.bilibili\\.com\\/settings\\/") || line.includes("biliverse\\.github\\.io\\/settings\\/theme\\.css")) && (line.trimStart().startsWith("^https") || line.startsWith("http-request ") || line.startsWith("response if") || line.trimStart().startsWith("- match:") || line.includes("pattern=")),
+				(line.includes("app\\.bilibili\\.com\\/settings\\/") || line.includes("biliverse\\.github\\.io\\/settings\\/theme\\.css")) &&
+				!line.includes("response-header-") &&
+				(line.trimStart().startsWith("^https") || line.startsWith("http-request ") || line.startsWith("response if") || line.trimStart().startsWith("- match:") || line.includes("pattern=")),
 		);
 		const patterns = candidates.map(line => new RegExp(extractTemplatePattern(name, line)));
 		assert.equal(patterns.length, native ? 8 : 1, name);
@@ -99,5 +131,19 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 				false,
 				name,
 			);
+	}
+});
+
+test("Loon uses URL-backed response mocks", async () => {
+	for (const name of ["loon.handlebars", "loon.dev.handlebars"]) {
+		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
+		const mocks = template.split("\n").filter(line => line.includes("response.body.mock_file"));
+		assert.equal(mocks.length, 8, name);
+		for (const line of mocks) {
+			assert.match(line, /^response if \$\{url\} ~= \/\^https:/, name);
+			assert.match(line, /, 200\)/, name);
+		}
+		assert.equal((template.match(/response\.header\.add\("Cache-Control", "no-store"\)/g) ?? []).length, 7, name);
+		assert.match(template, /response\.header\.add\(\["X-PreferencePanes-Version", "Cache-Control"\], \["\{\{version\}\}", "no-store"\]\)/, name);
 	}
 });

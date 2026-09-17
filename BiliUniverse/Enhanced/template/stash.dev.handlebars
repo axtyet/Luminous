@@ -35,33 +35,33 @@ http:
       require-body: true
       max-size: 65536
     - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$
-      name: 📺 BiliBili.Enhanced.Config
+      name: 📺 Biliverse.Enhanced.Config
       type: request
       require-body: false
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\?
-      name: 📺 BiliBili.Enhanced.response.dev
+      name: 📺 Biliverse.Enhanced.response.dev
       type: response
       require-body: true
     - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$
-      name: 📺 BiliBili.Enhanced.request.dev
+      name: 📺 Biliverse.Enhanced.request.dev
       type: request
       require-body: true
       binary-mode: true
     - match: ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionList$
-      name: 📺 BiliBili.Enhanced.response.dev
+      name: 📺 Biliverse.Enhanced.response.dev
       type: response
       require-body: true
       binary-mode: true
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/account\/mine(\/ipad)?\?
-      name: 📺 BiliBili.Enhanced.response.dev
+      name: 📺 Biliverse.Enhanced.response.dev
       type: response
       require-body: true
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/region\/index\?
-      name: 📺 BiliBili.Enhanced.response.dev
+      name: 📺 Biliverse.Enhanced.response.dev
       type: response
       require-body: true
     - match: ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/v2\/channel\/region\/list\?
-      name: 📺 BiliBili.Enhanced.response.dev
+      name: 📺 Biliverse.Enhanced.response.dev
       type: response
       require-body: true
 
@@ -75,12 +75,12 @@ script-providers:
   PreferencePanes.API:
     url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
     interval: 86400
-  📺 BiliBili.Enhanced.Config:
+  📺 Biliverse.Enhanced.Config:
     url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/config.dev.bundle.js
     interval: 86400
-  📺 BiliBili.Enhanced.request.dev:
+  📺 Biliverse.Enhanced.request.dev:
     url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/request.dev.bundle.js
     interval: 86400
-  📺 BiliBili.Enhanced.response.dev:
+  📺 Biliverse.Enhanced.response.dev:
     url: https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
     interval: 86400

@@ -16,23 +16,18 @@ export interface Settings {
          * @remarks
          *
          * Possible values:
-         * - `'live'` - 直播
-         * - `'recommend'` - 推荐
-         * - `'hottopic'` - 热门
-         * - `'bangumi'` - 番剧
-         * - `'anime'` - 动画（港澳台）
-         * - `'film'` - 影视
-         * - `'koreavtw'` - 韩综（港澳台）
-         * - `'game'` - 游戏
-         * - `'minecraft'` - minecraft
-         * - `'anime_fan'` - 动画同人
-         * - `'funny'` - 搞笑
-         * - `'school'` - 校园
-         * - `'digital'` - 数码
+         * - `'2036'` - 直播
+         * - `'2037'` - 推荐
+         * - `'780'` - 热门
+         * - `'545'` - 番剧
+         * - `'774'` - 动画（港澳台）
+         * - `'151'` - 影视
+         * - `'801'` - 韩综（港澳台）
+         * - `'2280'` - 校园
          *
-         * @defaultValue ["live","recommend","hottopic","bangumi","anime","film","koreavtw"]
+         * @defaultValue ["2036","2037","780","545","151"]
          */
-        Tab?: ('live' | 'recommend' | 'hottopic' | 'bangumi' | 'anime' | 'film' | 'koreavtw' | 'game' | 'minecraft' | 'anime_fan' | 'funny' | 'school' | 'digital')[];
+        Tab?: ('2036' | '2037' | '780' | '545' | '774' | '151' | '801' | '2280')[];
     /**
          * [首页] 默认标签页
          *

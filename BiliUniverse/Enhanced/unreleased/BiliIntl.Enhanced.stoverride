@@ -11,13 +11,13 @@ http:
     - "app.biliintl.com"
   script:
     - match: ^https?:\/\/app\.biliintl\.com\/intl\/gateway\/v2\/app\/resource\/show\/tab(\?.+)?$
-      name: BiliBili.Enhanced.response
+      name: Biliverse.Enhanced.response
       type: response
       require-body: true
       timeout: 15
       max-size: 0
 
 script-providers:
-  BiliBili.Enhanced.response:
+  Biliverse.Enhanced.response:
     url: https://raw.githubusercontent.com/Biliverse/Enhanced/main/js/BiliIntl.Enhanced.response.js
     interval: 86400

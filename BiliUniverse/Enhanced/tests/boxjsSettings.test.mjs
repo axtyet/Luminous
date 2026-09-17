@@ -3,11 +3,11 @@ import { mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 import test from "node:test";
-import { prepareBoxJs } from "../scripts/prepare-boxjs.mjs";
+import { preparePreferencePanes } from "../scripts/prepare-preference-panes.mjs";
 
-test("BoxJS mock replaces the legacy Home.Tab setting with a URL", async () => {
-	const root = await mkdtemp(path.join(tmpdir(), "enhanced-boxjs-"));
-	const file = path.join(root, "boxjs.json");
+test("PreferencePanes replaces the Home.Tab setting with a URL", async () => {
+	const root = await mkdtemp(path.join(tmpdir(), "enhanced-preference-panes-"));
+	const file = path.join(root, "PreferencePanes.json");
 	await writeFile(
 		file,
 		JSON.stringify([
@@ -17,8 +17,8 @@ test("BoxJS mock replaces the legacy Home.Tab setting with a URL", async () => {
 	);
 
 	try {
-		await prepareBoxJs(file);
-		await prepareBoxJs(file);
+		await preparePreferencePanes(file);
+		await preparePreferencePanes(file);
 		const settings = JSON.parse(await readFile(file, "utf8"));
 		const tabSettings = settings.filter(({ id }) => id === "@Biliverse.Enhanced.Settings.Home.Tab");
 		assert.deepEqual(tabSettings, [

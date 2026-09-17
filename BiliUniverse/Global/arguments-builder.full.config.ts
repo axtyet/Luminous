@@ -121,6 +121,7 @@ export const args: ArgumentItem[] = [
 		name: "[储存] 配置类型",
 		defaultValue: "Argument",
 		type: "string",
+		exclude: ["boxjs"],
 		options: [
 			{
 				key: "Argument",
