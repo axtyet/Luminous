@@ -98,7 +98,7 @@ test("settings integration installs the only generic web and API scripts", async
 		for (const pathname of ["/api/Enhanced", "/api/Global", "/api/Redirect", "/api/ADBlock", "/api/get/", "/api/Enhanced/get", "/configs/Enhanced", "/settings/Enhanced"]) assert.equal(apiMatcher.test(`https://app.bilibili.com${pathname}`), false, `${name}: ${pathname}`);
 		const development = name.includes(".dev.");
 		const source = development ? "https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/" : "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/";
-		const file = /^(surge|loon)/.test(name) ? `Biliverse.Enhanced${development ? ".dev" : ""}.PreferencePanes.json` : `config${development ? ".dev" : ""}.bundle.js`;
+		const file = /^(surge|loon|quantumultx)/.test(name) ? `Biliverse.Enhanced${development ? ".dev" : ""}.PreferencePanes.json` : `config${development ? ".dev" : ""}.bundle.js`;
 		assert.ok(template.includes(source + file), name);
 	}
 });
@@ -116,7 +116,7 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 				(line.trimStart().startsWith("^https") || line.startsWith("http-request ") || line.startsWith("response if") || line.trimStart().startsWith("- match:") || line.includes("pattern=")),
 		);
 		const patterns = candidates.map(line => new RegExp(extractTemplatePattern(name, line)));
-		assert.equal(patterns.length, native ? 8 : 1, name);
+		assert.equal(patterns.length, native ? 8 : name.startsWith("quantumultx") ? 2 : 1, name);
 		for (const pathname of ["/settings/", "/settings/index.mjs", "/settings/assets/Enhanced_subject.png"]) assert.equal(patterns.filter(pattern => pattern.test(`https://app.bilibili.com${pathname}?v=1`)).length, 1, name);
 		assert.equal(patterns.filter(pattern => pattern.test("https://biliverse.github.io/settings/theme.css?v=0.9.10")).length, 1, name);
 		for (const pathname of ["/settings/assets/Enhanced_subject_dark.png", "/settings/assets/Enhanced_subject_light.png"])
@@ -145,5 +145,17 @@ test("Loon uses URL-backed response mocks", async () => {
 		}
 		assert.equal((template.match(/response\.header\.add\("Cache-Control", "no-store"\)/g) ?? []).length, 7, name);
 		assert.match(template, /response\.header\.add\(\["X-PreferencePanes-Version", "Cache-Control"\], \["\{\{version\}\}", "no-store"\]\)/, name);
+	}
+});
+
+test("Quantumult X uses URL-backed response mocks for static HTML and JSON", async () => {
+	for (const name of ["quantumultx.handlebars", "quantumultx.dev.handlebars"]) {
+		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
+		const mocks = template.split("\n").filter(line => line.includes(" url echo-response "));
+		assert.equal(mocks.length, 2, name);
+		assert.match(mocks[0], /url echo-response text\/html\\r\\nCache-Control: no-store echo-response https:\/\/biliverse\.github\.io\/settings\/$/, name);
+		assert.match(mocks[1], /url echo-response application\/json\\r\\nX-PreferencePanes-Version: \{\{version\}\}\\r\\nCache-Control: no-store echo-response https:\/\//, name);
+		assert.doesNotMatch(mocks[0], /script-echo-response/, name);
+		assert.doesNotMatch(mocks[1], /config(?:\.dev)?\.bundle\.js/, name);
 	}
 });

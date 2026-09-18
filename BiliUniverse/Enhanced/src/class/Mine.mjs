@@ -14,6 +14,47 @@ export default class Mine {
 			{
 				items: [
 					{
+						id: 494,
+						title: "离线缓存",
+						uri: "bilibili://user_center/download",
+						biz_key: "offline",
+						icon: "http://i0.hdslb.com/bfs/archive/5fc84565ab73e716d20cd2f65e0e1de9495d56f8.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
+						id: 495,
+						title: "历史记录",
+						uri: "bilibili://user_center/history",
+						biz_key: "history",
+						icon: "http://i0.hdslb.com/bfs/archive/8385323c6acde52e9cd52514ae13c8b9481c1a16.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
+						id: 4001,
+						title: "我的收藏",
+						uri: "bilibili://user_center/favourite?version=2",
+						biz_key: "fav",
+						icon: "http://i0.hdslb.com/bfs/archive/d79b19d983067a1b91614e830a7100c05204a821.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
+						id: 3084,
+						title: "稍后再看",
+						uri: "bilibili://user_center/watch_later_v2",
+						biz_key: "watch_later",
+						icon: "http://i0.hdslb.com/bfs/archive/63bb768caa02a68cb566a838f6f2415f0d1d02d6.png",
+						need_login: 1,
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
 						id: 396,
 						title: "离线缓存",
 						icon: "http://i0.hdslb.com/bfs/archive/5fc84565ab73e716d20cd2f65e0e1de9495d56f8.png",
@@ -50,6 +91,26 @@ export default class Mine {
 				up_title: "创作中心",
 				title: "创作中心",
 				items: [
+					{
+						id: 3991,
+						title: "创作中心",
+						uri: "bilibili://uper/homevc",
+						icon: "http://i0.hdslb.com/bfs/archive/d3aad2d07538d2d43805f1fa14a412d7a45cc861.png",
+						display: 1,
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
+						id: 3992,
+						title: "稿件管理",
+						uri: "bilibili://uper/user_center/archive_list",
+						icon: "http://i0.hdslb.com/bfs/archive/97acb2d8dec09b296a38f7f7093d651947d13b91.png",
+						display: 1,
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
 					{
 						need_login: 1,
 						display: 1,
@@ -154,6 +215,15 @@ export default class Mine {
 						uri: "https://www.bilibili.com/h5/mall/home?navhide=1&f_source=shop",
 					},
 					{
+						id: 3994,
+						title: "我的钱包",
+						uri: "bilibili://bilipay/mine_wallet",
+						icon: "http://i0.hdslb.com/bfs/archive/f416634e361824e74a855332b6ff14e2e7c2e082.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
 						id: 403,
 						title: "游戏中心",
 						icon: "http://i0.hdslb.com/bfs/archive/873e3c16783fe660b111c02ebc4c50279cb5db57.png",
@@ -227,6 +297,24 @@ export default class Mine {
 			{
 				title: "更多服务",
 				items: [
+					{
+						id: 4021,
+						title: "联系客服",
+						uri: "bilibili://user_center/feedback",
+						icon: "http://i0.hdslb.com/bfs/archive/7ca840cf1d887a45ee1ef441ab57845bf26ef5fa.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
+					{
+						id: 4022,
+						title: "设置",
+						uri: "bilibili://user_center/setting",
+						icon: "http://i0.hdslb.com/bfs/archive/e932404f2ee62e075a772920019e9fbdb4b5656a.png",
+						common_op_item: {},
+						corner_pixel: 0,
+						biz_type: 0,
+					},
 					{
 						id: 407,
 						title: "联系客服",
@@ -333,6 +421,9 @@ export default class Mine {
 				const section = { ...template, items: template.items.map(item => ({ ...item })) };
 				if (debug) Console.debug(`e.title = ${section.title}`);
 				switch (section.title) {
+					case undefined:
+						section.items = section.items.filter(item => _.get(settings, "Shortcuts").includes(item.id));
+						break;
 					case "创作中心":
 						section.items = section.items.filter(item => _.get(settings, "CreatorCenter").includes(item.id));
 						break;

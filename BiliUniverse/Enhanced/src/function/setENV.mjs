@@ -15,8 +15,6 @@ export default function setENV(name, platforms, database) {
 	const storedSettings = Storage.getItem(`@${name}.${platforms}.Settings`, {});
 	globalThis.$argument.Storage = storedSettings.Storage ?? argumentStorage;
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	// 本地配置的叶子值（包括空数组）覆盖默认值；保留未设置的父级下其它默认字段。
-	if (globalThis.$argument.Storage === "PersistentStore") applyStoredSettings(Settings, storedSettings);
 	// App 内保存的标签页顺序是运行时权威值，不受模块参数的配置优先级覆盖。
 	// The tab order saved in-app is authoritative at runtime and overrides module argument precedence.
 	if (Reflect.has(storedSettings.Home ?? {}, "Tab")) _.set(Settings, "Home.Tab", storedSettings.Home.Tab);
@@ -30,6 +28,7 @@ export default function setENV(name, platforms, database) {
 	Settings.Home.Tab_default = String(Settings.Home.Tab_default);
 	if (!Array.isArray(Settings?.Following?.Tab)) _.set(Settings, "Following.Tab", Settings?.Following?.Tab ? [Settings.Following.Tab] : []);
 	if (!Array.isArray(Settings?.Bottom)) _.set(Settings, "Bottom", Settings?.Bottom ? [Settings.Bottom] : []);
+	if (!Array.isArray(Settings?.Mine?.Shortcuts)) _.set(Settings, "Mine.Shortcuts", Settings?.Mine?.Shortcuts ? [Settings.Mine.Shortcuts] : []);
 	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) _.set(Settings, "Mine.CreatorCenter", Settings?.Mine?.CreatorCenter ? [Settings.Mine.CreatorCenter] : []);
 	if (!Array.isArray(Settings?.Mine?.Recommend)) _.set(Settings, "Mine.Recommend", Settings?.Mine?.Recommend ? [Settings.Mine.Recommend] : []);
 	if (!Array.isArray(Settings?.Mine?.More)) _.set(Settings, "Mine.More", Settings?.Mine?.More ? [Settings.Mine.More] : []);
@@ -43,12 +42,4 @@ export default function setENV(name, platforms, database) {
 	/***************** Configs *****************/
 	Console.log("✅ Set Environment Variables");
 	return { Settings, Caches, Configs };
-}
-
-function applyStoredSettings(settings, stored, path = []) {
-	for (const [key, value] of Object.entries(stored)) {
-		const parts = [...path, key];
-		if (value !== null && typeof value === "object" && !Array.isArray(value)) applyStoredSettings(settings, value, parts);
-		else _.set(settings, parts, value);
-	}
 }

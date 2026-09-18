@@ -165,6 +165,7 @@ test("persistent-only settings stay in full, BoxJS and PreferencePanes definitio
 	const full = readFileSync(new URL("../arguments-builder.full.config.ts", import.meta.url), "utf8");
 	const groups = new Map([
 		["Region.Index", "分区"],
+		["Mine.Shortcuts", "我的"],
 		["Mine.CreatorCenter", "我的"],
 		["Mine.Recommend", "我的"],
 		["Mine.More", "我的"],
@@ -185,7 +186,6 @@ test("persistent-only settings stay in full, BoxJS and PreferencePanes definitio
 			assert.match(setting.name, new RegExp(`^\\[${group.replaceAll(" ", "\\s")}\\] `), `${name}: ${key}`);
 		}
 		const more = settings.find(({ id }) => id === "@Biliverse.Enhanced.Settings.Mine.More");
-		assert.equal(more.items.find(({ key }) => key === "741").label, "我的钱包（白色版）");
 		assert.equal(more.items.find(({ key }) => key === "742").label, "稿件管理（白色版）");
 		assert.equal(more.items.find(({ key }) => key === "950").label, "青少年模式（概念版）");
 	}

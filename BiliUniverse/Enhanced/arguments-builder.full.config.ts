@@ -237,6 +237,21 @@ export const mineSwitch: ArgumentItem = {
 	description: "启用后可自定义我的标签页的服务内容。",
 };
 
+export const mineShortcuts: ArgumentItem = {
+	key: "Mine.Shortcuts",
+	name: "[我的] 快捷入口",
+	type: "array",
+	boxJsType: "checkboxes",
+	defaultValue: ["494", "495", "4001", "3084"],
+	exclude: ["surge", "loon"],
+	options: [
+		{ key: "494", label: "离线缓存" },
+		{ key: "495", label: "历史记录" },
+		{ key: "4001", label: "我的收藏" },
+		{ key: "3084", label: "稍后再看" },
+	],
+};
+
 export const mineCreatorCenter: ArgumentItem = {
 	key: "Mine.CreatorCenter",
 	name: "[我的] 创作中心",
@@ -245,8 +260,8 @@ export const mineCreatorCenter: ArgumentItem = {
 	defaultValue: [],
 	exclude: ["surge", "loon"],
 	options: [
-		{ key: "171", label: "创作中心" },
-		{ key: "172", label: "稿件管理" },
+		{ key: "3991", label: "创作中心" },
+		{ key: "3992", label: "稿件管理" },
 		{ key: "174", label: "有奖活动" },
 		{ key: "533", label: "任务中心" },
 		{ key: "707", label: "主播中心" },
@@ -262,14 +277,14 @@ export const mineRecommend: ArgumentItem = {
 	name: "[我的] 推荐服务",
 	type: "array",
 	boxJsType: "checkboxes",
-	defaultValue: ["400", "402", "404", "403"],
+	defaultValue: ["400", "402", "3994", "403"],
 	exclude: ["surge", "loon"],
 	options: [
 		{ key: "400", label: "我的课程" },
 		{ key: "401", label: "看视频免流量" },
 		{ key: "402", label: "个性装扮" },
+		{ key: "3994", label: "我的钱包" },
 		{ key: "403", label: "游戏中心" },
-		{ key: "404", label: "我的钱包" },
 		{ key: "406", label: "直播中心" },
 		{ key: "423", label: "邀好友赚红包" },
 		{ key: "514", label: "社区中心" },
@@ -286,12 +301,11 @@ export const mineMore: ArgumentItem = {
 	name: "[我的] 更多服务",
 	type: "array",
 	boxJsType: "checkboxes",
-	defaultValue: ["407", "410", "1028"],
+	defaultValue: ["4021", "4022", "1028"],
 	exclude: ["surge", "loon"],
 	options: [
-		{ key: "407", label: "联系客服" },
-		{ key: "410", label: "设置" },
-		{ key: "741", label: "我的钱包（白色版）" },
+		{ key: "4021", label: "联系客服" },
+		{ key: "4022", label: "设置" },
 		{ key: "742", label: "稿件管理（白色版）" },
 		{ key: "812", label: "听视频" },
 		{ key: "950", label: "青少年模式（概念版）" },
@@ -387,6 +401,6 @@ export const logLevel: ArgumentItem = {
 	],
 };
 
-export const args: ArgumentItem[] = [homeSwitch, homeTab, homeTabDefault, homeTopLeft, homeTop, homeTopMore, bottom, regionSwitch, regionIndex, mineSwitch, mineCreatorCenter, mineRecommend, mineMore, mineIPadSwitch, mineIPadUpper, mineIPadRecommend, mineIPadMore, storage, logLevel];
+export const args: ArgumentItem[] = [homeSwitch, homeTab, homeTabDefault, homeTopLeft, homeTop, homeTopMore, bottom, regionSwitch, regionIndex, mineSwitch, mineShortcuts, mineCreatorCenter, mineRecommend, mineMore, mineIPadSwitch, mineIPadUpper, mineIPadRecommend, mineIPadMore, storage, logLevel];
 
 export default defineConfig({ output, args });

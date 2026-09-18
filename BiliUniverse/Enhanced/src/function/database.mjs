@@ -12,9 +12,10 @@ export default {
 			Bottom: ["home", "dynamic", "ogv", "mall", "mine"],
 			Mine: {
 				Switch: "true",
+				Shortcuts: ["494", "495", "4001", "3084"],
 				CreatorCenter: [],
-				Recommend: ["400", "402", "404", "403"],
-				More: ["407", "410", "1028"],
+				Recommend: ["400", "402", "3994", "403"],
+				More: ["4021", "4022", "1028"],
 				iPad: { Switch: "true", Upper: [], Recommend: ["789", "790", "791", "793", "794", "2542"], More: ["797", "798"] },
 			},
 			Region: {

@@ -184,15 +184,16 @@ test("Biliverse entry remains available when Mine customization is disabled", as
 	);
 });
 
-test("Biliverse entry remains in more services when Mine customization removes settings", async () => {
+test("Biliverse entry remains unique and follows the current settings entry", async () => {
 	globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
 	Storage.setItem("@Biliverse.Enhanced.Settings", {
 		Mine: {
-			Switch: true,
+			Switch: "true",
+			Shortcuts: ["494", "495", "4001", "3084"],
 			CreatorCenter: [],
-			Recommend: [],
-			More: [407, 1028],
-			iPad: { Switch: true, Upper: [], Recommend: [], More: [797, 1070] },
+			Recommend: ["3994"],
+			More: ["4021", "4022", "1028"],
+			iPad: { Switch: "true", Upper: [], Recommend: [], More: ["797", "1070"] },
 		},
 	});
 	const phoneResponse = await Response({ url: "https://app.bilibili.com/x/v2/account/mine", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
@@ -205,7 +206,7 @@ test("Biliverse entry remains in more services when Mine customization removes s
 	assert.ok(phoneData.sections_v2.every(section => Array.isArray(section.items) && section.items.length > 0));
 	assert.deepEqual(
 		more.items.map(item => item.id),
-		[407, 1028, 129515498],
+		[4021, 4022, 129515498, 1028],
 	);
 	assert.equal(phoneItems.filter(item => item.id === 129515498).length, 1);
 	assert.deepEqual(
@@ -219,8 +220,8 @@ test("JSON responses create missing data paths from configured selections", asyn
 	Storage.setItem("@Biliverse.Enhanced.Settings", {
 		Home: { Switch: true, Top: ["mall"], Top_more: ["search"], Tab: ["1028"], Tab_default: "1028" },
 		Bottom: ["messages"],
-		Mine: { Switch: true, CreatorCenter: [], Recommend: [], More: [741] },
-		Region: { Switch: true, Index: [1] },
+		Mine: { Switch: true, Shortcuts: [], CreatorCenter: [], Recommend: [], More: ["741"] },
+		Region: { Switch: true, Index: ["1"] },
 	});
 	const response = { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0 }) };
 	const tab = JSON.parse((await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { ...response })).body).data;
