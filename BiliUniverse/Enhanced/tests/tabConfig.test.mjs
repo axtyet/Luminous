@@ -8,30 +8,53 @@ const regionList = database.Enhanced.Configs.RegionList;
 const regionPages = Object.entries(regionList.items).map(([id, item]) => ({ id, uri: item.url }));
 const readableTabPages = ["top", "bottom", "top_more"].flatMap(group => tabConfig[group]);
 const tabPages = [...regionPages, ...readableTabPages];
-const tabEntries = [...readableTabPages, ...tabConfig.bottom.flatMap(item => item.dialog_items ?? [])];
 
-test("Tab page IDs are readable and uniquely assigned by URI", () => {
-	const uriById = new Map();
-	const idByUri = new Map();
+test("Tab page IDs are readable and uniquely assigned within each navigation context", () => {
+	const groups = [tabConfig.top, tabConfig.bottom, tabConfig.top_more, tabConfig.bottom.flatMap(item => item.dialog_items ?? [])];
 
-	for (const page of tabEntries) {
-		assert.match(page.id, /^[a-z][a-z0-9_]*$/, `${page.uri} must use a readable ID`);
+	for (const pages of groups) {
+		const uriById = new Map();
+		const idByUri = new Map();
+		for (const page of pages) {
+			assert.match(page.id, /^[a-z][a-z0-9_]*$/, `${page.uri} must use a readable ID`);
 
-		if (uriById.has(page.id)) assert.equal(uriById.get(page.id), page.uri, `ID ${page.id} cannot identify multiple URIs`);
-		else uriById.set(page.id, page.uri);
+			if (uriById.has(page.id)) assert.equal(uriById.get(page.id), page.uri, `ID ${page.id} cannot identify multiple URIs in one navigation context`);
+			else uriById.set(page.id, page.uri);
 
-		if (idByUri.has(page.uri)) assert.equal(idByUri.get(page.uri), page.id, `${page.uri} must always use one ID`);
-		else idByUri.set(page.uri, page.id);
+			if (idByUri.has(page.uri)) assert.equal(idByUri.get(page.uri), page.id, `${page.uri} must use one ID in each navigation context`);
+			else idByUri.set(page.uri, page.id);
+		}
+
+		assert.equal(uriById.size, idByUri.size);
 	}
-
-	assert.equal(uriById.size, idByUri.size);
 });
 
 test("Tab configuration contains every URI shared by domestic and international clients", () => {
 	const configuredURIs = new Set(tabPages.map(page => page.uri));
-	const sharedURIs = ["bilibili://live/home", "bilibili://pegasus/promo", "bilibili://pegasus/hottopic", "bilibili://pgc/home", "bilibili://main/home/", "bilibili://pegasus/channel/", "bilibili://following/home/", "bilibili://user_center/", "bilibili://link/im_home", "bilibili://main/top_category"];
+	const sharedURIs = [
+		"bilibili://live/home",
+		"bilibili://pegasus/promo",
+		"bilibili://pegasus/hottopic",
+		"bilibili://pgc/home",
+		"bilibili://main/home/",
+		"bilibili://pegasus/channel/",
+		"bilibili://following/home/",
+		"bilibili://user_center/",
+		"bilibili://link/im_home",
+		"bilibili://im/home_tab",
+		"bilibili://main/top_category",
+	];
 
 	for (const uri of sharedURIs) assert.ok(configuredURIs.has(uri), `${uri} must be configurable`);
+});
+
+test("Top and bottom message entries use their native navigation contexts", () => {
+	const top = tabConfig.top.find(item => item.id === "messages");
+	const bottom = tabConfig.bottom.find(item => item.id === "messages");
+
+	assert.equal(top.uri, "bilibili://link/im_home");
+	assert.equal(bottom.uri, "bilibili://im/home_tab");
+	assert.equal("default_selected" in bottom, false);
 });
 
 test("Default settings reference configured page IDs", () => {

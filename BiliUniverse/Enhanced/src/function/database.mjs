@@ -600,7 +600,7 @@ export default {
 						icon: "http://i0.hdslb.com/bfs/archive/93dae0f0fb2c9887effb2840800d5b639be69351.png",
 						icon_selected: "http://i0.hdslb.com/bfs/archive/f96bfd9ffea2e51443aed44dba6d76b7b34891c8.png",
 						name: "消息",
-						uri: "bilibili://link/im_home",
+						uri: "bilibili://im/home_tab",
 						tab_id: "消息Bottom",
 					},
 					{
