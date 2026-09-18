@@ -35,7 +35,7 @@ test("moves an existing entry below settings without changing the shortcut row",
 	assert.equal(data.sections_v2[2].items[2].id, 411);
 });
 
-test("does not invent another placement when settings is absent", () => {
+test("injects the entry into more services when settings is absent", () => {
 	const data = {
 		sections_v2: [
 			{ title: "推荐服务", items: [{ uri }] },
@@ -45,8 +45,32 @@ test("does not invent another placement when settings is absent", () => {
 	Mine.addEntry(data);
 	assert.deepEqual(data.sections_v2, [
 		{ title: "推荐服务", items: [] },
-		{ title: "更多服务", items: [{ id: 411 }] },
+		{
+			title: "更多服务",
+			items: [
+				{ id: 411 },
+				{
+					id: 129515498,
+					title: "Biliverse 哔哩万象",
+					icon: "https://biliverse.github.io/settings/assets/Biliverse_subject.png",
+					uri,
+					common_op_item: {},
+				},
+			],
+		},
 	]);
+});
+
+test("creates more services when the response does not contain it", () => {
+	const data = { sections_v2: [{ title: "推荐服务", items: [{ uri }] }] };
+	Mine.addEntry(data);
+	assert.deepEqual(data.sections_v2[0].items, []);
+	const section = data.sections_v2.find(({ title }) => title === "更多服务");
+	assert.equal(section.style, 2);
+	assert.deepEqual(
+		section.items.map(item => item.id),
+		[129515498],
+	);
 });
 
 test("iPad moves the entry below settings in the more-services list", () => {
@@ -59,6 +83,16 @@ test("iPad moves the entry below settings in the more-services list", () => {
 	assert.equal(data.ipad_more_sections[1].title, "Biliverse 哔哩万象");
 	assert.equal(data.ipad_more_sections[1].uri, uri);
 	assert.equal(data.ipad_more_sections[2].id, 1070);
+});
+
+test("iPad keeps the entry in more services when settings is absent", () => {
+	const data = { ipad_recommend_sections: [{ uri }], ipad_more_sections: [{ id: 1070 }] };
+	Mine.addEntry(data, true);
+	assert.deepEqual(data.ipad_recommend_sections, []);
+	assert.deepEqual(
+		data.ipad_more_sections.map(item => item.id),
+		[1070, 129515498],
+	);
 });
 
 test("leaves other common-container entries intact", () => {

@@ -1,6 +1,6 @@
 import { RegionShortcutReq } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
-import { $app, Storage } from "@nsnanocat/util";
+import { Lodash as _, $app, Storage } from "@nsnanocat/util";
 
 /**
  * 分区响应转换器。
@@ -2363,7 +2363,7 @@ export default class Region {
 	 */
 	static saveShortcuts(request, settings) {
 		const rawBody = $app === "Quantumult X" ? new Uint8Array(request.bodyBytes ?? []) : (request.body ?? new Uint8Array());
-		settings.Home.Tab = RegionShortcutReq.fromBinary(gRPC.decode(rawBody)).uniqueId;
+		_.set(settings, "Home.Tab", RegionShortcutReq.fromBinary(gRPC.decode(rawBody)).uniqueId);
 		Storage.setItem("@Biliverse.Enhanced.Settings", settings);
 	}
 
@@ -2375,17 +2375,20 @@ export default class Region {
 	 * @returns {Array<object>} 合并后的分区列表 / Merged region list.
 	 */
 	static mergeLists(onlineContents, localRegionList) {
-		const contents = onlineContents.map(content => ({ ...content, icons: [...content.icons] }));
+		onlineContents ??= [];
+		const contents = onlineContents.map(content => ({ ...content, icons: [..._.get(content, "icons", [])] }));
 		const groups = new Map(contents.map(content => [content.title, content]));
-		const uniqueIds = new Set(contents.flatMap(content => content.icons.map(icon => icon.uniqueId)));
+		const uniqueIds = new Set(contents.flatMap(content => _.get(content, "icons").map(icon => icon.uniqueId)));
 		for (const group of localRegionList.groups) {
-			const content = groups.get(group.title) ?? { title: group.title, icons: [] };
+			const content = groups.get(group.title) ?? { title: group.title };
+			const icons = _.get(content, "icons", []);
 			for (const uniqueId of group.ids) {
 				if (uniqueIds.has(uniqueId)) continue;
-				const item = localRegionList.items[uniqueId];
-				content.icons.push({ img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid });
+				const item = _.get(localRegionList, ["items", uniqueId]);
+				icons.push({ img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid });
 				uniqueIds.add(uniqueId);
 			}
+			_.set(content, "icons", icons);
 			groups.set(group.title, content);
 		}
 		const configuredTitles = new Set(localRegionList.groups.map(group => group.title));
@@ -2400,13 +2403,11 @@ export default class Region {
 	 * @returns {Array<object>} 快捷访问图标 / Shortcut icons.
 	 */
 	static buildShortcutIcons(uniqueIds, regionList) {
-		return uniqueIds
-			.map(uniqueId => {
-				const item = regionList.items[uniqueId];
-				if (!item) return;
-				return { img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid };
-			})
-			.filter(Boolean);
+		if (uniqueIds.length === 1 && uniqueIds[0] === "0") return [];
+		return uniqueIds.map(uniqueId => {
+			const item = _.get(regionList, ["items", uniqueId]);
+			return { img: item.img, title: item.title, url: item.url, uniqueId, rid: item.rid };
+		});
 	}
 
 	/**
@@ -2418,6 +2419,7 @@ export default class Region {
 	 * @returns {Array<object>} 替换后的分区页索引 / Replaced region page index.
 	 */
 	static replaceIndex(data, pathname, settings) {
+		data ??= [];
 		// 分区页面索引。
 		// Region page index.
 		// 末尾插入全部分区。

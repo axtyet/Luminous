@@ -1,7 +1,7 @@
 import { RegionListReply } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
 import { URL } from "@nsnanocat/url";
-import { $app, Console } from "@nsnanocat/util";
+import { Lodash as _, $app, Console } from "@nsnanocat/util";
 import Mine from "../class/Mine.mjs";
 import Region from "../class/Region.mjs";
 import Tab from "../class/Tab.mjs";
@@ -79,7 +79,9 @@ export async function Response($request, $response) {
 							// 首页标签页。
 							// Homepage tabs.
 							if (Settings.Home?.Switch) {
-								Tab.replace(body.data, Settings, Configs);
+								const data = _.get(body, "data", {});
+								Tab.replace(data, Settings, Configs);
+								_.set(body, "data", data);
 							}
 							break;
 						case "/x/resource/show/tab/bubble":
@@ -89,23 +91,31 @@ export async function Response($request, $response) {
 						case "/x/v2/account/mine":
 							// 我的账户信息。
 							// Mine account information.
-							if (Settings.Mine?.Switch) {
-								Mine.replaceSections(body.data, Settings.Mine, true);
+							{
+								const data = _.get(body, "data", {});
+								if (Settings.Mine?.Switch) {
+									Mine.replaceSections(data, Settings.Mine, true);
+								}
+								if (body.code === 0) Mine.addEntry(data);
+								_.set(body, "data", data);
 							}
-							if (body.code === 0 && body.data) Mine.addEntry(body.data);
 							break;
 						case "/x/v2/account/mine/ipad":
 							// iPad 我的账户信息。
 							// iPad Mine account information.
-							if (Settings.Mine?.iPad?.Switch) {
-								Mine.replacePadSections(body.data, Settings.Mine.iPad);
+							{
+								const data = _.get(body, "data", {});
+								if (Settings.Mine?.iPad?.Switch) {
+									Mine.replacePadSections(data, Settings.Mine.iPad);
+								}
+								if (body.code === 0) Mine.addEntry(data, true);
+								_.set(body, "data", data);
 							}
-							if (body.code === 0 && body.data) Mine.addEntry(body.data, true);
 							break;
 						case "/x/v2/region/index":
 						case "/x/v2/channel/region/list": {
 							if (Settings.Region?.Switch) {
-								body.data = Region.replaceIndex(body.data, url.pathname, Settings.Region);
+								_.set(body, "data", Region.replaceIndex(_.get(body, "data", []), url.pathname, Settings.Region));
 							}
 							break;
 						}
@@ -138,8 +148,8 @@ export async function Response($request, $response) {
 									// 获取分区与快捷访问。
 									// Get regions and shortcuts.
 									body = RegionListReply.fromBinary(rawBody);
-									body.contents = Region.mergeLists(body.contents, Configs.RegionList);
-									body.shortcut = { title: "自定义标签页", icons: Region.buildShortcutIcons(Settings.Home.Tab, Configs.RegionList) };
+									_.set(body, "contents", Region.mergeLists(_.get(body, "contents", []), Configs.RegionList));
+									_.set(body, "shortcut", { title: "自定义标签页", icons: Region.buildShortcutIcons(Settings.Home.Tab, Configs.RegionList) });
 									rawBody = RegionListReply.toBinary(body);
 									break;
 								}

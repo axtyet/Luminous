@@ -4,6 +4,7 @@ import { after, beforeEach, test } from "node:test";
 import { RegionListReply, RegionShortcutReq } from "@biliverse/protobuf/bilibili/app/show/v1/mixture.js";
 import gRPC from "@nsnanocat/grpc";
 import { Storage } from "@nsnanocat/util";
+import Region from "../src/class/Region.mjs";
 import database from "../src/function/database.mjs";
 import { Request } from "../src/process/Request.mjs";
 import { Response } from "../src/process/Response.mjs";
@@ -136,6 +137,18 @@ test("empty RegionShortcut request remains empty", async () => {
 	assert.deepEqual(Storage.getItem("@Biliverse.Enhanced.Settings", {}).Home.Tab, []);
 });
 
+test("RegionShortcut creates the Home path when settings are empty", () => {
+	const settings = {};
+	Region.saveShortcuts(
+		{
+			body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: ["1028", "884"] })),
+		},
+		settings,
+	);
+
+	assert.deepEqual(settings, { Home: { Tab: ["1028", "884"] } });
+});
+
 test("RegionShortcut clear sentinel keeps shortcuts and home tabs empty", async () => {
 	await Request({
 		method: "POST",
@@ -168,6 +181,75 @@ test("Biliverse entry remains available when Mine customization is disabled", as
 	assert.deepEqual(
 		iPadData.ipad_more_sections.map(item => item.id),
 		[798, 129515498, 1070],
+	);
+});
+
+test("Biliverse entry remains in more services when Mine customization removes settings", async () => {
+	globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
+	Storage.setItem("@Biliverse.Enhanced.Settings", {
+		Mine: {
+			Switch: true,
+			CreatorCenter: [],
+			Recommend: [],
+			More: [407, 1028],
+			iPad: { Switch: true, Upper: [], Recommend: [], More: [797, 1070] },
+		},
+	});
+	const phoneResponse = await Response({ url: "https://app.bilibili.com/x/v2/account/mine", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
+	const iPadResponse = await Response({ url: "https://app.bilibili.com/x/v2/account/mine/ipad", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
+	const phoneData = JSON.parse(phoneResponse.body).data;
+	const iPadData = JSON.parse(iPadResponse.body).data;
+	const phoneItems = phoneData.sections_v2.flatMap(section => section.items);
+	const more = phoneData.sections_v2.find(section => section.title === "更多服务");
+
+	assert.ok(phoneData.sections_v2.every(section => Array.isArray(section.items) && section.items.length > 0));
+	assert.deepEqual(
+		more.items.map(item => item.id),
+		[407, 1028, 129515498],
+	);
+	assert.equal(phoneItems.filter(item => item.id === 129515498).length, 1);
+	assert.deepEqual(
+		iPadData.ipad_more_sections.map(item => item.id),
+		[797, 1070, 129515498],
+	);
+});
+
+test("JSON responses create missing data paths from configured selections", async () => {
+	globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
+	Storage.setItem("@Biliverse.Enhanced.Settings", {
+		Home: { Switch: true, Top: ["mall"], Top_more: ["search"], Tab: ["1028"], Tab_default: "1028" },
+		Bottom: ["messages"],
+		Mine: { Switch: true, CreatorCenter: [], Recommend: [], More: [741] },
+		Region: { Switch: true, Index: [1] },
+	});
+	const response = { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0 }) };
+	const tab = JSON.parse((await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { ...response })).body).data;
+	const mine = JSON.parse((await Response({ url: "https://app.bilibili.com/x/v2/account/mine", headers: {} }, { ...response })).body).data;
+	const region = JSON.parse((await Response({ url: "https://app.bilibili.com/x/v2/region/index", headers: {} }, { ...response })).body).data;
+
+	assert.deepEqual(
+		tab.top.map(({ id }) => id),
+		["mall"],
+	);
+	assert.deepEqual(
+		tab.top_more.map(({ id }) => id),
+		["search"],
+	);
+	assert.deepEqual(
+		tab.tab.map(({ id }) => id),
+		[1028],
+	);
+	assert.deepEqual(
+		tab.bottom.map(({ id }) => id),
+		["messages"],
+	);
+	assert.deepEqual(
+		mine.sections_v2.find(({ title }) => title === "更多服务").items.map(({ id }) => id),
+		[741, 129515498],
+	);
+	assert.deepEqual(
+		region.map(({ tid }) => tid),
+		[1],
 	);
 });
 

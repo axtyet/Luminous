@@ -1,3 +1,5 @@
+import { Lodash as _ } from "@nsnanocat/util";
+
 /**
  * 首页标签页响应转换器。
  * Homepage tab response transformer.
@@ -14,34 +16,46 @@ export default class Tab {
 	static replace(data, settings, configs) {
 		// 顶栏左侧。
 		// Top bar left.
-		data.top_left = configs.Tab.top_left[settings.Home.Top_left];
+		_.set(data, "top_left", _.get(configs, ["Tab", "top_left", _.get(settings, "Home.Top_left")]));
 		// 顶栏右侧。
 		// Top bar right.
-		data.top = configs.Tab.top
-			.map(item => {
-				if (settings.Home.Top.includes(item.id)) return item;
-			})
-			.filter(Boolean)
-			.map((item, index) => ({ ...item, pos: index + 1 }));
+		_.set(
+			data,
+			"top",
+			_.get(configs, "Tab.top")
+				.map(item => {
+					if (_.get(settings, "Home.Top").includes(item.id)) return item;
+				})
+				.filter(Boolean)
+				.map((item, index) => ({ ...item, pos: index + 1 })),
+		);
 		// 顶栏更多。
 		// Top bar more.
-		data.top_more = configs.Tab.top_more
-			.map(item => {
-				if (settings.Home.Top_more.includes(item.id)) return item;
-			})
-			.filter(Boolean)
-			.map((item, index) => ({ ...item, pos: index + 1 }));
+		_.set(
+			data,
+			"top_more",
+			_.get(configs, "Tab.top_more")
+				.map(item => {
+					if (_.get(settings, "Home.Top_more").includes(item.id)) return item;
+				})
+				.filter(Boolean)
+				.map((item, index) => ({ ...item, pos: index + 1 })),
+		);
 		// 标签栏。
 		// Tab bar.
-		data.tab = Tab.#build(settings.Home.Tab, configs.RegionList, settings.Home.Tab_default);
+		_.set(data, "tab", Tab.#build(_.get(settings, "Home.Tab"), _.get(configs, "RegionList"), _.get(settings, "Home.Tab_default")));
 		// 底部导航栏。
 		// Bottom navigation bar.
-		data.bottom = configs.Tab.bottom
-			.map(item => {
-				if (settings.Bottom.includes(item.id)) return item;
-			})
-			.filter(Boolean)
-			.map((item, index) => ({ ...item, pos: index + 1 }));
+		_.set(
+			data,
+			"bottom",
+			_.get(configs, "Tab.bottom")
+				.map(item => {
+					if (_.get(settings, "Bottom").includes(item.id)) return item;
+				})
+				.filter(Boolean)
+				.map((item, index) => ({ ...item, pos: index + 1 })),
+		);
 	}
 
 	/**
@@ -53,16 +67,15 @@ export default class Tab {
 	 * @returns {Array<object>} 首页标签栏项目 / Homepage tab bar items.
 	 */
 	static #build(uniqueIds, regionList, defaultTab) {
+		if (uniqueIds.length === 1 && uniqueIds[0] === "0") return [];
 		return uniqueIds
 			.map(uniqueId => {
-				const item = regionList.items[uniqueId];
-				if (!item) return;
+				const item = _.get(regionList, ["items", uniqueId]);
 				const tab = { id: Number(uniqueId), name: item.title, uri: item.url, tab_id: item.tab_id };
 				if (item.color) tab.color = item.color;
 				if (uniqueId === defaultTab) tab.default_selected = 1;
 				return tab;
 			})
-			.filter(Boolean)
 			.map((tab, index) => ({ ...tab, pos: index + 1 }));
 	}
 }
