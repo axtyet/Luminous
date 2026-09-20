@@ -260,16 +260,16 @@ export const mineCreatorCenter: ArgumentItem = {
 	defaultValue: [],
 	exclude: ["surge", "loon"],
 	options: [
-		{ key: "3991", label: "创作中心" },
-		{ key: "3992", label: "稿件管理" },
+		{ key: "171", label: "创作中心" },
+		{ key: "172", label: "稿件管理" },
+		{ key: "533", label: "数据中心" },
 		{ key: "174", label: "有奖活动" },
-		{ key: "533", label: "任务中心" },
 		{ key: "707", label: "主播中心" },
 		{ key: "708", label: "主播活动" },
 		{ key: "709", label: "开播福利" },
 		{ key: "710", label: "我的直播" },
 	],
-	description: "白色版本 APP 不存在此选项（未单独注明的选项皆为 iOS 版本）。",
+	description: "当前公开选项以国内版 APP 为准（未单独注明的选项皆为 iOS 版本）。",
 };
 
 export const mineRecommend: ArgumentItem = {

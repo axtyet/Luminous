@@ -95,6 +95,10 @@ test("persistent settings definitions match database defaults and class configs"
 	assert.deepEqual(database.Enhanced.Settings.Mine.CreatorCenter, []);
 	assert.deepEqual(database.Enhanced.Settings.Mine.Recommend, ["400", "402", "3994", "403"]);
 	assert.deepEqual(database.Enhanced.Settings.Mine.More, ["4021", "4022", "1028"]);
+	assert.deepEqual(
+		mineCreatorCenter.options.map(({ key }) => key),
+		["171", "172", "533", "174", "707", "708", "709", "710"],
+	);
 
 	const all = { includes: () => true };
 	const phone = {};
@@ -129,8 +133,39 @@ test("persistent settings definitions match database defaults and class configs"
 	);
 	const publicPhoneIds = new Set(phoneOptions.flatMap(([definition]) => definition.options.map(({ key }) => key)));
 	const internalPhoneIds = new Set(phone.sections_v2.flatMap(({ items }) => items.map(({ id }) => String(id))));
-	for (const id of ["396", "397", "398", "399", "171", "172", "404", "741", "407", "410"]) {
+	for (const id of ["396", "397", "398", "399", "3991", "3992", "533original", "404", "741", "407", "410"]) {
 		assert.ok(internalPhoneIds.has(id), `${id} must remain available for stored settings`);
 		assert.equal(publicPhoneIds.has(id), false, `${id} must stay hidden from new settings`);
 	}
+	const creatorCenter = phone.sections_v2.find(({ title }) => title === "创作中心");
+	assert.deepEqual(
+		creatorCenter.items.slice(0, 4).map(({ id }) => id),
+		[171, 172, 533, 174],
+	);
+	assert.deepEqual(
+		creatorCenter.items.find(({ id }) => id === 533),
+		{
+			id: 533,
+			title: "数据中心",
+			uri: "https://member.bilibili.com/york/data-center?navhide=1&from=profile",
+			icon: "http://i0.hdslb.com/bfs/feed-admin/367204ba56004b1a78211ba27eefbf5b4cc53a35.png",
+			need_login: 1,
+			global_red_dot: 1,
+			display: 1,
+			corner_pixel: 0,
+			biz_type: 0,
+		},
+	);
+	assert.deepEqual(
+		creatorCenter.items.find(({ id }) => id === "533original"),
+		{
+			id: "533original",
+			title: "任务中心",
+			uri: "https://member.bilibili.com/york/mission-center?navhide=1",
+			icon: "http://i0.hdslb.com/bfs/archive/ae18624fd2a7bdda6d95ca606d5e4cf2647bfa4d.png",
+			need_login: 1,
+			global_red_dot: 1,
+			display: 1,
+		},
+	);
 });
