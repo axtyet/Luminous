@@ -8,8 +8,16 @@
 #!date = {{now "yyyy-MM-dd HH:mm:ss"}}
 #!version = {{version}}
 
+[Map Local]
+^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/index.html" status-code=200 header="Content-Type:text/html|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/index.mjs" status-code=200 header="Content-Type:text/javascript|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/assets/Biliverse_subject.png" status-code=200 header="Content-Type:image/png|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/assets/Enhanced_subject.png" status-code=200 header="Content-Type:image/png|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/assets/Global_subject.png" status-code=200 header="Content-Type:image/png|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/assets/Redirect_subject.png" status-code=200 header="Content-Type:image/png|Cache-Control:no-store"
+^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ data-type=file data="https://biliverse.github.io/settings/assets/ADBlock_subject.png" status-code=200 header="Content-Type:image/png|Cache-Control:no-store"
+
 [Script]
-Biliverse.Website = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io\/settings\/theme\.css|app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?)(?:\?[^#]*)?$, script-path=https://biliverse.github.io/settings/mock.js
 PreferencePanes.Web = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
 PreferencePanes.API = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$, requires-body=1, max-size=65536, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 📺 Biliverse.Enhanced.Config = type=http-request, pattern=^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/config.bundle.js

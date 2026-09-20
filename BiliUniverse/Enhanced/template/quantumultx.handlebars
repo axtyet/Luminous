@@ -9,8 +9,14 @@
 #!version = {{version}}
 
 #[rewrite_local]
-^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ url echo-response text/html\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/
-^https:\/\/(?:biliverse\.github\.io\/settings\/theme\.css|app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png))(?:\?[^#]*)?$ url script-echo-response https://biliverse.github.io/settings/mock.js
+^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ url echo-response text/html\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/index.html
+^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$ url echo-response text/css\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/theme.css
+^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ url echo-response text/javascript\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/index.mjs
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Biliverse_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Enhanced_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Global_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Redirect_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/ADBlock_subject.png
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 # Biliverse 本地设置

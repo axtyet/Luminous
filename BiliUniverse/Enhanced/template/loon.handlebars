@@ -14,6 +14,7 @@
 {{{arguments}}}
 
 [Rewrite]
+response if ${url} ~= /^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$/i then response.body.mock_file("css", "https://biliverse.github.io/settings/theme.css", 200) | response.header.add("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$/i then response.body.mock_file("html", "https://biliverse.github.io/settings/", 200) | response.header.add("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$/i then response.body.mock_file("javascript", "https://biliverse.github.io/settings/index.mjs", 200) | response.header.add("Cache-Control", "no-store")
 response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$/i then response.body.mock_file("png", "https://biliverse.github.io/settings/assets/Biliverse_subject.png", 200) | response.header.add("Cache-Control", "no-store")
@@ -24,7 +25,6 @@ response if ${url} ~= /^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_
 response if ${url} ~= /^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$/i then response.body.mock_file("json", "https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/Biliverse.Enhanced.PreferencePanes.json", 200) | response.header.add(["X-PreferencePanes-Version", "Cache-Control"], ["{{version}}", "no-store"])
 
 [Script]
-http-request ^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$ script-path=https://biliverse.github.io/settings/mock.js, tag=Biliverse.Website
 http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$ script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js, tag=PreferencePanes.Web
 http-request ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ requires-body=1, script-path=https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js, tag=PreferencePanes.API
 http-response ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? requires-body=1, script-path=https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/response.bundle.js, tag=📺 Biliverse.Enhanced.x.resource.show.tab.v2, argument={{{scriptParams}}}

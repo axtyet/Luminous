@@ -20,11 +20,15 @@ http:
     - "app.bilibili.com"
     - "app.biliapi.net"
     - "grpc.biliapi.net"
+  url-rewrite:
+    - ^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ https://biliverse.github.io/settings/index.html transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ https://biliverse.github.io/settings/index.mjs transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Biliverse_subject.png transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Enhanced_subject.png transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Global_subject.png transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Redirect_subject.png transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/ADBlock_subject.png transparent
   script:
-    - match: ^https:\/\/(?:biliverse\.github\.io\/settings\/theme\.css|app\.bilibili\.com\/settings\/(?:index\.mjs|assets\/(?:Biliverse|Enhanced|Global|Redirect|ADBlock)_subject\.png)?)(?:\?[^#]*)?$
-      name: Biliverse.Website
-      type: request
-      require-body: false
     - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$
       name: PreferencePanes.Web
       type: request
@@ -66,9 +70,6 @@ http:
       require-body: true
 
 script-providers:
-  Biliverse.Website:
-    url: https://biliverse.github.io/settings/mock.js
-    interval: 86400
   PreferencePanes.Web:
     url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
     interval: 86400
