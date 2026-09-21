@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-09-21 19:42:40(GMT+8)
-! Total count: 39594
+! Version: 2026-09-22 01:39:04(GMT+8)
+! Total count: 39600
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -9208,6 +9208,7 @@ dict.cn##.search-right-ad5
 dict.cn##.search-right-ad7
 dictionary.cambridge.org#$#override-property-read window.navigator.connection.rtt 1001
 dictionary.cambridge.org#$#prevent-element-src-loading script /sdk\\.js/
+dictionary.cambridge.org#$#prevent-listener message /data===[a-z]&&[a-z_$]/
 dictionary.cambridge.org,loawa.com,malaymail.com#$#abort-current-inline-script setTimeout /EventTarget.*prototype.*addEventListener.*Map/
 dictionary.cambridge.org,malaymail.com#$#abort-current-inline-script setTimeout /error-report.com/
 didispace.com##.widget-wrap > p[style="text-align: left;padding-bottom: 20px;line-height: 30px;"]
@@ -15431,8 +15432,7 @@ proboards.com,freeforums.net,boards.net###support-message
 proewildfire.cn##.comiis_nav ~ a
 professorweb.ru###submain > div[class^="a"][style]
 proginn.com##div[style*="width:1000px;height: 250px;"]
-programme-tv.net#$#override-property-read as_1058949371 true; override-property-read as_720001151 true; override-property-read as_-1858225736 true; override-property-read as_-1499012015 true; override-property-read as_818940565 true; override-property-read as_-977715772 true; override-property-read as_739024637 true; override-property-read as_1098238358 true; override-property-read as_759290138 true; override-property-read as_-1217724578 true; override-property-read as_-690327166 true; override-property-read as_1026413243 true; override-property-read as_687465023 true; override-property-read as_348516803 true; override-property-read as_-930335972 true; override-property-read as_-1269284192 true; override-property-read as_447456217 true; override-property-read as_-1349200120 true; override-property-read as_-989986399 true; override-property-read as_1327966181 true; override-property-read as_989017961 true
-programme-tv.net#$#prevent-element-src-loading script /\/feed\//; prevent-element-src-loading script /\/cache\//
+programme-tv.net#$#prevent-element-src-loading script /bundle/
 programme.tv#$#prevent-element-src-loading script /loader\\.min\\.js/
 programme.tv^$csp=script-src-attr 'none'
 programme.tvb.com##.tvb-ads--empty
@@ -16310,6 +16310,7 @@ slashview.com##div[id^="Advertis"]
 slickdeals.net##.displayAdContainer
 slickdeals.net#$#hide-if-matches-xpath '//div[contains(@class,"displayAdContainer")]/ancestor-or-self::div[@class="searchPage__headerContent"][1]'
 slickdeals.net#$#hide-if-matches-xpath '//span[contains(text(),"Sponsored")][@data-partial="sponsor"]/ancestor-or-self::div[@data-role="announcementBar"][1]'
+slickdeals.net#$#prevent-element-src-loading script /ad-shield/
 slit.cn##+js(abort-current-script, alert, typeof(ad))
 slivap.ru##.svg-adblock
 slobodnadalmacija.hr#$#hide-if-matches-xpath './/div[@id][contains(@class,"ad--align")]/ancestor::div[1]'
@@ -17029,6 +17030,7 @@ tianya.cn##.book-box
 tianya.cn##.qhb-Box
 tianya.cn##.slider_box
 tianyancha.com###banner_web
+tibiopedia.pl#$#prevent-listener message /data===/
 tiboo.cn##.sectionAd
 tie.163.com,uump4.com,uump4.net###top-banner
 tieba.baidu.com###diversBanner
@@ -18983,11 +18985,15 @@ zzzyk.com###Tinfo
 ||*.website/*^$xmlhttprequest,domain=knaben.xyz
 ||*/ad/$redirect=noop-0.1s.mp3,domain=huaren.tv,media
 ||*/api.js^$script,rewrite=abp-resource:blank-js,domain=fandom.com
+||*/api.js|$script,rewrite=abp-resource:blank-js,domain=tibiopedia.pl
 ||*/app.js|$script,domain=9gag.com
 ||*/app.js|$script,rewrite=abp-resource:blank-js,domain=calculatorsoup.com
 ||*/app.js|$script,rewrite=abp-resource:blank-js,domain=hna.de
 ||*/app.js|$script,rewrite=abp-resource:blank-js,domain=scribd.com
+||*/bundle.js^$script,domain=programme-tv.net
 ||*/bundle.js^$script,rewrite=abp-resource:blank-js,domain=fandom.com
+||*/bundle/*$script,domain=programme-tv.net
+||*/cdn.js^$script,rewrite=abp-resource:blank-js,domain=dictionary.cambridge.org
 ||*/cdn.js^$script,rewrite=abp-resource:blank-js,domain=fandom.com
 ||*/core.js^$script,domain=coolmathgames.com
 ||*/core.js^$script,domain=fandom.com
@@ -21787,6 +21793,7 @@ zzzyk.com###Tinfo
 ||aloofvest.com^
 ||alpineactor.com^
 ||als.baidu.com^
+||altitude52.com^
 ||alu.cn*/aluad/
 ||alu.cn/Ashx/AjaxGuangGao.
 ||alu.cn/aluTrade/Fragments/ListAdvertisementProductsHandler.
@@ -24220,7 +24227,6 @@ zzzyk.com###Tinfo
 ||content-loader.com^$script,domain=onlineradiobox.com
 ||content-loader.com^$script,domain=oxfordlearnersdictionaries.com
 ||content-loader.com^$script,domain=pockettactics.com
-||content-loader.com^$script,domain=programme-tv.net
 ||content-loader.com^$script,domain=puckpedia.com
 ||content-loader.com^$script,domain=rollingstone.com
 ||content-loader.com^$script,domain=seriouseats.com
@@ -24640,7 +24646,6 @@ zzzyk.com###Tinfo
 ||d5.sina.com.cn^$object,script
 ||d5092moci.com^
 ||d56p.com/love/
-||d59gpuqareznf.cloudfront.net^$script,domain=programme-tv.net
 ||d5zkrmttu.com^
 ||d6.mobaders.com^
 ||d67p.com/love/
@@ -25529,6 +25534,7 @@ zzzyk.com###Tinfo
 ||dzwww.com/images/ad_down.js
 ||dzwww.com/k.js
 ||dzxxxg6ij9u99.cloudfront.net/wb.js$script,domain=cwtv.com
+||dzz8yyd41.com^
 ||e-sante.fr/responsiblenesses^
 ||e.changyan.sohu.com/dataService/getData?
 ||e.hnr.cn/choose/view/
@@ -25969,6 +25975,7 @@ zzzyk.com###Tinfo
 ||error-report.com^$domain=percentagecalculator.net
 ||error-report.com^$domain=pockettactics.com
 ||error-report.com^$domain=pressian.com
+||error-report.com^$domain=programme-tv.net
 ||error-report.com^$domain=programme.tv
 ||error-report.com^$domain=puckpedia.com
 ||error-report.com^$domain=rollingstone.com
@@ -28274,7 +28281,6 @@ zzzyk.com###Tinfo
 ||html-load.com^$script,domain=pcgamer.com
 ||html-load.com^$script,domain=pcgamesn.com
 ||html-load.com^$script,domain=pockettactics.com
-||html-load.com^$script,domain=programme-tv.net
 ||html-load.com^$script,domain=puckpedia.com
 ||html-load.com^$script,domain=rollingstone.com
 ||html-load.com^$script,domain=seriouseats.com
@@ -33090,7 +33096,6 @@ zzzyk.com###Tinfo
 ||profusesupport.com^
 ||proginn.com/cms/10000/
 ||prognosiscoloredpractical.com^
-||programme-tv.net^$csp=script-src-attr 'none'
 ||programmer-club.com.tw/images/uuu/
 ||prokyrn.icu^
 ||prologue23.com^
@@ -33235,6 +33240,7 @@ zzzyk.com###Tinfo
 ||pxdb08b82.com^
 ||pxjabbtydothnc.com^
 ||pxlizduukhnpps.com^
+||pxvoyuez.com^
 ||pxx.tnklrs.cn^$3p
 ||py.cn/src/img/pyy/
 ||py.cn/static/images/advert/
@@ -35362,7 +35368,6 @@ zzzyk.com###Tinfo
 ||stg.html-load.com/session$domain=omnicalculator.com
 ||stg.html-load.com/session$domain=oxfordlearnersdictionaries.com
 ||stg.html-load.com/session$domain=pockettactics.com
-||stg.html-load.com/session$domain=programme-tv.net
 ||stg.html-load.com/session$domain=stocktwits.com
 ||stg.html-load.com^$script,domain=calculatorsoup.com
 ||stg.html-load.com^$script,domain=doviz.com
@@ -37987,6 +37992,7 @@ zzzyk.com###Tinfo
 ||wyqqanziid.com^
 ||wyxcb3.top^
 ||wyzq.rehuwang.com^
+||wz2jy3t94.com^
 ||wzbaohe.com/imgadnew/midad.js
 ||wzctuv.xyz^
 ||wzehmoil.com^
