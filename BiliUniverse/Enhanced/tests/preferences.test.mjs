@@ -210,7 +210,7 @@ test("Quantumult X maps every static asset to its matching response file", async
 			["https://app.bilibili.com/settings/assets/Redirect_subject.png?v=1", "image/png", "assets/Redirect_subject.png"],
 			["https://app.bilibili.com/settings/assets/ADBlock_subject.png?v=1", "image/png", "assets/ADBlock_subject.png"],
 		]) {
-			const line = mocks.find(line => line.includes(`url echo-response ${type}\\r\\nCache-Control: no-store echo-response https://biliverse.github.io/settings/${file}`));
+			const line = mocks.find(line => line.includes(`url echo-response ${type} echo-response https://biliverse.github.io/settings/${file}`));
 			assert.ok(line, `${name}: ${file}`);
 			assert.match(request, new RegExp(extractTemplatePattern(name, line)), `${name}: ${request}`);
 		}
@@ -219,11 +219,12 @@ test("Quantumult X maps every static asset to its matching response file", async
 			["https://app.bilibili.com/settings/assets/index.mjs?v=1", "text/javascript", "index.mjs"],
 			["https://app.bilibili.com/settings/assets/navigation.mjs?v=1", "text/javascript", "navigation.mjs"],
 		]) {
-			const line = mocks.find(line => line.includes(`url echo-response ${type}\\r\\nCache-Control: no-store echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file}`));
+			const line = mocks.find(line => line.includes(`url echo-response ${type} echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file}`));
 			assert.ok(line, `${name}: ${file}`);
 			assert.match(request, new RegExp(extractTemplatePattern(name, line)), `${name}: ${request}`);
 		}
-		assert.match(mocks.at(-1), /url echo-response application\/json\\r\\nX-PreferencePanes-Version: \{\{version\}\}\\r\\nCache-Control: no-store echo-response https:\/\//, name);
+		assert.match(mocks.at(-1), /url echo-response application\/json\\r\\nX-PreferencePanes-Version: \{\{version\}\} echo-response https:\/\//, name);
+		assert.doesNotMatch(template, /\\r\\nCache-Control: no-store/, name);
 		assert.doesNotMatch(template, /url script-echo-response https:\/\/biliverse\.github\.io\/settings\/mock\.js/, name);
 		assert.doesNotMatch(mocks.at(-1), /config(?:\.dev)?\.bundle\.js/, name);
 	}

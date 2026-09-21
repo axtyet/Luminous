@@ -9,20 +9,20 @@
 #!version = {{version}}
 
 #[rewrite_local]
-^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ url echo-response text/html\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/index.html
-^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$ url echo-response text/css\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/theme.css
-^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ url echo-response text/javascript\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/index.mjs
-^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Biliverse_subject.png
-^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Enhanced_subject.png
-^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Global_subject.png
-^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/Redirect_subject.png
-^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ url echo-response image/png\r\nCache-Control: no-store echo-response https://biliverse.github.io/settings/assets/ADBlock_subject.png
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/[a-zA-Z0-9_-]+\/?(?:\?[^#]*)?$ url echo-response text/html\r\nCache-Control: no-store echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.html
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/index\.mjs(?:\?[^#]*)?$ url echo-response text/javascript\r\nCache-Control: no-store echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.mjs
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/navigation\.mjs(?:\?[^#]*)?$ url echo-response text/javascript\r\nCache-Control: no-store echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/navigation.mjs
+^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ url echo-response text/html echo-response https://biliverse.github.io/settings/index.html
+^https:\/\/biliverse\.github\.io\/settings\/theme\.css(?:\?[^#]*)?$ url echo-response text/css echo-response https://biliverse.github.io/settings/theme.css
+^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ url echo-response text/javascript echo-response https://biliverse.github.io/settings/index.mjs
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ url echo-response image/png echo-response https://biliverse.github.io/settings/assets/Biliverse_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ url echo-response image/png echo-response https://biliverse.github.io/settings/assets/Enhanced_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ url echo-response image/png echo-response https://biliverse.github.io/settings/assets/Global_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ url echo-response image/png echo-response https://biliverse.github.io/settings/assets/Redirect_subject.png
+^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ url echo-response image/png echo-response https://biliverse.github.io/settings/assets/ADBlock_subject.png
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/[a-zA-Z0-9_-]+\/?(?:\?[^#]*)?$ url echo-response text/html echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.html
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/index\.mjs(?:\?[^#]*)?$ url echo-response text/javascript echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.mjs
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/navigation\.mjs(?:\?[^#]*)?$ url echo-response text/javascript echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/navigation.mjs
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 # Biliverse 本地设置
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$ url echo-response application/json\r\nX-PreferencePanes-Version: {{version}}\r\nCache-Control: no-store echo-response https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/Biliverse.Enhanced.dev.PreferencePanes.json
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$ url echo-response application/json\r\nX-PreferencePanes-Version: {{version}} echo-response https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/Biliverse.Enhanced.dev.PreferencePanes.json
 ^https?:\/\/app\.bili(bili\.com|api\.net)\/x\/resource\/show\/tab\/v2\? url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js
 ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionShortcut$ url script-request-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/request.dev.bundle.js
 ^https?:\/\/(grpc|app)\.bili(bili\.com|api\.net)\/bilibili\.app\.show\.v1\.Mixture\/RegionList$ url script-response-body https://gist.githubusercontent.com/VirgilClyne/97d7611df1c0b29a254ce8f527137576/raw/response.dev.bundle.js

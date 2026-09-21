@@ -684,8 +684,17 @@ function extractAIResponseText(j) {
   }
   const texts = [];
   for (const item of Array.isArray(j.output) ? j.output : []) {
+    if (!item || item.type === 'reasoning') continue;
     for (const content of Array.isArray(item && item.content) ? item.content : []) {
-      if (content && typeof content.text === 'string') texts.push(content.text);
+      if (!content || content.type === 'reasoning_text') continue;
+      if (content.type === 'output_text' && typeof content.text === 'string') texts.push(content.text);
+    }
+  }
+  if (texts.length) return texts.join('\n');
+  for (const item of Array.isArray(j.output) ? j.output : []) {
+    if (!item || item.type === 'reasoning') continue;
+    for (const content of Array.isArray(item.content) ? item.content : []) {
+      if (content && !content.type && typeof content.text === 'string') texts.push(content.text);
     }
   }
   return texts.join('\n');
