@@ -28,11 +28,10 @@ http:
     - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Global_subject.png transparent
     - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Redirect_subject.png transparent
     - ^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/ADBlock_subject.png transparent
+    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/[a-zA-Z0-9_-]+\/?(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.html transparent
+    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/index\.mjs(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.mjs transparent
+    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/navigation\.mjs(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/navigation.mjs transparent
   script:
-    - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/(?:[a-zA-Z0-9_-]+\/?|assets\/(?:index|navigation)\.mjs)(?:\?.*)?$
-      name: PreferencePanes.Web
-      type: request
-      require-body: false
     - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$
       name: PreferencePanes.API
       type: request
@@ -70,9 +69,6 @@ http:
       require-body: true
 
 script-providers:
-  PreferencePanes.Web:
-    url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/web.js
-    interval: 86400
   PreferencePanes.API:
     url: https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
     interval: 86400

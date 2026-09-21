@@ -63,14 +63,14 @@ test("BoxJs checkbox values use current page IDs directly", async () => {
 	);
 });
 
-test("settings integration installs the only generic web and API scripts", async () => {
+test("settings integration maps static page assets and installs only the storage API script", async () => {
 	for (const name of await readdir(new URL("../template/", import.meta.url))) {
 		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		assert.ok(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js"), name);
-		assert.equal((template.match(/https:\/\/github\.com\/NSNanoCat\/PreferencePanes\/releases\/latest\/download\/web\.js/g) ?? []).length, 1, name);
+		assert.doesNotMatch(template, /PreferencePanes\.Web|download\/web\.js/, name);
+		for (const file of ["index.html", "index.mjs", "navigation.mjs"]) assert.equal((template.match(new RegExp(`https:\\/\\/github\\.com\\/NSNanoCat\\/PreferencePanes\\/releases\\/latest\\/download\\/${file.replace(".", "\\.")}`, "g")) ?? []).length, 1, `${name}: ${file}`);
 		assert.ok(template.includes("api\\/(?:get|set|delete)"), name);
-		assert.ok(template.includes("settings\\/(?:[a-zA-Z0-9_-]+\\/?|assets\\/(?:index|navigation)\\.mjs)"), name);
 		assert.doesNotMatch(template, /settings\/mock\.js|Biliverse\.Website/, name);
 		assert.doesNotMatch(template, /api\\\/\(\?:get\|set\|delete\)\|settings/);
 		assert.doesNotMatch(template, /assets\\\/(?:index\|host|host\|index)\)\\\.mjs/);
@@ -85,12 +85,17 @@ test("settings integration installs the only generic web and API scripts", async
 		assert.ok(matcher.test("https://biliverse.github.io/api/Enhanced?v=1"));
 		for (const pathname of ["/api/Enhanced/", "/api/Enhanced/get", "/settings/", "/settings/Enhanced", "/configs/Enhanced", "/api/Global", "/settings/assets/Enhanced.boxjs.json", "/settings/assets/Enhanced.config.js"]) assert.equal(matcher.test(`https://biliverse.github.io${pathname}`), false, name);
 		assert.doesNotMatch(template, /biliverse\.github\.io\/settings\/assets\/.*boxjs/);
-		const webLine = template.split("\n").find(line => line.includes("settings\\/(?:[a-zA-Z0-9_-]+"));
-		assert.ok(webLine, name);
-		const webPattern = extractTemplatePattern(name, webLine);
-		const webMatcher = new RegExp(webPattern);
-		for (const pathname of ["/settings/Enhanced", "/settings/Global", "/settings/Redirect", "/settings/ADBlock", "/settings/assets/index.mjs", "/settings/assets/navigation.mjs"]) assert.ok(webMatcher.test(`https://app.bilibili.com${pathname}`), `${name}: ${pathname}`);
-		for (const pathname of ["/settings/", "/settings/index.mjs", "/settings/assets/app.mjs", "/configs/Enhanced", "/api/Enhanced"]) assert.equal(webMatcher.test(`https://app.bilibili.com${pathname}`), false, `${name}: ${pathname}`);
+		for (const [file, matches, misses] of [
+			["index.html", ["/settings/Enhanced", "/settings/Global", "/settings/Redirect", "/settings/ADBlock"], ["/settings/", "/settings/index.mjs", "/settings/assets/index.mjs"]],
+			["index.mjs", ["/settings/assets/index.mjs"], ["/settings/index.mjs", "/settings/assets/navigation.mjs"]],
+			["navigation.mjs", ["/settings/assets/navigation.mjs"], ["/settings/assets/index.mjs", "/settings/assets/app.mjs"]],
+		]) {
+			const line = template.split("\n").find(line => line.includes(`download/${file}`));
+			assert.ok(line, `${name}: ${file}`);
+			const matcher = new RegExp(extractTemplatePattern(name, line));
+			for (const pathname of matches) assert.ok(matcher.test(`https://app.bilibili.com${pathname}?v=1`), `${name}: ${pathname}`);
+			for (const pathname of misses) assert.equal(matcher.test(`https://app.bilibili.com${pathname}?v=1`), false, `${name}: ${pathname}`);
+		}
 		const apiLine = template.split("\n").find(line => line.includes("api\\/(?:get|set|delete)"));
 		assert.ok(apiLine, name);
 		const apiPattern = extractTemplatePattern(name, apiLine);
@@ -139,12 +144,12 @@ test("Loon uses URL-backed response mocks", async () => {
 	for (const name of ["loon.handlebars", "loon.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		const mocks = template.split("\n").filter(line => line.includes("response.body.mock_file"));
-		assert.equal(mocks.length, 9, name);
+		assert.equal(mocks.length, 12, name);
 		for (const line of mocks) {
 			assert.match(line, /^response if \$\{url\} ~= \/\^https:/, name);
 			assert.match(line, /, 200\)/, name);
 		}
-		assert.equal((template.match(/response\.header\.add\("Cache-Control", "no-store"\)/g) ?? []).length, 8, name);
+		assert.equal((template.match(/response\.header\.add\("Cache-Control", "no-store"\)/g) ?? []).length, 11, name);
 		assert.ok(
 			mocks.some(line => line.includes('response.body.mock_file("css", "https://biliverse.github.io/settings/theme.css", 200)')),
 			name,
@@ -155,6 +160,7 @@ test("Loon uses URL-backed response mocks", async () => {
 
 test("static resources use platform file mappings without a website script", async () => {
 	const files = ["index.html", "index.mjs", ...["Biliverse", "Enhanced", "Global", "Redirect", "ADBlock"].map(name => `assets/${name}_subject.png`)];
+	const preferenceFiles = ["index.html", "index.mjs", "navigation.mjs"];
 	for (const name of ["surge.handlebars", "surge.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		assert.match(template, /data-type=file data="https:\/\/biliverse\.github\.io\/settings\/theme\.css" status-code=200 header="Content-Type:text\/css\|Cache-Control:no-store"/, name);
@@ -162,19 +168,29 @@ test("static resources use platform file mappings without a website script", asy
 	for (const name of ["stash.handlebars", "stash.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		const rewrites = template.split("\n").filter(line => line.trimStart().startsWith("- ^https"));
-		assert.equal(rewrites.length, files.length, name);
+		assert.equal(rewrites.length, files.length + preferenceFiles.length, name);
 		for (const file of files)
 			assert.ok(
 				rewrites.some(line => line.endsWith(`https://biliverse.github.io/settings/${file} transparent`)),
 				`${name}: ${file}`,
 			);
+		for (const file of preferenceFiles)
+			assert.ok(
+				rewrites.some(line => line.endsWith(`https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file} transparent`)),
+				`${name}: ${file}`,
+			);
 	}
 	const shadowrocket = await readFile(new URL("../template/shadowrocket.handlebars", import.meta.url), "utf8");
 	const mappings = shadowrocket.split("\n").filter(line => line.includes("data-type=file"));
-	assert.equal(mappings.length, files.length);
+	assert.equal(mappings.length, files.length + preferenceFiles.length);
 	for (const file of files)
 		assert.ok(
 			mappings.some(line => line.includes(`data="https://biliverse.github.io/settings/${file}"`)),
+			file,
+		);
+	for (const file of preferenceFiles)
+		assert.ok(
+			mappings.some(line => line.includes(`data="https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file}"`)),
 			file,
 		);
 });
@@ -183,7 +199,7 @@ test("Quantumult X maps every static asset to its matching response file", async
 	for (const name of ["quantumultx.handlebars", "quantumultx.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		const mocks = template.split("\n").filter(line => line.includes(" url echo-response "));
-		assert.equal(mocks.length, 9, name);
+		assert.equal(mocks.length, 12, name);
 		for (const [request, type, file] of [
 			["https://app.bilibili.com/settings/?v=1", "text/html", "index.html"],
 			["https://biliverse.github.io/settings/theme.css?v=1", "text/css", "theme.css"],
@@ -195,6 +211,15 @@ test("Quantumult X maps every static asset to its matching response file", async
 			["https://app.bilibili.com/settings/assets/ADBlock_subject.png?v=1", "image/png", "assets/ADBlock_subject.png"],
 		]) {
 			const line = mocks.find(line => line.includes(`url echo-response ${type}\\r\\nCache-Control: no-store echo-response https://biliverse.github.io/settings/${file}`));
+			assert.ok(line, `${name}: ${file}`);
+			assert.match(request, new RegExp(extractTemplatePattern(name, line)), `${name}: ${request}`);
+		}
+		for (const [request, type, file] of [
+			["https://app.bilibili.com/settings/Enhanced?v=1", "text/html", "index.html"],
+			["https://app.bilibili.com/settings/assets/index.mjs?v=1", "text/javascript", "index.mjs"],
+			["https://app.bilibili.com/settings/assets/navigation.mjs?v=1", "text/javascript", "navigation.mjs"],
+		]) {
+			const line = mocks.find(line => line.includes(`url echo-response ${type}\\r\\nCache-Control: no-store echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file}`));
 			assert.ok(line, `${name}: ${file}`);
 			assert.match(request, new RegExp(extractTemplatePattern(name, line)), `${name}: ${request}`);
 		}
