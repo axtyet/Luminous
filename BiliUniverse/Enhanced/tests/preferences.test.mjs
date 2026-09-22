@@ -114,7 +114,6 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;
 		const source = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		const lines = source.split("\n");
-		const native = /^(surge|loon)/.test(name);
 		const candidates = lines.filter(
 			line =>
 				(line.includes("app\\.bilibili\\.com\\/settings\\/") || line.includes("biliverse\\.github\\.io\\/settings\\/theme\\.css")) &&
@@ -122,16 +121,16 @@ test("homepage and static mocks never overlap module pages, configs or storage A
 				(line.trimStart().startsWith("^https") || line.startsWith("http-request ") || line.startsWith("response if") || line.trimStart().startsWith("- match:") || line.trimStart().startsWith("- ^https") || line.includes("pattern=")),
 		);
 		const patterns = candidates.map(line => new RegExp(extractTemplatePattern(name, line)));
-		assert.equal(patterns.length, native || name.startsWith("quantumultx") ? 8 : 7, name);
-		for (const pathname of ["/settings/", "/settings/index.mjs", "/settings/assets/Enhanced_subject.png"]) assert.equal(patterns.filter(pattern => pattern.test(`https://app.bilibili.com${pathname}?v=1`)).length, 1, name);
-		assert.equal(patterns.filter(pattern => pattern.test("https://biliverse.github.io/settings/theme.css?v=0.9.10")).length, native || name.startsWith("quantumultx") ? 1 : 0, name);
+		assert.equal(patterns.length, 8, name);
+		for (const pathname of ["/settings/", "/settings/theme.css", "/settings/index.mjs", "/settings/assets/Enhanced_subject.png"]) assert.equal(patterns.filter(pattern => pattern.test(`https://app.bilibili.com${pathname}?v=1`)).length, 1, name);
+		assert.equal(patterns.filter(pattern => pattern.test("https://biliverse.github.io/settings/theme.css?v=0.9.10")).length, 0, name);
 		for (const pathname of ["/settings/assets/Enhanced_subject_dark.png", "/settings/assets/Enhanced_subject_light.png"])
 			assert.equal(
 				patterns.some(pattern => pattern.test(`https://app.bilibili.com${pathname}`)),
 				false,
 				name,
 			);
-		for (const pathname of ["/settings/home.js", "/settings/bilibili.mjs", "/settings/assets/navigation.mjs", "/settings/Enhanced", "/settings/assets/index.mjs", "/settings/assets/host.mjs", "/configs/Enhanced", "/api/Enhanced", "/api/get", "/x/v2/account/mine", "/settings/theme.css"])
+		for (const pathname of ["/settings/home.js", "/settings/bilibili.mjs", "/settings/assets/navigation.mjs", "/settings/Enhanced", "/settings/assets/index.mjs", "/settings/assets/host.mjs", "/configs/Enhanced", "/api/Enhanced", "/api/get", "/x/v2/account/mine"])
 			assert.equal(
 				patterns.some(pattern => pattern.test(`https://app.bilibili.com${pathname}`)),
 				false,
@@ -159,11 +158,11 @@ test("Loon uses URL-backed response mocks", async () => {
 });
 
 test("static resources use platform file mappings without a website script", async () => {
-	const files = ["index.html", "index.mjs", ...["Biliverse", "Enhanced", "Global", "Redirect", "ADBlock"].map(name => `assets/${name}_subject.png`)];
+	const files = ["index.html", "theme.css", "index.mjs", ...["Biliverse", "Enhanced", "Global", "Redirect", "ADBlock"].map(name => `assets/${name}_subject.png`)];
 	const preferenceFiles = ["index.html", "index.mjs", "navigation.mjs"];
 	for (const name of ["surge.handlebars", "surge.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
-		assert.match(template, /data-type=file data="https:\/\/biliverse\.github\.io\/settings\/theme\.css" status-code=200 header="Content-Type:text\/css\|Cache-Control:no-store"/, name);
+		assert.match(template, /\^https:\\\/\\\/app\\\.bilibili\\\.com\\\/settings\\\/theme\\\.css.*data-type=file data="https:\/\/biliverse\.github\.io\/settings\/theme\.css"/, name);
 	}
 	for (const name of ["stash.handlebars", "stash.dev.handlebars"]) {
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
@@ -202,7 +201,7 @@ test("Quantumult X maps every static asset to its matching response file", async
 		assert.equal(mocks.length, 12, name);
 		for (const [request, type, file] of [
 			["https://app.bilibili.com/settings/?v=1", "text/html", "index.html"],
-			["https://biliverse.github.io/settings/theme.css?v=1", "text/css", "theme.css"],
+			["https://app.bilibili.com/settings/theme.css?v=1", "text/css", "theme.css"],
 			["https://app.bilibili.com/settings/index.mjs?v=1", "text/javascript", "index.mjs"],
 			["https://app.bilibili.com/settings/assets/Biliverse_subject.png?v=1", "image/png", "assets/Biliverse_subject.png"],
 			["https://app.bilibili.com/settings/assets/Enhanced_subject.png?v=1", "image/png", "assets/Enhanced_subject.png"],

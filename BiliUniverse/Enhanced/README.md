@@ -52,7 +52,7 @@ Surge 和 Loon 使用原生远程 JSON Mock：先拉取同版本远程资源，�
 
 `/settings/{module}`、`/settings/assets/index.mjs`、`/settings/assets/navigation.mjs` 分别映射 PreferencePanes Release 的 `index.html`、`index.mjs`、`navigation.mjs`，不执行页面响应脚本。Enhanced 安装的 `api.js` 只处理固定的 `POST /api/get|set|delete`；`/api/Enhanced` 由 Enhanced 模块直接返回 BoxJS 配置。
 
-设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com`。Global、Redirect 和 ADBlock 不携带设置前端规则。Enhanced 还映射 Biliverse 主页、唯一的 `index.mjs` 和五张透明前景图标；模块页 Header 指定的线上 `theme.css` 直接使用网站文件。
+设置请求同时匹配 `biliverse.github.io` 与 `app.bilibili.com`。Global、Redirect 和 ADBlock 不携带设置前端规则。Enhanced 还将 Biliverse 主页、`theme.css`、唯一的 `index.mjs` 和五张透明前景图标逐文件映射到 `app.bilibili.com`；请求地址与 `biliverse.github.io` 上的真实文件地址保持分离，避免远程资源自引用。
 
 ## 设置 API 与存储
 
