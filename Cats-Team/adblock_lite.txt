@@ -6,8 +6,8 @@
 ! Description: Lite version of the AdRules AdBlock List, optimized for mobile devices.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-10-05 11:32:34(GMT+8)
-! Total count: 39784
+! Version: 2026-10-05 21:18:33(GMT+8)
+! Total count: 39805
 ###ADtip
 ###AdBlockDialog
 ###Ad_windows
@@ -3966,7 +3966,6 @@ $websocket,domain=wap.yushuwu.cloud
 3dmgame.com###yxj_fmt_gg
 3dmgame.com##+js(abort-on-property-write, adStart)
 3dmgame.com##.Gmaeinfobtn_tab > .patchshow
-3dmgame.com##.Gmaeinfobtn_tab > a.patchshow[style]:has(> span:contains(/^广告$/))
 3dmgame.com##.Indexadd-100
 3dmgame.com##.R_qingtianzhu
 3dmgame.com##.Tonglan
@@ -7353,8 +7352,8 @@ bab.la#$#timer-override 1 3000 noop timeout; timer-override 1 getBoundingClientR
 bab.la,collinsdictionary.com,dictionary.cambridge.org,gazetaprawna.pl,gutefrage.net,huffpost.com,loawa.com,malaymail.com,pons.com,sankei.com,sourceforge.net,timesofindia.indiatimes.com,tz.de,winfuture.de#$#blob-override '/.*/' ''
 bab.la,collinsdictionary.com,dictionary.cambridge.org,gazetaprawna.pl,gutefrage.net,loawa.com,sankei.com,sourceforge.net,timesofindia.indiatimes.com,tz.de,winfuture.de#$#override-property-read googletag emptyObj; event-override message disable /^r_/; prevent-listener message /postMessage|error-report|adb/;
 bab.la,collinsdictionary.com,dictionary.cambridge.org,gazetaprawna.pl,gutefrage.net,loawa.com,sourceforge.net,tz.de,winfuture.de#$#event-override message trusted /unfilled/; event-override visibilitychange disable;
-bab.la,collinsdictionary.com,dictionary.cambridge.org,gazetaprawna.pl,loawa.com,malaymail.com,pons.com,sourceforge.net#$#override-property-read window.confirm noopFunc
 bab.la,collinsdictionary.com,gazetaprawna.pl,gutefrage.net,sankei.com,sourceforge.net,timesofindia.indiatimes.com,tz.de,winfuture.de#$#override-property-read performance.getEntriesByType noopFunc; override-property-read window.requestIdleCallback undefined; override-property-read ResizeObserver undefined;
+bab.la,dictionary.cambridge.org,gazetaprawna.pl,loawa.com,malaymail.com,sourceforge.net#$#override-property-read window.confirm noopFunc
 babesxworld.com##img[onclick*="spons"]
 babesxworld.com#$#abort-on-property-read ExoooLoooader
 babesxworld.com,lesbian8.com,older-women-porn.com,pifansubs.com,pimpandhost.com,silkengirl.net#$#abort-on-property-read adProvider
@@ -8783,6 +8782,7 @@ colamanga.com#@#.ADFooter
 colamanga.com#@#.ADInfo
 colamanga.com#@#.ADLeader
 colamanga.com#@#.gg_950
+collinsdictionary.com,pons.com#$#json-override isActive false hasActiveAutoRecovery
 com.tw###space > a[target="_blank"] > img[width="160"]
 com.tw##img[width="960"][height="90"]:style(height: 0 !important;)
 com:8891/c.php?s=*$third-party
@@ -9945,6 +9945,7 @@ fandom.com#$#abort-current-inline-script eval /xvhs4e3ps8l/
 fandom.com#$#hide-if-matches-xpath './/fandom-ad/parent::div[not(contains(@class,"fandom-ad-wrapper"))]/fandom-ad'
 fandom.com#$#hide-if-matches-xpath './/video[contains(@class,"jw-video")]/ancestor::div[contains(@id,"player")]'
 fandom.com#$#hide-if-matches-xpath '//*[starts-with(name(),"ac-")]/..'
+fandom.com#$#json-override isActive false hasActiveAutoRecovery
 fandom.com#$#override-property-read as_retry 0
 fandom.com#$#override-property-read xvhs4e3ps8l true
 fandom.com#$#prevent-element-src-loading script /^https?://[^/]+/(app|vendor|main|core)[.]js|html-load[.]com|content-loader[.]com|norexceptdrug[.]com|pssthumidity[.]com|duhrawhide[.]com|gadzooksrudely[.]com/
@@ -10656,6 +10657,11 @@ github.com##a[href^="https://openwrite.cn/"]
 gk-stalker.xyz###gkadblock
 gkstk.com##.layui-layer-shade
 gkstk.com,ufanw.com##.layui-layer
+global.hk01.com##.cmp-article-detail > .flex:has(> .lazyload-wrapper > div:is(.js-ad-slot, [data-id="lazyload-placeholder"]))
+global.hk01.com##.fixed[aria-labelledby="hot-news-dialog-title"] .items-stretch > .shrink-0:has(> .sticky > .flex > .lazyload-wrapper > .js-ad-slot)
+global.hk01.com##.hidden[class*="col-span-4"] > div[class^="min-h-250px w-full"]:has(> .flex > .lazyload-wrapper > .js-ad-slot)
+global.hk01.com##div[class*="_.js-ad-slot]"]
+global.hk01.com##div[class^="placeholder-ad-"]:style(min-height: 0 !important;)
 globes.co.il###chromeWindow
 globes.co.il###grayLayer
 gmgard.com,hggard.com###blog > div[style="overflow:hidden"]
@@ -11868,9 +11874,8 @@ indiatimes.com#?#div:-abp-has(> h2:-abp-contains(Promoted Stories))
 indiatimes.com#@#div[id^="div-gpt-ad"]
 indiatimes.com,mensxp.com##a[onclick][rel*="nofollow"]
 indiatimes.com,samayam.com##a[onclick][rel="nofollow,noindex"]
-indiewire.com#$#override-property-read as_7147170844 true; override-property-read as_91091932827 true; override-property-read as_2-1485285409 true; override-property-read as_5232463651 true; override-property-read as_81349000540 true; override-property-read as_1-1228217696 true; override-property-read as_41947239481 true; override-property-read as_7-629978755 true; override-property-read as_01087770305 true; override-property-read as_3-2090660102 true; override-property-read as_6-372911042 true; override-property-read as_91344838018 true; override-property-read as_2225327899 true; override-property-read as_51943076959 true; override-property-read as_8-1235353448 true; override-property-read as_1482395612 true; override-property-read as_4-2094822624 true; override-property-read as_71080634553 true; override-property-read as_0-1496583683 true; override-property-read as_3-380046794 true; override-property-read as_61337702266 true; override-property-read as_9-1239515970 true; override-property-read as_2478233090 true; override-property-read as_51598001638 true; override-property-read as_8-1580428769 true; override-property-read as_1137320291 true; override-property-read as_41855069351 true; override-property-read as_7-722148885 true; override-property-read as_0-1841659004 true; override-property-read as_3-725122115 true; override-property-read as_6992626945 true; override-property-read as_9-1584591291 true; override-property-read as_2133157769 true; override-property-read as_51850906829 true; override-property-read as_8130184539 true; override-property-read as_11847933599 true; override-property-read as_4-729284637 true; override-property-read as_7988464423 true; override-property-read as_0-1588753813 true; override-property-read as_3-472216924 true; override-property-read as_6-1591727043 true; override-property-read as_9126022017 true; override-property-read as_21843771077 true; override-property-read as_5-733447159 true; override-property-read as_8383089730 true; override-property-read as_1-736420389 true; override-property-read as_4981328671 true; override-property-read as_7-1595889565 true; override-property-read as_0121859495 true; override-property-read as_31238396384 true; override-property-read as_6-1338821852 true; override-property-read as_91836635325 true; override-property-read as_2-740582911 true; override-property-read as_5977166149 true; override-property-read as_82093703038 true; override-property-read as_1-483515198 true; override-property-read as_4-1603025317 true; override-property-read as_7114723743 true; override-property-read as_01832472803 true; override-property-read as_3-1345957604 true; override-property-read as_6371791456 true; override-property-read as_92089540516 true; override-property-read as_2970030397 true; override-property-read as_5-1607187839 true; override-property-read as_8-490650950 true; override-property-read as_11227098110 true; override-property-read as_4-1350120126 true; override-property-read as_71825337051 true; override-property-read as_0-751881185 true; override-property-read as_3364655704 true; override-property-read as_62082404764 true; override-property-read as_9-494813472 true; override-property-read as_21222935588 true; override-property-read as_5103425469 true; override-property-read as_81219962358 true; override-property-read as_1-1357255878 true; override-property-read as_4360493182 true; override-property-read as_72078242242 true; override-property-read as_0-1096956506 true; override-property-read as_319580383 true; override-property-read as_61737329443 true; override-property-read as_9-839888793 true; override-property-read as_2877860267 true; override-property-read as_5-1699357969 true; override-property-read as_8874887037 true; override-property-read as_1-1702331199 true; override-property-read as_415417861 true; override-property-read as_71733166921 true; override-property-read as_0-844051315 true; override-property-read as_3272485574 true; override-property-read as_6-847024545 true; override-property-read as_9870724515 true; override-property-read as_2-1706493721 true; override-property-read as_511255339 true; override-property-read as_81127792228 true; override-property-read as_18282109 true; override-property-read as_41726031169 true; override-property-read as_7-851187067 true; override-property-read as_0866561993 true; override-property-read as_31983098882 true; override-property-read as_6-594119354 true; override-property-read as_9-1713629473 true; override-property-read as_24119587 true; override-property-read as_51721868647 true; override-property-read as_8-1456561760 true; override-property-read as_1261187300 true; override-property-read as_4-858322819 true; override-property-read as_7859426241 true; override-property-read as_0-1717791995 true; override-property-read as_3-601255106 true; override-property-read as_61116493954 true; override-property-read as_9-1460724282 true; override-property-read as_21714732895 true; override-property-read as_5-862485341 true; override-property-read as_8254051548 true; override-property-read as_11971800608 true; override-property-read as_4-605417628 true; override-property-read as_7-1724927747 true; override-property-read as_0-7178687 true; override-property-read as_31109358202 true; override-property-read as_6-1467860034 true; override-property-read as_9249889026 true; override-property-read as_21967638086 true; override-property-read as_5848127967 true; override-property-read as_81964664856 true; override-property-read as_1-612553380 true; override-property-read as_41105195680 true; override-property-read as_7-1472022556 true; override-property-read as_01703434621 true; override-property-read as_3-1474995786 true; override-property-read as_6242753274 true; override-property-read as_91960502334 true; override-property-read as_2-616715902 true; override-property-read as_51101033158 true; override-property-read as_81619589535 true; override-property-read as_1-957628701 true; override-property-read as_4760120359 true; override-property-read as_7-1817097877 true; override-property-read as_0-99348817 true; override-property-read as_31017188072 true; override-property-read as_6-102322047 true; override-property-read as_91615427013 true; override-property-read as_2-961791223 true; override-property-read as_5755957837 true; override-property-read as_81872494726 true; override-property-read as_1752984607 true; override-property-read as_4-1824233629 true; override-property-read as_7-106484569 true; override-property-read as_01611264491 true; override-property-read as_3-1567165916 true; override-property-read as_6150583144 true; override-property-read as_9-968926975 true; override-property-read as_2748822085 true; override-property-read as_5-1828396151 true; override-property-read as_8-711859262 true; override-property-read as_11005889798 true; override-property-read as_4-113620321 true; override-property-read as_71604128739 true; override-property-read as_0-973089497 true; override-property-read as_3143447392 true; override-property-read as_61861196452 true; override-property-read as_9-716021784 true; override-property-read as_2-1835531903 true; override-property-read as_5-117782843 true; override-property-read as_8998754046 true; override-property-read as_1-1578464190 true; override-property-read as_4139284870 true; override-property-read as_7-980225249 true; override-property-read as_0737523811 true; override-property-read as_31854060700 true; override-property-read as_6-723157536 true; override-property-read as_9994591524 true; override-property-read as_2-1582626712 true; override-property-read as_51592830465 true; override-property-read as_8-1585599942 true; override-property-read as_1132149118 true; override-property-read as_41849898178 true; override-property-read as_7-727320058 true; override-property-read as_0-1846830177 true; override-property-read as_3-730293288 true; override-property-read as_6987455772 true; override-property-read as_9-1589762464 true; override-property-read as_2127986596 true; override-property-read as_51845735656 true; override-property-read as_8125013366 true; override-property-read as_11842762426 true; override-property-read as_4-734455810 true; override-property-read as_7983293250 true; override-property-read as_0-1593924986 true; override-property-read as_3-477388097 true; override-property-read as_6642380451 true; override-property-read as_9-1934837785 true; override-property-read as_2-217088725 true; override-property-read as_51500660335 true; override-property-read as_8-1677770072 true; override-property-read as_11497687105 true; override-property-read as_4-1079531131 true; override-property-read as_7638217929 true; override-property-read as_0-1939000307 true; override-property-read as_3-822463418 true; override-property-read as_6895285642 true; override-property-read as_9-224224477 true; override-property-read as_21493524583 true; override-property-read as_5-1083693653 true; override-property-read as_832843236 true; override-property-read as_11750592296 true; override-property-read as_4631082177 true; override-property-read as_7-1946136059 true; override-property-read as_0-228386999 true; override-property-read as_3888149890 true; override-property-read as_6-1689068346 true; override-property-read as_928680714 true; override-property-read as_2-1090829405 true; override-property-read as_5626919655 true; override-property-read as_81743456544 true; override-property-read as_1-833761692 true; override-property-read as_4883987368 true; override-property-read as_7-235522751 true; override-property-read as_01482226309 true; override-property-read as_3-1696204098 true; override-property-read as_621544962 true; override-property-read as_91739294022 true; override-property-read as_2-837924214 true; override-property-read as_5-1957434333 true; override-property-read as_8-840897444 true; override-property-read as_1876851616 true; override-property-read as_4-1700366620 true; override-property-read as_717382440 true; override-property-read as_0-1102127679 true; override-property-read as_314409210 true; override-property-read as_61732158270 true; override-property-read as_9-845059966 true; override-property-read as_2872689094 true; override-property-read as_5-1704529142 true; override-property-read as_8869715864 true; override-property-read as_1-1707502372 true; override-property-read as_410246688 true; override-property-read as_71727995748 true; override-property-read as_0-849222488 true; override-property-read as_3267314401 true; override-property-read as_6-852195718 true; override-property-read as_9865553342 true; override-property-read as_2-1711664894 true; override-property-read as_56084166 true; override-property-read as_81122621055 true; override-property-read as_1-1354415752 true; override-property-read as_4363333308 true; override-property-read as_72081082368 true; override-property-read as_0-496135868 true; override-property-read as_3620401021 true; override-property-read as_6-1956817215 true; override-property-read as_91218639962 true; override-property-read as_2-1358578274 true; override-property-read as_5359170786 true; override-property-read as_81475707675 true; override-property-read as_1-1101510561 true; override-property-read as_42073946616 true; override-property-read as_7-503271620 true; override-property-read as_01214477440 true; override-property-read as_3-1963952967 true; override-property-read as_6-246203907 true; override-property-read as_91471545153 true; override-property-read as_2352035034 true; override-property-read as_52069784094 true; override-property-read as_8-1108646313 true; override-property-read as_1609102747 true; override-property-read as_4-1968115489 true; override-property-read as_71207341688 true; override-property-read as_0-1369876548 true; override-property-read as_3-253339659 true; override-property-read as_61464409401 true; override-property-read as_9-1112808835 true; override-property-read as_2604940225 true; override-property-read as_5-514569894 true; override-property-read as_8601966995 true; override-property-read as_1-1975251241 true; override-property-read as_4-257502181 true; override-property-read as_71460246879 true; override-property-read as_0340736760 true; override-property-read as_31457273649 true; override-property-read as_6-1119944587 true; override-property-read as_9597804473 true; override-property-read as_2-1979413763 true; override-property-read as_5-261664703 true; override-property-read as_8-1982386993 true; override-property-read as_1-264637933 true; override-property-read as_41453111127 true; override-property-read as_7-1124107109 true; override-property-read as_0593641951 true; override-property-read as_31710178840 true; override-property-read as_6590668721 true; override-property-read as_9-1986549515 true; override-property-read as_2-268800455 true; override-property-read as_51448948605 true; override-property-read as_8-1729481802 true; override-property-read as_11445975375 true; override-property-read as_4-1131242861 true; override-property-read as_7586506199 true; override-property-read as_0-1990712037 true; override-property-read as_3-874175148 true; override-property-read as_6843573912 true; override-property-read as_91963342460 true; override-property-read as_2-613875776 true; override-property-read as_51103873284 true; override-property-read as_8-2074557123 true; override-property-read as_1-356808063 true; override-property-read as_4-1476318182 true; override-property-read as_7241430878 true; override-property-read as_01959179938 true; override-property-read as_3-1219250469 true; override-property-read as_6498498591 true; override-property-read as_9-2078719645 true; override-property-read as_21096737532 true; override-property-read as_5-1480480704 true; override-property-read as_8-363943815 true; override-property-read as_11353805245 true; override-property-read as_4-1223412991 true; override-property-read as_71952044186 true; override-property-read as_0-625174050 true; override-property-read as_3491362839 true; override-property-read as_6-2085855397 true; override-property-read as_9-368106337 true; override-property-read as_21349642723 true; override-property-read as_5230132604 true; override-property-read as_81346669493 true; override-property-read as_1-1230548743 true; override-property-read as_4487200317 true; override-property-read as_7-2090017919 true; override-property-read as_01085439258 true; override-property-read as_3-2092991149 true; override-property-read as_6-375242089 true; override-property-read as_91342506971 true; override-property-read as_2-1234711265 true; override-property-read as_5483037795 true; override-property-read as_8-1237684495 true; override-property-read as_1480064565 true; override-property-read as_4-2097153671 true; override-property-read as_7-379404611 true; override-property-read as_01338344449 true; override-property-read as_3-1840085958 true; override-property-read as_61335371219 true; override-property-read as_9-1241847017 true; override-property-read as_2475902043 true; override-property-read as_5-2101316193 true; override-property-read as_8-984779304 true; override-property-read as_1-2104289423 true; override-property-read as_4-386540363 true; override-property-read as_71331208697 true; override-property-read as_0-1246009539 true; override-property-read as_3-129472650 true; override-property-read as_61588276410 true; override-property-read as_9468766291 true; override-property-read as_2-2108451945 true; override-property-read as_5-390702885 true; override-property-read as_8725834004 true; override-property-read as_1-1851384232 true; override-property-read as_4-731615684 true; override-property-read as_7986133376 true; override-property-read as_0-1591084860 true; override-property-read as_3-474547971 true; override-property-read as_61243201089 true; override-property-read as_9-1334017147 true; override-property-read as_21841440030 true; override-property-read as_5-735778206 true; override-property-read as_8380758683 true; override-property-read as_12098507743 true; override-property-read as_4-478710493 true; override-property-read as_7-1598220612 true; override-property-read as_0119528448 true; override-property-read as_31236065337 true; override-property-read as_6-1341152899 true; override-property-read as_9376596161 true; override-property-read as_22094345221 true; override-property-read as_5974835102 true; override-property-read as_82091371991 true; override-property-read as_1-485846245 true; override-property-read as_41231902815 true; override-property-read as_7-1345315421 true; override-property-read as_01830141756 true; override-property-read as_3-1348288651 true; override-property-read as_6369460409 true; override-property-read as_92087209469 true; override-property-read as_2-490008767 true; override-property-read as_51227740293 true; override-property-read as_8-492981997 true; override-property-read as_11224767063 true
+indiewire.com#$#json-override isActive false hasActiveAutoRecovery
 indiewire.com#$#override-property-read as_retry 0
-indiewire.com#$#override-property-read confirm noopFunc
 indiewire.com#$#override-property-read d3d3LmluZGlld2lyZS5jb21fb25sb2Fk undefined
 indiewire.com#$#prevent-element-src-loading script /loader\\.min\\.js/
 indiewire.com^$csp=script-src-attr 'none'
@@ -13789,6 +13794,7 @@ mercadolivre.com.br#$#hide-if-has-and-matches-style 'div[id]>[data-component^="a
 mercedesclub.cz#@#.reklama
 mesddl.cc###cboxContent
 meteovista.be#$#event-override message rewrite /_as_res/ data /_as_req$/ _as_res
+meteovista.be#$#json-override isActive false hasActiveAutoRecovery
 metrolagu.*#$#abort-on-property-write window.open;
 metruyenchu.com#$#abort-on-property-write window.onclick
 mf.meizu.cn##.guide-suspend.suspend
@@ -14462,7 +14468,6 @@ njavtv.com#$#prevent-window-open '/pop?url='
 nlc.gov.cn###lovexin12xx
 nmgnews.com.cn###div_ad4
 nnhanman.net##div[style="width:728px;padding-top: 8px;"]
-nnmclub.ro,nnmclub.to#$#abort-on-property-read _0x1ece false
 nobugin.com##.td-a-rec
 nodejs.cn###biz_center
 nodejs.cn###biz_nav
@@ -15047,7 +15052,7 @@ pcgamer.com#$#override-property-read window.x9vhy6gdq24a true; override-property
 pcgamer.com#$#prevent-element-src-loading script /loader\\.min\\.js/
 pcgamer.com#$#timer-override 1 3000 noop timeout; timer-override 1 getBoundingClientRect noop interval; timer-override 1 body.remove noop interval
 pcgames.com.cn##.aFollowb
-pcgamesn.com#$#abort-on-property-read window.confirm
+pcgamesn.com#$#json-override isActive false hasActiveAutoRecovery
 pcgamesn.com#$#override-property-read window.navigator.connection.rtt 2000
 pchome.com.tw###div_superbar_swf
 pchome.com.tw###test2
@@ -17681,7 +17686,10 @@ view.inews.qq.com##div[class^="normal_buttonWrap"]
 view.inews.qq.com##div[class^="slider-top-bar_newSliderWrapper"]
 view.inews.qq.com##div[class^="slider-top-bar_sliderWrapper"]
 view.inews.qq.com#?#div[class^="_"]:-abp-has(>div[data-action-id]>div>.react-swipeable-view-container)
+vikacg.com##+js(json-prune, data.item data.ads)
 vikacg.com##+js(no-window-open-if, !/external)
+vikacg.com##.arco-carousel
+vikacg.com##.contents:has(> a[class="w-full"][href^="http"][target="_blank"] > img[src*="/assets/moonlight/"])
 vikacg.com##a[href^="https://acg01.com/]"]
 vikacg.com,vikacg.cc##a.w-full[data-ad-index]
 ville-ideale.com###antyp
@@ -18112,7 +18120,7 @@ www.facebook.com,web.facebook.com#$#hide-if-contains '/^[^A-Za-z0-9]*(?:Sponsore
 www.facebook.com,web.facebook.com#$#hide-if-contains-visible-text /^(?:[Aa][Dd]|Sponsored|esondSpored|.*Spored.*|(?=.*[sS])(?=.*[pP])(?=.*[oO])(?=.*[rR])(?=.*[dD])[a-zA-Z]+)$/ 'div[aria-posinset]' 'div[aria-posinset] a[href^="?"] span:not([style*="top"])'
 www.facebook.com,web.facebook.com#$#hide-if-contains-visible-text /^[^A-Za-z0-9]*(?:(?:[AaDd][^A-Za-z0-9]*){2,3}|(?:[SsPpOoNnRrIiEeDdÉé][^A-Za-z0-9]*){9,11}|(?:[CcOoMmAaNnDdIiTtÉéEe][^A-Za-z0-9]*){9,11}|(?:[PpAaTtRrOoCcIiNnDdEe][^A-Za-z0-9]*){10,12}|(?:[BbEeRrSsPpOoNn][^A-Za-z0-9]*){9,11}|(?:[SsPpOoNnRrIiZzAaTtEe][^A-Za-z0-9]*){12,14}|(?:[SsPpOoNnRrOoWwAaEe][^A-Za-z0-9]*){11,13}|(?:[ĐđƯưỢợCcTtÀàIiRr][^A-Za-z0-9]*){9,11})$/i 'div[aria-posinset]' 'div[aria-posinset] a[href^="?"], div[aria-posinset] a[href="#"]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@aria-labelledby and @aria-describedby]//span//div[@class][@role][contains(., "Anzeige") or contains(., "Sponsored") or contains(., "Sponsorlu") or contains(., "Gesponsert") or contains(., "Patrocinado") or contains(., "Sponsorisé") or contains(., "Commandité") or contains(., "Gesponsord") or contains(., "Sponsorowane") or contains(., "Publicidad") or contains(., "Sponsrad") or contains(., "Sponsoreret") or contains(., "Sponsoroitu") or contains(., "Sponsa") or contains(., "Sponset") or contains(., "Sponsorizat") or contains(., "Bersponsor") or contains(., "Ditaja") or contains(., "Sponsorizzato") or contains(., "May Sponsor") or contains(., "Реклама") or contains(., "贊助") or contains(., "赞助内容") or contains(., "ได้รับการสนับสนุน") or contains(., "Được tài trợ") or contains(., "प्रायोजित") or contains(., "دارای پشتیبانی مالی") or contains(., "تمويل شوي") or contains(., "সৌজন্যে") or contains(., "مُموَّل") or contains(., "سپانسرڈ") or contains(., "ממומן") or contains(., "Hirdetés") or contains(., "ಪ್ರಾಯೋಜಿತ")]/ancestor::div[@aria-labelledby and @aria-describedby]'
-www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="complementary"]//following::a[contains(@rel,"nofollow")]//img[@*[starts-with(name(),"data-") and contains(.,"cobaltHeron")]]/ancestor-or-self::div[contains(@class,"x1n2onr6")][2]/parent::div[1]/..'
+www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="complementary"]//following::a[contains(@rel,"nofollow")]//img[@*[starts-with(name(),"data-") and contains(.,"flintMarrow")]]/ancestor-or-self::div[contains(@class,"x1n2onr6")][2]/parent::div[1]/..'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/div[@role="feed"]//div[@role="article"]//a[@aria-label[.="Patrocinado" or .="Sponsa" or .="Bersponsor" or .="Commandité" or .="Ditaja" or .="Gesponsert" or .="Gesponsord" or .="Sponsrad" or .="Publicidad" or .="Sponsoreret" or .="Sponset" or .="Sponsored" or .="Sponsorisé" or .="Sponsorizat" or .="Sponsorizzato" or .="Anzeige" or .="Sponsorlu" or .="Sponsorowane" or .="Реклама" or .="ממומן" or .="تمويل شوي" or .="دارای پشتیبانی مالی" or .="سپانسرڈ" or .="مُموَّل" or .="प्रायोजित" or .="সৌজন্যে" or .="ได้รับการสนับสนุน" or .="内容" or .="贊助" or .="Sponsoroitu" or .="May Sponsor" or .="Được tài trợ" or .="ಪ್ರಾಯೋಜಿತ" or .="स्पॉन्सर्ड" or .="広告" or .="赞助内容" or .="Рэклама" or .="Sponzorované" or .="La maalgeliyey" or .="Geborg" or .="Reklam" or .="Plaćeni oglas" or .="광고" or .="Χορηγούμενη" or .="স্পনসর্ড" or .="സ്പോൺസർ ചെയ്തത്" or .="ਸਰਪ੍ਰਸਤੀ ਪ੍ਰਾਪਤ" or .="මුදල් ගෙවා ප්‍රචාරය කරන ලදි" or .="விளம்பரம்" or .="ప్రాయోజితం చేయబడింది" or .="Спонсорирано" or .="Спонзорисано" or .="ܒܘܕܩܐ ܡܡܘܘܢܐ" or .="Reklamo" or .="Hirdetés" or .="Sponsitud" or .="Sponzorováno"]]/ancestor::div[@role="article"]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath './/object[@type="nested/pressable"]/a[@role="link"]/span[contains("|Sponsoreret|Sponsrad|Patrocinado|Sponsa|Bersponsor|Commandité|Ditaja|Gesponsert|Gesponsord|Publicidad|Sponset|Sponsored|Sponsorisé|Sponsorizat|Sponsorizzato|Sponsorlu|Sponsorowane|Реклама|ממומן|تمويل شوي|دارای پشتیبانی مالی|سپانسرڈ|مُموَّل|प्रायोजित|সৌজন্যে|ได้รับการสนับสนุน|内容|贊助|Sponsoroitu|May Sponsor|Được tài trợ|", concat("|", text(), "|"))]/ancestor::span[2]'
 www.facebook.com,web.facebook.com#$#hide-if-matches-xpath '//div[contains(., "Ad") or contains(., "Patrocinado") or contains(., "Patrocinat") or contains(., "Bersponsor") or contains(., "Commandité") or contains(., "Ditaja") or contains(., "Gesponsert") or contains(., "Gesponsord") or contains(., "Sponsras") or contains(., "Publicidad") or contains(., "Sponsoreret") or contains(., "Sponsoreeritud") or contains(., "Sponset") or contains(., "Sponsored") or contains(., "Sponsorisé") or contains(., "Sponsorizat") or contains(., "Sponsorizzato") or contains(., "Anzeige") or contains(., "Sponsorlu") or contains(., "Sponsorowane") or contains(., "Реклама") or contains(., "ממומן") or contains(., "مُموَّلة") or contains(., "دارای پشتیبانی مالی") or contains(., "سپانسرڈ") or contains(., "مُموَّل") or contains(., "प्रায়োজিত") or contains(., "সৌজন্যে") or contains(., "ได้รับการสนับสนุน") or contains(., "内容") or contains(., "贊助") or contains(., "Sponsoroitu") or contains(., "May Sponsor") or contains(., "Được tài trợ") or contains(., "ಪ್ರಾಯೋಜಿತ") or contains(., "स्पॉन्सर्ड") or contains(., "広告") or contains(., "赞助内容") or contains(., "Рэклама") or contains(., "Sponzorirano") or contains(., "La maalgeliyey") or contains(., "Geborg") or contains(., "Reklam") or contains(., "Plaćeni oglas") or contains(., "광고") or contains(., "Χορηγούμενη") or contains(., "স্পনসর্ড") or contains(., "প্রায়োজিত") or contains(., "സ്പോൺസർ ചെയ്തത്") or contains(., "സ്പോൺസർചെയ്തത്") or contains(., "ਸਰਪ੍ਰਸਤੀ ਪ੍ਰาਪਤ") or contains(., "ਸਰਪ੍ਰਸਤੀਪ੍ਰਾਪਤ") or contains(., "මුදල් ගෙවා ප්රචාරය කරන ลදි") or contains(., "විළ]") or contains(., "Спонсорирано") or contains(., "Спонзорисано") or contains(., "ܒܘܕܩܐ ܡܡܘܘܢܐ") or contains(., "Reklamo") or contains(., "Hirdetés") or contains(., "Sponsitud") or contains(., "Sponzorováno") or contains(., "Apmaksāta reklāma") or contains(., "Urraithe") or contains(., "Kostað")][not(ancestor::div[@role="listitem"])]/ancestor::a[@href][@role="link"][@tabindex][1]/ancestor::div[2]/../parent::div/span' '//div[@role="main"]'
@@ -21498,6 +21506,7 @@ zzzyk.com###Tinfo
 ||afenx.top^
 ||affection28.top^
 ||affectionknit.com^
+||affixsisel.com^
 ||affxc.com^$3p
 ||affyun.com/wp-content/uploads/*-ad.
 ||affyun.com/wp-content/uploads/*/ad-
@@ -21847,7 +21856,7 @@ zzzyk.com###Tinfo
 ||amlindred.com^
 ||ammcg.imgscloud.com/toy/
 ||ammonia20.com^
-||ampscamp.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||ampscamp.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||amradmin.5173.com^
 ||ams.fx678.com^
 ||amselragman.com^
@@ -22068,6 +22077,7 @@ zzzyk.com###Tinfo
 ||areyoutherenow.com^
 ||arhatsfenman.com^
 ||aricinquerida.com^
+||aridweakness.com^
 ||ariososlepage.com^
 ||arisingwinze.com^
 ||arithmetic48.top^
@@ -22148,7 +22158,6 @@ zzzyk.com###Tinfo
 ||atanx.alicdn.com^
 ||atauntoxray.com^
 ||atbdkmt.xyz^
-||atinglepigeons.com^
 ||atiws.aipai.com^
 ||atm.youku.com^
 ||atnnf.xyz^
@@ -22952,6 +22961,7 @@ zzzyk.com###Tinfo
 ||bluelionlabs.net^
 ||bluenest.net^
 ||bluevinebooks.com^
+||blurbsoutpry.com^
 ||blurtsbrerd.com^
 ||blushingbeast.com^
 ||blushingbread.com^
@@ -23536,7 +23546,6 @@ zzzyk.com###Tinfo
 ||cashooshut.com^
 ||casisi118.vip^
 ||caskcabinetsnow.com^
-||casparlacquer.com^
 ||casserole59.top^
 ||casualphysics.com^
 ||cat.da.us.criteo.com^
@@ -24152,7 +24161,7 @@ zzzyk.com###Tinfo
 ||codesocang.com/js/a.js
 ||codesocang.com/plus/*baoyue
 ||coesitecubbing.com^
-||coffeefire.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||coffeefire.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||coffeesidehustle.com^
 ||coinsyouneed.com^
 ||coisj3nil.com^
@@ -24242,7 +24251,7 @@ zzzyk.com###Tinfo
 ||construct2replicas.net^
 ||constructsupernatural.com^
 ||consultingestablishmenthedgehog.com^
-||consumerdebtnegotiation.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||consumerdebtnegotiation.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||consumerknowhow.com^
 ||consumerzero.com^
 ||contagion77.com^
@@ -24650,6 +24659,7 @@ zzzyk.com###Tinfo
 ||d227cncaprzd7y.cloudfront.net^
 ||d24fx92qb.com^
 ||d2c1htpgj.com^
+||d2f9q8zryik75d.cloudfront.net^
 ||d2gx36c54v062j.cloudfront.net^$script,domain=golfmonthly.com
 ||d2gx36c54v062j.cloudfront.net^$script,domain=pcgamer.com
 ||d2kadvyeq051an.cloudfront.net^$3p
@@ -25490,7 +25500,7 @@ zzzyk.com###Tinfo
 ||dup.baidustatic.com^
 ||durationmedia.net^$script,domain=nikkansports.com
 ||dushiyanqing.net/mobile/lib/ccppcc.js
-||dusthorses.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||dusthorses.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||dustydime.com^
 ||dustyhammer.com^
 ||duvm2tveip.com^
@@ -26361,6 +26371,7 @@ zzzyk.com###Tinfo
 ||fcgztan.cn^
 ||fcheng.top^
 ||fclick.baidu.com^
+||fclksuxbae.icu^
 ||fclog.baidu.com^
 ||fcm.baidu.com^
 ||fco896oi39.com^
@@ -26486,6 +26497,7 @@ zzzyk.com###Tinfo
 ||findingmid.com/session/$domain=billboard.com
 ||findingmid.com/session/$domain=variety.com
 ||finemines.com^
+||finestcertose.com^
 ||fintechpi.com^
 ||fionamignon.com^
 ||fipphiany.com^
@@ -26505,7 +26517,7 @@ zzzyk.com###Tinfo
 ||first-hufu.oss-cn-shanghai.aliyuncs.com^
 ||firstendpoint.com^
 ||firstfrogs.com^
-||firsthoughtstudios.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||firsthoughtstudios.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||firstscreenshot.com^
 ||firsttexture.com^
 ||fish882.xyz^
@@ -27273,7 +27285,6 @@ zzzyk.com###Tinfo
 ||go2av.com/js/AM.js
 ||go2click.online^
 ||go2tutor.com/lifebox.asp
-||goalieshortly.com^
 ||goblin.hupu.com^
 ||gocye.com^$3p
 ||godamanga.online/ad/
@@ -28918,11 +28929,13 @@ zzzyk.com###Tinfo
 ||inconclusiveaction.com^
 ||increepbordure.com^
 ||incubation95.top^
+||indazinassumer.com^
 ||indexconcretehavendynamics.com^
 ||indiatimes.com/ads_native_js^$script
 ||indiatimes.com/detector.cms$script
 ||indiatimes.com/detector/$script
 ||indiatimes.in/*/detector.js$script
+||indiumaspalax.com^
 ||indriwhats.com^
 ||indusacta.com^
 ||infamouscomer.com^
@@ -29337,7 +29350,7 @@ zzzyk.com###Tinfo
 ||jerhzr.icu^
 ||jessicarace.com^
 ||jetskiscovers.com^
-||jewelryagency.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||jewelryagency.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||jewelryforest.com^
 ||jewelrysprings.com^
 ||jf2v.mnpool.cn^
@@ -31125,6 +31138,7 @@ zzzyk.com###Tinfo
 ||masockq.com^
 ||massivemark.com^
 ||massivesalad.com^
+||massivesalad.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||masturbation22.com/d/
 ||mat.chasedream.com^*.gif
 ||mat1.gtimg.com/2014/vikkydu/GA/haier
@@ -31648,7 +31662,6 @@ zzzyk.com###Tinfo
 ||musicfire.googlecode.com/files/jquery.colorbox-min.js
 ||musicflashcard.com^
 ||musicoholics.com^
-||musilylithol.com^
 ||muteknife.com^
 ||mutemailbox.com^
 ||mutualhappy.com^
@@ -31799,6 +31812,7 @@ zzzyk.com###Tinfo
 ||n8g1kvtmrf.com^
 ||n906n29tm.com^
 ||naajie.com/float.js
+||nablescatch.com^
 ||naemailom.fun^
 ||nahdlvqwqkzxby.com^
 ||nahg4lhbr.com^
@@ -32295,6 +32309,7 @@ zzzyk.com###Tinfo
 ||obsidiangems.com^
 ||obstetrician36.com^
 ||obv3epx22d.com^
+||obviouswait.com^
 ||oceanbot-steam.com^
 ||oceancloudhosts.com^$~xmlhttprequest
 ||ocs-pl.oktawave.com/v1/AUTH_*/Reklamy/$object-subrequest,domain=freedisc.pl|reseton.pl
@@ -32565,6 +32580,7 @@ zzzyk.com###Tinfo
 ||ouyaoxiazai.com/static/img/cqthree.gif
 ||ouyhh.xyz^
 ||ov3zaa6w0.com^
+||ovalprocess.pro^
 ||overboard27.com^
 ||overcoat55.top^
 ||overconfidentfood.com^
@@ -32624,6 +32640,7 @@ zzzyk.com###Tinfo
 ||p.wktfkj.com^$3p
 ||p.zol-img.com.cn^
 ||p.zol.com.cn/download/detail.js
+||p0h1nfzc2.com^
 ||p0pn18sxvh.com^
 ||p0y.cn^
 ||p0y.cn^$image,domain=~ipinyou.com.cn
@@ -32829,7 +32846,7 @@ zzzyk.com###Tinfo
 ||people.com.cn/adv/
 ||people.com.cn/img/gjt/
 ||people.com.cn/rmrb/tplimg/new.js
-||peoplebrain.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||peoplebrain.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||pepnsnq.cn^
 ||pepscarn.com^
 ||pepwpv.icu^
@@ -33110,6 +33127,7 @@ zzzyk.com###Tinfo
 ||pop.billionuploads.com/ppp/$popup
 ||pop.wioau.com^$3p
 ||pop800.com^$third-party
+||popinacmolpe.com^
 ||popliquids.com^
 ||popmixradio.com^
 ||popplantation.com^
@@ -33448,6 +33466,7 @@ zzzyk.com###Tinfo
 ||qczcxe.cn^
 ||qczg1nsnvo.com^
 ||qd.x4399.com^
+||qd32n9lpq.com^
 ||qd38xgoin9.com^
 ||qdaily.com/mount_details/pc/
 ||qdczx66.com^
@@ -33733,7 +33752,7 @@ zzzyk.com###Tinfo
 ||quge66.com/jdjd/
 ||quicklyedit.com^
 ||quicksandear.com^
-||quicktattoo.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||quicktattoo.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||quicktrick.net^
 ||quietknowledge.com^
 ||quillkick.com^
@@ -34016,7 +34035,7 @@ zzzyk.com###Tinfo
 ||repeatsweater.com^
 ||repian.com/a/
 ||replaceroute.com^
-||replantable.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||replantable.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||replays.net/j/dazui
 ||replays.net/j/pinglunshang.png
 ||report123.help^
@@ -34053,7 +34072,7 @@ zzzyk.com###Tinfo
 ||retrievemint.com^
 ||retuneprofess.com^
 ||reversible68.com^
-||reviewacousticguitar.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||reviewacousticguitar.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||revivalvoice.com^
 ||revocation30.com^
 ||revolthem.com^
@@ -34299,7 +34318,9 @@ zzzyk.com###Tinfo
 ||runsky.com/phpstat/
 ||runtime8000.com^
 ||ruoky41k7a.com^
+||rupeesetnas.qpon^
 ||ruralrobin.com^
+||rurbanatweel.com^
 ||rusnext.ru/advar.js$script
 ||russismvarsha.com^
 ||rusticaula.com^
@@ -35140,7 +35161,7 @@ zzzyk.com###Tinfo
 ||socagercornet.com^
 ||sociabletension.com^
 ||socialconventcontext.com^
-||socialsend.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||socialsend.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||sockpacks.com^
 ||socos.gitee.io/ss/poster/
 ||sodhef.com^
@@ -35507,7 +35528,6 @@ zzzyk.com###Tinfo
 ||stepcattle.com^
 ||stepladder10.top^
 ||stepladder46.top^
-||stepperfreddy.com^
 ||stepwisevideo.com^
 ||stereoproxy.com^
 ||stereotypedsugar.com^
@@ -35691,7 +35711,7 @@ zzzyk.com###Tinfo
 ||superficialspring.com^
 ||superficialsquare.com^
 ||superfish.com^$3p
-||superstarorganizer.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||superstarorganizer.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||supertaste.tvbs.com.tw/css/adunit.min.css
 ||supfree.net/baotu.
 ||supfree.net/england/
@@ -35910,6 +35930,7 @@ zzzyk.com###Tinfo
 ||tastelesstrees.com^
 ||tasterdinger.com^
 ||tastesnake.com^
+||tattiesstomped.com^
 ||tattvaballute.com^
 ||taujubarb.com^
 ||tauliabridler.com^
@@ -35955,7 +35976,7 @@ zzzyk.com###Tinfo
 ||tech.jiukang.org^
 ||techain.baidu.com^
 ||techconverter.com^
-||techglow.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|gamebanana.com|gameslantern.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
+||techglow.net^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||techritual.com/wp-content/uploads/*/HDcource_
 ||techspecndt.com^
 ||techug.com/aatb/
@@ -35970,6 +35991,7 @@ zzzyk.com###Tinfo
 ||teenytinytongue.com^
 ||teeshining.com^
 ||teetymitring.com^
+||tek3shnfk.com^
 ||tekproxy.com/$popup,domain=turkdown.com
 ||telecome.cn^
 ||telephoneapparatus.com^
@@ -35995,7 +36017,6 @@ zzzyk.com###Tinfo
 ||tengfun.com/attachment/*/w_1200
 ||tengzhihh.com/image/*-950x277.
 ||tenhourweek.com^
-||teniacites.com^
 ||tenmax.io^$3p
 ||tepusi888.cn^
 ||tercetacker.com^
@@ -36349,6 +36370,7 @@ zzzyk.com###Tinfo
 ||topicimg.1234567.com.cn/product/2021/1/11/b914f8b6-fb61-4c85-834f-863b67c13a45.gif$domain=fund.eastmoney.com
 ||topmba.mobi/ad/
 ||topperanlases.com^
+||topratedwaterfilter.com^$domain=addictinggames.com|convertcase.net|coolmathgames.com|dailykos.com|danslescoulisses.com|eater.com|gamebanana.com|gameslantern.com|hayertv.com|icy-veins.com|knowyourmeme.com|prydwen.gg|sporcle.com|the-independent.com|wowhead.com
 ||topthink.com/api/basic/
 ||topthink.com/uploads/assistant/$image,domain=doc.thinkphp.cn
 ||topthrowbacks.com^
@@ -37575,7 +37597,6 @@ zzzyk.com###Tinfo
 ||waizongguan.net^
 ||wake-up-neo.com/bnet/
 ||walkingdrunkard.com^
-||walliestreats.com^
 ||waly7k3sg3.com^
 ||wan.liebao.cn/zt/
 ||wan.sogoucdn.com/cdn/flash/$domain=~sogou.com
