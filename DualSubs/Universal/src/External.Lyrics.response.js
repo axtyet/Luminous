@@ -319,8 +319,8 @@ async function searchTrack(vendor = "NeteaseMusic", keyword = "", UAPool = []) {
 			const Result = await fetch(Request).then(response => JSON.parse(response.body));
 			trackInfo.id = Result?.result?.songs?.[0]?.id;
 			trackInfo.track = Result?.result?.songs?.[0]?.name;
-			trackInfo.album = Result?.result?.songs?.[0]?.ar?.name;
-			trackInfo.artist = Result?.result?.songs?.[0]?.al?.name;
+			trackInfo.album = Result?.result?.songs?.[0]?.ar?.[0]?.name;
+			trackInfo.artist = Result?.result?.songs?.[0]?.al?.[0]?.name;
 			break;
 		}
 		case "QQMusic":
