@@ -5,18 +5,21 @@ import { getAirborneDanmaku, takeAirborneRequest } from "../function/airborne.mj
 import database from "../function/database.mjs";
 import fixHeaders from "../function/fixHeaders.mjs";
 import setENV from "../function/setENV.mjs";
-import { DynAllPersonalReply, DynAllReply, DynVideoPersonalReply, DynVideoReply } from "../protobuf/bilibili/app/dynamic/v2/dynamic.js";
-import { ModeStatusReply } from "../protobuf/bilibili/app/interface/teenagers.js";
-import { FragmentType, PlayViewUniteReply } from "../protobuf/bilibili/app/playerunite/v1/playerunite.js";
-import { PlayViewReply } from "../protobuf/bilibili/app/playurl/v1/playurl.js";
-import { PlayerRelatesReply, TFInfoReply, ViewProgressReply, RelatesFeedReply as ViewRelatesFeedReply, ViewReply } from "../protobuf/bilibili/app/view/v1/view.js";
-import { ViewProgressReply as ViewUniteProgressReply } from "../protobuf/bilibili/app/viewunite/v1/viewprogress.js";
-import { RelatesFeedReply, ViewReply as ViewUniteReply } from "../protobuf/bilibili/app/viewunite/v1/viewunite.js";
-import { DmColorfulType, DmSegMobileReply, DmViewReply } from "../protobuf/bilibili/community/service/dm/v1/dm.js";
-import { DetailListReply, MainListReply, ReplyInfoReply } from "../protobuf/bilibili/main/community/reply/v1/reply.js";
-import { SubjectDescriptionReply } from "../protobuf/bilibili/main/community/reply/v2/reply.js";
-import { PlayViewReply as PGCPlayViewReply } from "../protobuf/bilibili/pgc/gateway/player/v2/playurl.js";
-import { SearchAllResponse } from "../protobuf/bilibili/polymer/app/search/v1/search.js";
+import { DynAllPersonalReply, DynAllReply, DynVideoPersonalReply, DynVideoReply } from "@biliverse/protobuf/bilibili/app/dynamic/v2/dynamic.js";
+import { ModeStatusReply } from "@biliverse/protobuf/bilibili/app/interface/teenagers.js";
+import { PlayViewUniteReply } from "@biliverse/protobuf/bilibili/app/playerunite/v1/playerunite.js";
+import { FragmentType } from "@biliverse/protobuf/bilibili/playershared/playershared.js";
+import { PlayViewReply } from "@biliverse/protobuf/bilibili/app/playurl/v1/playurl.js";
+import { PlayerRelatesReply, TabOtype, TFInfoReply, ViewProgressReply, RelatesFeedReply as ViewRelatesFeedReply, ViewReply } from "@biliverse/protobuf/bilibili/app/view/v1/view.js";
+import { AIRelateReply } from "@biliverse/protobuf/bilibili/app/viewunite/v1/airelate.js";
+import { ViewProgressReply as ViewUniteProgressReply } from "@biliverse/protobuf/bilibili/app/viewunite/v1/viewprogress.js";
+import { ModuleType } from "@biliverse/protobuf/bilibili/app/viewunite/common.js";
+import { RelatesFeedReply, ViewReply as ViewUniteReply } from "@biliverse/protobuf/bilibili/app/viewunite/v1/viewunite.js";
+import { DmColorfulType, DmSegMobileReply, DmViewReply } from "@biliverse/protobuf/bilibili/community/service/dm/v1/dm.js";
+import { DetailListReply, MainListReply, ReplyInfoReply } from "@biliverse/protobuf/bilibili/main/community/reply/v1/reply.js";
+import { SubjectDescriptionReply } from "@biliverse/protobuf/bilibili/main/community/reply/v2/reply.js";
+import { PlayViewReply as PGCPlayViewReply } from "@biliverse/protobuf/bilibili/pgc/gateway/player/v2/playurl.js";
+import { SearchAllResponse } from "@biliverse/protobuf/bilibili/polymer/app/search/v1/search.js";
 /***************** Processing *****************/
 export async function Response($request, $response, KV) {
 	// 解构URL
@@ -646,7 +649,7 @@ export async function Response($request, $response, KV) {
 														body.cmIpad = undefined;
 														body.cmUnderPlayer = undefined;
 													}
-													if (body.tab?.otype === 3 || body.tab?.adTabInfo) {
+													if (body.tab?.otype === TabOtype.CmURI || body.tab?.adTabInfo) {
 														Console.info("✅ 播放页广告 Tab 去除");
 														body.tab = undefined;
 													}
@@ -741,6 +744,34 @@ export async function Response($request, $response, KV) {
 													break;
 												case false:
 													Console.warn("用户设置up主推荐广告不去除");
+													break;
+											}
+											break;
+										case "AIRelateAsync": // 异步补充的视频页广告
+											switch (Settings?.View?.AD) {
+												case true:
+												default: {
+													body = AIRelateReply.fromBinary(rawBody);
+													let changed = false;
+													if (body.cm) {
+														Console.info("✅ 视频页异步广告栏去除");
+														body.cm = undefined;
+														changed = true;
+													}
+													for (const module of body.tab?.modules ?? []) {
+														if (module.type !== ModuleType.RELATED_RECOMMEND || module.data.oneofKind !== "relates") continue;
+														const relates = module.data.relates;
+														const oldLength = relates.cards.length;
+														// 按真实卡片结构判定广告，保留正常卡片及其未知字段。
+														// Identify ads through real card structures, preserving normal cards and their unknown fields.
+														relates.cards = relates.cards.filter(filterRelateCard);
+														if (relates.cards.length !== oldLength) changed = true;
+													}
+													if (changed) rawBody = AIRelateReply.toBinary(body);
+													break;
+												}
+												case false:
+													Console.warn("用户设置视频页异步广告不去除");
 													break;
 											}
 											break;
