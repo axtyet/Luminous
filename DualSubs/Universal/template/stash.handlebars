@@ -30,6 +30,7 @@ http:
     - "vod-*.live.cf.md.bbci.co.uk"
     - "vod-*-live.akamaized.net"
   mitm:
+    - "dualsubs.github.io"
     - "hls.itunes.apple.com"
     - "hls-svod.itunes.apple.com"
     - "vod-*.tv.apple.com"
@@ -97,6 +98,31 @@ http:
     - "*.plutotv.net"
     - "*.mubicdn.net"
   script:
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/(?:get|set|delete)(?:\?.*)?$
+      name: PreferencePanes.API
+      type: request
+      require-body: true
+      max-size: 65536
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/Universal(?:\?.*)?$
+      name: 📺 DualSubs.Universal.Config
+      type: request
+      require-body: false
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/Composite(?:\?.*)?$
+      name: 📺 DualSubs.Composite.Config
+      type: request
+      require-body: false
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/Translate(?:\?.*)?$
+      name: 📺 DualSubs.Translate.Config
+      type: request
+      require-body: false
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/External(?:\?.*)?$
+      name: 📺 DualSubs.External.Config
+      type: request
+      require-body: false
+    - match: ^https:\/\/dualsubs\.github\.io\/api\/API_Translate(?:\?.*)?$
+      name: 📺 DualSubs.API.Translate.Config
+      type: request
+      require-body: false
     - match: ^https?:\/\/(play|play-edge|hls)\.itunes\.apple\.com\/WebObjects\/(MZPlay|MZPlayLocal)\.woa\/hls\/playlist\.m3u8
       name: 🍿️ DualSubs.M3U8.Master.response
       type: response
@@ -625,6 +651,24 @@ http:
       require-body: true
 
 script-providers:
+  PreferencePanes.API:
+    url: https://github.com/NSNanoCat/PreferencePanes/releases/download/v1.3.1/api.js
+    interval: 86400
+  📺 DualSubs.Universal.Config:
+    url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/config.bundle.js
+    interval: 86400
+  📺 DualSubs.Composite.Config:
+    url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/config.Composite.bundle.js
+    interval: 86400
+  📺 DualSubs.Translate.Config:
+    url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/config.Translate.bundle.js
+    interval: 86400
+  📺 DualSubs.External.Config:
+    url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/config.External.bundle.js
+    interval: 86400
+  📺 DualSubs.API.Translate.Config:
+    url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/config.API_Translate.bundle.js
+    interval: 86400
   🍿️ DualSubs.M3U8.Master.response:
     url: https://github.com/DualSubs/Universal/releases/download/v{{@package 'version'}}/Manifest.response.bundle.js
     interval: 86400
