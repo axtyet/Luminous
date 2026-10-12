@@ -84,7 +84,7 @@ test("Every RegionList ID maps directly to one configured Tab", () => {
 });
 
 test("Tab endpoint uses response scripts in every platform template", () => {
-	const templates = ["surge.handlebars", "surge.dev.handlebars", "loon.handlebars", "loon.dev.handlebars", "quantumultx.handlebars", "quantumultx.dev.handlebars", "shadowrocket.handlebars", "stash.handlebars", "stash.dev.handlebars"];
+	const templates = ["surge.handlebars", "surge.dev.handlebars", "loon.handlebars", "loon.dev.handlebars", "quantumultx.handlebars", "quantumultx.dev.handlebars", "shadowrocket.handlebars", "shadowrocket.dev.handlebars", "stash.handlebars", "stash.dev.handlebars"];
 
 	for (const template of templates) {
 		const content = readFileSync(new URL(`../template/${template}`, import.meta.url), "utf8");
@@ -100,7 +100,7 @@ test("Tab endpoint uses response scripts in every platform template", () => {
 });
 
 test("RegionShortcut uses only the request script while RegionList stays response-only", () => {
-	const templates = ["surge.handlebars", "surge.dev.handlebars", "loon.handlebars", "loon.dev.handlebars", "quantumultx.handlebars", "quantumultx.dev.handlebars", "shadowrocket.handlebars", "stash.handlebars", "stash.dev.handlebars"];
+	const templates = ["surge.handlebars", "surge.dev.handlebars", "loon.handlebars", "loon.dev.handlebars", "quantumultx.handlebars", "quantumultx.dev.handlebars", "shadowrocket.handlebars", "shadowrocket.dev.handlebars", "stash.handlebars", "stash.dev.handlebars"];
 
 	for (const template of templates) {
 		const content = readFileSync(new URL(`../template/${template}`, import.meta.url), "utf8");

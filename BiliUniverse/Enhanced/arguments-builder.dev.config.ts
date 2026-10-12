@@ -4,9 +4,10 @@ import { args } from "./arguments-builder.full.config";
 export default defineConfig({
 	args,
 	output: {
-		surge: { path: "./dist/Biliverse.Enhanced.dev.sgmodule", template: "./template/surge.dev.handlebars" },
+		surge: { path: "./dist/Biliverse.Enhanced.dev.sgmodule", template: "./template/surge.dev.handlebars", transformEgern: { enable: true, path: "./dist/Biliverse.Enhanced.dev.yaml" } },
 		loon: { path: "./dist/Biliverse.Enhanced.dev.plugin", template: "./template/loon.dev.handlebars" },
 		customItems: [
+			{ path: "./dist/Biliverse.Enhanced.dev.srmodule", template: "./template/shadowrocket.dev.handlebars" },
 			{ path: "./dist/Biliverse.Enhanced.dev.snippet", template: "./template/quantumultx.dev.handlebars" },
 			{ path: "./dist/Biliverse.Enhanced.dev.stoverride", template: "./template/stash.dev.handlebars" },
 		],

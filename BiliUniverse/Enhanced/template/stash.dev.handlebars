@@ -21,17 +21,10 @@ http:
     - "app.biliapi.net"
     - "grpc.biliapi.net"
   url-rewrite:
-    - ^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ https://biliverse.github.io/settings/index.html transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/home.html transparent
     - ^https:\/\/app\.bilibili\.com\/settings\/theme\.css(?:\?[^#]*)?$ https://biliverse.github.io/settings/theme.css transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/index\.mjs(?:\?[^#]*)?$ https://biliverse.github.io/settings/index.mjs transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Biliverse_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Biliverse_subject.png transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Enhanced_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Enhanced_subject.png transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Global_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Global_subject.png transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/Redirect_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/Redirect_subject.png transparent
-    - ^https:\/\/app\.bilibili\.com\/settings\/assets\/ADBlock_subject\.png(?:\?[^#]*)?$ https://biliverse.github.io/settings/assets/ADBlock_subject.png transparent
-    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/[a-zA-Z0-9_-]+\/?(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.html transparent
-    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/index\.mjs(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/index.mjs transparent
-    - ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/settings\/assets\/navigation\.mjs(?:\?[^#]*)?$ https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/navigation.mjs transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/home\.json(?:\?[^#]*)?$ https://biliverse.github.io/settings/home.json transparent
+    - ^https:\/\/app\.bilibili\.com\/settings\/bridge\.mjs(?:\?[^#]*)?$ https://biliverse.github.io/settings/bridge.mjs transparent
   script:
     - match: ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$
       name: PreferencePanes.API
