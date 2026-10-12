@@ -11,7 +11,7 @@ Enhanced 为 BiliBili 提供首页、分区页、我的页面及底部导航栏�
 | `arguments-builder.full.config.ts` | 每个设置项分别定义为独立的 `ArgumentItem`，最后直接组成完整 `args`；同时定义正式版输出路径，`dts` 从这里生成 `src/types.d.ts` | 不按页面建立只有一层用途的分组数组，也不负责 PreferencePanes 的特有表现 |
 | `arguments-builder.config.ts` | 默认正式版构建入口；引用 `full` 的完整 `args`，生成 Surge、Loon、Egern、Stash、Quantumult X、Shadowrocket 产物及 `Biliverse.Enhanced.BoxJS.json` | 不生成 PreferencePanes 的 `url` 类型设置 |
 | `arguments-builder.PreferencePanes.config.ts` | 生成 PreferencePanes 静态配置；只引用需要持久化的共享设置，并单独定义 `Home.Tab` 的 `url` 项 | 不生成模块 argument，也不包含 `Storage` |
-| `arguments-builder.dev.config.ts` | 引用 `full` 的完整 `args`，使用 dev 模板和 Gist 地址生成开发版模块及 `Biliverse.Enhanced.dev.BoxJS.json` | 不定义正式版输出路径或 PreferencePanes 特有设置 |
+| `arguments-builder.dev.config.ts` | 引用 `full` 的完整 `args`，使用 dev 模板和 Gist 地址生成开发版模块 | 不生成 BoxJS 配置，不定义正式版输出路径或 PreferencePanes 特有设置 |
 | `arguments-builder.rewrite.config.ts` | 独立定义 Rewrite 服务端点，生成 Rewrite 专用 Surge、Loon、Egern、Stash 和 Shadowrocket 产物 | 不引用 Enhanced 业务设置 |
 
 `arguments-builder.config.ts` 是普通的默认配置文件。直接运行 `arguments-builder build` 时，由它负责为正式版模板生成 Surge/Loon argument，并同时生成 BoxJS 静态配置，不需要额外的 release 或 BoxJS 配置文件。
@@ -31,16 +31,16 @@ Enhanced 为 BiliBili 提供首页、分区页、我的页面及底部导航栏�
 | `npm run build` | 正式版配置、代理模块和业务脚本 |
 | `npm run build:release-args` | 正式版代理模块、BoxJS 和 PreferencePanes 配置 |
 | `npm run dev` | 开发版配置、代理模块和业务脚本 |
-| `npm run build:dev-args` | 开发版代理模块、BoxJS 和 PreferencePanes 配置 |
+| `npm run build:dev-args` | 开发版代理模块和 PreferencePanes 配置 |
 | `npm run build:preference-panes-args` | PreferencePanes 静态配置及其 `Home.Tab` URL 项 |
 | `npm run build:args:rewrite` | Rewrite 专用订阅 |
 | `npm run dts` | `src/types.d.ts` |
 
 ## 本地设置产物
 
-`Biliverse.Enhanced.BoxJS.json` 是 BoxJs 聚合仓库使用的 v1 配置，其中 `Home.Tab` 使用当前页面 ID 的 `checkboxes`。`Biliverse.Enhanced.PreferencePanes.json` 是 PreferencePanes 使用的 v2 配置，其中 `Home.Tab` 是打开 `bilibili://main/regionv2` 的 URL 项。
+`template/Biliverse.Enhanced.BoxJS.json` 是本地生成的 BoxJS 字段数组，用于更新 BoxJs 仓库正式版 `BiliBili.boxjs.json` 的 Enhanced 对应段落；不更新 beta 文件，也不复制到 `dist` 或发布。其 `Home.Tab` 使用当前页面 ID 的 `checkboxes`。`Biliverse.Enhanced.PreferencePanes.json` 用于应用内设置，其中 `Home.Tab` 是打开 `bilibili://main/regionv2` 的 URL 项。
 
-两份配置均随正式版 Release 发布。开发版分别输出 `Biliverse.Enhanced.dev.BoxJS.json` 和 `Biliverse.Enhanced.dev.PreferencePanes.json` 到现有 Gist。模板引用与业务脚本相同版本的发布地址，`biliverse.github.io` 不托管配置快照。
+正式版 Release 只发布 `Biliverse.Enhanced.PreferencePanes.json`，开发 Gist 只发布 `Biliverse.Enhanced.dev.PreferencePanes.json`。模板引用与业务脚本相同版本的发布地址，`biliverse.github.io` 不托管配置快照。
 
 App 中的 Biliverse 入口由 Enhanced 注入，通过 Common WebView 打开 `https://app.bilibili.com/settings/`。完整页面接入和读写说明见托管仓库的 `README.md`。
 

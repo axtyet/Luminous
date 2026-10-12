@@ -11,6 +11,5 @@ export default defineConfig({
 			{ path: "./dist/Biliverse.Enhanced.dev.snippet", template: "./template/quantumultx.dev.handlebars" },
 			{ path: "./dist/Biliverse.Enhanced.dev.stoverride", template: "./template/stash.dev.handlebars" },
 		],
-		boxjsSettings: { path: "./dist/Biliverse.Enhanced.dev.BoxJS.json", scope: "@Biliverse.Enhanced.Settings" },
 	},
 });
