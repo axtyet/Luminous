@@ -1,5 +1,5 @@
-# v0.9.2
+# v0.9.3
 
-### 🔄 Other Changes
+### 🛠️ Bug Fixes
 
-  * Quantumult X 的偏好配置改用原生 JSON 响应，并携带供偏好面板检测版本的响应头。
+  * 修复 HD 版和海外版加载问题。
