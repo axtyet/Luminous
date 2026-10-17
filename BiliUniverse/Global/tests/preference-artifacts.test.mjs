@@ -9,10 +9,13 @@ import { configAsset } from "../rollup.config.mjs";
 test("both release channels compile configuration responses from their own JSON artifact", async () => {
 	const root = await mkdtemp(path.join(tmpdir(), "global-artifacts-"));
 	const original = process.cwd();
+	const originalVersion = process.env.BUILD_VERSION;
 	try {
 		await mkdir(path.join(root, "dist"));
 		process.chdir(root);
 		for (const suffix of ["", ".dev"]) {
+			const version = suffix ? "dev.candidate" : "0.9.2";
+			process.env.BUILD_VERSION = version;
 			const json = [{ id: "@Root.Module.Settings.flag", name: suffix || "release", type: "boolean", val: true }];
 			await writeFile(`dist/BiliBili.Global${suffix}.boxjs.json`, JSON.stringify(json));
 			const files = new Map();
@@ -28,7 +31,7 @@ test("both release channels compile configuration responses from their own JSON 
 				}),
 			);
 			assert.equal(response.status, 200);
-			assert.ok(response.headers["X-PreferencePanes-Version"]);
+			assert.equal(response.headers["X-PreferencePanes-Version"], version);
 			assert.deepEqual(JSON.parse(response.body), json);
 			const head = await new Promise(resolve =>
 				vm.runInNewContext(files.get(`config${suffix}.bundle.js`), {
@@ -40,10 +43,13 @@ test("both release channels compile configuration responses from their own JSON 
 				}),
 			);
 			assert.equal(head.status, 200);
+			assert.equal(head.headers["X-PreferencePanes-Version"], version);
 			assert.equal(head.body, "");
 		}
 	} finally {
 		process.chdir(original);
+		if (originalVersion === undefined) delete process.env.BUILD_VERSION;
+		else process.env.BUILD_VERSION = originalVersion;
 		await rm(root, { recursive: true, force: true });
 	}
 });

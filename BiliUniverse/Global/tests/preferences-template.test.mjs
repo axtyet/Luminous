@@ -21,7 +21,11 @@ test("settings integration installs only the Global configuration", async () => 
 		assert.doesNotMatch(template, /biliverse\.github\.io\/settings\/assets\//);
 		const development = name.includes(".dev.");
 		const source = development ? "https://gist.githubusercontent.com/VirgilClyne/6b5c5164cc46cc9ac47f30b9824ec9b3/raw/" : "https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/";
-		const file = /^(surge|loon)/.test(name) ? `BiliBili.Global${development ? ".dev" : ""}.boxjs.json` : `config${development ? ".dev" : ""}.bundle.js`;
+		const file = /^(surge|loon|quantumultx)/.test(name) ? `BiliBili.Global${development ? ".dev" : ""}.boxjs.json` : `config${development ? ".dev" : ""}.bundle.js`;
 		assert.ok(template.includes(source + file), name);
+		if (name.startsWith("quantumultx")) {
+			assert.match(line, /url echo-response application\/json\\r\\nX-PreferencePanes-Version: \{\{version\}\} echo-response https:\/\//, name);
+			assert.doesNotMatch(line, /script-echo-response|config(?:\.dev)?\.bundle\.js/, name);
+		}
 	}
 });

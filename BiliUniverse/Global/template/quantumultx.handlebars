@@ -9,7 +9,7 @@
 #!version = {{version}}
 
 #[Script]
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Global(?:\?.*)?$ url script-echo-response https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/config.bundle.js
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Global(?:\?.*)?$ url echo-response application/json\r\nX-PreferencePanes-Version: {{version}} echo-response https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/BiliBili.Global.boxjs.json
 # 📺 BiliBili.Global.bangumi.play.html
 ^https?:\/\/www\.bilibili\.com\/bangumi\/play\/(ss|ep)\d+\/? url script-request-body https://github.com/Biliverse/Global/releases/download/v{{@package 'version'}}/request.bundle.js
 
