@@ -10,10 +10,10 @@
 **************************************
 
 [rewrite_local]
-^https?:\/\/graphql\.flowkey\.com\/graphql url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/flowkey.js
+^https?:\/\/graphql\.flowkey\.com\.cn\/graphql url script-response-body https://raw.githubusercontent.com/axtyet/Luminous/main/chxm1023/Rewrite/flowkey.js
 
 [mitm]
-hostname = graphql.flowkey.com
+hostname = graphql.flowkey.com.cn
 
 *************************************/
 
