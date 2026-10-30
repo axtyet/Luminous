@@ -13,7 +13,7 @@
 ^https:\/\/app\.bilibili\.com\/settings\/theme\.css(?:\?[^#]*)?$ url echo-response text/css echo-response https://biliverse.github.io/settings/theme.css
 ^https:\/\/app\.bilibili\.com\/settings\/home\.json(?:\?[^#]*)?$ url echo-response application/json echo-response https://biliverse.github.io/settings/home.json
 ^https:\/\/app\.bilibili\.com\/settings\/bridge\.mjs(?:\?[^#]*)?$ url echo-response text/javascript echo-response https://biliverse.github.io/settings/bridge.mjs
-^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ url script-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
+^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/(?:get|set|delete)(?:\?.*)?$ url script-analyze-echo-response https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js
 # Biliverse 本地设置
 ^https:\/\/(?:biliverse\.github\.io|app\.bilibili\.com)\/api\/Enhanced(?:\?.*)?$ url echo-response application/json\r\nX-PreferencePanes-Version: {{version}} echo-response https://github.com/Biliverse/Enhanced/releases/download/v{{@package 'version'}}/Biliverse.Enhanced.PreferencePanes.json
 # 📺 Biliverse.Enhanced.x.resource.show.tab.v2

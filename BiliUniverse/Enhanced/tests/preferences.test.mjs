@@ -224,3 +224,15 @@ test("Quantumult X maps every static asset to its matching response file", async
 		assert.doesNotMatch(mocks.at(-1), /config(?:\.dev)?\.bundle\.js/, name);
 	}
 });
+
+test("Quantumult X waits for the settings API request body", async () => {
+	for (const name of ["quantumultx.handlebars", "quantumultx.dev.handlebars"]) {
+		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
+		const line = template.split("\n").find(line => line.includes("/download/api.js"));
+		assert.match(line, / url script-analyze-echo-response https:\/\/github\.com\/NSNanoCat\/PreferencePanes\/releases\/latest\/download\/api\.js$/, name);
+		const matcher = new RegExp(extractTemplatePattern(name, line));
+		for (const host of ["biliverse.github.io", "app.bilibili.com"])
+			for (const action of ["get", "set", "delete"])
+				assert.match(`https://${host}/api/${action}?v=1`, matcher, name);
+	}
+});
