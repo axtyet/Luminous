@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo——导航及各类功能函数合集.[github]
 // @namespace    https://limbopro.com/Adguard/Adblock4limbo.function.js
-// @version      0.2026.10.02
+// @version      0.2026.10.31
 // @license      CC BY-NC-SA 4.0
 // @description  实用网站导航 —— 沉浸式翻译纯JS版本；M3U8/MP4资源链接提取；广告元素屏蔽器；费在线影视/前端学习/开发者社区/新闻/建站/下载工具/格式转换工具/电子书/新闻/写作/免费漫画等；
 // @author       limbopro
@@ -722,6 +722,7 @@ function getNavigationHTML() {
 </button></li>
       <!--li class="li_global"><button class="a_global red" id="resetting" style="background:#171212;box-shadow:inset 0 0 15px 3px #16191f00">重置导航设置</button></li-->
       <li class="li_global"><button class="nav-stats-trigger-btn a_global red" onclick="showNavigationStats()"> 📊 导航使用数据统计 </button></li>
+            <li class="li_global"><button class="nav-stats-trigger-btn a_global red" onclick="resetStorage()"> 🔄 一键重置 </button></li>
       <!--li class="li_global"><a class="a_global" id="jiaocheng" href="https://github.com/limbopro/Adblock4limbo?tab=readme-ov-file#%E6%AF%92%E5%A5%B6%E5%8E%BB%E5%B9%BF%E5%91%8A%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E9%85%8D%E7%BD%AE%E6%AD%A5%E9%AA%A4" target="_blank">导航使用教程</a></li-->
       <li class="li_global"><a class="a_global" id="issue" href="https://github.com/limbopro/Adblock4limbo?tab=readme-ov-file#%E5%A6%82%E4%BD%95%E5%8F%8D%E9%A6%88%E9%97%AE%E9%A2%98%E6%8F%90%E4%BA%A4%E6%96%B0%E7%BD%91%E7%AB%99%E9%87%8D%E8%A6%81" target="_blank">提交issue</a></li>
       <li class="li_global"><a class="a_global" id="tgGroup" href="https://t.me/Adblock4limbo/21" target="_blank">电报群组</a></li>
@@ -4716,6 +4717,44 @@ const isIframe = window.self !== window.top;
 if (!hostname.includes('limbopro.com') && !hostname.includes('supjav') && !isIframe) {
     showLimboAdNotice();
 }
+
+
+
+
+/**
+ * 🔄 一键重置：清空本地存储、登录信息并刷新页面
+ */
+function resetStorage() {
+    confirmndExecuteFC(
+        '确定要一键重置吗？这将清空所有 Local Storage、Session Storage 和可删除的登录 Cookie，可能导致当前账号退出登录。',
+        () => {
+            // 1. 清空 Session Storage
+            sessionStorage.clear();
+
+            // 2. 清空 Local Storage
+            localStorage.clear();
+
+            // 3. 尝试删除当前路径可访问的 Cookie
+            document.cookie.split(';').forEach(cookie => {
+                const name = cookie.split('=')[0].trim();
+
+                if (name) {
+                    // 默认路径
+                    document.cookie =
+                        `${name}=; Max-Age=0; path=/`;
+
+                    // 当前路径
+                    document.cookie =
+                        `${name}=; Max-Age=0`;
+                }
+            });
+
+            // 4. 刷新页面
+            location.reload();
+        }
+    );
+}
+
 
 
 /**
