@@ -22,6 +22,7 @@
  *          2026-05-02 增加新发布 cache 上线提醒功能
  *          2026-10-19 增加 Shadowrocket 配置，修复 hints 丢失问题
  *          2026-10-22 修复 Surge 和 Shadowrocket 环境下兼容性问题
+ *          2026-11-03 增加 Adventure Lab 题目通知功能
 /*
 --------------- BoxJS & 重写模块 --------------
 
@@ -432,6 +433,17 @@ async function translate_adventures() {
       });
 
       $.log(`✅ stages 翻译完成`);
+
+      // 收集题目并发送通知
+      let msg = "";
+      stageSummaries.forEach((stage, idx) => {
+        if (stage.question) {
+          const isMultiChoice = Array.isArray(stage.multiChoiceOptions) && stage.multiChoiceOptions.length > 0;
+          const suffix = isMultiChoice ? " 🔠" : "";
+          msg += `${idx + 1}. ${stage.question}${suffix}\n\n`;
+        }
+      });
+      $.msg(`${body.title}`, ``, msg.trim());
     }
   } catch (e) {
     $.log(`❌ adventures 翻译异常: ${e}`);
