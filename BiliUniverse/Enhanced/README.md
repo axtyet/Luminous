@@ -62,7 +62,7 @@ Enhanced 构建不拉取网站源码，也不打包前端资源。业务脚本�
 
 Enhanced 不依赖 PreferencePanes npm 包，也不生成或发布 `settings.bundle.js`。设置前端与存储实现来自 PreferencePanes Release；页面脚本调用 Bilibili 官方 JSBridge SDK，并使用 PreferencePanes 提供的客户端无关网页组件。
 
-存储请求使用 form 编码和完整的 `@root.path`，字段授权来自当前 Enhanced 版本的 BoxJS JSON。要使用页面保存的值，应通过模块 argument 选择 `PersistentStore`；业务请求继续由 `setENV` 合并设置，缺失值使用默认配置，空数组保持为空。
+存储请求使用 form 编码和完整的 `@root.path`，字段授权来自当前 Enhanced 版本的 BoxJS JSON。要使用页面保存的值，应通过模块 argument 选择 `PersistentStore`；业务请求继续由 `setENV` 合并设置，缺失值使用默认配置，空数组保持为空。首页标签页也遵循 `Storage` 的来源规则：`Argument` 优先模块参数，`PersistentStore` 优先持久化设置，`database` 只使用默认配置。
 
 配置探测响应头 `X-PreferencePanes-Version` 与当前脚本构建版本一致：开发版为 `dev.<commit>`，正式版为发布版本。主页只发送 HEAD 请求，不读取设置。
 

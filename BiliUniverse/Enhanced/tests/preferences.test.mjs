@@ -63,6 +63,23 @@ test("BoxJs checkbox values use current page IDs directly", async () => {
 	);
 });
 
+test("comma-separated persisted Home.Tab is parsed before building home tabs", async () => {
+	globalThis.$argument = { Storage: "PersistentStore", LogLevel: "OFF" };
+	store.set("Biliverse", JSON.stringify({ Enhanced: { Settings: { Home: { Tab: "2037,545,774", Tab_default: "2037" }, Bottom: ["home", "dynamic", "mine"] } } }));
+	const result = await Request({ url: "https://app.bilibili.com/x/resource/show/tab/v2", method: "GET", headers: {} });
+	const data = JSON.parse(result.$response.body).data;
+
+	assert.deepEqual(
+		data.tab.map(tab => tab.id),
+		[2037, 545, 774],
+	);
+	assert.equal(data.tab.find(tab => tab.id === 2037).default_selected, 1);
+	assert.deepEqual(
+		data.bottom.map(item => item.id),
+		["home", "dynamic", "mine"],
+	);
+});
+
 test("settings integration maps static page assets and installs only the storage API script", async () => {
 	for (const name of await readdir(new URL("../template/", import.meta.url))) {
 		if (!name.endsWith(".handlebars") || name.includes("rewrite")) continue;

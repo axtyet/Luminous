@@ -1,4 +1,4 @@
-import { Lodash as _, Console, Storage } from "@nsnanocat/util";
+import { Lodash as _, Console } from "@nsnanocat/util";
 import getStorage from "@nsnanocat/util/getStorage.mjs";
 
 /**
@@ -10,36 +10,34 @@ import getStorage from "@nsnanocat/util/getStorage.mjs";
  * @return {Object} { Settings, Caches, Configs }
  */
 export default function setENV(name, platforms, database) {
-	Console.log("☑️ Set Environment Variables");
-	const argumentStorage = globalThis.$argument.Storage;
-	const storedSettings = Storage.getItem(`@${name}.${platforms}.Settings`, {});
-	globalThis.$argument.Storage = storedSettings.Storage ?? argumentStorage;
+	Console.info("☑️ Set Environment Variables");
 	const { Settings, Caches, Configs } = getStorage(name, platforms, database);
-	// App 内保存的标签页顺序是运行时权威值，不受模块参数的配置优先级覆盖。
-	// The tab order saved in-app is authoritative at runtime and overrides module argument precedence.
-	if (Reflect.has(storedSettings.Home ?? {}, "Tab")) _.set(Settings, "Home.Tab", storedSettings.Home.Tab);
-	globalThis.$argument.Storage = argumentStorage;
 	/***************** Settings *****************/
 	// 单值或空值转换为数组
-	if (!Array.isArray(Settings?.Home?.Top)) _.set(Settings, "Home.Top", Settings?.Home?.Top ? [Settings.Home.Top] : []);
-	if (!Array.isArray(Settings?.Home?.Top_more)) _.set(Settings, "Home.Top_more", Settings?.Home?.Top_more ? [Settings.Home.Top_more] : []);
-	if (!Array.isArray(Settings?.Home?.Tab)) _.set(Settings, "Home.Tab", Settings?.Home?.Tab ? [Settings.Home.Tab] : []);
+	string2array("Home.Top");
+	string2array("Home.Top_more");
+	string2array("Home.Tab");
 	Settings.Home.Tab = Settings.Home.Tab.map(String);
 	Settings.Home.Tab_default = String(Settings.Home.Tab_default);
-	if (!Array.isArray(Settings?.Following?.Tab)) _.set(Settings, "Following.Tab", Settings?.Following?.Tab ? [Settings.Following.Tab] : []);
-	if (!Array.isArray(Settings?.Bottom)) _.set(Settings, "Bottom", Settings?.Bottom ? [Settings.Bottom] : []);
-	if (!Array.isArray(Settings?.Mine?.Shortcuts)) _.set(Settings, "Mine.Shortcuts", Settings?.Mine?.Shortcuts ? [Settings.Mine.Shortcuts] : []);
-	if (!Array.isArray(Settings?.Mine?.CreatorCenter)) _.set(Settings, "Mine.CreatorCenter", Settings?.Mine?.CreatorCenter ? [Settings.Mine.CreatorCenter] : []);
-	if (!Array.isArray(Settings?.Mine?.Recommend)) _.set(Settings, "Mine.Recommend", Settings?.Mine?.Recommend ? [Settings.Mine.Recommend] : []);
-	if (!Array.isArray(Settings?.Mine?.More)) _.set(Settings, "Mine.More", Settings?.Mine?.More ? [Settings.Mine.More] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.Upper)) _.set(Settings, "Mine.iPad.Upper", Settings?.Mine?.iPad?.Upper ? [Settings.Mine.iPad.Upper] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.Recommend)) _.set(Settings, "Mine.iPad.Recommend", Settings?.Mine?.iPad?.Recommend ? [Settings.Mine.iPad.Recommend] : []);
-	if (!Array.isArray(Settings?.Mine?.iPad?.More)) _.set(Settings, "Mine.iPad.More", Settings?.Mine?.iPad?.More ? [Settings.Mine.iPad.More] : []);
-	if (!Array.isArray(Settings?.Region?.Index)) _.set(Settings, "Region.Index", Settings?.Region?.Index ? [Settings.Region.Index] : []);
+	string2array("Following.Tab");
+	string2array("Bottom");
+	string2array("Mine.Shortcuts");
+	string2array("Mine.CreatorCenter");
+	string2array("Mine.Recommend");
+	string2array("Mine.More");
+	string2array("Mine.iPad.Upper");
+	string2array("Mine.iPad.Recommend");
+	string2array("Mine.iPad.More");
+	string2array("Region.Index");
 	Console.info(`typeof Settings: ${typeof Settings}`, `Settings: ${JSON.stringify(Settings, null, 2)}`);
 	/***************** Caches *****************/
 	//Console.debug(`typeof Caches: ${typeof Caches}`, `Caches: ${JSON.stringify(Caches, null, 2)}`);
 	/***************** Configs *****************/
-	Console.log("✅ Set Environment Variables");
+	Console.info("✅ Set Environment Variables");
 	return { Settings, Caches, Configs };
+
+	function string2array(path) {
+		const setting = _.get(Settings, path);
+		if (!Array.isArray(setting)) _.set(Settings, path, setting ? [setting] : []);
+	}
 }

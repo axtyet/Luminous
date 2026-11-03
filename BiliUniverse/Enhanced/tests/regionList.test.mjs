@@ -10,6 +10,7 @@ import { Request } from "../src/process/Request.mjs";
 import { Response } from "../src/process/Response.mjs";
 
 globalThis.$argument = {};
+const defaultDatabase = structuredClone(database);
 const storageFile = `/tmp/biliverse-enhanced-region-list-${process.pid}.json`;
 Storage.dataFile = storageFile;
 
@@ -17,6 +18,7 @@ beforeEach(() => {
 	writeFileSync(storageFile, "{}\n");
 	Storage.data = null;
 	globalThis.$argument = {};
+	Object.assign(database, structuredClone(defaultDatabase));
 });
 
 after(() => rmSync(storageFile, { force: true }));
@@ -286,34 +288,42 @@ test("RegionShortcut setting is used to build both shortcut icons and home tabs"
 	);
 });
 
-test("saved RegionShortcut tabs override module argument defaults in later responses", async () => {
-	globalThis.$argument = {
-		Storage: "Argument",
-		Home: { Tab: ["2036", "2037", "780", "545", "151"] },
-		LogLevel: "OFF",
-	};
-	const uniqueIds = ["1028", "884", "801", "774"];
-	await Request({
-		method: "POST",
-		url: "https://grpc.biliapi.net/bilibili.app.show.v1.Mixture/RegionShortcut",
-		headers: { "Content-Type": "application/grpc" },
-		body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: uniqueIds })),
-	});
-	const regionListResponse = await runRegionList(RegionListReply.create({ contents: [] }));
-	const regionList = RegionListReply.fromBinary(gRPC.decode(regionListResponse.body));
-	const homeResponse = await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
-	const tabs = JSON.parse(homeResponse.body).data.tab;
+for (const [storage, expectedIds] of [
+	["Argument", ["774", "801"]],
+	["PersistentStore", ["1028", "884", "801", "774"]],
+	["database", database.Enhanced.Configs.RegionList.defaultShortcut],
+]) {
+	test(`saved RegionShortcut tabs follow ${storage} source precedence in later responses`, async () => {
+		globalThis.$argument = {
+			Storage: storage,
+			Home: { Tab: ["774", "801"] },
+			LogLevel: "OFF",
+		};
+		Storage.setItem("@Biliverse.Enhanced.Settings", { Storage: storage === "PersistentStore" ? "Argument" : "PersistentStore", Home: { Tab: ["545", "151"] } });
+		const uniqueIds = ["1028", "884", "801", "774"];
+		await Request({
+			method: "POST",
+			url: "https://grpc.biliapi.net/bilibili.app.show.v1.Mixture/RegionShortcut",
+			headers: { "Content-Type": "application/grpc" },
+			body: gRPC.encode(RegionShortcutReq.toBinary({ uniqueId: uniqueIds })),
+		});
+		Object.assign(database, structuredClone(defaultDatabase));
+		const regionListResponse = await runRegionList(RegionListReply.create({ contents: [] }));
+		const regionList = RegionListReply.fromBinary(gRPC.decode(regionListResponse.body));
+		const homeResponse = await Response({ url: "https://app.bilibili.com/x/resource/show/tab/v2", headers: {} }, { headers: { "Content-Type": "application/json" }, body: JSON.stringify({ code: 0, data: {} }) });
+		const tabs = JSON.parse(homeResponse.body).data.tab;
 
-	assert.deepEqual(Storage.getItem("@Biliverse.Enhanced.Settings", {}).Home.Tab, uniqueIds);
-	assert.deepEqual(
-		regionList.shortcut.icons.map(icon => icon.uniqueId),
-		uniqueIds,
-	);
-	assert.deepEqual(
-		tabs.map(tab => String(tab.id)),
-		uniqueIds,
-	);
-});
+		assert.deepEqual(Storage.getItem("@Biliverse.Enhanced.Settings", {}).Home.Tab, uniqueIds);
+		assert.deepEqual(
+			regionList.shortcut.icons.map(icon => icon.uniqueId),
+			expectedIds,
+		);
+		assert.deepEqual(
+			tabs.map(tab => String(tab.id)),
+			expectedIds,
+		);
+	});
+}
 
 function runRegionList(body) {
 	return Response(
