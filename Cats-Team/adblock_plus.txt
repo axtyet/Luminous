@@ -6,8 +6,8 @@
 ! Description: Based on the AdRules AdBlock List, with additional filters.
 ! License: Inherits upstream licenses (GPL-3.0, CC BY-SA 4.0, etc.)
 ! Upstream Sources: https://github.com/Cats-Team/AdRules/blob/script/Source.md
-! Version: 2026-11-07 12:07:29(GMT+8)
-! Total count: 711280
+! Version: 2026-11-07 20:15:49(GMT+8)
+! Total count: 711398
 ###AC_ad
 ###AD_160
 ###AD_300
@@ -20148,10 +20148,10 @@ $~third-party,xmlhttprequest,script,redirect-rule=nooptext,domain=zertalious.xyz
 /^https:\/\/(?:[a-z]{3,4}\.)?[0-9a-z-]{6,}\.com\/script\/(?=[0-9a-z]{0,29}[A-Z])[0-9A-Za-z]{10,30}\.js$/$script,third-party,match-case
 /^https:\/\/(?:as(?:loader)?|(?:shield)?load(?:er)?)\.([-0-9A-Za-z]+\.[-A-Za-z]{2,16})\/(?:loader\.min|script\/(?:www\.)?\1)\.js$/$script,~third-party,match-case
 /^https:\/\/([a-z]+\.){2}\w{2,3}\/\d{4}\/\d{2}\/\d{10,}\.txt$/$3p,xhr,match-case
-/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{5,}\/[-_a-zA-Z0-9]{10,}\.js$/$script,3p,match-case,domain=addictinggames.com|reuters.com
-/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{5,}\/[-_a-zA-Z0-9]{10,}\.js$/$script,3p,match-case,domain=variety.com|deadline.com|billboard.com|wwd.com|artnews.com|hollywoodreporter.com|rollingstone.com|robbreport.com|vibe.com|indiewire.com|goldderby.com|sportico.com
-/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{5,}\/[-_a-zA-Z0-9]{10,}\.js$/$script,third-party,match-case,domain=addictinggames.com|reuters.com
-/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{5,}\/[-_a-zA-Z0-9]{10,}\.js$/$script,third-party,match-case,domain=variety.com|deadline.com|billboard.com|wwd.com|artnews.com|hollywoodreporter.com|rollingstone.com|robbreport.com|vibe.com|indiewire.com|goldderby.com|sportico.com
+/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{11,}\.js$/$script,3p,match-case,domain=addictinggames.com|reuters.com
+/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{11,}\.js$/$script,3p,match-case,domain=variety.com|deadline.com|billboard.com|wwd.com|artnews.com|hollywoodreporter.com|rollingstone.com|robbreport.com|vibe.com|indiewire.com|goldderby.com|sportico.com
+/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{11,}\.js$/$script,third-party,match-case,domain=addictinggames.com|reuters.com
+/^https:\/\/([a-z]{3,}\.)?[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{11,}\.js$/$script,third-party,match-case,domain=variety.com|deadline.com|billboard.com|wwd.com|artnews.com|hollywoodreporter.com|rollingstone.com|robbreport.com|vibe.com|indiewire.com|goldderby.com|sportico.com
 /^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/(?:analyticsdata|gemets|gtm[a-z]+|metrics|securegtm)\/?$/$script,1p,match-case
 /^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[A-Z0-9]{6}\/$/$script,1p,match-case
 /^https:\/\/(www\.)?[a-z0-9-]+\.[a-z]+(\.[a-z]+)?\/[a-z0-9][a-z0-9][a-z0-9][a-z0-9]?[a-z0-9]?[a-z0-9]?\/\?id=G(TM)?-[A-Z0-9]+/$script,1p,match-case
@@ -20178,10 +20178,10 @@ $~third-party,xmlhttprequest,script,redirect-rule=nooptext,domain=zertalious.xyz
 /^https:\/\/[0-9a-f]{10}\.[0-9a-f]{10}\.com\/[a-f0-9]+\/\d+\?version_name=\w&domain=/$xhr,3p
 /^https:\/\/[0-9a-f]{10}\.[0-9a-f]{10}\.com\/[a-f0-9]+\/\d+\?version_name=\w&domain=/$xmlhttprequest,third-party
 /^https:\/\/[0-9a-z-]{4,7}\.(?:com|click|icu|net|shop)\/js\/responsive\.js$/$script,third-party,match-case
+/^https:\/\/[0-9a-z-]{4,}\.(?:com|org)\/\d{1,2}\/[0-9a-f]{32}$/$script,3p,match-case
+/^https:\/\/[0-9a-z-]{4,}\.(?:com|org)\/\d{1,2}\/[0-9a-f]{32}$/$script,third-party,match-case
 /^https:\/\/[0-9a-z-]{5,15}\.(?:com|net|tv|xyz)\/(?:40[01]|50?0?)\/\d{6,8}\??\S*$/$script,xhr,3p
 /^https:\/\/[0-9a-z-]{5,15}\.(?:com|net|tv|xyz)\/(?:40[01]|50?0?)\/\d{6,8}\??\S*$/$script,xmlhttprequest,third-party
-/^https:\/\/[0-9a-z-]{5,}\.(?:com|org)\/\d{1,2}\/[0-9a-f]{32}$/$script,3p,match-case
-/^https:\/\/[0-9a-z-]{5,}\.(?:com|org)\/\d{1,2}\/[0-9a-f]{32}$/$script,third-party,match-case
 /^https:\/\/[0-9a-z.]+\/wp-content\/litespeed\/js\/[0-9a-f]{32}\.js\?ver=/$script,~third-party,match-case,replace=/function _0x[a-z0-9]{3}536\(\)\{[\s\S]*?\}/function _0x242536(){};/
 /^https:\/\/[0-9a-z]+\.xyz\/rinku\/land/$document,~third-party,match-case,replace=/const proxyStatus = "Y";/const proxyStatus = "N";/
 /^https:\/\/[0-9a-z]{5,}\.[a-z]{2,3}\/z-[5-9]\d{6}$/$script,~third-party
@@ -20220,10 +20220,10 @@ $~third-party,xmlhttprequest,script,redirect-rule=nooptext,domain=zertalious.xyz
 /^https:\/\/[a-z]{3,5}\.[a-z]{10,14}\.top\/[a-z]{10,16}\/[a-z]{5,6}(?:\?d=\d)?$/$script,3p,match-case
 /^https:\/\/[a-z]{3,5}\.[a-z]{10,14}\.top\/[a-z]{10,16}\/[a-z]{5,6}(?:\?d=\d)?$/$script,third-party,match-case
 /^https:\/\/[a-z]{3,5}\.[a-z]{10,14}\.top\/[a-z]{10,16}\/[a-z]{5,6}(?:\?d=\d)?$/$script,third-party,match-case,domain=bokepindoh.cc|bokepindoh.fun|bokepindoh.lol|bokepindoh.my|bokepindoh.pw|bokepindoh.to|bokepindoh.top|bokepindoh.tv|bokepindoh.party|bokepindoh.uno|bokepindoh.jp.net
-/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{4,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,3p,match-case,domain=calgaryherald.com|calgarysun.com|canada.com|canoe.com|driving.ca|edmontonjournal.com|edmontonsun.com|financialpost.com|leaderpost.com|lfpress.com|montrealgazette.com|nationalpost.com|ontariofarmer.com|ottawacitizen.com|ottawasun.com|pembrokeobserver.com|thegrowthop.com|theprovince.com|thestarphoenix.com|tj.news|torontosun.com|vancouversun.com|windsorstar.com|winnipegsun.com|intelligencer.ca|owensoundsuntimes.com|thewhig.com|recorder.ca|standard-freeholder.com|timminspress.com
-/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{4,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,3p,match-case,domain=mavericktruckclub.com|f150gen14.com|4runner6g.com|f150lightningforum.com|slateforums.com|jeepgladiatorforum.com|broncosportforum.com|taycanforum.com|macanevowners.com|jlwranglerforums.com|fandom.com|spanjevandaag.com|base64decode.org|urldecoder.org|fr.de|euronews.com
-/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{4,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,third-party,match-case,domain=calgaryherald.com|calgarysun.com|canada.com|canoe.com|driving.ca|edmontonjournal.com|edmontonsun.com|financialpost.com|leaderpost.com|lfpress.com|montrealgazette.com|nationalpost.com|ontariofarmer.com|ottawacitizen.com|ottawasun.com|pembrokeobserver.com|thegrowthop.com|theprovince.com|thestarphoenix.com|tj.news|torontosun.com|vancouversun.com|windsorstar.com|winnipegsun.com|intelligencer.ca|owensoundsuntimes.com|thewhig.com|recorder.ca|standard-freeholder.com|timminspress.com
-/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{4,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,third-party,match-case,domain=mavericktruckclub.com|f150gen14.com|4runner6g.com|f150lightningforum.com|slateforums.com|jeepgladiatorforum.com|broncosportforum.com|taycanforum.com|macanevowners.com|jlwranglerforums.com|fandom.com|spanjevandaag.com|base64decode.org|urldecoder.org|fr.de|euronews.com
+/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,3p,match-case,domain=calgaryherald.com|calgarysun.com|canada.com|canoe.com|driving.ca|edmontonjournal.com|edmontonsun.com|financialpost.com|leaderpost.com|lfpress.com|montrealgazette.com|nationalpost.com|ontariofarmer.com|ottawacitizen.com|ottawasun.com|pembrokeobserver.com|thegrowthop.com|theprovince.com|thestarphoenix.com|tj.news|torontosun.com|vancouversun.com|windsorstar.com|winnipegsun.com|intelligencer.ca|owensoundsuntimes.com|thewhig.com|recorder.ca|standard-freeholder.com|timminspress.com
+/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,3p,match-case,domain=mavericktruckclub.com|f150gen14.com|4runner6g.com|f150lightningforum.com|slateforums.com|jeepgladiatorforum.com|broncosportforum.com|taycanforum.com|macanevowners.com|jlwranglerforums.com|fandom.com|spanjevandaag.com|base64decode.org|urldecoder.org|fr.de|euronews.com
+/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,third-party,match-case,domain=calgaryherald.com|calgarysun.com|canada.com|canoe.com|driving.ca|edmontonjournal.com|edmontonsun.com|financialpost.com|leaderpost.com|lfpress.com|montrealgazette.com|nationalpost.com|ontariofarmer.com|ottawacitizen.com|ottawasun.com|pembrokeobserver.com|thegrowthop.com|theprovince.com|thestarphoenix.com|tj.news|torontosun.com|vancouversun.com|windsorstar.com|winnipegsun.com|intelligencer.ca|owensoundsuntimes.com|thewhig.com|recorder.ca|standard-freeholder.com|timminspress.com
+/^https:\/\/[a-z]{3,}\.[a-z]{7,}\.com\/[^\/]{2,}\/[-_a-zA-Z0-9]{5,10}\.js$/$script,third-party,match-case,domain=mavericktruckclub.com|f150gen14.com|4runner6g.com|f150lightningforum.com|slateforums.com|jeepgladiatorforum.com|broncosportforum.com|taycanforum.com|macanevowners.com|jlwranglerforums.com|fandom.com|spanjevandaag.com|base64decode.org|urldecoder.org|fr.de|euronews.com
 /^https:\/\/[a-z]{6,13}\.(cloud|xyz)\/[A-Za-z0-9_-]{48}[A-Z]{3}$/$document
 /^https:\/\/[a-z]{6,}\.[a-z]{12,}\.(?:cfd|cyou)\/[a-z0-9]{1,2}\/[a-zA-Z0-9]{6,}\?[a-z0-9]{2,3}=ey/$xmlhttprequest,third-party,match-case
 /^https:\/\/[a-z]{7,}\.com\/[a-z]+(\.[a-z0-9]+)+\/[-_a-zA-Z0-9]{12,}\.js$/$script,third-party,match-case,domain=variety.com|deadline.com|billboard.com|wwd.com|artnews.com|hollywoodreporter.com|rollingstone.com|robbreport.com|vibe.com|indiewire.com|goldderby.com|sportico.com
@@ -75574,7 +75574,7 @@ azlyrics.com##.lboard-wrap
 azlyrics.com##.ringtone
 azlyrics.com#$#prevent-element-src-loading script /ad-shield/
 azlyrics.com#?#.noprint:has(> span[id^="cf_async_"])
-azlyrics.com,forums.hfboards.com,forums.sherdog.com,fujirumors.com,inquirer.com,onlineradiobox.com,personality-database.com,royaleapi.com,tapology.com,time.is,tracklock.gg,tvpassport.com,tvtv.ca##+js(rmnt, script, reviveScroll, excludes, self.__next)
+azlyrics.com,forums.hfboards.com,forums.sherdog.com,fragrantica.com,fujirumors.com,inquirer.com,onlineradiobox.com,personality-database.com,royaleapi.com,tapology.com,time.is,tracklock.gg,tvpassport.com,tvtv.ca##+js(rmnt, script, reviveScroll, excludes, self.__next)
 azmath.info##+js(abort-on-stack-trace, DOMTokenList.prototype.contains, manageBodyClasses)
 azmath.info#%#//scriptlet("adjust-setTimeout", "#proceed", "*", "0.02")
 azmath.info#%#//scriptlet('abort-on-stack-trace', 'DOMTokenList.prototype.contains', 'manageBodyClasses')
@@ -365959,7 +365959,6 @@ euronews.com#@#[data-ad-name]
 euronews.com,addictinggames.com##+js(abort-current-script, btoa, /HTMLIFrameElement|JSON\[/)
 euronews.com,addictinggames.com#%#//scriptlet('abort-current-inline-script', 'btoa', '/HTMLIFrameElement|JSON\[/')
 euronews.com,globalnews.ca,stuff.tv##.c-ad
-euronews.com,manchestereveningnews.co.uk,gamingbible.com,getnews.jp,zekamashi.net,przegladsportowy.onet.pl,nlab.itmedia.co.jp,dictionary.cambridge.org,myinstants.com,mamastar.jp,uppercutmma.com,oxfordlearnersdictionaries.com,weatherzone.com,cyclingnews.com,9gag.com,automobile-catalog.com,hb-nippon.com,worldjournal.com,nikkansports.com,robbreport.com,rollingstone.com,gloria.hr,deadline.com,vibe.com,goldderby.com,artnews.com,gearjunkie.com,urldecoder.org,base64decode.org,index.hr,willyweather.com.au,fandom.com#%#//scriptlet('remove-attr', 'onerror', 'script[id][onerror]')
 euronics.ee#%#//scriptlet('trusted-click-element', '#cookie-accept-all-button', '', '1000')
 euronics.ee#@#.cookie-disclaimer:not(body)
 europa.eu###deu-cookie-banner
@@ -366922,7 +366921,7 @@ facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#!f
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#!function(){var e=new MutationObserver(function(){document.querySelectorAll('[id^="substream"] > div:not(.hidden_elem) div[id^="hyperfeed_story_id"]').forEach(function(e){function t(e,t){for(s=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="sub"] a [class] [class]'),socheck=0;socheck<s.length;socheck++)s[socheck].innerText.contains(t)&&(c=["1"],d=["1"],i=["1"],r=l=a=1,socheck=s.length)}function o(e,t,o,n,a){s=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="sub"] a [data-content='+t+"]"),c=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="sub"] a [data-content='+o+"]"),d=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="sub"] a [data-content='+n+"]"),i=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="sub"] a [data-content='+a+"]"),0==s.length&&(s=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="label"] a [data-content='+t+"]"),c=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="label"] a [data-content='+o+"]"),d=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="label"] a [data-content='+n+"]"),i=e.querySelectorAll('.userContentWrapper h5 + div[data-testid*="label"] a [data-content='+a+"]"))}var n=0,a=0,l=0,r=0,s=0,c=0,d=0,i=0,u=e.querySelectorAll("div[style='width: 100%'] > a[href*='oculus.com/quest'] > div"),h=document.querySelector("[lang]").lang,g=e.querySelectorAll('a[ajaxify*="ad_id"] > span'),p=e.querySelectorAll('a[href*="ads/about"]');if("display: none !important;"!=e.getAttribute("style")&&!e.classList.contains("hidden_elem")){if(0<g.length||0<p.length){f+=1;var y=e.querySelectorAll("a[href]")[2].innerText;console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+f),console.log("F length: "+g.length),console.log("H length: "+p.length),console.log("--------"),e.style="display:none!important;"}else if(0<u.length){f+=1;y="Facebook";console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+f),console.log("Non-declared ad"),console.log("--------"),e.style="display:none!important;"}else"af"==h?t(e,"Geborg"):"de"==h||"nl"==h?o(e,"G","e","s","n"):"am"==h?t(e,"የተከፈለበት ማስታወቂያ"):"ar"==h?t(e,"مُموَّل"):"as"==h?t(e,"পৃষ্ঠপোষকতা কৰা"):"az"==h?t(e,"Sponsor dəstəkli"):"co"==h?t(e,"Spunsurizatu"):"bs"==h||"sl"==h||"cs"==h?o(e,"S","p","z","n"):"da"==h||"en"==h||"et"==h||"fy"==h||"it"==h||"ku"==h||"nb"==h||"nn"==h||"pl"==h||"sq"==h||"sv"==h||"zz"==h?document.querySelector("body").className.includes("Locale_en_UD")?t(e,"pəɹosuodS"):o(e,"S","p","s","n"):"be"==h?t(e,"Рэклама"):"bg"==h?t(e,"Спонсорирано"):"mk"==h?t(e,"Спонзорирано"):"br"==h?t(e,"Paeroniet"):"ca"==h?t(e,"Patrocinat"):"gl"==h||"pt"==h?t(e,"Patrocinado"):"bn"==h?t(e,"সৌজন্যে"):"cb"==h?t(e,"پاڵپشتیکراو"):"cx"==h?o(e,"G","i","s","n"):"cy"==h?t(e,"Noddwyd"):"el"==h?t(e,"Χορηγούμενη"):"eo"==h?t(e,"Reklamo"):"es"==h?o(e,"P","u","c","d"):"eu"==h?t(e,"Babestua"):"fa"==h?t(e,"دارای پشتیبانی مالی"):"ff"==h?t(e,"Yoɓanaama"):"fi"==h?t(e,"Sponsoroitu"):"fo"==h?t(e,"Stuðlað"):"fr"==h?document.querySelector("body").className.includes("Locale_fr_FR")?o(e,"S","p","s","n"):o(e,"C","o","m","n"):"ga"==h?t(e,"Urraithe"):"gn"==h?t(e,"Oñepatrosinapyre"):"gu"==h?t(e,"પ્રાયોજિત"):"ha"==h?t(e,"Daukar Nauyi"):"he"==h?t(e,"ממומן"):"hr"==h?t(e,"Plaćeni oglas"):"ht"==h?t(e,"Peye"):"ne"==h||"mr"==h||"hi"==h?t(e,"प्रायोजित"):"hu"==h?o(e,"H","i","r","d"):"hy"==h?t(e,"Գովազդային"):"id"==h?o(e,"B","e","p","n"):"is"==h?t(e,"Kostað"):"ja"==h?t(e,"広告"):"ms"==h?t(e,"Ditaja"):"jv"==h?t(e,"Disponsori"):"ka"==h?t(e,"რეკლამა"):"kk"==h?t(e,"Демеушілік көрсеткен"):"km"==h?t(e,"បានឧបត្ថម្ភ"):"kn"==h?t(e,"ಪ್ರಾಯೋಜಿತ"):"ko"==h?t(e,"Sponsored"):"ky"==h?t(e,"Демөөрчүлөнгөн"):"lo"==h?t(e,"ຜູ້ສະໜັບສະໜູນ"):"lt"==h?t(e,"Remiama"):"lv"==h?t(e,"Apmaksāta reklāma"):"mg"==h?t(e,"Misy Mpiantoka"):"ml"==h?t(e,"സ്പോൺസർ ചെയ്തത്"):"mn"==h?t(e,"Ивээн тэтгэсэн"):"mt"==h?t(e,"Sponsorjat"):"my"==h?t(e,"ပံ့ပိုးထားသည်"):"or"==h?t(e,"ପ୍ରଯୋଜିତ"):"pa"==h?t(e,"ਸਰਪ੍ਰਸਤੀ ਪ੍ਰਾਪਤ"):"ps"==h?t(e,"تمويل شوي"):"ro"==h?t(e,"Sponsorizat"):"ru"==h||"uk"==h?t(e,"Реклама"):"rw"==h?t(e,"Icyamamaza ndasukirwaho"):"sc"==h?t(e,"Patronadu de"):"si"==h?t(e,"අනුග්‍රාහක"):"sk"==h?t(e,"Sponzorované"):"sn"==h?t(e,"Zvabhadharirwa"):"so"==h?t(e,"La maalgeliyey"):"sr"==h?t(e,"Спонзорисано"):"sw"==h?t(e,"Imedhaminiwa"):"sy"==h?t(e,"ܒܘܕܩܐ ܡܡܘܘܢܐ"):"sz"==h?t(e,"Szpōnzorowane"):"ta"==h?t(e,"விளம்பரம்"):"te"==h?t(e,"ప్రాయోజితం చేయబడింది"):"tg"==h?t(e,"Бо сарпарастӣ"):"th"==h?t(e,"ได้รับการสนับสนุน"):"tl"==h?t(e,"May Sponsor"):"tr"==h?t(e,"Sponsorlu"):"tt"==h?t(e,"Хәйрияче"):"tz"==h?t(e,"ⵉⴷⵍ"):"ur"==h?t(e,"سپانسرڈ"):"uz"==h?t(e,"Reklama"):"vi"==h?t(e,"Được tài trợ"):"zh-Hans"==h?t(e,"赞助内容"):"zh-Hant"==h&&t(e,"贊助");if(0<s.length&&0<c.length&&0<d.length&&0<i.length){for(cont=0;cont<s.length;cont++)0<s[cont].offsetHeight&&(cont=s.length,n=1);for(cont1=0;cont1<c.length;cont1++)0<c[cont1].offsetHeight&&(cont1=c.length,a=1);for(cont2=0;cont2<d.length;cont2++)0<d[cont2].offsetHeight&&(cont2=d.length,l=1);for(cont3=0;cont3<i.length;cont3++)0<i[cont3].offsetHeight&&(cont3=i.length,r=1);if(1==n&&1==a&&1==l&&1==r){y=e.querySelectorAll("a[href]")[2].innerText;f+=1,console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+f),console.log("--------"),e.style="display:none!important;"}}}})}),f=0;e.observe(document,{childList:!0,subtree:!0,characterData:!0,attributes:!0})}();
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#!function(){var e=new MutationObserver(function(){document.querySelectorAll('div[id^="substream_"] div[id^="hyperfeed_story_id"]').forEach(function(e){var n=e.querySelectorAll(".userContentWrapper > div[class] > div[class] > div[class]"),o=e.querySelectorAll(".userContentWrapper > div[class] > div > div span");if("display: none !important;"!=e.getAttribute("style")){if(0<n.length&&n[0].innerText.contains("Suggested")){console.log("--------"),t+=1;var l=e.querySelectorAll("a[href]")[2].innerText;console.log("Annoyance hidden from: "+l),console.log("Total annoyances Hidden: "+t),console.log("F length: "+n.length),console.log("--------"),e.style="display:none!important;"}if(0<o.length&&o[0].innerText.contains("People you may know"))console.log("--------"),t+=1,""==(l=e.querySelectorAll("a[href]")[2].innerText)&&(l="Facebook"),console.log("Annoyance hidden from: "+l),console.log("Total annoyances Hidden: "+t),console.log("F length: "+n.length),console.log("--------"),e.style="display:none!important;"}})}),t=0;e.observe(document,{childList:!0,subtree:!0})}();
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#!function(){var e=new MutationObserver(function(){var m=document.querySelectorAll("div[id^='mount_']");{var e;e=0<m.length?document.querySelectorAll('div[role="feed"] > div[data-pagelet^="FeedUnit"] > div[class]:not([style*="height"])'):document.querySelectorAll('[id^="substream"] > div:not(.hidden_elem) div[id^="hyperfeed_story_id"]')}e.forEach(function(e){function n(e,n){for(0<m.length?"0"==(h=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span > span > span[data-content]')).length&&(h=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span[aria-label]')):h=e.querySelectorAll(".userContentWrapper h5 + div[data-testid] a [class] [class]"),socheck=0;socheck<h.length;socheck++)h[socheck].innerText.contains(n)&&(p=["1"],d=["1"],u=["1"],i=r=l=1,socheck=h.length)}function t(e,n,t,c,a){for(0<m.length?"0"==(h=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span > span > span[data-content]')).length&&(h=e.querySelectorAll('div[role="article"] span[dir="auto"] div[role="button"][tabindex]')):h=e.querySelectorAll(".userContentWrapper h5 + div[data-testid] > span a > [class] [class]"),"0"==h.length&&(h=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span[aria-label]')),socheck=0;socheck<h.length;socheck++){spancheck=0,1<h.length?(spancheck=h[socheck].querySelectorAll("span")[0],0==spancheck&&(spancheck=h[socheck].querySelectorAll("b")[0])):(spancheck=h[0].querySelectorAll("span")[socheck],0==spancheck&&(spancheck=h[0].querySelectorAll("b")[socheck]));var o=h[0];if(0!=spancheck&&spancheck){if(2==spancheck.children.length&&0<m.length)for(spancheck=spancheck.querySelectorAll("span:not([style])"),spcheck=0;spcheck<spancheck.length;spcheck++)spancheck[spcheck].innerText.contains(n)?s=1:!spancheck[spcheck].innerText.contains(t)||0!=spancheck[spcheck].offsetTop||spancheck[spcheck].innerText.contains(n)||spancheck[spcheck].innerText.contains(c)||spancheck[spcheck].innerText.contains(a)?!spancheck[spcheck].innerText.contains(c)||0!=spancheck[spcheck].offsetTop||spancheck[spcheck].innerText.contains(t)||spancheck[spcheck].innerText.contains(n)||spancheck[spcheck].innerText.contains(a)?!spancheck[spcheck].innerText.contains(a)||0!=spancheck[spcheck].offsetTop||spancheck[spcheck].innerText.contains(t)||spancheck[spcheck].innerText.contains(c)||spancheck[spcheck].innerText.contains(n)||(u=["1"],i=1):(d=["1"],r=1):(p=["1"],l=1);0==m.length&&((!(spancheck.innerText.contains(n)&&0==spancheck.offsetTop||h[0].innerText.contains(n)&&0==h[0].offsetTop)||spancheck.innerText.contains(t)&&!h[0].innerText.contains(t)||spancheck.innerText.contains(c)&&!h[0].innerText.contains(c)||spancheck.innerText.contains(a)&&!h[0].innerText.contains(a))&&(!o.innerText.contains(n)||0!=o.offsetTop||o.innerText.contains(t)||o.innerText.contains(c)||o.innerText.contains(a))?!spancheck.innerText.contains(t)||0!=spancheck.offsetTop||spancheck.innerText.contains(n)||spancheck.innerText.contains(c)||spancheck.innerText.contains(a)?!spancheck.innerText.contains(c)||0!=spancheck.offsetTop||spancheck.innerText.contains(t)||spancheck.innerText.contains(n)||spancheck.innerText.contains(a)?!spancheck.innerText.contains(a)||0!=spancheck.offsetTop||spancheck.innerText.contains(t)||spancheck.innerText.contains(c)||spancheck.innerText.contains(n)||(u=["1"],i=1):(d=["1"],r=1):(p=["1"],l=1):s=1)}}}function c(e,n,t,c,a){u=0<m.length?(h=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span span[data-content='+n+"]"),p=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span span[data-content='+t+"]"),d=e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span span[data-content='+c+"]"),e.querySelectorAll('div[role="article"] span[dir="auto"] > a > span span[data-content='+a+"]")):(h=e.querySelectorAll(".userContentWrapper h5 + div[data-testid] a [data-content="+n+"]"),p=e.querySelectorAll(".userContentWrapper h5 + div[data-testid] a [data-content="+t+"]"),d=e.querySelectorAll(".userContentWrapper h5 + div[data-testid] a [data-content="+c+"]"),e.querySelectorAll(".userContentWrapper h5 + div[data-testid] a [data-content="+a+"]"))}var s=0,l=0,r=0,i=0,h=0,p=0,d=0,u=0,a=e.querySelectorAll("div[style='width: 100%'] > a[href*='oculus.com/quest'] > div"),o=document.querySelector("[lang]"),k=document.querySelectorAll("link[rel='preload'][href*='/l/']");o=o?document.querySelector("[lang]").lang:"en";var y,g=e.querySelectorAll('a[ajaxify*="ad_id"] > span'),f=e.querySelectorAll('a[href*="ads/about"]'),S=e.querySelectorAll('a[href*="https://www.facebook.com/business/help"]');if("display: none !important;"!=e.getAttribute("style")&&!e.classList.contains("hidden_elem")&&(0<g.length||0<f.length||0<S.length?(T+=1,0<m.length?(""==(y=e.querySelectorAll("a[href]")[0].innerText)&&(y=e.querySelectorAll("a[href]")[1].innerText),""==y&&(y=e.querySelectorAll("a[href]")[0].querySelectorAll("a[aria-label]")[0].getAttribute("aria-label"))):y=e.querySelectorAll("a[href]")[2].innerText,console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+T),console.log("F length: "+g.length),console.log("H length: "+f.length),console.log("I length (Paid partnership): "+S.length),console.log("--------"),e.style="display:none!important;"):0<a.length?(T+=1,y="Facebook",console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+T),console.log("Non-declared ad"),console.log("--------"),e.style="display:none!important;"):"af"==o?n(e,"Geborg"):"de"==o||"nl"==o?c(e,"G","e","s","n"):"am"==o?n(e,"የተከፈለበት ማስታወቂያ"):"ar"==o?n(e,"مُموَّل"):"as"==o?n(e,"পৃষ্ঠপোষকতা কৰা"):"az"==o?n(e,"Sponsor dəstəkli"):"co"==o?n(e,"Spunsurizatu"):"bs"==o||"sl"==o||"cs"==o?c(e,"S","p","z","n"):"da"==o||"en"==o||"et"==o||"fy"==o||"it"==o||"ku"==o||"nb"==o||"nn"==o||"pl"==o||"sq"==o||"sv"==o||"zz"==o?0<m.length?k[0].href.contains("en_UD")?n(e,"pəɹosuodS"):k[0].href.contains("ja_KS")?n(e,"広告"):k[0].href.contains("tz_MA")?n(e,"ⵉⴷⵍ"):k[0].href.contains("sy_SY")?n(e,"ܒܘܕܩܐ ܡܡܘܘܢܐ"):k[0].href.contains("cb_IQ")?n(e,"پاڵپشتیکراو"):k[0].href.contains("ar_AR")?n(e,"مُموَّل"):k[0].href.contains("sz_PL")?n(e,"Szpōnzorowane"):k[0].href.contains("eo_EO")?n(e,"Reklamo"):k[0].href.contains("es_LA")?c(e,"P","u","c","d"):(c(e,"S","p","s","n"),"0"==h.length&&t(e,"S","p","s","n"),"0"==h.length&&n(e,"Sponsored")):document.querySelector("body").className.includes("Locale_en_UD")?n(e,"pəɹosuodS"):document.querySelector("body").className.includes("ja_KS")?n(e,"広告"):document.querySelector("body").className.includes("tz_MA")?n(e,"ⵉⴷⵍ"):document.querySelector("body").className.includes("sy_SY")?n(e,"ܒܘܕܩܐ ܡܡܘܘܢܐ"):document.querySelector("body").className.includes("cb_IQ")?n(e,"پاڵپشتیکراو"):document.querySelector("body").className.includes("ar_AR")?n(e,"مُموَّل"):document.querySelector("body").className.includes("sz_PL")?n(e,"Szpōnzorowane"):document.querySelector("body").className.includes("eo_EO")?n(e,"Reklamo"):document.querySelector("body").className.includes("es_LA")?c(e,"P","u","c","d"):(c(e,"S","p","s","n"),"0"==h.length&&t(e,"S","p","s","n")):"be"==o?n(e,"Рэклама"):"bg"==o?n(e,"Спонсорирано"):"mk"==o?n(e,"Спонзорирано"):"br"==o?n(e,"Paeroniet"):"ca"==o?n(e,"Patrocinat"):"gl"==o||"pt"==o?(n(e,"Patrocinado"),"0"==l&&c(e,"P","a","c","o")):"bn"==o?n(e,"সৌজন্যে"):"cb"==o?n(e,"پاڵپشتیکراو"):"cx"==o?c(e,"G","i","s","n"):"cy"==o?n(e,"Noddwyd"):"el"==o?n(e,"Χορηγούμενη"):"eo"==o?n(e,"Reklamo"):"es"==o?c(e,"P","u","c","d"):"eu"==o?n(e,"Babestua"):"fa"==o?n(e,"دارای پشتیبانی مالی"):"ff"==o?n(e,"Yoɓanaama"):"fi"==o?n(e,"Sponsoroitu"):"fo"==o?n(e,"Stuðlað"):"fr"==o?0<m.length?k[0].href.contains("fr_FR")?c(e,"S","p","s","n"):c(e,"C","o","m","n"):document.querySelector("body").className.includes("Locale_fr_FR")?c(e,"S","p","s","n"):c(e,"C","o","m","n"):"ga"==o?n(e,"Urraithe"):"gn"==o?n(e,"Oñepatrosinapyre"):"gu"==o?n(e,"પ્રાયોજિત"):"ha"==o?n(e,"Daukar Nauyi"):"he"==o?n(e,"ממומן"):"hr"==o?n(e,"Plaćeni oglas"):"ht"==o?n(e,"Peye"):"ne"==o||"mr"==o||"hi"==o?n(e,"प्रायोजित"):"hu"==o?c(e,"H","i","r","d"):"hy"==o?n(e,"Գովազդային"):"id"==o?c(e,"B","e","p","n"):"is"==o?n(e,"Kostað"):"ja"==o?n(e,"広告"):"ms"==o?n(e,"Ditaja"):"jv"==o?n(e,"Disponsori"):"ka"==o?n(e,"რეკლამა"):"kk"==o?n(e,"Демеушілік көрсеткен"):"km"==o?n(e,"បានឧបត្ថម្ភ"):"kn"==o?n(e,"ಪ್ರಾಯೋಜಿತ"):"ko"==o?n(e,"Sponsored"):"ky"==o?n(e,"Демөөрчүлөнгөн"):"lo"==o?n(e,"ຜູ້ສະໜັບສະໜູນ"):"lt"==o?n(e,"Remiama"):"lv"==o?n(e,"Apmaksāta reklāma"):"mg"==o?n(e,"Misy Mpiantoka"):"ml"==o?n(e,"സ്പോൺസർ ചെയ്തത്"):"mn"==o?n(e,"Ивээн тэтгэсэн"):"mt"==o?n(e,"Sponsorjat"):"my"==o?(n(e,"ပံ့ပိုးထားသည်"),"0"==l&&n(e,"အခပေးကြော်ငြာ")):"or"==o?n(e,"ପ୍ରଯୋଜିତ"):"pa"==o?n(e,"ਸਰਪ੍ਰਸਤੀ ਪ੍ਰਾਪਤ"):"ps"==o?n(e,"تمويل شوي"):"ro"==o?n(e,"Sponsorizat"):"ru"==o||"uk"==o?n(e,"Реклама"):"rw"==o?n(e,"Icyamamaza ndasukirwaho"):"sc"==o?n(e,"Patronadu de"):"si"==o?n(e,"අනුග්රාහක"):"sk"==o?n(e,"Sponzorované"):"sn"==o?n(e,"Zvabhadharirwa"):"so"==o?n(e,"La maalgeliyey"):"sr"==o?n(e,"Спонзорисано"):"sw"==o?n(e,"Imedhaminiwa"):"sy"==o?n(e,"ܒܘܕܩܐ ܡܡܘܘܢܐ"):"sz"==o?n(e,"Szpōnzorowane"):"ta"==o?n(e,"விளம்பரம்"):"te"==o?n(e,"ప్రాయోజితం చేయబడింది"):"tg"==o?n(e,"Бо сарпарастӣ"):"th"==o?n(e,"ได้รับการสนับสนุน"):"tl"==o?n(e,"May Sponsor"):"tr"==o?n(e,"Sponsorlu"):"tt"==o?n(e,"Хәйрияче"):"tz"==o?n(e,"ⵉⴷⵍ"):"ur"==o?n(e,"سپانسرڈ"):"uz"==o?n(e,"Reklama"):"vi"==o?n(e,"Được tài trợ"):"zh-Hans"==o?n(e,"赞助内容"):"zh-Hant"==o&&n(e,"贊助"),0<h.length&&0<p.length&&0<d.length&&0<u.length)){for(cont=0;cont<h.length;cont++)0<h[cont].offsetHeight&&(cont=h.length,s=1);for(cont1=0;cont1<p.length;cont1++)0<p[cont1].offsetHeight&&(cont1=p.length,l=1);for(cont2=0;cont2<d.length;cont2++)0<d[cont2].offsetHeight&&(cont2=d.length,r=1);for(cont3=0;cont3<u.length;cont3++)0<u[cont3].offsetHeight&&(cont3=u.length,i=1);1==s&&1==l&&1==r&&1==i&&(0<m.length&&""!=(y=e.querySelectorAll("a[href]")[1].innerText)||(y=e.querySelectorAll("a[href]")[2].innerText),T+=1,console.log("--------"),console.log("Ad hidden from: "+y),console.log("Total ads hidden: "+T),console.log("--------"),e.style="display:none!important;")}})}),T=0;e.observe(document,{childList:!0,subtree:!0})}();
-facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#(()=>{const e="SPONSORED",t="SponsoredData",r="AdsSideFeedUnit",n=["sponsored_data","th_dat_spo","qrz_ctx_seg","pso_tad_rens"],o="MarketplaceFeedAdStory",a=new WeakMap,i=[e,t,r,...n],s=[t,o,...n],p=window.String.prototype.split,l=window.String.prototype.trim,d=new WeakMap,c=new WeakMap,y=new WeakSet,f=(e,t,r=Proxy)=>{const n=c.get(e)??Reflect.apply(window.Function.prototype.toString,e,[]),o=new r(e,t);return d.set(o,d.get(e)??e),c.set(o,n),o},w=(e,t)=>e?.length>300&&t.some(t=>e?.includes?.(t)),u=e=>w(e,i),h=e=>Boolean(e?.startsWith?.("{")&&e?.endsWith?.("}")||e?.startsWith?.("[")&&e?.endsWith?.("]")),g=e=>h(e)&&u(e),_=e=>{try{e.JSON.parse=f(e.JSON.parse,C,e.Proxy),e.String.prototype.split=f(e.String.prototype.split,V,e.Proxy),e.String=f(e.String,Y,e.Proxy),e.String.prototype.constructor=e.String,e.Function.prototype.call=f(e.Function.prototype.call,ce,e.Proxy),e.Function.prototype.toString=f(e.Function.prototype.toString,fe,e.Proxy)}catch(e){}},m=e=>Boolean(e instanceof HTMLIFrameElement&&(""===e.src||e?.src?.startsWith("about:blank"))&&e.contentWindow),S=new Set(["append","prepend","before","after","insertNode","replaceWith","replaceChild","replaceChildren"]),{apply:b}={apply(e,t,r){const n=Reflect.apply(e,t,r);try{m(n)?_(n.contentWindow):S.has(e.name)&&r.forEach(e=>{m(e)&&_(e.contentWindow)})}catch(e){}return n}},A={apply:b};window.Node.prototype.appendChild=f(window.Node.prototype.appendChild,A),window.Node.prototype.insertBefore=f(window.Node.prototype.insertBefore,A),window.Node.prototype.replaceChild=f(window.Node.prototype.replaceChild,A),window.Element.prototype.append=f(window.Element.prototype.append,A),window.Element.prototype.prepend=f(window.Element.prototype.prepend,A),window.Element.prototype.replaceChildren=f(window.Element.prototype.replaceChildren,A),window.Element.prototype.replaceWith=f(window.Element.prototype.replaceWith,A),window.Element.prototype.before=f(window.Element.prototype.before,A),window.Element.prototype.after=f(window.Element.prototype.after,A),window.Element.prototype.insertAdjacentElement=f(window.Element.prototype.insertAdjacentElement,A),window.Range.prototype.insertNode=f(window.Range.prototype.insertNode,A),window.CharacterData.prototype.replaceWith=f(window.CharacterData.prototype.replaceWith,A);const x=["item_collection","ads"],E=["auxColumnUnits","sideFeed"],v=e=>Boolean(e)&&(Object.values(e).some(e=>e?.__typename===t)||n.some(t=>{const r=e[t];return r&&"object"==typeof r&&!Array.isArray(r)&&[r.ad_id,r.lbl_adv_iden].some(e=>"string"==typeof e&&e.length>0)})),O=(e,t)=>{if(!e||"object"!=typeof e||Array.isArray(e))return!1;const r=Object.keys(e);return r.length===t.length&&t.every(e=>r.includes(e))},N=e=>O(e,["node"])&&O(e.node,["s"])&&O(e.node.s,["__typename"])&&e.node.s.__typename===t,j=["p","z9","k4","w7","q8","n3","v6","j5","t8","m6","h4","r2"],P=new Set(["h4","r2"]),W=e=>{const t=Array.isArray(e)&&1===e.length?e[0]:e;if(!t||"object"!=typeof t||Array.isArray(t))return!1;const r=j.find(e=>"string"==typeof t[e]);if(void 0===r)return!1;const n=["data","edges","require",r];if(Object.hasOwn(t,"extensions")){if(!(O(t.extensions,[])||O(t.extensions,["is_final"])&&!0===t.extensions.is_final))return!1;n.push("extensions")}if(Object.hasOwn(t,"__bbox")){if(!(P.has(r)&&O(t.extensions,["is_final"])&&!0===t.extensions.is_final&&(o=t.__bbox,O(o,["result"])&&O(o.result,["data"])&&O(o.result.data,["node"])&&O(o.result.data.node,["s","th_dat_spo"])&&O(o.result.data.node.s,["__typename"])&&"CometStorySponsoredLabelStrategy"===o.result.data.node.s.__typename&&O(o.result.data.node.th_dat_spo,["s"])&&1===o.result.data.node.th_dat_spo.s)))return!1;n.push("__bbox")}var o;return O(t,n)&&N(t.data)&&Array.isArray(t.edges)&&1===t.edges.length&&N(t.edges[0])&&Array.isArray(t.require)&&1===t.require.length&&N(t.require[0])},B=(e,t,n,o)=>{if(!e||"object"!=typeof e||n<0)return!1;let a=!1;if(Array.isArray(e.nodes)){const t=e.nodes.filter(e=>!(e=>e?.__typename===r||x.some(t=>{const r=e?.[t]?.nodes;return Array.isArray(r)&&r.some(e=>e?.sponsored_data?.ad_id)}))(e));e.nodes.length-t.length>0&&(e.nodes=t,a=!0)}return Object.entries(e).forEach(([e,r])=>{a=B(r,`${t}.${e}`,n-1,o)||a}),a},k=(e,t=10)=>{const r=e?.data?.viewer,n=r??e?.[3]?.[1]?.__bbox?.result?.data?.viewer;if(!n)return!1;return B(n,r?"data.viewer":"item[3][1].__bbox.result.data.viewer",t,e)},R=(t,r=10,n=new WeakMap)=>{if(!t||"object"!=typeof t||r<0)return!1;const o=n.get(t);if(void 0!==o&&o>=r)return!1;if(n.set(t,r),W(t))return!1;let a=((t,r)=>{if(!t||"object"!=typeof t)return!1;let n=!1;try{if(r){if(Array.isArray(t.require?.[0]?.[3]?.[0]?.__bbox?.require)&&t.require[0][3][0].__bbox.require.forEach(t=>{t[3]?.[1]?.__bbox?.result?.data?.category===e&&(delete t[3][1].__bbox.result.data.node,n=!0),v(t[3]?.[1]?.__bbox?.result?.data?.node)&&(delete t[3][1].__bbox.result.data.node,n=!0),n=k(t)||n}),E.some(e=>Array.isArray(t.data?.viewer?.[e]?.nodes))&&(n=k(t)||n),Array.isArray(t.data?.viewer?.news_feed?.edges)){const r=t.data.viewer.news_feed.edges.length;t.data.viewer.news_feed.edges=t.data.viewer.news_feed.edges.filter(t=>!v(t.node)&&t.category!==e),n=n||t.data.viewer.news_feed.edges.length!==r}v(t.data?.node)&&(delete t.data.node,n=!0),t.data?.category===e&&(delete t.data.node,n=!0)}}catch(e){}return n})(t,!0);return 0===r||Object.values(t).forEach(e=>{a=R(e,r-1,n)||a}),a},q=(e,t)=>{try{const r="string"==typeof t;if(r&&!u(t))return e;if(W(e))return e;if(!r&&!u(JSON.stringify(e)))return e;R(e)&&e&&"object"==typeof e&&y.add(e)}catch(e){}return e},{apply:J}={apply(e,t,r){K();const n=Reflect.apply(e,t,r);return q(n,r[0])}},C={apply:J};window.JSON.parse=f(window.JSON.parse,C);const F=(e,t,r)=>{if(!e||"object"!=typeof e&&"function"!=typeof e)return;let n=a.get(e);if(!t.some(t=>"function"==typeof e[t]&&!d.has(e[t])&&(n?.get(t)??0)<10))return;n||(n=new Map,a.set(e,n));const o=new Map;t.forEach(t=>{const r=e[t];"function"==typeof r&&d.has(r)&&o.set(d.get(r),r)}),t.forEach(t=>{const a=e[t],i=n.get(t)??0;if("function"!=typeof a||d.has(a)||i>=10)return;n.set(t,i+1);let s=o.get(a);if(!s){const{apply:e}={apply(e,t,n){const o=Reflect.apply(e,t,n);return r?q(o,n[0]):q(o)}};s=f(a,{apply:e}),o.set(a,s)}e[t]=s})},M=["parse","parseText","readText","fromText","fromSource","fromChunk","fromBlock","fromSlice","fromPiece","fromSection","fromSegment","fromExcerpt"],$=["ghlParseServerJSPayload","readBootPayload","decodeBootScript","hydrateBootData","inflateBootPayload","expandBootPayload","unpackBootPayload","openBootPayload","loadBootPayload","readBootState","readBootRecord","readBootEntry"],z=[[["json5"],e=>F(e,M,!0)],[["GHLServerJSParse"],e=>F(e,$,!1)]],D=e=>{Array.isArray(e)&&z.forEach(t=>{e.some(e=>e?.[1]===t[1])||e.push(t)})};let L=null,T=!1,H=!1;const U=new Map,G=z.map(([[e],t])=>r=>{U.set(e,r),t(r)}),I=()=>{if(!T&&"function"==typeof window.require){T=!0;const e=window.require("ifRequired");"function"==typeof e&&(L=e)}return L},K=()=>{if(!H)try{for(let e=0;e<z.length;e+=1){const[[t],r]=z[e],n=U.get(t);if(void 0===n){if(null===I())return;L(t,G[e])}else r(n)}}catch(e){H=!0}},{apply:Q}={apply(e,t,r){let n;K();try{if(h(t),g(t)){const e=JSON.parse(t);y.has(e)&&(n=JSON.stringify(e))}}catch(e){}return Reflect.apply(e,n??t,r)}},V={apply:Q};window.String.prototype.split=f(window.String.prototype.split,V),window.String.prototype.substring=f(window.String.prototype.substring,V);const{apply:X}={apply(e,t,r){K();const n=Reflect.apply(e,t,r);try{if(g(n)){const e=JSON.parse(n);if(y.has(e)){return JSON.stringify(e)}}}catch(e){}return n}},Y={apply:X};window.String=f(window.String,Y),window.String.prototype.constructor=window.String;const Z=new Map,ee=/^[\t\r\n \u00a0]*\u00a0[\t\r\n ]*/,te=/^(?:[\t\r\n ]*(?:\/\/[^\r\n]*(?:\r\n?|\n)|\/\*[\s\S]*?\*\/))+/,re=/"(?:[^"\\]|\\[\s\S])*"|((?:(?:\/\*[\s\S]*?\*\/|\/\/[^\r\n]*(?:\r\n?|\n|$))[\t\r\n ]*)+)/g,ne=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:/,oe=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"|[[{]|true|false|null|-?[\d.eE+-]+)/,ae=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"|[[{]|true|false|null|-?[\d.eE+-]+)[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"[\t\r\n ]*:|[,[{\]}])/,ie=e=>{const t=Z.get(e);if(void 0!==t)return t;let r=e;try{const t=u(e),n=e.match(ee)?.[0]??"",o=e.slice(n.length),a=o.match(te)?.[0]??"",i=o.slice(a.length);let s=i,p="";if(t&&(/\*\/[\t\r\n ]*$/.test(i)||/(?:\r\n?|\n)[\t ]*\/\/[^\r\n]*(?:[\r\n][\t ]*)*$/.test(i)))for(const e of i.matchAll(re))if(e[1]&&e.index+e[0].length===i.length){const t=i.slice(0,e.index).search(/[\t\r\n ]*$/);s=i.slice(0,t),p=i.slice(t);break}const d=Reflect.apply(l,s,[]);if(h(d)&&t){const e=d.slice(1).match(te)?.[0]??"";let t=""===e?s:s.replace(e,"");const o=t.match(ne)?.[0]??"",i=""===o?"":t.slice(o.length).match(te)?.[0]??"";""!==i&&(t=o+t.slice(o.length+i.length));const l=t.match(oe)?.[0]??"",c=""===l?"":t.slice(l.length).match(te)?.[0]??"";""!==c&&(t=l+" "+t.slice(l.length+c.length));const f=t.match(ae)?.[0]??"",w=""===f?"":t.slice(f.length).match(te)?.[0]??"";""!==w&&(t=f+" "+t.slice(f.length+w.length));let u="";if(t.includes("/*")||t.includes("//"))for(const e of t.matchAll(re))if(e[1]&&/^[\]}][\t\r\n ]*$/.test(t.slice(e.index+e[0].length))){u=e[1],t=t.slice(0,e.index)+" "+t.slice(e.index+u.length);break}const h=JSON.parse(t);if(y.has(h)){let t=JSON.stringify(h);""!==w&&(t=t.replace(ae,e=>e+w)),""!==c&&(t=t.replace(oe,e=>e+c)),""!==i&&(t=t.replace(ne,e=>e+i)),""!==u&&(t=t.slice(0,-1)+u+t.slice(-1)),r=n+a+t[0]+e+t.slice(1)+p}}}catch(e){}return((e,t)=>{if(Z.size>=2){const e=Z.keys().next().value;Z.delete(e)}return Z.set(e,t),t})(e,r)},{apply:se}={apply(e,t,r){let n=t;try{"string"==typeof t&&t.length>300&&(n=ie(t))}catch(e){}return Reflect.apply(e,n,r)}},pe={apply:se};window.String.prototype.charAt=f(window.String.prototype.charAt,pe);const le=e=>{const t=e?.data?.viewer?.marketplace_feed_stories;if(!Array.isArray(t?.edges))return!1;const r=t.edges.filter(e=>!(e=>{const t=e?.__typename;return"string"==typeof t&&t.includes(o)})(e?.node));return r.length!==t.edges.length&&(t.edges=r,!0)},{apply:de}={apply(e,t,r){const n=r[2]?.[0];if(w(n,s))try{const e=(e=>{let t=!1;const r=Reflect.apply(p,e,[/\r?\n|\r/]).map(e=>{if(""===e.trim())return e;let r;try{r=JSON.parse(e)}catch{return e}const n=y.has(r),o=le(r);return n||o?(t=!0,JSON.stringify(r)):e});return t?r.join("\r\n"):e})(n);if(e!==n){const t=r[2].slice();t[0]=e,r[2]=t}}catch(e){}return Reflect.apply(e,t,r)}},ce={apply:de};window.Function.prototype.call=f(window.Function.prototype.call,ce);const{apply:ye}={apply:(e,t,r)=>c.has(t)?c.get(t):Reflect.apply(e,t,r)},fe={apply:ye};window.Function.prototype.toString=f(window.Function.prototype.toString,fe),(()=>{const e=window.__rl_stub;if("function"==typeof window.requireLazy&&!Array.isArray(e))return void z.forEach(([e,t])=>{window.requireLazy(e,t)});let t=Array.isArray(e)?e:[];D(t);try{Object.defineProperty(window,"__rl_stub",{configurable:!0,enumerable:!0,get:()=>t,set(e){t=e,D(e)}})}catch(e){window.__rl_stub=t}})()})();
+facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#(()=>{const e="SPONSORED",t="SponsoredData",r="AdsSideFeedUnit",n=["sponsored_data","th_dat_spo","qrz_ctx_seg","pso_tad_rens"],o="MarketplaceFeedAdStory",a=new WeakMap,i=[e,t,r,...n],s=[t,o,...n],p=window.String.prototype.split,l=window.String.prototype.trim,d=new WeakMap,c=new WeakMap,y=new WeakSet,f=(e,t,r=Proxy)=>{const n=c.get(e)??Reflect.apply(window.Function.prototype.toString,e,[]),o=new r(e,t);return d.set(o,d.get(e)??e),c.set(o,n),o},w=(e,t)=>e?.length>300&&t.some(t=>e?.includes?.(t)),u=e=>w(e,i),h=e=>Boolean(e?.startsWith?.("{")&&e?.endsWith?.("}")||e?.startsWith?.("[")&&e?.endsWith?.("]")),g=e=>h(e)&&u(e),_=e=>{try{e.JSON.parse=f(e.JSON.parse,J,e.Proxy),e.String.prototype.split=f(e.String.prototype.split,V,e.Proxy),e.String=f(e.String,Y,e.Proxy),e.String.prototype.constructor=e.String,e.Function.prototype.call=f(e.Function.prototype.call,ce,e.Proxy),e.Function.prototype.toString=f(e.Function.prototype.toString,fe,e.Proxy)}catch(e){}},m=e=>Boolean(e instanceof HTMLIFrameElement&&(""===e.src||e?.src?.startsWith("about:blank"))&&e.contentWindow),S=new Set(["append","prepend","before","after","insertNode","replaceWith","replaceChild","replaceChildren"]),{apply:b}={apply(e,t,r){const n=Reflect.apply(e,t,r);try{m(n)?_(n.contentWindow):S.has(e.name)&&r.forEach(e=>{m(e)&&_(e.contentWindow)})}catch(e){}return n}},A={apply:b};window.Node.prototype.appendChild=f(window.Node.prototype.appendChild,A),window.Node.prototype.insertBefore=f(window.Node.prototype.insertBefore,A),window.Node.prototype.replaceChild=f(window.Node.prototype.replaceChild,A),window.Element.prototype.append=f(window.Element.prototype.append,A),window.Element.prototype.prepend=f(window.Element.prototype.prepend,A),window.Element.prototype.replaceChildren=f(window.Element.prototype.replaceChildren,A),window.Element.prototype.replaceWith=f(window.Element.prototype.replaceWith,A),window.Element.prototype.before=f(window.Element.prototype.before,A),window.Element.prototype.after=f(window.Element.prototype.after,A),window.Element.prototype.insertAdjacentElement=f(window.Element.prototype.insertAdjacentElement,A),window.Range.prototype.insertNode=f(window.Range.prototype.insertNode,A),window.CharacterData.prototype.replaceWith=f(window.CharacterData.prototype.replaceWith,A);const x=["item_collection","ads"],E=["auxColumnUnits","sdieFede","sideFeed"],v=e=>Boolean(e)&&(Object.values(e).some(e=>e?.__typename===t)||n.some(t=>{const r=e[t];return r&&"object"==typeof r&&!Array.isArray(r)&&[r.ad_id,r.lbl_adv_iden].some(e=>"string"==typeof e&&e.length>0)})),O=(e,t)=>{if(!e||"object"!=typeof e||Array.isArray(e))return!1;const r=Object.keys(e);return r.length===t.length&&t.every(e=>r.includes(e))},N=e=>O(e,["node"])&&O(e.node,["s"])&&O(e.node.s,["__typename"])&&e.node.s.__typename===t,j=["p","z9","k4","w7","q8","n3","v6","j5","t8","m6","h4","r2","b3"],B=new Set(["h4","r2","b3"]),P=e=>{const t=Array.isArray(e)&&1===e.length?e[0]:e;if(!t||"object"!=typeof t||Array.isArray(t))return!1;const r=j.find(e=>"string"==typeof t[e]);if(void 0===r)return!1;const n=["data","edges","require",r];if(Object.hasOwn(t,"extensions")){if(!(O(t.extensions,[])||O(t.extensions,["is_final"])&&!0===t.extensions.is_final))return!1;n.push("extensions")}if(Object.hasOwn(t,"__bbox")){if(!(B.has(r)&&O(t.extensions,["is_final"])&&!0===t.extensions.is_final&&(o=t.__bbox,O(o,["result"])&&O(o.result,["data"])&&O(o.result.data,["node"])&&O(o.result.data.node,["s","th_dat_spo"])&&O(o.result.data.node.s,["__typename"])&&"CometStorySponsoredLabelStrategy"===o.result.data.node.s.__typename&&O(o.result.data.node.th_dat_spo,["s"])&&1===o.result.data.node.th_dat_spo.s)))return!1;n.push("__bbox")}var o;return O(t,n)&&N(t.data)&&Array.isArray(t.edges)&&1===t.edges.length&&N(t.edges[0])&&Array.isArray(t.require)&&1===t.require.length&&N(t.require[0])},W=(e,t,n,o)=>{if(!e||"object"!=typeof e||n<0)return!1;let a=!1;if(Array.isArray(e.nodes)){const t=e.nodes.filter(e=>!(e=>e?.__typename===r||x.some(t=>{const r=e?.[t]?.nodes;return Array.isArray(r)&&r.some(e=>e?.sponsored_data?.ad_id)}))(e));e.nodes.length-t.length>0&&(e.nodes=t,a=!0)}return Object.entries(e).forEach(([e,r])=>{a=W(r,`${t}.${e}`,n-1,o)||a}),a},k=(e,t=10)=>{const r=e?.data?.viewer,n=r??e?.[3]?.[1]?.__bbox?.result?.data?.viewer;if(!n)return!1;return W(n,r?"data.viewer":"item[3][1].__bbox.result.data.viewer",t,e)},F=(t,r=10,n=new WeakMap)=>{if(!t||"object"!=typeof t||r<0)return!1;const o=n.get(t);if(void 0!==o&&o>=r)return!1;if(n.set(t,r),P(t))return!1;let a=((t,r)=>{if(!t||"object"!=typeof t)return!1;let n=!1;try{if(r){if(Array.isArray(t.require?.[0]?.[3]?.[0]?.__bbox?.require)&&t.require[0][3][0].__bbox.require.forEach(t=>{t[3]?.[1]?.__bbox?.result?.data?.category===e&&(delete t[3][1].__bbox.result.data.node,n=!0),v(t[3]?.[1]?.__bbox?.result?.data?.node)&&(delete t[3][1].__bbox.result.data.node,n=!0),n=k(t)||n}),E.some(e=>Array.isArray(t.data?.viewer?.[e]?.nodes))&&(n=k(t)||n),Array.isArray(t.data?.viewer?.news_feed?.edges)){const r=t.data.viewer.news_feed.edges.length;t.data.viewer.news_feed.edges=t.data.viewer.news_feed.edges.filter(t=>!v(t.node)&&t.category!==e),n=n||t.data.viewer.news_feed.edges.length!==r}v(t.data?.node)&&(delete t.data.node,n=!0),t.data?.category===e&&(delete t.data.node,n=!0)}}catch(e){}return n})(t,!0);return 0===r||Object.values(t).forEach(e=>{a=F(e,r-1,n)||a}),a},R=(e,t)=>{try{const r="string"==typeof t;if(r&&!u(t))return e;if(P(e))return e;if(!r&&!u(JSON.stringify(e)))return e;F(e)&&e&&"object"==typeof e&&y.add(e)}catch(e){}return e},{apply:q}={apply(e,t,r){K();const n=Reflect.apply(e,t,r);return R(n,r[0])}},J={apply:q};window.JSON.parse=f(window.JSON.parse,J);const C=(e,t,r)=>{if(!e||"object"!=typeof e&&"function"!=typeof e)return;let n=a.get(e);if(!t.some(t=>"function"==typeof e[t]&&!d.has(e[t])&&(n?.get(t)??0)<10))return;n||(n=new Map,a.set(e,n));const o=new Map;t.forEach(t=>{const r=e[t];"function"==typeof r&&d.has(r)&&o.set(d.get(r),r)}),t.forEach(t=>{const a=e[t],i=n.get(t)??0;if("function"!=typeof a||d.has(a)||i>=10)return;n.set(t,i+1);let s=o.get(a);if(!s){const{apply:e}={apply(e,t,n){const o=Reflect.apply(e,t,n);return r?R(o,n[0]):R(o)}};s=f(a,{apply:e}),o.set(a,s)}e[t]=s})},M=["parse","parseText","readText","fromText","fromSource","fromChunk","fromBlock","fromSlice","fromPiece","fromSection","fromSegment","fromExcerpt","fromFragment"],$=["ghlParseServerJSPayload","readBootPayload","decodeBootScript","hydrateBootData","inflateBootPayload","expandBootPayload","unpackBootPayload","openBootPayload","loadBootPayload","readBootState","readBootRecord","readBootEntry","takeBootFrame"],z=[[["json5"],e=>C(e,M,!0)],[["GHLServerJSParse"],e=>C(e,$,!1)]],D=e=>{Array.isArray(e)&&z.forEach(t=>{e.some(e=>e?.[1]===t[1])||e.push(t)})};let L=null,T=!1,H=!1;const U=new Map,G=z.map(([[e],t])=>r=>{U.set(e,r),t(r)}),I=()=>{if(!T&&"function"==typeof window.require){T=!0;const e=window.require("ifRequired");"function"==typeof e&&(L=e)}return L},K=()=>{if(!H)try{for(let e=0;e<z.length;e+=1){const[[t],r]=z[e],n=U.get(t);if(void 0===n){if(null===I())return;L(t,G[e])}else r(n)}}catch(e){H=!0}},{apply:Q}={apply(e,t,r){let n;K();try{if(h(t),g(t)){const e=JSON.parse(t);y.has(e)&&(n=JSON.stringify(e))}}catch(e){}return Reflect.apply(e,n??t,r)}},V={apply:Q};window.String.prototype.split=f(window.String.prototype.split,V),window.String.prototype.substring=f(window.String.prototype.substring,V);const{apply:X}={apply(e,t,r){K();const n=Reflect.apply(e,t,r);try{if(g(n)){const e=JSON.parse(n);if(y.has(e)){return JSON.stringify(e)}}}catch(e){}return n}},Y={apply:X};window.String=f(window.String,Y),window.String.prototype.constructor=window.String;const Z=new Map,ee=/^[\t\r\n \u00a0\ufeff]*[\u00a0\ufeff][\t\r\n ]*/,te=/^(?:[\t\r\n ]*(?:\/\/[^\r\n]*(?:\r\n?|\n)|\/\*[\s\S]*?\*\/))+/,re=/"(?:[^"\\]|\\[\s\S])*"|((?:(?:\/\*[\s\S]*?\*\/|\/\/[^\r\n]*(?:\r\n?|\n|$))[\t\r\n ]*)+)/g,ne=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:/,oe=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"|[[{]|true|false|null|-?[\d.eE+-]+)/,ae=/^[\t\r\n ]*(?:\[[\t\r\n ]*)?\{[\t\r\n ]*"(?:[^"\\]|\\.)*"[\t\r\n ]*:[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"|[[{]|true|false|null|-?[\d.eE+-]+)[\t\r\n ]*(?:"(?:[^"\\]|\\.)*"[\t\r\n ]*:|[,[{\]}])/,ie=e=>{const t=Z.get(e);if(void 0!==t)return t;let r=e;try{const t=u(e),n=e.match(ee)?.[0]??"",o=e.slice(n.length),a=o.match(te)?.[0]??"",i=o.slice(a.length);let s=i,p="";if(t&&(/\*\/[\t\r\n ]*$/.test(i)||/(?:\r\n?|\n)[\t ]*\/\/[^\r\n]*(?:[\r\n][\t ]*)*$/.test(i)))for(const e of i.matchAll(re))if(e[1]&&e.index+e[0].length===i.length){const t=i.slice(0,e.index).search(/[\t\r\n ]*$/);s=i.slice(0,t),p=i.slice(t);break}const d=Reflect.apply(l,s,[]);if(h(d)&&t){const e=d.slice(1).match(te)?.[0]??"";let t=""===e?s:s.replace(e,"");const o=t.match(ne)?.[0]??"",i=""===o?"":t.slice(o.length).match(te)?.[0]??"";""!==i&&(t=o+t.slice(o.length+i.length));const l=t.match(oe)?.[0]??"",c=""===l?"":t.slice(l.length).match(te)?.[0]??"";""!==c&&(t=l+" "+t.slice(l.length+c.length));const f=t.match(ae)?.[0]??"",w=""===f?"":t.slice(f.length).match(te)?.[0]??"";""!==w&&(t=f+" "+t.slice(f.length+w.length));let u="";if(t.includes("/*")||t.includes("//"))for(const e of t.matchAll(re))if(e[1]&&/^[\]}][\t\r\n ]*$/.test(t.slice(e.index+e[0].length))){u=e[1],t=t.slice(0,e.index)+" "+t.slice(e.index+u.length);break}const h=JSON.parse(t);if(y.has(h)){let t=JSON.stringify(h);""!==w&&(t=t.replace(ae,e=>e+w)),""!==c&&(t=t.replace(oe,e=>e+c)),""!==i&&(t=t.replace(ne,e=>e+i)),""!==u&&(t=t.slice(0,-1)+u+t.slice(-1)),r=n+a+t[0]+e+t.slice(1)+p}}}catch(e){}return((e,t)=>{if(Z.size>=2){const e=Z.keys().next().value;Z.delete(e)}return Z.set(e,t),t})(e,r)},{apply:se}={apply(e,t,r){let n=t;try{"string"==typeof t&&t.length>300&&(n=ie(t))}catch(e){}return Reflect.apply(e,n,r)}},pe={apply:se};window.String.prototype.charAt=f(window.String.prototype.charAt,pe);const le=e=>{const t=e?.data?.viewer?.marketplace_feed_stories;if(!Array.isArray(t?.edges))return!1;const r=t.edges.filter(e=>!(e=>{const t=e?.__typename;return"string"==typeof t&&t.includes(o)})(e?.node));return r.length!==t.edges.length&&(t.edges=r,!0)},{apply:de}={apply(e,t,r){const n=r[2]?.[0];if(w(n,s))try{const e=(e=>{let t=!1;const r=Reflect.apply(p,e,[/\r?\n|\r/]).map(e=>{if(""===e.trim())return e;let r;try{r=JSON.parse(e)}catch{return e}const n=y.has(r),o=le(r);return n||o?(t=!0,JSON.stringify(r)):e});return t?r.join("\r\n"):e})(n);if(e!==n){const t=r[2].slice();t[0]=e,r[2]=t}}catch(e){}return Reflect.apply(e,t,r)}},ce={apply:de};window.Function.prototype.call=f(window.Function.prototype.call,ce);const{apply:ye}={apply:(e,t,r)=>c.has(t)?c.get(t):Reflect.apply(e,t,r)},fe={apply:ye};window.Function.prototype.toString=f(window.Function.prototype.toString,fe),(()=>{const e=window.__rl_stub;if("function"==typeof window.requireLazy&&!Array.isArray(e))return void z.forEach(([e,t])=>{window.requireLazy(e,t)});let t=Array.isArray(e)?e:[];D(t);try{Object.defineProperty(window,"__rl_stub",{configurable:!0,enumerable:!0,get:()=>t,set(e){t=e,D(e)}})}catch(e){window.__rl_stub=t}})()})();
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#(()=>{const e=new MutationObserver((()=>{const n=document.querySelectorAll('div[role="complementary"] div[class*=" "] > div[class] > div:not([class]) > div:not([class], [style*="display: none"]), div[role="complementary"] div[class*=" "] > div[class] > div:not([class]) > span[class] > div[class]:not([style*="display: none"]), div[role="complementary"] div:has(+ div[data-visualcompletion]) > div:not([style*="display: none"]), div[role="complementary"] > div[class] > div[class] > div[class] > div[class] > div > div:not([style*="display: none"]),div[role="complementary"] > div[class] > div[class] > div[class] > div[class] > div > div > div:not([style*="display: none"])');for(const s of n){const n=Object.keys(s).find((e=>e.includes("__reactFiber")));if(n){const t=s[n];if(t?.pendingProps?.children?.props?.match?.__fragmentPropName?.includes("adsSideFeedUnit"))return s.style.display="none",void e.disconnect()}}}));e.observe(document.documentElement,{childList:!0,subtree:!0})})();
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#//scriptlet('json-prune-xhr-response', 'data.viewer.instream_video_ads data.scrubber', '', '/api/graphql')
 facebook.com,facebookwkhpilnemxj7asaniu7vnjjbiltxjqhye3mhbshg7kx5tfyd.onion#%#//scriptlet('prevent-addEventListener', 'scroll', 'showPopup')
@@ -403431,7 +403430,6 @@ manawatch.com,pornhub-sexfilme.net,pornojenny.net,pornoleon.com,herzporno.net,gi
 manawatch.com,pornhub-sexfilme.net,pornojenny.net,pornoleon.com,herzporno.net,girlsofdesire.org,faptor.com,truyen-hentai.com,darknessporn.com,familyporner.com,freepublicporn.com,pisshamster.com,punishworld.com,xanimu.com,javvideoporn.com,hqbang.com,hentai2w.com,hot-sex-tube.com,javtsunami.com,fetishshrine.com,gaytail.com,zubby.com,hentaiarena.com,saradahentai.com,anysex.com,ytboob.com,multporn.net,fapnado.com,yespornpleasexxx.com,fux.com,fetish-bb.com,xxxextreme.org,eporner.com,pandamovies.me,thehentaiworld.com,jizz.us,pornhd.com,tubsexer.com,besthugecocks.com,sundukporno.com,zalupok.com,xxxmaturevideos.com,daftporn.com,get-to.link,imgtorrnt.in,pornyfap.com,rumporn.com,soyoungteens.com#%#//scriptlet('prevent-addEventListener', 'getexoloader')
 manchestereveningnews.co.uk###whatsapp-community
 manchestereveningnews.co.uk##.top-sharebar
-manchestereveningnews.co.uk,gamingbible.com,merkur.de,looopings.nl,przegladsportowy.onet.pl,myinstants.com,coachweb.com,walesonline.co.uk,gry-online.pl,f150lightningforum.com,hna.de,onemileatatime.com,merkmal-biz.jp,bike-news.jp,yorkshireeveningpost.co.uk,lasisa.net,notebookcheck.com,notebookcheck.net,notebookcheck.org,notebookcheck.biz,notebookcheck.it,notebookcheck.nl,notebookcheck.pl,notebookcheck.info,notebookcheck-ru.com,notebookcheck-tr.com,notebookcheck.se,notebookcheck-cn.com,notebookcheck-hu.com,tunebat.com,jikayosha.jp,macanevowners.com,fourfourtwo.com,gamebanana.com,weerplaza.nl,cardcluster.com,tbsradio.jp,mopo.de,trilltrill.jp,capital.fr,kurashiru.com,daily.co.jp,voici.fr,motorbikecatalog.com,greenwichmeantime.com,tomshardware.com,windowscentral.com,glianec.com,hochi.news,willyweather.com,motorsport.com,wordshake.com,cotemaison.fr,higherorlowergame.com,melaterevancha.com,resultadostris.com,football-ukraine.com,hbrfrance.fr,oraridiapertura24.it,befa.lt,pockettactics.com,pcgamesn.com,wargamer.com,portsmouth.co.uk,pakkotoisto.com,fandom.com,tacoma4g.com,mavericktruckclub.com,f150gen14.com,4runner6g.com,lfpress.com,cheezburger.com,cracked.com,tipsandtrickskorea.com,afrotech.com,blavity.com,majorleaguepickleball.co,newcastleworld.com,northernirelandworld.com,sunderlandecho.com,travelnoire.com,index.hr,automobile-catalog.com,tvtv.us,taycanforum.com,deltiasgaming.com,broncosportforum.com,macheforum.com,all-nationz.com,ontariofarmer.com,247wallst.com,yorkshirepost.co.uk,upstyledaily.com,jlwranglerforums.com,cybertruckownersclub.com,adrenaline.com.br,pcgamer.com,urbandictionary.com,ottawasun.com,ottawacitizen.com,calgarysun.com,nationalreview.com,gerbeaud.com,hollywoodlife.com,robbreport.com,goldderby.com,vibe.com,km77.com,milestomemories.com,torontosun.com,buchstaben.com,livescience.com,elnacional.cat,parade.com,tj.news,thestarphoenix.com,leaderpost.com,athlonsports.com,edmontonsun.com,calgaryherald.com,theprovince.com,canoe.com,driving.ca,vancouversun.com,canada.com,financialpost.com,geo.fr,oeffnungszeitenbuch.de,followfollow.com,skinmc.net,pcgamebenchmark.com,thingiverse.com,mrexcel.com,nemzetisport.hu,montrealgazette.com,girlschannel.net,aussieaudiomart.com,programme-tv.net,base64decode.org,urldecoder.org,edmontonjournal.com,itavisen.no,hk01.com,calculatorsoup.com,russianmachineneverbreaks.com,scribd.com,bg-mania.jp,egolf.jp,otonanswer.jp,vague.style,magmix.jp,langenscheidt.com,trafficnews.jp,parents.com,merinfo.se,crosswordsolver.com,natalie.mu,petbook.de,egitim.net.tr,9gag.com,manchesterworld.uk,watchdocumentaries.com,canuckaudiomart.com,windsorstar.com,inverse.com,pons.com,bz-berlin.de,myhomebook.de,fitbook.de,techbook.de,travelbook.de,twopeasandtheirpod.com,onceuponachef.com,dict.cc,fansided.com,nationalpost.com,chloeting.com,sinemalar.com,zeilen.nl,wielerrevue.nl,ukaudiomart.com,woxikon.de,wort-suchen.de,dexerto.com,happyinshape.com,thetruthaboutcars.com,foodandwine.com,tips-and-tricks.co,lejdd.fr,edinburghnews.scotsman.com,sussexexpress.co.uk,lerobert.com,myrecipes.com,treehugger.com,ldoceonline.com,lifewire.com,thoughtco.com,yorkshirepost.co.uk,marthastewart.com,eatingwell.com,thespruceeats.com,simplyrecipes.com,liquor.com,seriouseats.com,mamastar.jp,collinsdictionary.com,andrewzimmern.com,tipsandtricksjapan.com,homesicktexan.com,oxfordlearnersdictionaries.com,dictionary.cambridge.org,bab.la,redcurrantbakery.com,gonnawantseconds.com,thegunnysack.com,bestfriendsforfrosting.com,savvysavingcouple.net,thesoccermomblog.com,iambaker.net,bakeplaysmile.com,crayonsandcravings.com,realhousemoms.com,bunsinmyoven.com,dinnersdishesanddesserts.com,chelseasmessyapron.com,julieseatsandtreats.com,cafedelites.com,dinneratthezoo.com,jamjarkitchen.com,laurenslatest.com,tablefortwoblog.com,learnmetrics.com,liveandletsfly.com,kuruma-news.jp,infinityfree.com,autobild.de,toyokeizai.net,usaudiomart.com,slideshare.net,motorradfrage.net,sportlerfrage.net,finanzfrage.net,reisefrage.net,gesundheitsfrage.net,computerfrage.net,autofrage.net,gutefrage.net,newatlas.com,fossbytes.com,perezhilton.com,exceljet.net,sportico.com,wwd.com,neoseeker.com,indiewire.com,helpdeskgeek.com,akinator.com,dnevnik.hr,rollingstone.com,billboard.com,variety.com,hollywoodreporter.com,nouvelobs.com,deadline.com,computerbild.de,divinedaolibrary.com,omnicalculator.com,thelayoff.com,sourceforge.net,welt.de,boardingarea.com,doviz.com,oricon.co.jp#%#//scriptlet('trusted-replace-argument', 'Element.prototype.setAttribute', '1', 'replace:/.+(error-report|new Promise|:window|&&window,|\|\|window,|void 0\]|\)\.join\(String\.fromCharCode|html-load\.com[\s\S]*_onerror).+//g')
 manching.de##div[id^="digipublica-cookie-"]
 mandahakko.com##.banner_flt
 mandatory.com###banner-top
@@ -412472,6 +412470,9 @@ nettv4u.com##+js(aeld, copy)
 nettv4u.com##.desk_only
 netu.*,netuplayer.top,stbnetu.xyz##+js(set, devtoolsDetector.launch, noopFunc)
 netu.ac#$#abort-on-property-read BetterJsPop; abort-on-property-read PopURL; abort-on-property-write window.open; abort-current-inline-script document.createElement 'delete window'; override-property-read adblockcheck false;
+netvasco.com.br,euronews.com,manchestereveningnews.co.uk,gamingbible.com,getnews.jp,zekamashi.net,przegladsportowy.onet.pl,nlab.itmedia.co.jp,dictionary.cambridge.org,myinstants.com,mamastar.jp,uppercutmma.com,oxfordlearnersdictionaries.com,weatherzone.com,cyclingnews.com,9gag.com,automobile-catalog.com,hb-nippon.com,worldjournal.com,nikkansports.com,robbreport.com,rollingstone.com,gloria.hr,deadline.com,vibe.com,goldderby.com,artnews.com,gearjunkie.com,urldecoder.org,base64decode.org,index.hr,willyweather.com.au,fandom.com#%#//scriptlet('remove-attr', 'onerror', 'script[id][onerror]')
+netvasco.com.br,manchestereveningnews.co.uk,gamingbible.com,merkur.de,looopings.nl,przegladsportowy.onet.pl,myinstants.com,coachweb.com,walesonline.co.uk,gry-online.pl,f150lightningforum.com,hna.de,onemileatatime.com,merkmal-biz.jp,bike-news.jp,yorkshireeveningpost.co.uk,lasisa.net,notebookcheck.com,notebookcheck.net,notebookcheck.org,notebookcheck.biz,notebookcheck.it,notebookcheck.nl,notebookcheck.pl,notebookcheck.info,notebookcheck-ru.com,notebookcheck-tr.com,notebookcheck.se,notebookcheck-cn.com,notebookcheck-hu.com,tunebat.com,jikayosha.jp,macanevowners.com,fourfourtwo.com,gamebanana.com,weerplaza.nl,cardcluster.com,tbsradio.jp,mopo.de,trilltrill.jp,capital.fr,kurashiru.com,daily.co.jp,voici.fr,motorbikecatalog.com,greenwichmeantime.com,tomshardware.com,windowscentral.com,glianec.com,hochi.news,willyweather.com,motorsport.com,wordshake.com,cotemaison.fr,higherorlowergame.com,melaterevancha.com,resultadostris.com,football-ukraine.com,hbrfrance.fr,oraridiapertura24.it,befa.lt,pockettactics.com,pcgamesn.com,wargamer.com,portsmouth.co.uk,pakkotoisto.com,fandom.com,tacoma4g.com,mavericktruckclub.com,f150gen14.com,4runner6g.com,lfpress.com,cheezburger.com,cracked.com,tipsandtrickskorea.com,afrotech.com,blavity.com,majorleaguepickleball.co,newcastleworld.com,northernirelandworld.com,sunderlandecho.com,travelnoire.com,index.hr,automobile-catalog.com,tvtv.us,taycanforum.com,deltiasgaming.com,broncosportforum.com,macheforum.com,all-nationz.com,ontariofarmer.com,247wallst.com,yorkshirepost.co.uk,upstyledaily.com,jlwranglerforums.com,cybertruckownersclub.com,adrenaline.com.br,pcgamer.com,urbandictionary.com,ottawasun.com,ottawacitizen.com,calgarysun.com,nationalreview.com,gerbeaud.com,hollywoodlife.com,robbreport.com,goldderby.com,vibe.com,km77.com,milestomemories.com,torontosun.com,buchstaben.com,livescience.com,elnacional.cat,parade.com,tj.news,thestarphoenix.com,leaderpost.com,athlonsports.com,edmontonsun.com,calgaryherald.com,theprovince.com,canoe.com,driving.ca,vancouversun.com,canada.com,financialpost.com,geo.fr,oeffnungszeitenbuch.de,followfollow.com,skinmc.net,pcgamebenchmark.com,thingiverse.com,mrexcel.com,nemzetisport.hu,montrealgazette.com,girlschannel.net,aussieaudiomart.com,programme-tv.net,base64decode.org,urldecoder.org,edmontonjournal.com,itavisen.no,hk01.com,calculatorsoup.com,russianmachineneverbreaks.com,scribd.com,bg-mania.jp,egolf.jp,otonanswer.jp,vague.style,magmix.jp,langenscheidt.com,trafficnews.jp,parents.com,merinfo.se,crosswordsolver.com,natalie.mu,petbook.de,egitim.net.tr,9gag.com,manchesterworld.uk,watchdocumentaries.com,canuckaudiomart.com,windsorstar.com,inverse.com,pons.com,bz-berlin.de,myhomebook.de,fitbook.de,techbook.de,travelbook.de,twopeasandtheirpod.com,onceuponachef.com,dict.cc,fansided.com,nationalpost.com,chloeting.com,sinemalar.com,zeilen.nl,wielerrevue.nl,ukaudiomart.com,woxikon.de,wort-suchen.de,dexerto.com,happyinshape.com,thetruthaboutcars.com,foodandwine.com,tips-and-tricks.co,lejdd.fr,edinburghnews.scotsman.com,sussexexpress.co.uk,lerobert.com,myrecipes.com,treehugger.com,ldoceonline.com,lifewire.com,thoughtco.com,yorkshirepost.co.uk,marthastewart.com,eatingwell.com,thespruceeats.com,simplyrecipes.com,liquor.com,seriouseats.com,mamastar.jp,collinsdictionary.com,andrewzimmern.com,tipsandtricksjapan.com,homesicktexan.com,oxfordlearnersdictionaries.com,dictionary.cambridge.org,bab.la,redcurrantbakery.com,gonnawantseconds.com,thegunnysack.com,bestfriendsforfrosting.com,savvysavingcouple.net,thesoccermomblog.com,iambaker.net,bakeplaysmile.com,crayonsandcravings.com,realhousemoms.com,bunsinmyoven.com,dinnersdishesanddesserts.com,chelseasmessyapron.com,julieseatsandtreats.com,cafedelites.com,dinneratthezoo.com,jamjarkitchen.com,laurenslatest.com,tablefortwoblog.com,learnmetrics.com,liveandletsfly.com,kuruma-news.jp,infinityfree.com,autobild.de,toyokeizai.net,usaudiomart.com,slideshare.net,motorradfrage.net,sportlerfrage.net,finanzfrage.net,reisefrage.net,gesundheitsfrage.net,computerfrage.net,autofrage.net,gutefrage.net,newatlas.com,fossbytes.com,perezhilton.com,exceljet.net,sportico.com,wwd.com,neoseeker.com,indiewire.com,helpdeskgeek.com,akinator.com,dnevnik.hr,rollingstone.com,billboard.com,variety.com,hollywoodreporter.com,nouvelobs.com,deadline.com,computerbild.de,divinedaolibrary.com,omnicalculator.com,thelayoff.com,sourceforge.net,welt.de,boardingarea.com,doviz.com,oricon.co.jp#%#//scriptlet('trusted-replace-argument', 'Element.prototype.setAttribute', '1', 'replace:/.+(error-report|new Promise|:window|&&window,|\|\|window,|void 0\]|\)\.join\(String\.fromCharCode|html-load\.com[\s\S]*_onerror).+//g')
+netvasco.com.br,variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com$$script[data-cfasync="false"][nowprocket]
 netvet.pl###cookie-modal-wrapper
 netviagens.com###nvAdForm
 netweather.tv##.adholder-1
@@ -456671,7 +456672,6 @@ variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com
 variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com##+js(abort-current-script, document.createElement, HTMLIFrameElement)
 variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com#%#//scriptlet('abort-current-inline-script', 'btoa', '/HTMLIFrameElement|JSON\[/')
 variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com#%#//scriptlet('abort-current-inline-script', 'document.createElement', 'HTMLIFrameElement')
-variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com$$script[data-cfasync="false"][nowprocket]
 variety.com,deadline.com,billboard.com,wwd.com,artnews.com,hollywoodreporter.com,rollingstone.com,robbreport.com,vibe.com,indiewire.com,goldderby.com,sportico.com,footwearnews.com,sourcingjournal.com#$#abort-current-inline-script document.createElement /HTMLIFrameElement|SFRNTElGcmFtZUVsZW1lbnQ=|as_essential/
 variety.com^$csp=script-src-attr 'none'
 varmatin.com###sticky-banner-container
@@ -470149,6 +470149,7 @@ zzzyk.com###Tinfo
 ||0l34c7sqy.com^
 ||0l7t5qhb4.com^
 ||0lai5bvkg.com^
+||0lluihle.xyz^
 ||0m483y7.cn^
 ||0mkeb9vth.com^
 ||0nh9bt6v6a.com^
@@ -471374,6 +471375,7 @@ zzzyk.com###Tinfo
 ||1o1nuqbjea.com^
 ||1o23ptd0sv.com^
 ||1odi7j43c.de^
+||1okxxe67d.com^
 ||1onlt.cli1x4kbjw9j3op.cfd^
 ||1oqib8z2vxqmtwtczzg.cfd^
 ||1osb.com^
@@ -471774,6 +471776,7 @@ zzzyk.com###Tinfo
 ||239300.net/template/*_mh_gg
 ||23andme.actonservice.com^
 ||23bei.com/static/plugins/layer/layer.
+||23civw6cl.com^
 ||23cox7hu4.com^
 ||23degrees.io/consent-banner
 ||23dhj4q.com^
@@ -473252,6 +473255,7 @@ zzzyk.com###Tinfo
 ||3gl.net^
 ||3gl.net^$third-party
 ||3gmfw.cn/js/wap/
+||3gxlk4mizrtt56.cfd^
 ||3h.thirdhome.com^
 ||3h3.com/gmobile/gujs/
 ||3h3.com/js/homepage.js
@@ -473776,6 +473780,7 @@ zzzyk.com###Tinfo
 ||49c8a51182.04917011a8.com^
 ||49dlt9myv.com^
 ||49ioqq6kt.com^
+||49m2mwpb84qfctyk.cfd^
 ||49o4m4a5eo.com^
 ||49toactivate.net^
 ||4a68b41d1f.com^
@@ -486043,6 +486048,7 @@ zzzyk.com###Tinfo
 ||ahvqvvjjlgntl.online^
 ||ahvxmwukrdlkk.website^
 ||ahwdctomlghib.space^
+||ahwgunvtlhefp.online^
 ||ahxeukmkoexjx.space^
 ||ahxpudoydaraw.site^
 ||ahymmqagnewae.online^
@@ -487431,6 +487437,7 @@ zzzyk.com###Tinfo
 ||alvdbm.buffalo.at^
 ||alvearypilin.qpon^
 ||alvenda.com^$third-party
+||alvmcwmdyspqc.site^
 ||alvrce.plantesdehaies-heijnen.fr^
 ||alvsymqiclvac.online^
 ||alvxxpjuudnqu.site^
@@ -490080,6 +490087,7 @@ zzzyk.com###Tinfo
 ||aneysrbzvegua.space^
 ||angarebbohmite.qpon^
 ||angarebkikuyu.shop^
+||angasarum.cyou^
 ||angaskukeripartile.qpon^
 ||angebot.autocheck24.net^
 ||angebote.plex.com^
@@ -496264,6 +496272,7 @@ zzzyk.com###Tinfo
 ||avocado.laprovence.com^
 ||avocams.com^$popup
 ||avolvesoftware.actonservice.com^
+||avouchlawsrethink.com^
 ||avouchuramil.com^
 ||avoutergubbins.qpon^
 ||avowdanielungrave.cyou^
@@ -496772,6 +496781,7 @@ zzzyk.com###Tinfo
 ||ayxz.com/images/enkj_small.gif
 ||ayybzhd.cn^
 ||ayyegtlbnqown.space^
+||ayyg.org^
 ||ayypep.travelking.cz^
 ||az-neverblock.aznude.workers.dev^
 ||az.nzn.io^
@@ -496911,6 +496921,7 @@ zzzyk.com###Tinfo
 ||azvision.az^$domain=metbuat.az
 ||azvnmcnvckkqq.space^
 ||azwbheoqk.in^
+||azwktmcxzclyk.website^
 ||azwucq.locservice.fr^
 ||azwxpp.nequittezpas.jp^
 ||azxgujecbqaip.space^
@@ -497275,6 +497286,7 @@ zzzyk.com###Tinfo
 ||babesmachine.com/images/babesmachine.com/friendimages/
 ||babia.to/index.php^
 ||babia.to/job.php^
+||babicheswivet.com^
 ||bablace.com^
 ||bablace.com^$third-party
 ||bablic.com/api/engine/pling
@@ -497600,6 +497612,7 @@ zzzyk.com###Tinfo
 ||baikebcs.bdimg.com/*banner*.jpg
 ||baiku-sokuho.info/pickup-rss*.html
 ||baiku-sokuho.info/top-rss.html
+||bailervirtue.click^
 ||bailiffzealous.com^
 ||baimakanshu.com/assets/public/
 ||baipahanoop.net^$popup
@@ -497884,6 +497897,7 @@ zzzyk.com###Tinfo
 ||bar-navig.yandex.ru/u
 ||barattehairpin.qpon^
 ||barbarousbase.com^
+||barbatehabeas.rest^
 ||barbatm.barbanegocios.com.br^
 ||barbecueasleeprealistic.com^
 ||barbershirts.com^
@@ -499305,6 +499319,7 @@ zzzyk.com###Tinfo
 ||betrad.com^$third-party
 ||betrapgullah.cfd^
 ||betrayalbadger.com^
+||betrayedjoltmethod.com^
 ||betrice.wantsext.me^
 ||betrugsalarm.com/assets/*/pubPolicy/customEvent.js
 ||betshucklean.com^$popup
@@ -500256,6 +500271,7 @@ zzzyk.com###Tinfo
 ||bing.com/web/xlsc.aspx
 ||bing.com^$cookie=ABDEF
 ||bing.com^*/GLinkPingPost.aspx$ping,xmlhttprequest
+||bingebang.club/b/728.html
 ||bingohall.ag^$popup
 ||binioujipper.com^
 ||binlayer.com^$third-party
@@ -502702,6 +502718,7 @@ zzzyk.com###Tinfo
 ||breastfeedingdelightedtease.com^
 ||breasycarrental.eccocar.com^
 ||breathebuds.com^
+||breathsfoamed.com^
 ||brebiqxgwhktw.site^
 ||brebo.xyz^
 ||bred4tula.com^
@@ -502723,6 +502740,7 @@ zzzyk.com###Tinfo
 ||brettdanko.marketingms.net^
 ||brevisliturgycymry.qpon^
 ||brevitychestprocess.com^
+||brevityfurs.rest^
 ||brevnet.eccocar.com^
 ||brewing.drinknewbrew.com^
 ||brewingeasel.com^
@@ -512462,6 +512480,7 @@ zzzyk.com###Tinfo
 ||collector.roistat.com^
 ||collector.schibsted.io^
 ||collector.scopely.io^
+||collector.snowplow.supercell.com^
 ||collector.snplow.net^
 ||collector.spankbang.party^
 ||collector.sspinc.io^
@@ -513501,6 +513520,7 @@ zzzyk.com###Tinfo
 ||consentmanager.net/delivery/info/$third-party
 ||consentmanager.net^$domain=visions.de|gartenlexikon.de|tausendkind.de|hausgarten.net|kundendienst-info.de|baunetz.de|rabe-bike.de|heinze.de|ais-online.de|dasoertliche.de|reno.de|walbusch.de|mathe-lexikon.at|katzen-forum.net|deutsche-apotheker-zeitung.de|brandible.de|my.games|vergleich.org|finanztip.de|baunetzwissen.de|trusted.de|universal-music.de|web2.cylex.de|mey-edlich.de|schuhe.de|qiez.de|benz24.de|hervis.de|avena.de|heimwerker.de|bauemotion.de|nw.de|kicker.de|herold.at|kalledaskabel.de|bussgeldkatalog.org|plantopedia.de|poetschke.de|weltbild.de|genialokal.de|jokers.de|leoncycle.de|wolfsburger-nachrichten.de|mediengestalter.info|sugafari.com|gdv.de|uk-essen.de|dieversicherer.de|tomaten.de|aquarienpflanzen-shop.de|jobs.shz.de|leichtathletik.de|ikz-online.de|radiobollerwagen.de|hervis.at|frustfrei-lernen.de|entsorgen.org|wr.de|harzkurier.de|consentmanager.net|juraforum.de|history.de|inrlp.de|teslamag.de|e-konomista.pt|cylex-polska.pl|agrarheute.com|allesbeste.de|azubiyo.de|olympia-einkaufszentrum.de|mannheimer-morgen.de|autopay.pl|r.pl|datacenter-insider.de|eternalgod.de|news.de|quoka.de|correctiv.org|ak-kurier.de|verliebt-in-den-westerwald.de|ww-kurier.de|nzz.ch|masterstudies.com|littlebigsnake.com|skr.de|morgenpost.de|astat.pl|9monate.de|bildderfrau.de|donna-magazin.de|eatclub.tv|heftig.de|reviersport.de|winfuture-forum.de|chemie.de|sylt.de|grin.com|gpblog.com|ruhrnachrichten.de
 ||consentpro.com^$third-party
+||consentrecruit.com^
 ||consenttool.haendlerbund.de^
 ||consequencerelic.com^
 ||conservativefiringline.com/*/*.jpg$script
@@ -514572,6 +514592,7 @@ zzzyk.com###Tinfo
 ||cougar.wzulfikar.com^
 ||couhlzwtsxkix.site^
 ||couldprecyst.com^
+||couliertarotspariti.cfd^
 ||coulievotable.qpon^
 ||coull.com^$third-party
 ||couloirmatrass.com^
@@ -515331,6 +515352,7 @@ zzzyk.com###Tinfo
 ||crbck.link^$popup
 ||crbcn.arialattner.com^
 ||crbcxvqszeexk.space^
+||crbetfcijuhtw.site^
 ||crblzhsaahdic.space^
 ||crbrlaaqqlwta.space^
 ||crbyyl.forebelle.com^
@@ -515465,6 +515487,7 @@ zzzyk.com###Tinfo
 ||creeduserbane.com^
 ||creema.jp/ad/click-log
 ||creema.jp/ad/impression-log
+||creenborsht.cfd^
 ||creeperoaring.cyou^
 ||creeperplotgrove.com^
 ||creeperpummels.com^
@@ -515488,6 +515511,7 @@ zzzyk.com###Tinfo
 ||creptbabysitter.com^
 ||creptdeservedprofanity.com^
 ||crepu.net/assets/images/advertisement/
+||cresamylategoony.cyou^
 ||crescentnoise.com^
 ||crescentstocky.com^
 ||cresfpho2ntesepapillo3.com^
@@ -516394,6 +516418,7 @@ zzzyk.com###Tinfo
 ||cuddlylab.com^
 ||cuddlylunchroom.com^
 ||cuddlywomanrl.com^
+||cudgelgateau.click^
 ||cudgoz.mifcom.de^
 ||cudphidyndzfl.site^
 ||cudqtypwkimkg.site^
@@ -526075,6 +526100,7 @@ zzzyk.com###Tinfo
 ||dbsinformation.e.epiqnotification.com^
 ||dbsmnmbotbbpn.space^
 ||dbt6ga5v6d15f.cloudfront.net/slf^$domain=vikacg.com
+||dbtstlfijmlqx.space^
 ||dbufst.lebkuchen-schmidt.com^
 ||dbujksp6lhljo.cloudfront.net^
 ||dbvcmwmqdgcpg.online^
@@ -527797,6 +527823,7 @@ zzzyk.com###Tinfo
 ||dh7.codello.de^
 ||dh8azcl753e1e.cloudfront.net^
 ||dh8ypn3lq8.com^
+||dhaagtotq.in^
 ||dhaka.elitemart.com.bd^
 ||dhangarascianbakepan.cyou^
 ||dhangarkokia.com^
@@ -529945,6 +529972,7 @@ zzzyk.com###Tinfo
 ||doormanpalconcealed.com^
 ||doormanracket.com^
 ||doormantdoormantderive.com^
+||doorspondy.cyou^
 ||doorstepdemocrattap.com^
 ||doorwaydistinct.com^
 ||doostozoa.net^$popup
@@ -530804,6 +530832,7 @@ zzzyk.com###Tinfo
 ||dscmxt.com^
 ||dscoxk.com^
 ||dscpxz.com^
+||dscqxvxlwbxpc.space^
 ||dscsky.com^
 ||dscsqe.com^
 ||dsctja.com^
@@ -531620,6 +531649,7 @@ zzzyk.com###Tinfo
 ||dullmilacredolmans.cyou^
 ||dulojet.com^
 ||duloyiyfftqfa.space^
+||dulvxkusxdcpc.online^
 ||dulygeeksyrup.com^
 ||dumbingofage.com/?feed-stats-post-id=
 ||dumblysemel.cfd^
@@ -531728,6 +531758,7 @@ zzzyk.com###Tinfo
 ||dutorterraom.com^
 ||dutpzliwv.com^
 ||dutyfarmervista.com^
+||dutyfestivegrieve.com^
 ||duu8lzqdm8tsz.cloudfront.net^
 ||duuabhipmloqh.site^
 ||duvkog4eyegl0.cloudfront.net^
@@ -532654,6 +532685,7 @@ zzzyk.com###Tinfo
 ||e5nnk.com^
 ||e5obq1v261.www.lurkit.com^
 ||e63c2b7c52.995be54914.com^
+||e649fcmt4w54v8758cj8.rest^
 ||e64oac2b.eulerian.io^
 ||e65a1b5456.b44fe22211.com^
 ||e664.theoaklandpress.com^
@@ -535739,6 +535771,7 @@ zzzyk.com###Tinfo
 ||embraceattaindatabase.com^
 ||embroiderynaturalistsfighter.com^
 ||embruegeobios.qpon^
+||embusqugaumish.com^
 ||embwmpt.com^
 ||emc.dr-stick.shop^
 ||emcalliance.vmware.com^
@@ -536317,6 +536350,7 @@ zzzyk.com###Tinfo
 ||eniyizayiflamailaci.go-static.info^
 ||enizdrjlrnsom.site^
 ||enjeuxgeographiquesducanada.goasrv.com^
+||enjezxfmmlorw.site^
 ||enjoy.onlydaysavers.com^
 ||enjoyablefax.com^
 ||enjoyedcomputefatality.com^
@@ -538574,6 +538608,7 @@ zzzyk.com###Tinfo
 ||evkiqntfztshq.online^
 ||evkjai.grandado.com^
 ||evkjlmtnqwwcu.space^
+||evkpkbwwmnfgj.site^
 ||evmaff.trotec.com^
 ||evmdamxavzsgk.website^
 ||evmxvermhmljo.website^
@@ -541876,6 +541911,7 @@ zzzyk.com###Tinfo
 ||fimofppu.in^
 ||fimony.xyz^
 ||fimserve.com^
+||fimxtefr.in^
 ||fimyxg.bloomberght.com^
 ||fimyxg.haberturk.com^
 ||fin.land.naver.com/front-api/v1/data-service/banner/propertyCommon$xmlhttprequest
@@ -542364,6 +542400,7 @@ zzzyk.com###Tinfo
 ||fiwinet.firmenwissen.com^
 ||fiwinet.firmenwissen.de^
 ||fiwyjar.cn^
+||fixagebiggety.rest^
 ||fixatifslinger.com^
 ||fixavcha.in^
 ||fixcounter.com^$third-party
@@ -544129,6 +544166,7 @@ zzzyk.com###Tinfo
 ||fqvwalkffipfi.site^
 ||fqwgcx.catawiki.fr^
 ||fqwv7k7ex.com^
+||fqxcrzj9r7kotjuvh84iyqjrir5917.cfd^
 ||fqxkj.cn^
 ||fqxnlh.kgcshop.co.kr^
 ||fqypsr.studiotzuliani.gr^
@@ -544578,6 +544616,7 @@ zzzyk.com###Tinfo
 ||frockedyest.qpon^
 ||frocompactcountless.com^
 ||frodx.com^$third-party
+||froecagilyerects.cyou^
 ||frog.borgs.app^
 ||frog.editorx.com^
 ||frog.wix.com/da-client?
@@ -546084,6 +546123,7 @@ zzzyk.com###Tinfo
 ||gala.met.vgwort.de^
 ||galacg.me/wp-content/uploads/*750x
 ||galada.it/omnitag/
+||galahssucceedapraxia.cyou^
 ||galaksion.com^
 ||galapagos39.blog.go-static.info^
 ||galatea8911.go-static.info^
@@ -548466,6 +548506,7 @@ zzzyk.com###Tinfo
 ||gkgygj.verivox.de^
 ||gkhergik.com^
 ||gkhkmodocwnzu.site^
+||gkhtzvgekzcwk.space^
 ||gkikhldehxcuh.space^
 ||gkiqilinrzqfy.site^
 ||gkisdd.routeoneapparel.com^
@@ -548686,6 +548727,7 @@ zzzyk.com###Tinfo
 ||gllyiehduouct.site^
 ||glmeilgroi.com^
 ||glmkvgkuuayau.online^
+||glnqkatlvqfzf.space^
 ||gloamsenceint.com^
 ||gloaphoo.net^
 ||global-adblocker.com^$popup
@@ -549040,6 +549082,7 @@ zzzyk.com###Tinfo
 ||gnnkrz.josbank.com^
 ||gno-protect.pro^
 ||gnomonsgashly.com^
+||gnopfoaddfxto.website^
 ||gnowkn.keessmit.nl^
 ||gnowknhepfxie.website^
 ||gnozmx.locasun.fr^
@@ -550186,6 +550229,7 @@ zzzyk.com###Tinfo
 ||gobankingrates.com^$cookie=visitor_id
 ||gobbedctn.com^
 ||gobby355.go-static.info^
+||gobelinlubbard.cfd^
 ||gobeyond.superiorgroup.com^
 ||gobfrtoxaihsj.online^
 ||gobieswulder.qpon^
@@ -551127,6 +551171,7 @@ zzzyk.com###Tinfo
 ||grabo.bg^$3p
 ||grabo.bg^$third-party
 ||grabojnqdbkcn.online^
+||grabsmpropea.org^
 ||graceful-original.pro^
 ||gracefulmilk.com^
 ||gracefulmouse.com^
@@ -551398,6 +551443,7 @@ zzzyk.com###Tinfo
 ||gripplesnapedolci.cyou^
 ||gripspigyard.com^
 ||grisonryked.qpon^
+||gristyupcurls.rest^
 ||grivoisauncel.qpon^
 ||griza.homebase.co.uk^
 ||grizelromneyaisobase.cyou^
@@ -558220,6 +558266,7 @@ zzzyk.com###Tinfo
 ||gxvdzkmvwmgua.online^
 ||gxvf.cn^
 ||gxvlkzwimkiyb.site^
+||gxvowjuaysvsa.site^
 ||gxxbifvsjhseu.space^
 ||gxxhjm.titan.fitness^
 ||gxxie.com^
@@ -558269,6 +558316,7 @@ zzzyk.com###Tinfo
 ||gyoqtcogunavk.site^
 ||gyorietokc.hu/images/partnerek/kiemelt/
 ||gyorietokc.hu/uploads/banner/
+||gypfdjupwdigr.website^
 ||gypjdmigbouth.website^
 ||gypowdr.com^
 ||gypsyairplanereign.com^
@@ -558433,12 +558481,14 @@ zzzyk.com###Tinfo
 ||h12-media.com^
 ||h1883c5wn.com^
 ||h1cn8nwng.com^
+||h1q2toonvbkfuf9lbpufre.rest^
 ||h1v3fa.com^
 ||h1yfrt.com^
 ||h20168.www2.go-static.info^
 ||h27aq0mc6.com^
 ||h2bw8mf933ikjzquoruig.cfd^
 ||h2ji5.xyz^
+||h2m1op6zw.com^
 ||h2porn.com/aa*.js|
 ||h2porn.com/new-hit/?
 ||h2tcbox.baidu.com^
@@ -559355,6 +559405,7 @@ zzzyk.com###Tinfo
 ||hcklqa.ichiranstore.com^
 ||hcl6pwowqv.com^
 ||hclcvthefqyac.space^
+||hclkrrnvxeztm.space^
 ||hclmnarlsmleo.site^
 ||hclspy.gourmetencasa-tcm.com^
 ||hcmanager.swifteq.com/hc_events/
@@ -559625,6 +559676,7 @@ zzzyk.com###Tinfo
 ||heavedducatsheister.qpon^
 ||heavenfull.com^
 ||heavenfull.com^$popup
+||heavengabbykatcina.cyou^
 ||heavenly-holiday.com^
 ||heavenomitzoom.com^
 ||heavenspecificallygait.com^
@@ -560978,6 +561030,7 @@ zzzyk.com###Tinfo
 ||hkgwwf.sunparks.com^
 ||hkgxfty.zaubererportal.de^
 ||hkhfm.rafflehouse.com^
+||hkhhrhulaarep.site^
 ||hkhybjktdvdwt.space^
 ||hkihkoxqjcmmu.online^
 ||hkikkowyxbwbe.online^
@@ -562410,7 +562463,7 @@ zzzyk.com###Tinfo
 ||html-load.com^$domain=weeronline.nl
 ||html-load.com^$image,~3p,domain=html-load.com,important
 ||html-load.com^$image,~third-party,domain=html-load.com,important
-||html-load.com^$important,domain=j-cast.com|picksandparlays.net|ranking.net|minkou.jp|aucfree.com|motor-talk.de|373news.com|northantstelegraph.co.uk|tavovaikas.lt|agriculture.com|travelandleisure.com|learnreligions.com|verywellhealth.com|statecollege.com|dayspedia.com|aussieaudiomart.com|ukaudiomart.com|usaudiomart.com|canuckaudiomart.com|thestreet.com|kurashiru.com|micechat.com|seriouseats.com|followfollow.com|financialpost.com|vancouversun.com|driving.ca|theprovince.com|calgaryherald.com|edmontonsun.com|athlonsports.com|leaderpost.com|thestarphoenix.com|parade.com|elnacional.cat|livescience.com|saikyo-jump.com|torontosun.com|robbreport.com|thelayoff.com|preventionrd.com|meteo60.fr|cybertruckownersclub.com|jlwranglerforums.com|yorkshirepost.co.uk|ontariofarmer.com|all-nationz.com|broncosportforum.com|deltiasgaming.com|taycanforum.com|urbandictionary.com|lfpress.com|4runner6g.com|f150gen14.com|mavericktruckclub.com|tacoma4g.com|game8.jp|windowscentral.com|tomshardware.com|androidcentral.com|avnetwork.com|bikeperfect.com|cinemablend.com|countrylife.co.uk|creativebloq.com|cyclingnews.com|cyclingweekly.com|decanter.com|digitalcameraworld.com|discover.futureplc.com|fitandwell.com|fourfourtwo.com|gamesradar.com|golfmonthly.com|guitarworld.com|homebuilding.co.uk|homesandgardens.com|idealhome.co.uk|imore.com|itpro.com|kiplinger.com|laptopmag.com|livescience.com|livingetc.com|loudersound.com|marieclaire.co.uk|marieclaire.com|moneyweek.com|pcgamer.com|space.com|t3.com|techradar.com|theweek.com|tomsguide.com|tvtechnology.com|wallpaper.com|whathifi.com|whattowatch.com|whowhatwear.com|womanandhome.com|wielerflits.nl|advnture.com|weeronline.nl|fufuskitchen.com|gamebanana.com|jikayosha.jp|gentosha-go.com|gearjunkie.com|artnews.com|trucs-et-astuces.co|pakkotoisto.com|walesonline.co.uk|przegladsportowy.onet.pl|techwiser.com|gamingbible.com|manchestereveningnews.co.uk|footballchannel.jp
+||html-load.com^$important,domain=j-cast.com|picksandparlays.net|ranking.net|minkou.jp|aucfree.com|motor-talk.de|373news.com|northantstelegraph.co.uk|tavovaikas.lt|agriculture.com|travelandleisure.com|learnreligions.com|verywellhealth.com|statecollege.com|dayspedia.com|aussieaudiomart.com|ukaudiomart.com|usaudiomart.com|canuckaudiomart.com|thestreet.com|kurashiru.com|micechat.com|seriouseats.com|followfollow.com|financialpost.com|vancouversun.com|driving.ca|theprovince.com|calgaryherald.com|edmontonsun.com|athlonsports.com|leaderpost.com|thestarphoenix.com|parade.com|elnacional.cat|livescience.com|saikyo-jump.com|torontosun.com|robbreport.com|thelayoff.com|preventionrd.com|meteo60.fr|cybertruckownersclub.com|jlwranglerforums.com|yorkshirepost.co.uk|ontariofarmer.com|all-nationz.com|broncosportforum.com|deltiasgaming.com|taycanforum.com|urbandictionary.com|lfpress.com|4runner6g.com|f150gen14.com|mavericktruckclub.com|tacoma4g.com|game8.jp|windowscentral.com|tomshardware.com|androidcentral.com|avnetwork.com|bikeperfect.com|cinemablend.com|countrylife.co.uk|creativebloq.com|cyclingnews.com|cyclingweekly.com|decanter.com|digitalcameraworld.com|discover.futureplc.com|fitandwell.com|fourfourtwo.com|gamesradar.com|golfmonthly.com|guitarworld.com|homebuilding.co.uk|homesandgardens.com|idealhome.co.uk|imore.com|itpro.com|kiplinger.com|laptopmag.com|livescience.com|livingetc.com|loudersound.com|marieclaire.co.uk|marieclaire.com|moneyweek.com|pcgamer.com|space.com|t3.com|techradar.com|theweek.com|tomsguide.com|tvtechnology.com|wallpaper.com|whathifi.com|whattowatch.com|whowhatwear.com|womanandhome.com|wielerflits.nl|advnture.com|weeronline.nl|fufuskitchen.com|gamebanana.com|jikayosha.jp|gentosha-go.com|gearjunkie.com|artnews.com|trucs-et-astuces.co|pakkotoisto.com|walesonline.co.uk|przegladsportowy.onet.pl|techwiser.com|gamingbible.com|manchestereveningnews.co.uk|footballchannel.jp|netvasco.com.br
 ||html-load.com^$popup
 ||html-load.com^$redirect=noopjs,domain=aikatu.jp|ark-unity.com|cool-style.com.tw|doanhnghiepvn.vn|mynet.com
 ||html-load.com^$script,domain=1000rr.net|10thcivicforum.com|1130cc.com|123easy4me.com|124spider.org|125ccsportsbikes.com|1911addicts.com|1911forum.com|1911talk.com|1919a4.com|2-seriesforum.com|2008ownersclub.co.uk|200forums.com|208ownersclub.co.uk|240sxforums.com|250r.net|2coolfishing.com|300cforums.com|300cforumz.com|350z-tech.com|355nation.net|360tuna.com|3800pro.com|3dprinterful.com|3dshoots.com|3si.org|4-seriesforums.com|460ford.com|4activetalk.com|4btswaps.com|4c-forums.com|4runner-forums.com|4thgentacoma.com|4xeforums.com|500xownersclub.co.uk|502streetscene.net|5thramforum.com|5thrangerforum.com|600rr.net|68forums.com|6mt.net|6thgenram.com|700rifle.com|718forum.com|790dukeforum.com|7thgenhonda.com|7thmustang.com|899panigale.org|8thcivic.com|959panigale.net|992forum.com|9thgencivic.com|a1-forum.co.uk|a5oc.com|abarthforum.co.uk|acadiaforum.net|accordxclub.com|aceforums.net|acemanforum.com|aclassclub.co.uk|acrforum.com|acura-legend.com|acuraworld.com|adamownersclub.co.uk|adxtalk.com|afeelachat.com|africatwinforum.com|airflowforum.com|airsoftsniperforum.com|airsoftsociety.com|akff.net|alfabb.com|alfajuniorforum.com|alfaowner.com|allcoast.com|allcorsa.co.uk|allfordmustangs.com|alliancervforums.com|allpar.com|altimaforums.net|amarokforum.com|amazonastroforum.com|amrapideforum.com|antaraownersclub.com|antiquetractorsforum.com|applecarforum.com|applefitnessforum.com|aquariumforum.com|aquaticplantcentral.com|ar15forums.com|archeryaddix.com|archerytalk.com|arcticchat.com|ariyaforums.com|arizonagunowners.com|arizonahuntingforums.com|arkansashunting.net|armslocker.com|aronaforums.co.uk|arteonforums.com|artistforum.com|ascentforums.com|askandyaboutclothes.com|astonmartinlife.com|astrakforums.co.uk|astraownersnetwork.co.uk|astrosafari.com|at4xowners.com|atecaforums.co.uk|ats-v.org|atv-forum.com|atvdragracers.com|atvtorture.com|audi-forums.com|audif1forum.com|audiforum.us|audiq3forum.com|ausrc.com|aussieexotics.com|austinbassfishing.com|australiaforum.com|authenticforum.com|avengerforumz.com|avsforum.com|azbasszone.com|b15sentra.net|b15u.com|babybmw.net|badgerowners.com|bapetalk.com|basketballforum.com|basset.net|bc4x4.com|bcaquaria.com|bcfishingreports.com|bcsportbikes.com|beaglesunlimited.com|beekeepingforums.com|beesource.com|benelliforum.com|benzforum.com|benzworld.org|bersaforum.com|bersapistolforum.com|bettafish.com|bigblockdart.com|bimmerfest.com|bimmerforums.co.uk|bimmerwerkz.com|blazerevforum.com|blowgunforum.com|blueovalfanatics.com|bluetraxx.com|bmaxownersclub.co.uk|bmw-driver.net|bmwevforum.com|bmwlt.com|booksworthdiscussing.com|bowfishingcountry.com|bowfishingforum.com|boxerforums.com|boxingforum.com|brightdropforum.com|broncoevforum.com|broncosporttalk.com|brutecentral.com|brutusforum.com|buceesfans.com|buelltalk.com|buickevforum.com|bulldogbreeds.com|bullnettlenews.com|burgmanusa.com|byd-forums.com|bzforums.com|c-classforum.com|c10trucks.com|cactusforums.co.uk|cadenzaforum.com|cadillacforums.com|caferacer.net|caliberforums.com|caliberforumz.com|californiaevforum.com|camaros.net|camarozone.com|campercommunity.com|can-amelectric.com|can-amforum.com|can-amtalk.com|canadianmoneyforum.com|canamspyderforums.com|capriforum.com|capturownersclub.co.uk|caraudioclassifieds.org|carnivalforums.com|carolinafishtalk.com|carolinashootersclub.com|casecoltingersoll.com|catfish1.com|catforum.com|cattleforum.com|cayenneforums.com|cbr250.com|cbr250.net|cbr300forum.com|cbr500riders.com|cbrxx.com|ce02forum.com|celicasupra.com|cfmotoforums.com|challengerforumz.com|challengerlife.com|challengertalk.com|chargerforums.com|chargerforumz.com|checkhookboxing.com|cheftalk.com|cherokeesrt8.com|cherokeetalk.com|chevelles.com|chevroletownersclub.co.uk|chevyblazer.org|chevybolt.org|chevymalibuforum.com|cheyennechat.com|chicagolandfishing.com|chicagolandsportbikes.com|chickenforum.com|chiefmotorcycleforum.com|chihuahua-people.com|chinacarforums.com|chrforums.uk|chromebookforum.com|chryslerminivan.net|cichlid-forum.com|cigarforums.net|civic11forum.com|civinfo.com|cl500forum.com|clarityforum.com|classic-jdm.com|cleaningtalk.com|climbingforums.com|club3g.com|club4g.org|club700xx.com|clubarmada.com|clubcrosstrek.com|clubfrontier.org|clubroadster.net|clubrsx.com|clubsearay.com|clubtitan.org|clubtouareg.com|clubtread.com|clubwrx.net|clubxb.com|clubxterra.org|cmaxownersclub.co.uk|cmaxownersclub.com|cobaltss.com|coffeeforums.co.uk|coloradodiesel.org|coloradoevowners.com|coloradofans.com|coloradofisherman.com|coltforum.com|commanderforums.org|commandertalk.com|contractortalk.com|corollacrossforum.com|corral.net|corsa-c.co.uk|corsaeforums.co.uk|cretaforum.com|cricketforum.com|crossbownation.com|crosstourownersclub.com|crownforums.com|cruzetalk.com|crvownersclub.com|crxcommunity.com|crzforum.com|ct200hforum.com|ctsvowners.com|ctx1300forum.com|ctx700forum.com|cumminsforum.com|customdakotas.com|customfighters.com|custommagnums.com|customtacos.com|cx30talk.com|cx3forum.com|cx500forum.com|cx50forums.com|cx5forum.com|cx70forum.com|cx90forum.com|cyberquadforum.com|cybertrucktalk.com|cycleforums.com|cztalk.com|d-series.org|daciaforum.co.uk|dairygoatinfo.com|dakota-durango.com|dakotaforumz.com|danieldefenseforums.com|daytonaowners.com|dbstalk.com|dealsforum.com|deerhuntersclub.com|defendersource.com|defensivecarry.com|dendroboard.com|desertxforum.com|detailingworld.co.uk|dfwstangs.net|diabetesforum.com|diavel-forum.com|diecastcrazy.com|diecastxchange.com|dieself150forum.com|dieselforums.com|dieseljeeps.com|dieselplace.com|dieselramforum.com|digitalcorvettes.com|digitalhome.ca|dippy.org|discosportforums.co.uk|discoverysport.net|diychatroom.com|diyelectriccar.com|diymobileaudio.com|dobermantalk.com|dodge-dart.org|dodge-nitro.com|dodgedartforumz.com|dodgedurango.net|dodgeevforum.com|dodgeintrepid.net|dodgetalk.com|dogfoodchat.com|dogforum.com|dogforums.com|dootalk.com|dpselfhelp.com|driveaccord.net|drywalltalk.com|ds450hq.com|ds4ownersclub.co.uk|dsmtalk.com|ducati.ms|ducati.org|ducatimonster.org|ducatiscramblerforum.com|ducatisupersport939.net|duckhuntingchat.com|duramaxforum.com|durangoforumz.com|e-tronforum.com|e46fanatics.com|easttennesseefishing.com|ebikerforums.com|echelonforum.com|eclipsecrossforums.com|ecoboostmustang.org|ecosportforum.com|ecosportownersclub.co.uk|ehmac.ca|elantraforum.com|elantragtforum.com|elantrasport.com|elantraxd.com|elcaminocentral.com|electriciantalk.com|electricmotorcyclesforum.com|elementownersclub.com|eliminatorforum.com|enclaveforum.net|envisionforum.com|envistaforum.com|epaceforum.com|epaceforums.co.uk|equinoxevforum.com|erayforums.com|escaladeevforum.com|escape-city.com|esportbike.com|esprinterforum.com|etransitforum.com|everestowners.com|everything2stroke.com|evoqueforums.net|evoqueownersclub.co.uk|evotuners.net|evoxforums.com|ex-500.com|ex30owners.com|ex90forum.com|expatforum.com|explorerevforum.com|explorertalk.com|f-typeclub.com|f150ecoboost.net|f150forumz.com|f650.co.uk|f6cforum.com|f800riders.org|familycheftalk.com|fancymicebreeders.com|feoa.net|ferrari-talk.com|ferrari296forum.com|ferrarilife.com|fertilityfriends.co.uk|ffcars.com|fiat500owners.com|fiestafaction.com|fiestast.net|fiestast.org|fiestastoc.com|firearmstalk.com|firebirdnation.com|fireblades.org|fishforums.com|fiskerbuzz.com|fjcforums.com|fjcruiserforums.com|fjrowners.com|floridaconcealedcarry.com|flyfishbc.com|flyfishing.co.uk|flyfishingforum.com|fnforum.net|focaljet.com|focusfanatics.com|focusrs.org|focusrsoc.com|focusst.org|focusstoc.com|fordescape.org|fordexplorer.org|fordforums.com|fordforumsonline.com|fordfusionclub.com|fordgt500.com|fordinsidenews.com|fordmuscleforums.com|fordranger.net|fordstnation.com|fordtough.ca|fordtransitusaforum.com|forteforums.com|forteturbo.org|fpaceforum.com|fpaceforums.co.uk|frugalvillage.com|fullsizebronco.com|furyforums.com|fusionsportforums.com|fz-10forum.com|fz07oc.com|fz09.org|g20.net|g310rforum.com|g5club.net|g6ownersclub.com|g8board.com|g8forum.com|gamefishin.com|gamingfora.com|gardentractortalk.com|gasserhotrods.com|gatorforums.net|gen3insight.com|gencoupe.com|genealogyspeaks.com|genesisevforum.com|genesisforums.com|genesisforums.org|genesisg70forum.com|genesisg80forum.com|geocaching101.com|georgianbaymessageboard.com|georgiapacking.org|germanshepherds.com|ghibliforum.com|giuliaforums.com|gixxer.com|gl1800riders.com|glaowners.com|glaownersclub.co.uk|glcforums.com|glock.pro|glockforum.com|glockforum.net|glocktalk.com|gm-volt.com|gmdietforums.com|gmfullsize.com|gminsidenews.com|gmtruckclub.com|go2gbo.com|goldenretrieverforum.com|goldwingfacts.com|goldwingowners.com|golfforum.com|goosehuntingchat.com|gopitbull.com|goproforums.com|gourbanhiking.com|gr-yaris.co.uk|gr86.org|grandhighlanderforum.com|grcorollaforum.com|greatlakes4x4.com|grecaleforum.com|greentractortalk.com|grizzlycentral.com|grizzlyowners.com|grizzlyriders.com|gromforum.com|gsxr.com|gsxs1000.org|gt350.org|gt86ownersclub.co.uk|gtaaquaria.com|gtoforum.com|gtr.co.uk|gtrlife.com|guitars101.com|guitarscanada.com|gunandgame.com|gunboards.com|gunco.net|gunforums.net|gunhub.com|gunnerforum.com|gvforums.com|halloweenforum.com|handgunforum.net|handgunsandammunition.com|hardcoresledder.com|harley-davidsonforums.com|hauntforum.com|havaneseforum.com|havocxforum.com|haytalk.com|hdlivewireforum.com|hdstreetforums.com|hedgehogcentral.com|hellcat.org|hemitruckclub.com|heresy-online.net|hinoforums.com|hipointfirearmsforums.com|hkpro.com|hobbytalk.com|hockeyforum.com|homesteadingtoday.com|hometheatershack.com|hondaatvforums.net|hondacb1000r.com|hondacivicforum.co.uk|hondaevforum.com|hondaforeman.com|hondagrom.net|hondanxriders.com|hondapioneerforum.com|hondarebel3forum.com|hondarebelforum.com|hondashadow.net|hondatwins.net|hornetowners.com|horseforum.com|hotrodders.com|hrvforum.com|hummerchat.com|huntingpa.com|hvac-talk.com|hvacsite.com|hyundai-forums.com|hyundaicoupeclub.co.uk|hyundaikonaforum.com|hyundaiperformance.com|i-paceforum.com|i4talk.com|i5talk.com|iawaterfowlers.com|ibsgroup.org|ifish.net|ikonforum.com|ilovemycockapoo.com|ilxforums.com|imboc.com|impalaforums.com|impalas.net|impalassforum.com|impreza5.com|impreza6.com|indianasportsman.com|indianmotorcycles.net|infinitifx.org|infinitijxforum.com|infinitiq30.org|infinitiq50.org|infinitiq60.org|infinitiqx30.org|infinitiqx50.org|infinitiqx60.org|infinitiqx80.org|insightcentral.net|insterevforum.com|integratalk.com|ioniqforum.com|ipaceforums.co.uk|iphoneographytalk.com|iq-forums.com|iwsti.com|ix3talk.com|ixforums.com|jaginfo.org|jaguarforum.com|jaguarxeforum.com|jdfanatics.com|jeepcherokeeclub.com|jeepcommander.com|jeepevforum.com|jeepforum.com|jeepgarage.org|jeeppatriot.com|jeeprenegadeforum.com|jeeptrackhawk.org|jemsite.com|jettajunkie.com|jkowners.com|jockeyjournal.com|jpaceforum.com|jukeforums.co.uk|jukeforums.com|jukeownersclub.co.uk|justlabradors.com|k-bikes.com|k1600forum.com|k20a.org|k3forum.com|k4owners.com|k5owners.com|k900forum.com|kahrforum.com|kandiforums.com|kanyetothe.com|kawasakimotorcycle.org|kawasakininja1000.com|kawasakininja300.com|kawasakiversys.com|kawasakiworld.com|kawasakiz650.com|kawieriders.com|kawiforums.com|kboards.com|keltecforum.com|ketolifetalk.com|kfx450central.com|kfx450hq.com|kia-forums.com|kiaevforums.com|kianiroforum.com|kiaownersclub.co.uk|kiasoulforums.com|kiastonicforum.org|kiatellurideforums.com|kiatuskerforum.com|kickrunners.com|kimbertalk.com|klrforum.com|knittingparadise.com|kodiakowners.com|kodiaqforums.co.uk|krxforum.com|ktm1090forum.net|ktmatvhq.com|ktmduke390forum.com|ktmforum.co.uk|ktmforums.com|kugaownersclub.co.uk|labradoodle-dogs.net|labradorforums.co.uk|lakesimcoemessageboard.com|lakestclair.net|lamborghini-talk.com|lancerregister.com|landroverevforum.com|landroversonly.com|lawnsite.com|layitlow.com|leapmotorforum.com|legacygt.org|lexusevforum.com|lexusfforum.com|lexusnxforum.com|lexusrcowners.com|lexusrxowners.com|librarium-online.com|lightningowners.com|lightningrodder.com|lincolnevforum.com|longislandfirearms.com|lotustalk.com|low-riders.com|ls1gto.com|ls1lt1.com|ltr450hq.com|lucid-forum.com|lugerforums.com|lumberjocks.com|luxury4play.com|lxforums.com|lynkcoforum.com|m1000xrforum.com|m109riders.com|m14forum.com|m5board.com|macanforum.com|macheclub.com|magnetoforum.com|magnumforumz.com|mainehuntingforums.com|majestyusa.com|manitobafishingforum.com|manitobahuntingforum.com|manutdtalk.com|marlinforum.com|marlinowners.com|marutisuzukiforum.com|maseratilevanteforum.com|maseratilife.com|masscops.com|maverickchat.com|maverickforums.net|mavericklightning.org|mazda2revolution.com|mazda3forums.com|mazda3revolution.com|mazda6club.com|mazdaworld.org|mbeqclub.com|mclarenlife.com|mdxers.org|medstudentz.com|meganesport.net|menstennisforums.com|mercedescla.org|mercedesclaforum.com|mercedesgleforum.com|mercurycougar.net|metalguitarist.org|metrisforum.com|mg-rover.org|mgzrownersclub.co.uk|michigan-sportsman.com|michiganreefers.com|microskiff.com|midwest-horse.com|migweb.co.uk|millwrighttalk.com|mini2.com|minievforum.com|minif56.com|minif66.com|minitorque.com|missouriwhitetails.com|mitsubishi-forums.com|mkcforum.com|mkzforum.com|mmaforum.com|moddedmustangs.com|moddedraptor.com|model2.org|modelrailforum.com|modeltrainforum.com|moderncamaro.com|modularfords.com|mokkaownersclub.co.uk|mondeostoc.com|morels.com|mothering.com|motorcycleforum.com|motorcycleforums.net|motorcycletherapy.net|motorgeek.com|motorhomefacts.com|motorsportsracingtalk.com|mountainbuzz.com|mp-pistol.com|mr2oc.com|msgo.com|mtbr.com|mudinmyblood.net|mullenowners.com|muscularmustangs.com|mustangecoboost.net|mustangevolution.com|mvagusta.net|mx30forum.com|mx5life.com|mx5nutz.com|mx6.com|my.is|myaudiq5.com|mybikeforums.com|myfastgti.com|myjeepcompass.com|mylargescale.com|mylawnmowerforum.com|mymbonline.com|mytiguan.com|mytractorforum.com|mytreg.com|myturbodiesel.com|nagca.com|nationalgunforum.com|ncangler.com|ncgunowners.com|neowners.com|newbeetle.org|newbrunswickfishing.com|newbrunswickhunting.com|newcelica.org|newcougar.org|newf150forum.com|newjerseyhunter.com|newninja.com|newnissanz.com|newscionxb.com|newtahoeyukon.com|newtiburon.com|ngemu.com|ninetowners.com|ninja400riders.com|ninjah2.org|niocarclub.com|nissan-navara.net|nissanclub.com|nissancubelife.com|nissanforums.com|nissankicksforum.com|nissanmurano.org|nissanversaforums.com|nitroforumz.com|nodakoutdoors.com|nordenforums.com|noreast.com|noteownersclub.co.uk|novas.net|novascotiafishing.com|novascotiahunting.com|nv200forum.com|nybass.com|nyfirearms.com|observedtrials.net|oceanforums.com|odyclub.com|ohiogamefishing.com|ohiosportsman.com|ohiowaterfowlerforum.com|oklahomahunter.net|onefora.com|onesixthwarriors.com|opelgt.com|optimaforums.com|optiqforum.com|ourbeagleworld.com|outbackers.com|outlanderforums.com|overclock.net|pacificaforums.com|paintballforum.com|painttalk.com|palisadeforum.com|panameraforum.com|panamericaforums.com|panigalev4club.com|paracordforum.com|passatworld.com|passportforums.com|pathfindertalk.com|patrol4x4.com|pavementsucks.com|paviseforum.com|paw-talk.net|pearforum.com|pelotonforum.com|pensacolafishingforum.com|perfectmancave.com|perfectunion.com|performanceboats.com|personalitycafe.com|petforums.co.uk|peugeot108forum.co.uk|peugeotforums.com|pickleballertalk.com|pierandsurf.com|pigeons.biz|pigforum.com|piloteers.org|pioneerforums.com|piranha-fury.com|pirate4x4.com|pistolsmith.com|pistolworld.com|planet-9.com|planet4x4.net|planetisuzoo.com|planetminis.com|plantedtank.net|plowsite.com|plumbingzone.com|pnwriders.com|pocketbikeplanet.com|polarisatvforums.com|polarisgeneralforum.com|polarisriders.com|polestar-forum.com|politicaltownhall.com|poodleforum.com|porscheevforum.com|powerequipmentforum.com|powerstroke.org|powerstrokenation.com|prcforum.com|predatortalk.com|preludeonline.com|preludepower.com|preparedsociety.com|prepperforums.net|preservationtalk.com|prius5.com|priusforum.com|priusonline.com|prologuedrivers.com|promasterforum.com|prophecyowners.com|prowlerforums.net|prowlertalk.net|psychobike.com|pursuitforum.com|pwcforum.com|q2forums.co.uk|q3ownersclub.co.uk|qyiforum.com|r1-forum.com|r1200gs.info|r1200rforum.com|r125forum.com|r1300gsforum.com|r2forums.com|r3-forums.com|r32oc.com|r6-forum.com|r6messagenet.com|r7forums.com|r8talk.com|r9riders.com|rabbitdogs.net|rallyforums.com|ram1500diesel.com|ramchargercentral.com|ramevforum.com|ramforumz.com|ramrebel.org|ramrebelforum.com|rangerforums.net|rangerovers.net|rangerraptorowners.com|raptorforum.com|raptorforumz.com|ratforum.com|rav4world.com|rc350forum.com|rc51forums.com|recon-forum.com|redlineforums.com|redlineutvforums.net|regalforums.com|renaultforums.co.uk|renegadeforum.com|reptileforums.co.uk|retrievertraining.net|rhinoforums.net|rhinotalk.net|riderforums.com|ridgeforum.com|ridgelineownersclub.com|rimfirecentral.com|rinconriders.com|rivianownersforum.com|rlxforum.com|roadbikereview.com|roadglide.org|roadstarraider.com|roadtripliving.com|robloxforum.com|rodsnsods.co.uk|roguesportforum.com|rollsroyceforums.com|roofingtalk.com|rootzwiki.com|rottweilersonline.com|routerforums.com|royalenfieldforum.com|rs25.com|rswarrior.com|rubiconownersforum.com|rugerforum.net|rugerpistolforums.com|rugertalk.com|runeriders.com|runnersforum.co.uk|rzforums.com|rzrforums.net|s1000rrforum.com|s10forum.com|saabcentral.com|saablink.net|saabscene.com|sailnet.com|salmonfishingforum.com|santacruzforums.com|santafeforums.com|sarforums.com|saturnoutlookforum.net|savanaforum.com|saxontheweb.net|sb9t.com|scioniaforum.com|scionimforum.com|scirocconet.co.uk|scoutmotorsforum.com|scr950forum.com|scramblerforum.com|seadoospark.org|seat-forum.co.uk|seatroutforum.com|segwayforums.com|seltosforum.com|serial1forum.com|shercoforums.com|shipsnostalgia.com|shootersforum.com|shootingworld.com|shotgunforums.com|shotgunworld.com|sidexsideworld.com|siennachat.com|sierraevforum.com|sigarms556.com|sigtalk.com|silveradocheyenne.org|silveradoevforum.com|silveradosierra.com|skincaretalk.com|skylineowners.com|skyroadster.com|skyscrapercity.com|slatedroid.com|slateownersforum.com|slingshotforum.com|slingshotforums.com|slkworld.com|slotforum.com|smartcarofamerica.com|smartevforum.com|smithandwessonforums.com|smokinvette.com|snackfora.com|sniperforums.com|snowblowerforum.com|snowboardingforum.com|snowmobilefanatics.com|snowmobileforum.com|snowmobileworld.com|snowplowforums.com|socialanxietysupport.com|solanforum.com|solsticeforum.com|solterraforum.com|sonataforums.com|sonymobilityforum.com|sparktalk.com|speakev.com|specialstage.com|speedwake.com|speedzilla.com|speypages.com|spoiledmaltese.com|sportbikes.net|sportbikeworld.com|springfieldforum.com|spyderchat.com|spydertalk.com|sr20forum.com|srt10forum.com|srt4mation.com|srtforums.com|ssforums.com|ssrfanatic.com|starbikeforums.com|starlinktalk.com|stdrivers.co.uk|stelvioforum.com|stevesnovasite.com|steyrclub.com|stingerforums.com|stingrayforums.com|stormtrakforum.com|stratolinerdeluxe.com|streetfighterv2forum.com|stripers247.com|stromerforum.com|stromtrooper.com|subarubrzforum.com|subaruforester.org|subaruoutback.org|subaruxvforum.com|superhonda.com|supermotojunkie.com|supra6.com|supraforums.com|survivalistboards.com|suzuki-forums.com|suzuki-forums.net|suzukiatvforums.com|suzukicentral.com|sv-portal.com|svrider.com|swedespeed.com|t-goforum.com|t-shirtforums.com|taikoboards.com|talkaboutmarriage.com|talkbudgies.com|talkclassical.com|talkcockatiels.com|talkesg.com|talkford.com|talkparrotlets.com|talkparrots.com|talonsxsforum.com|taosforums.com|tarokforum.com|tarracoforums.co.uk|taurusarmed.net|taurusclub.com|taycanevforum.com|tbssowners.com|tccoa.com|tcrossforums.co.uk|team-integra.net|techguy.org|techsupportforum.com|telo-forum.com|tennisforum.com|tennspeed.net|terrainforum.com|terrainforum.net|teryxforums.net|teryxhq.com|teslabottalk.com|teslaownersonline.com|texas4x4.org|theakforum.net|thebassbarn.com|thebassholes.com|theboxotruth.com|thecombineforum.com|thedieselgarage.com|thedieselstop.com|thefirearmsforum.com|theflyfishingforum.com|thegoatspot.net|thektog.org|thelawnforum.com|thelupussite.com|thelureforum.com|themgzr.co.uk|thenewx.org|theprofilebrotherhood.com|thereeftank.com|theslingshotforum.com|thespeedtriple.com|thevog.net|thewatchforum.co.uk|thewatchsite.com|theworldofarchitecture.com|thyroidboards.com|tidalfish.com|tiguanevforum.com|tiguanforums.co.uk|titantalk.com|titanxdforum.com|tivocommunity.com|tjcruiserforums.com|tlxforums.com|tlzone.net|tnhuntingclub.com|tonaletalk.com|topolinoforum.com|toyotacelicas.com|toyotachrforum.com|toyotaevforum.com|toyotanation.com|tractorforum.com|tradtalk.com|trailblazertalk.com|trailhunterforums.com|trailsportforum.com|trailvoy.com|transalpowners.com|trapshooters.com|traverseforum.com|traxforum.com|treadmillforum.com|trifive.com|triumph400forum.com|triumph675.net|triumphbobberforum.com|triumphrat.net|trocforums.co.uk|tropicalfishforums.co.uk|tropicalfishkeeping.com|truestreetcars.com|trx250r.net|trx450r.org|trxforums.com|tsxclub.com|ttforum.co.uk|ttora.com|tucson-forum.com|tundra3.com|tundraevforum.com|tundrasolutions.com|tundratalk.net|turbobuicks.com|turbododge.com|tw200forum.com|twospoke.com|twowheelforum.com|txowners.com|uberpeople.net|uk-audis.net|uk-mkivs.net|uk-muscle.co.uk|ukcorsa-d.com|ultimateaircooled.com|upownersclub.co.uk|usmle-forums.com|utahconcealedcarry.com|utahwildlife.net|v-twinforum.com|v6performance.net|v6z24.com|v8bikeriders.com|vagdrivers.net|vantasforum.com|varminthunters.com|vauxhallownersnetwork.co.uk|veggieboards.com|veggiegardener.com|velarforums.co.uk|veloster.org|velostern.com|velosterturbo.org|venuedrivers.com|victoryforums.com|videoeditingtalk.com|vikingforum.net|vikingforum.org|vinfasttalk.com|vintage-mustang.com|viperalley.com|vizslaforums.com|vn750.com|volconforum.com|volkswagenforum.co.uk|volkswagenownersclub.com|volkszone.com|volusiariders.com|volvo-forums.com|volvoevforum.com|volvoforum.com|volvov40club.com|vtcafe.com|vtxcafe.com|vtxoa.com|vulcanforums.com|vwatlasforum.com|vweosclub.com|vwforum.com|vwidtalk.com|vwscout.org|vwt4forum.co.uk|vwvortex.com|wagoneerfans.com|walkingstickforum.com|waltherforums.com|washingtonflyfishing.com|watchfreeks.com|watchtalkforums.info|watchuseek.com|weldingweb.com|wethearmed.com|wfmachines.com|wildcatforums.net|windycityfishing.com|wolverineforums.com|woodworkingtalk.com|workingdogforum.com|workingfromhomeforum.com|worldseafishing.com|wranglerboard.com|wranglerforum.com|wranglerjlforum.com|wrestlingforum.com|wristtwisters.com|wrxforums.com|wrxtuners.com|x-trail-uk.co.uk|x7forum.com|xc100forum.com|xc40forum.com|xclassforums.com|xcrforum.com|xdforum.com|xdtalk.com|xeforums.co.uk|xfforum.co.uk|xlrforum.com|xmowners.com|xpeditionforum.com|xpengevforum.com|xpowerforums.com|xr1200ownersgroup.com|xr150lforum.com|xrv.org.uk|xsr700forums.com|xtratime.org|yamaha-forum.net|yamahaforum.com|yamahastarbolt.com|yamahastarstryker.com|yariscrossclub.com|yetiownersclub.co.uk|yfzcentral.com|yorkshire-divers.com|yourcobalt.com|yourpatientvoice.com|yoursciontc.com|yxztalk.com|z06vette.com|z1000forum.com|z125owners.com|zafiraowners.co.uk|zcar.com|zdxowners.com|zeekrchat.com|zeromotorcycleforum.com|zotyezone.com|zrvforum.com|zx-10r.net|zx25rforum.com|zx4rforum.com|zx6r.com|zxforums.com|edsupportforum.com
@@ -562481,7 +562534,7 @@ zzzyk.com###Tinfo
 ||html-load.com^$script,domain=windowscentral.com
 ||html-load.com^$script,important,domain=gazeta.pl|edziecko.pl|sport.pl|moto.pl|plotek.pl|tibiopedia.pl|makeitmeme.com|minecraftskins.com|satkurier.pl|freemcserver.net|tvtechnology.com|theweek.com|laptopmag.com|aternos.org
 ||html-load.com^$script,important,domain=hookemheadlines.com|12thmanrising.com|aroundthefoghorn.com|arrowheadaddict.com|badgerofhonor.com|bamahammer.com|beargoggleson.com|beyondtheflag.com|blackandteal.com|blogredmachine.com|bluemanhoop.com|boltbeat.com|bosoxinjection.com|buffalowdown.com|caneswarning.com|catcrave.com|chopchat.com|climbingtalshill.com|cubbiescrib.com|dailyknicks.com|dairylandexpress.com|dawindycity.com|dawnofthedawg.com|detroitjockcity.com|dodgersway.com|ebonybird.com|fansided.com|gbmwolverine.com|gmenhq.com|hailfloridahail.com|hardwoodhoudini.com|horseshoeheroes.com|housethathankbuilt.com|huskercorner.com|insidetheiggles.com|jaysjournal.com|justblogbaby.com|kckingdom.com|kingjamesgospel.com|lakeshowlife.com|lombardiave.com|mentalfloss.com|motorcitybengals.com|musketfire.com|nflspinzone.com|ninernoise.com|nugglove.com|phinphanatic.com|pistonpowered.com|predominantlyorange.com|ramblinfan.com|redbirdrants.com|reviewingthebrew.com|riggosrag.com|ripcityproject.com|risingapple.com|rumbunter.com|scarletandgame.com|section215.com|sidelionreport.com|slapthesign.com|sodomojo.com|stillcurtain.com|stormininnorman.com|stripehype.com|thatballsouttahere.com|thejetpress.com|thelandryhat.com|thepewterplank.com|thesmokingcuban.com|thevikingage.com|thunderousintentions.com|valleyofthesuns.com|whodatdish.com|yanksgoyard.com
-||html-load.com^$script,important,domain=oricon.co.jp|doviz.com|boardingarea.com|welt.de|sourceforge.net|omnicalculator.com|divinedaolibrary.com|computerbild.de|deadline.com|nouvelobs.com|hollywoodreporter.com|variety.com|billboard.com|rollingstone.com|dnevnik.hr|akinator.com|helpdeskgeek.com|indiewire.com|wwd.com|sportico.com|exceljet.net|perezhilton.com|fossbytes.com|newatlas.com|songfacts.com|slideshare.net|nextchessmove.com|usaudiomart.com|toyokeizai.net|autobild.de|infinityfree.com|kuruma-news.jp|liveandletsfly.com|learnmetrics.com|tablefortwoblog.com|laurenslatest.com|jamjarkitchen.com|dinneratthezoo.com|cafedelites.com|julieseatsandtreats.com|chelseasmessyapron.com|dinnersdishesanddesserts.com|bunsinmyoven.com|realhousemoms.com|crayonsandcravings.com|bakeplaysmile.com|iambaker.net|thesoccermomblog.com|savvysavingcouple.net|bestfriendsforfrosting.com|thegunnysack.com|gonnawantseconds.com|redcurrantbakery.com|bab.la|dictionary.cambridge.org|oxfordlearnersdictionaries.com|homesicktexan.com|tipsandtricksjapan.com|andrewzimmern.com|collinsdictionary.com|mamastar.jp|seriouseats.com|liquor.com|simplyrecipes.com|thespruceeats.com|eatingwell.com|marthastewart.com|thoughtco.com|lifewire.com|ldoceonline.com|treehugger.com|myrecipes.com|lerobert.com|sussexexpress.co.uk|edinburghnews.scotsman.com|lejdd.fr|tips-and-tricks.co|foodandwine.com|thetruthaboutcars.com|dexerto.com|happyinshape.com|wort-suchen.de|woxikon.de|ukaudiomart.com|wielerrevue.nl|zeilen.nl|chloeting.com|nationalpost.com|fansided.com|dict.cc|onceuponachef.com|twopeasandtheirpod.com|bz-berlin.de|myhomebook.de|fitbook.de|techbook.de|travelbook.de|pons.com|inverse.com|windsorstar.com|canuckaudiomart.com|watchdocumentaries.com|manchesterworld.uk|9gag.com|egitim.net.tr|petbook.de|natalie.mu|crosswordsolver.com|merinfo.se|trafficnews.jp|otonanswer.jp|egolf.jp|scribd.com|calculatorsoup.com|hk01.com|itavisen.no|magmix.jp|edmontonjournal.com|urldecoder.org|base64decode.org|programme-tv.net|aussieaudiomart.com|girlschannel.net|montrealgazette.com|nemzetisport.hu|mrexcel.com|vague.style|thingiverse.com|alfalfalfa.com|pcgamebenchmark.com|skinmc.net|followfollow.com|oeffnungszeitenbuch.de|geo.fr|financialpost.com|canada.com|vancouversun.com|driving.ca|canoe.com|theprovince.com|calgaryherald.com|edmontonsun.com|athlonsports.com|thestarphoenix.com|leaderpost.com|tj.news|parade.com|elnacional.cat|livescience.com|buchstaben.com|torontosun.com|milestomemories.com|km77.com|vibe.com|goldderby.com|robbreport.com|hollywoodlife.com|gerbeaud.com|nationalreview.com|calgarysun.com|ottawacitizen.com|ottawasun.com|willyweather.com.au|urbandictionary.com|pcgamer.com|adrenaline.com.br|cybertruckownersclub.com|jlwranglerforums.com|upstyledaily.com|euronews.com|yorkshirepost.co.uk|247wallst.com|all-nationz.com|macheforum.com|broncosportforum.com|deltiasgaming.com|taycanforum.com|tvtv.us|automobile-catalog.com|index.hr|travelnoire.com|sunderlandecho.com|northernirelandworld.com|newcastleworld.com|majorleaguepickleball.co|blavity.com|afrotech.com|tipsandtrickskorea.com|cracked.com|cheezburger.com|fandom.com|pakkotoisto.com|portsmouth.co.uk|wargamer.com|pcgamesn.com|pockettactics.com|befa.lt|oraridiapertura24.it|hbrfrance.fr|football-ukraine.com|resultadostris.com|melaterevancha.com|higherorlowergame.com|cotemaison.fr|wordshake.com|motorsport.com|willyweather.com|hochi.news|glianec.com|windowscentral.com|tomshardware.com|motorbikecatalog.com|voici.fr|daily.co.jp|gamewith.jp|kurashiru.com|capital.fr|trilltrill.jp|mopo.de|tbsradio.jp|cardcluster.com|weerplaza.nl|gamebanana.com|macanevowners.com|tunebat.com|notebookcheck.com|notebookcheck.net|notebookcheck.org|notebookcheck.biz|notebookcheck.it|notebookcheck.nl|notebookcheck.pl|notebookcheck.info|notebookcheck-ru.com|notebookcheck-tr.com|notebookcheck.se|notebookcheck-cn.com|notebookcheck-hu.com|onlineradiobox.com|lasisa.net|yorkshireeveningpost.co.uk|bike-news.jp|merkmal-biz.jp|onemileatatime.com|hna.de|f150lightningforum.com|nikkansports.com|gry-online.pl|saita-puls.com|coachweb.com|myinstants.com|zekamashi.net|looopings.nl|getnews.jp|manchestereveningnews.co.uk
+||html-load.com^$script,important,domain=oricon.co.jp|doviz.com|boardingarea.com|welt.de|sourceforge.net|omnicalculator.com|divinedaolibrary.com|computerbild.de|deadline.com|nouvelobs.com|hollywoodreporter.com|variety.com|billboard.com|rollingstone.com|dnevnik.hr|akinator.com|helpdeskgeek.com|indiewire.com|wwd.com|sportico.com|exceljet.net|perezhilton.com|fossbytes.com|newatlas.com|songfacts.com|slideshare.net|nextchessmove.com|usaudiomart.com|toyokeizai.net|autobild.de|infinityfree.com|kuruma-news.jp|liveandletsfly.com|learnmetrics.com|tablefortwoblog.com|laurenslatest.com|jamjarkitchen.com|dinneratthezoo.com|cafedelites.com|julieseatsandtreats.com|chelseasmessyapron.com|dinnersdishesanddesserts.com|bunsinmyoven.com|realhousemoms.com|crayonsandcravings.com|bakeplaysmile.com|iambaker.net|thesoccermomblog.com|savvysavingcouple.net|bestfriendsforfrosting.com|thegunnysack.com|gonnawantseconds.com|redcurrantbakery.com|bab.la|dictionary.cambridge.org|oxfordlearnersdictionaries.com|homesicktexan.com|tipsandtricksjapan.com|andrewzimmern.com|collinsdictionary.com|mamastar.jp|seriouseats.com|liquor.com|simplyrecipes.com|thespruceeats.com|eatingwell.com|marthastewart.com|thoughtco.com|lifewire.com|ldoceonline.com|treehugger.com|myrecipes.com|lerobert.com|sussexexpress.co.uk|edinburghnews.scotsman.com|lejdd.fr|tips-and-tricks.co|foodandwine.com|thetruthaboutcars.com|dexerto.com|happyinshape.com|wort-suchen.de|woxikon.de|ukaudiomart.com|wielerrevue.nl|zeilen.nl|chloeting.com|nationalpost.com|fansided.com|dict.cc|onceuponachef.com|twopeasandtheirpod.com|bz-berlin.de|myhomebook.de|fitbook.de|techbook.de|travelbook.de|pons.com|inverse.com|windsorstar.com|canuckaudiomart.com|watchdocumentaries.com|manchesterworld.uk|9gag.com|egitim.net.tr|petbook.de|natalie.mu|crosswordsolver.com|merinfo.se|trafficnews.jp|otonanswer.jp|egolf.jp|scribd.com|calculatorsoup.com|hk01.com|itavisen.no|magmix.jp|edmontonjournal.com|urldecoder.org|base64decode.org|programme-tv.net|aussieaudiomart.com|girlschannel.net|montrealgazette.com|nemzetisport.hu|mrexcel.com|vague.style|thingiverse.com|alfalfalfa.com|pcgamebenchmark.com|skinmc.net|followfollow.com|oeffnungszeitenbuch.de|geo.fr|financialpost.com|canada.com|vancouversun.com|driving.ca|canoe.com|theprovince.com|calgaryherald.com|edmontonsun.com|athlonsports.com|thestarphoenix.com|leaderpost.com|tj.news|parade.com|elnacional.cat|livescience.com|buchstaben.com|torontosun.com|milestomemories.com|km77.com|vibe.com|goldderby.com|robbreport.com|hollywoodlife.com|gerbeaud.com|nationalreview.com|calgarysun.com|ottawacitizen.com|ottawasun.com|willyweather.com.au|urbandictionary.com|pcgamer.com|adrenaline.com.br|cybertruckownersclub.com|jlwranglerforums.com|upstyledaily.com|euronews.com|yorkshirepost.co.uk|247wallst.com|all-nationz.com|macheforum.com|broncosportforum.com|deltiasgaming.com|taycanforum.com|tvtv.us|automobile-catalog.com|index.hr|travelnoire.com|sunderlandecho.com|northernirelandworld.com|newcastleworld.com|majorleaguepickleball.co|blavity.com|afrotech.com|tipsandtrickskorea.com|cracked.com|cheezburger.com|fandom.com|pakkotoisto.com|portsmouth.co.uk|wargamer.com|pcgamesn.com|pockettactics.com|befa.lt|oraridiapertura24.it|hbrfrance.fr|football-ukraine.com|resultadostris.com|melaterevancha.com|higherorlowergame.com|cotemaison.fr|wordshake.com|motorsport.com|willyweather.com|hochi.news|glianec.com|windowscentral.com|tomshardware.com|motorbikecatalog.com|voici.fr|daily.co.jp|gamewith.jp|kurashiru.com|capital.fr|trilltrill.jp|mopo.de|tbsradio.jp|cardcluster.com|weerplaza.nl|gamebanana.com|macanevowners.com|tunebat.com|notebookcheck.com|notebookcheck.net|notebookcheck.org|notebookcheck.biz|notebookcheck.it|notebookcheck.nl|notebookcheck.pl|notebookcheck.info|notebookcheck-ru.com|notebookcheck-tr.com|notebookcheck.se|notebookcheck-cn.com|notebookcheck-hu.com|onlineradiobox.com|lasisa.net|yorkshireeveningpost.co.uk|bike-news.jp|merkmal-biz.jp|onemileatatime.com|hna.de|f150lightningforum.com|nikkansports.com|gry-online.pl|saita-puls.com|coachweb.com|myinstants.com|zekamashi.net|looopings.nl|getnews.jp|manchestereveningnews.co.uk|netvasco.com.br
 ||html-load.com^$script,rewrite=abp-resource:blank-js,domain=amandascookin.com|awealthofcommonsense.com|caminteresse.fr|collinsdictionary.com|femmeactuelle.fr|freeconvert.com|gumtree.com|hk01.com|hochi.news|kuruma-news.jp|motorbikecatalog.com|mychemicalfreehouse.net|myinstants.com|nikkansports.com|onlineradiobox.com|oxfordlearnersdictionaries.com|pcgamesn.com|pockettactics.com|pons.com|programme-tv.net|programme.tv|silkroadrecipes.com|souvlakiforthesoul.com|thecafesucrefarine.com|tunebat.com|urbandictionary.com|voici.fr|weeronline.nl|worldjournal.com
 ||html-load.com^$script,xmlhttprequest,domain=astrozop.com|criczop.com|feedzop.com|gamezop.io|gamezop.com|quizzop.com|umogames.com
 ||html-load.com^$script,xmlhttprequest,domain=buienalarm.nl|buienalarm.nl|meteoradar.co.uk|meteox.com|niederschlagsradar.de|sat24.com|weerslag.nl|weerplaza.nl|buienalarm.be
@@ -569071,6 +569124,7 @@ zzzyk.com###Tinfo
 ||iolam.it/service/trk
 ||iolam.it/trk
 ||iolga.isleoflight.com^
+||iomaduexiqtho.space^
 ||iomao.spoonfulofcomfort.com^
 ||iomlsfqgvugaf.space^
 ||ioms.www.sleepsolutions.com.au^
@@ -569533,6 +569587,7 @@ zzzyk.com###Tinfo
 ||irksomereplica.com^
 ||irliepaja.lv/mda/img/banner/$image
 ||irmegmmxxbvll.site^
+||irmjefamskvpb.site^
 ||irmlutzpydekm.website^
 ||irmrhj.greenkub.fr^
 ||irmsolutions.choicepoint.com^
@@ -570541,6 +570596,7 @@ zzzyk.com###Tinfo
 ||jahnxpmrpxfku.website^
 ||jahvismresined.com^
 ||jahwgcaskcxdl.space^
+||jaiiezpgtdvcm.website^
 ||jailbulb.com^
 ||jailedliplet.qpon^
 ||jaimbai2b1.com^
@@ -571227,6 +571283,7 @@ zzzyk.com###Tinfo
 ||jewishcontentnetwork.com^$3p
 ||jewishcontentnetwork.com^$third-party
 ||jexbndsybbpni.space^
+||jexywyneljzny.space^
 ||jexzbvkfnmmyw.store^
 ||jeycmzwemqzfr.com^
 ||jeyttn.snipes.com^
@@ -572896,6 +572953,7 @@ zzzyk.com###Tinfo
 ||jsnooznxsbjxk.website^
 ||jsnryngvalfji.site^
 ||jsnznlmiboptzo.com^
+||jsoedbrzgxpqb.online^
 ||jsoggeqfmzzqi.website^
 ||jsomtq.telescope.com^
 ||json.cn/d/dt/
@@ -574094,6 +574152,7 @@ zzzyk.com###Tinfo
 ||kayak.com^$cookie=kmkid
 ||kayanwashery.cyou^
 ||kayege.org/js/
+||kayeowitzxvas.website^
 ||kaynpjgtbwjuv.website^
 ||kayzen.io^
 ||kazanserver.kazanestudiofotografico.com^
@@ -575120,6 +575179,7 @@ zzzyk.com###Tinfo
 ||kjkavoimtxart.online^
 ||kjljrwoibgbso.site^
 ||kjmaoi.babor.com^
+||kjmeiivlmmygv.space^
 ||kjmrldarxadmw.online^
 ||kjoplybvqyrsw.space^
 ||kjoretngfboki.space^
@@ -575180,6 +575240,7 @@ zzzyk.com###Tinfo
 ||kkcmcp.printemps.com^
 ||kkczadzgl.com^
 ||kkday.com/api/_nuxt/recommend/user-action-record
+||kkdhbuydmbgyo.space^
 ||kkdtsmnnxvirs.site^
 ||kkdwt.summaup.com^
 ||kketr.ilovehue.store^
@@ -575700,6 +575761,7 @@ zzzyk.com###Tinfo
 ||kokokbttinjuf.space^
 ||kokos.click^$third-party
 ||kokos.marketup.cz^
+||kokrabirddom.qpon^
 ||koksenergy.de/animiert.gif
 ||kol.goasrv.com^
 ||kolackyrunrighagein.cyou^
@@ -575921,6 +575983,7 @@ zzzyk.com###Tinfo
 ||kpwvntvpoksyw.website^
 ||kpwwmgix.bo4qlh8u5zi59l21glpm6p.cyou^
 ||kpxwz.justaddbuoy.com^
+||kpyktnhvzxzdb.online^
 ||kpylgm.lumas.de^
 ||kpymx56ch3.com^
 ||kpyrlwbvmqmch.online^
@@ -577399,6 +577462,7 @@ zzzyk.com###Tinfo
 ||larchesrotates.com^
 ||larcru.herno.com^
 ||lardersreweds.cfd^
+||lardonsshahidirecited.cyou^
 ||lardylathercenter.com^
 ||laregione.ch/ext/av.php?
 ||largebrass.com^
@@ -577757,6 +577821,7 @@ zzzyk.com###Tinfo
 ||lcs.modoo.at^
 ||lcs.naver.com^
 ||lcscompanies.lcsnet.com^
+||lcsdktmitfqlj.space^
 ||lcser.dinovite.com^
 ||lcsirlytsncmg.space^
 ||lcskp.myfreebird.com^
@@ -589912,6 +589977,7 @@ zzzyk.com###Tinfo
 ||ltwebstatic.com/*/assets/privacy-module.*.js
 ||ltwebstatic.com/she_dist/libs/devices/fpv2.
 ||ltwebstatic.com^*/libs/sensors/
+||ltwkibhnejbzw.space^
 ||ltwpkf.livwatches.com^
 ||ltxgkgrtnealj.space^
 ||ltxjxhrvpqpxp.site^
@@ -590534,10 +590600,12 @@ zzzyk.com###Tinfo
 ||lzresfdeddzap.online^
 ||lzrhay.farmaciasoccavo.it^
 ||lzrljv.tradera.com^
+||lzspjfgzdqsoh.site^
 ||lzswdckjqxbjr.site^
 ||lzu1ocasf.com^
 ||lzuc.sfr.fr^
 ||lzudmwytadqrg.site^
+||lzuhuevdmlsjx.space^
 ||lzulehztkwopr.website^
 ||lzvjd.marissacollections.com^
 ||lzvlcxflzbdde.site^
@@ -596326,6 +596394,7 @@ zzzyk.com###Tinfo
 ||metaapi.alessandravick.com.br^
 ||metaapi.communityca.com.br^
 ||metaapi.estudioabrassear.com.br^
+||metabitbluffs.cyou^
 ||metabitunbed.com^
 ||metabo.com/*/metabo/src/js/nsd-cookie-banner/nsd-cookie-banner.min.js
 ||metabroadcast.com^*/log?
@@ -600206,6 +600275,7 @@ zzzyk.com###Tinfo
 ||mhsmligjusofb.space^
 ||mhsqhc.parkcityvacationrentals.com^
 ||mhssu.womanwithin.com^
+||mhstirljanfyy.website^
 ||mhtbj.aroma360.com^
 ||mhtgouywqxrxa.online^
 ||mhtr.be/public/tr/tracker.min.js
@@ -600826,6 +600896,7 @@ zzzyk.com###Tinfo
 ||mjkbgvtdgbscs.site^
 ||mjkexdzuzrxnt.site^
 ||mjkvxpeychtfw.website^
+||mjkynfbvbikpl.site^
 ||mjlazcvfixyzn.space^
 ||mjljqbyepiucu.website^
 ||mjlnomeopcwql.website^
@@ -600987,6 +601058,7 @@ zzzyk.com###Tinfo
 ||mkt.paleolf.com^
 ||mkt.sensio.com.br^
 ||mkt.seuclienteoculto.com.br^
+||mkt.supercell.com^
 ||mkt.torr.com.bd^
 ||mkt.tyrenergia.com.br^
 ||mkt.unipega.com^
@@ -601310,6 +601382,7 @@ zzzyk.com###Tinfo
 ||mnch.brandnewapp.pro^
 ||mncknwobhuwac.space^
 ||mncvjhg.com^
+||mndftqopovamj.online^
 ||mndlvr.com^
 ||mndlvr.com^$document
 ||mndsrv.com^
@@ -603459,6 +603532,7 @@ zzzyk.com###Tinfo
 ||mwtluf.fashionette.com^
 ||mwtwzzeyvnwdx.site^
 ||mwtyw.mool.fr^
+||mwuekzwqdrnan.online^
 ||mwulwdmrqwvtz.com^
 ||mwumbd.com^
 ||mwumgrgiryetz.website^
@@ -606594,6 +606668,7 @@ zzzyk.com###Tinfo
 ||nkdna.hightailhikes.com^
 ||nkdyzf.com^
 ||nkfaycyauxngc.space^
+||nkghwccxeymyp.site^
 ||nkgwlp.geminiduo.hu^
 ||nkiqotpf.theultimatefinish.co.uk^
 ||nkis.nikkei.com/imp?
@@ -606980,6 +607055,7 @@ zzzyk.com###Tinfo
 ||nod.caracda.de^
 ||nod1.lirema.se^
 ||nodals.io^
+||nodctzeikfjzt.online^
 ||node.azur-online.de^
 ||node.bodegadigital.biz^
 ||node.ccie.store^
@@ -607077,6 +607153,7 @@ zzzyk.com###Tinfo
 ||nonfictionspatterrind.com^
 ||nonfoodenroot.com^
 ||nongjitong.com/adm/
+||nonlifelunts.cyou^
 ||nonlivetalak.cyou^
 ||nonnysoutar.cfd^
 ||nonprofit.aon.com^
@@ -608221,6 +608298,7 @@ zzzyk.com###Tinfo
 ||nwaxgbg.com^
 ||nwaxqpoxcmfsh.space^
 ||nwayheohicfbo.online^
+||nwbahytjigjky.site^
 ||nwbmvq.jockey.com^
 ||nwbpsg.amso.pl^
 ||nwbuhr.icu^
@@ -608539,6 +608617,7 @@ zzzyk.com###Tinfo
 ||nztur.jimmiswim.com^
 ||nzueib.dice.com^
 ||nzuwat.miliboo.it^
+||nzuzubewkirgz.site^
 ||nzvmpjjkpinlbi.com^
 ||nzwecadkryhup.site^
 ||nzwomoxfjcosy.store^
@@ -608685,6 +608764,7 @@ zzzyk.com###Tinfo
 ||oabnmx.jewelryexchange.com^
 ||oachs.getsmylo.com^
 ||oaclrst.cn^
+||oacsztduksuby.space^
 ||oadehibut.xyz^
 ||oadz.com^$third-party
 ||oae.overland-adventures.eu^
@@ -610496,6 +610576,7 @@ zzzyk.com###Tinfo
 ||omsc.kpn.com^
 ||omshedinjaor.com^
 ||omsnative.de/tracking/
+||omspokbliewrg.online^
 ||omstats.fairmontstore.com^
 ||omstats.hamptonhomecollection.com^
 ||omswwmgtqwekb.space^
@@ -611432,6 +611513,7 @@ zzzyk.com###Tinfo
 ||oqpgq.top^
 ||oqphmccprsyie.site^
 ||oqqaagrfdsaxu.online^
+||oqqzbccqxtfvf.online^
 ||oqr4.destinia.in^
 ||oqsfkkoakxhjj.space^
 ||oqsuhoaevgmnz.site^
@@ -612318,6 +612400,7 @@ zzzyk.com###Tinfo
 ||overnighttendon.com^
 ||overninetalesor.com^$popup
 ||overplantovervaluetwine.com^
+||overprotectivecriticizearable.com^
 ||overratedchalk.com^
 ||oversawlikingactuary.qpon^
 ||overseastellsotherwise.com^
@@ -615175,6 +615258,7 @@ zzzyk.com###Tinfo
 ||pdwrsrmjjrvvj.space^
 ||pdxdxl.xyz^
 ||pdxubxc.cn^
+||pdynrtubqauer.site^
 ||pdzutf.sftworks.jp^
 ||pdzzjz.icu^
 ||pe.txbe.at^
@@ -615433,6 +615517,7 @@ zzzyk.com###Tinfo
 ||peplabrantle.com^
 ||peplapiitissoulack.cfd^
 ||pepleb.ekosport.de^
+||peplessgroutsetym.cyou^
 ||peplumqueues.cfd^
 ||pepnsnq.cn^
 ||pepper.trywellbe.ba^
@@ -616560,6 +616645,7 @@ zzzyk.com###Tinfo
 ||pitkinvstatefarmgeneralinsurancecompany.e.epiqnotification.com^
 ||pitofficialfollower.com^
 ||pitomec.ru/top.gif
+||pitpitharbi.cfd^
 ||pitpropsizygia.com^
 ||pitsensation.com^
 ||pittaking.openapp.link^
@@ -620443,6 +620529,7 @@ zzzyk.com###Tinfo
 ||ps123.net/MyFile/
 ||ps2-bios.com/*/larapush_script_*.js
 ||ps2.camcaps.to^
+||ps2nsp6nz.com^
 ||psa1xoeve.com^
 ||psaeb.attaboylabs.com^
 ||psaltauw.net^
@@ -620471,6 +620558,7 @@ zzzyk.com###Tinfo
 ||psegeevalrat.net^
 ||psegeevalrat.net^$popup
 ||psetu.citybonfires.com^
+||pseudoinionnewcal.cfd^
 ||pseudonowther.cyou^
 ||psexappm.styleyourcap.de^
 ||psfcnf.ochsnersport.ch^
@@ -622163,6 +622251,7 @@ zzzyk.com###Tinfo
 ||qdczx66.com^
 ||qddfpeuy.smiletraindubai.org^
 ||qddlm.com^
+||qde87pge0.com^
 ||qdemrnocqeadj.site^
 ||qdfxgk.plst.co.jp^
 ||qdgscaydqhmib.space^
@@ -622463,6 +622552,7 @@ zzzyk.com###Tinfo
 ||qhnews.com/tupian/
 ||qhngmav.com^
 ||qhnhi.bulkbookstore.com^
+||qhnxvxazilvdl.website^
 ||qhokrckmxeczb.online^
 ||qhomcusgjszem.space^
 ||qhonzpl.cn^
@@ -622480,6 +622570,7 @@ zzzyk.com###Tinfo
 ||qhsuo.missjessies.com^
 ||qhtqr.mindbodygreen.com^
 ||qhupdate.com^$third-party
+||qhuxuhlas.in^
 ||qhvgn.ancientnutrition.com^
 ||qhvws.com^
 ||qhx1h2g.com^
@@ -622868,6 +622959,7 @@ zzzyk.com###Tinfo
 ||qncye.com/ads/
 ||qndop.aroma360.com^
 ||qneb.cn^
+||qneftuovurwsx.website^
 ||qnejf.sweetumswipes.com^
 ||qneshqafreref.site^
 ||qnfhrgxttmget.site^
@@ -627427,6 +627519,7 @@ zzzyk.com###Tinfo
 ||rixyzarf.qpon^
 ||riyelenrtznxl.space^
 ||riylcrnuvdzyo.space^
+||riymolmuythwx.online^
 ||riysslonvorua.site^
 ||rizdb.briggs-riley.com^
 ||rizgma.tom-tailor.ch^
@@ -629589,6 +629682,7 @@ zzzyk.com###Tinfo
 ||rufcdstpjdcrd.site^
 ||rufdbymsjiwsg.website^
 ||ruffiangars.cyou^
+||rufflefireballcherries.com^
 ||rufoustribes.cfd^
 ||rugalnylon.com^
 ||rugao35.com/Public/config/Couplet/Index
@@ -644385,6 +644479,7 @@ zzzyk.com###Tinfo
 ||skisofa.com^
 ||skivingmessage.com^
 ||skizu.canvasonsale.com^
+||skjllrslooltb.online^
 ||skjsxlnvnlrcs.space^
 ||skk.moe/*.js?$image
 ||skk.moe/*.png$xmlhttprequest
@@ -644663,6 +644758,7 @@ zzzyk.com###Tinfo
 ||slit.lewd.rip^
 ||slivmux.com^
 ||sljhc.lorex.ca^
+||sljzidwidlgul.online^
 ||sllbaqteaonea8uia4ddcveggfogua1a.com^
 ||slluhezaxbzwl.space^
 ||slm1.leministere.ca^
@@ -650232,6 +650328,7 @@ zzzyk.com###Tinfo
 ||snoresmile.com^
 ||snorkelzutugil.com^
 ||snortedbingo.com^
+||snortsrasters.cyou^
 ||snoutwastedeeply.com^
 ||snoway.jp/img/v*/ad/snoway_300x80
 ||snowdayonline.xyz^$popup
@@ -650473,6 +650570,7 @@ zzzyk.com###Tinfo
 ||soft.mumayi.net/images/download.gif
 ||soft.mumayi.net/js/
 ||soft4fun.net/wp-content/themes/arthemia/js/common_footer_min.js
+||softasitai.rest^
 ||softballabnegatemailman.com^
 ||softballpeckrobust.com^
 ||softbesplatno.net/templates/FreeSoft/images/banner*.png
@@ -670581,6 +670679,7 @@ zzzyk.com###Tinfo
 ||stoomawy.net^
 ||stoopeddigestaggregation.com^
 ||stoopeddiscourse.com^
+||stooperesdras.cyou^
 ||stoopsellers.com^
 ||stooq.*/ads/$subdocument,domain=stooq.pl|stooq.com
 ||stooq.*/ads/$subdocument,redirect=noopframe,domain=stooq.pl|stooq.com
@@ -680111,6 +680210,7 @@ zzzyk.com###Tinfo
 ||tomshardware.com^$csp=script-src-attr 'none'
 ||tomsntfucsdkm.site^
 ||tonanalytics.mugiwarattagentai.agency^
+||tonccw2o4fp729.rest^
 ||toneden.io/*/analytics/
 ||tonefuse.com^$popup
 ||tonefuse.com^$third-party
@@ -688362,6 +688462,7 @@ zzzyk.com###Tinfo
 ||turtleface.net^
 ||turtlemobile.com.tw^$third-party
 ||tusbpuqtobu.in^
+||tusehzdefdblz.space^
 ||tushar.mskbazarbd.com^
 ||tushwjp.icu^
 ||tusiunfsfdwwi.site^
@@ -689913,6 +690014,7 @@ zzzyk.com###Tinfo
 ||uidpcx.planet.fr^
 ||uidsync.net^
 ||uie.data.cbc.ca^
+||uiefurzwybmbl.site^
 ||uiejc.innosupps.com^
 ||uifesg.modulor.de^
 ||uifim.gurunanda.com^
@@ -690159,6 +690261,7 @@ zzzyk.com###Tinfo
 ||ulerkr.ukrzoloto.ua^
 ||ulesxbo.com^
 ||ulfgsrumdgava.site^
+||ulfsgwtcrwgqm.online^
 ||ulfze.thevintagepearl.com^
 ||ulgmucrlctvsl.store^
 ||ulgroiklf.com^
@@ -690369,6 +690472,7 @@ zzzyk.com###Tinfo
 ||umlwjozzjdveq.website^
 ||umlyyoggkgxbk.site^
 ||ummdt.estrid.com^
+||ummgfbvdwgrhl.site^
 ||ummid.com/masthead-ad.htm
 ||ummn.nu/*.html$subdocument
 ||ummsyogyankeg.website^
@@ -691291,6 +691395,7 @@ zzzyk.com###Tinfo
 ||uqadr.fpro.com^
 ||uqagg.redlandcotton.com^
 ||uqarbdiuhttwo.website^
+||uqaymrtomzmfm.site^
 ||uqbcv.defenage.com^
 ||uqbdkzcwhdiqa.online^
 ||uqbip.supplyhouse.com^
@@ -692532,6 +692637,7 @@ zzzyk.com###Tinfo
 ||uuomedmlqscpa.store^
 ||uuoozz.com/L7QQ.js
 ||uuopi.rubbertree.com.au^
+||uuozqpkdlqbkn.space^
 ||uupktvdbbeiwm.site^
 ||uupun.beverlyhillsmd.com^
 ||uuqfsvairtiib.site^
@@ -692994,6 +693100,7 @@ zzzyk.com###Tinfo
 ||vabtbjzuwbzki.online^
 ||vacancyconsiderably.com^
 ||vacantazon.com^
+||vacatedfiants.cyou^
 ||vacationbetter.inspirato.com^
 ||vacationmonday.com^
 ||vacationsgolf.com^
@@ -696279,6 +696386,7 @@ zzzyk.com###Tinfo
 ||vyilmellyqbfs.online^
 ||vyis.net^
 ||vyjwxc.elemis.com^
+||vylivgbhjqkbl.online^
 ||vylrhxnitzghi.website^
 ||vympzhnxgoweg.store^
 ||vynvpkurjcsef.online^
@@ -696962,6 +697070,7 @@ zzzyk.com###Tinfo
 ||warrjy.feiler.jp^
 ||warshardnessmotivation.com^
 ||warsledspines.com^
+||warslerufology.cyou^
 ||warsztat.pl/includes/ajax.php?request=banerAjax&
 ||wart.val.town^
 ||warthcoes.com^
@@ -697123,6 +697232,7 @@ zzzyk.com###Tinfo
 ||wauymtjmufunv.site^
 ||wave.getonthewave.com^
 ||wave.outbrain.com^
+||wavedsuspect.click^
 ||waveetiquette.com^
 ||waveinverter.com^
 ||wavermiddayboundary.com^
@@ -700061,6 +700171,7 @@ zzzyk.com###Tinfo
 ||wmxuba.aldoshoes.com^
 ||wmxwrbcgiyyzk.website^
 ||wmxzrccwgpenl.website^
+||wmymtjaraeoxv.space^
 ||wmyrgllrwazum.site^
 ||wmyvsfxygztgu.website^
 ||wn.com/count.js
@@ -701098,6 +701209,7 @@ zzzyk.com###Tinfo
 ||wvykoqi.kobocandles.com^
 ||wvyqks.xyz^
 ||wvyrjaskgtuxx.online^
+||wvyzrjkcwqfut.site^
 ||wvzd.cn^
 ||wvzddr.quirumed.com^
 ||ww.bookyourvisitnow.com^
@@ -702818,6 +702930,7 @@ zzzyk.com###Tinfo
 ||xanimu.com/prerolls/
 ||xaniueikmujyp.online^
 ||xankzgpeqersd.site^
+||xanthanraison.rest^
 ||xanthicara.com^
 ||xaogi.com^$domain=pronpic.org
 ||xaoutchouc.live/await/notwithstanding.php
@@ -703281,6 +703394,7 @@ zzzyk.com###Tinfo
 ||xgxncacvhbfud.site^
 ||xgxokdvjgzmoo.space^
 ||xgyfzcnypzvas.space^
+||xgyhtexgsgvqt.site^
 ||xgysy.aureumcollective.com^
 ||xgyvaf.easydew.co.kr^
 ||xgzdys.com^
@@ -705872,6 +705986,7 @@ zzzyk.com###Tinfo
 ||xxts11191zs.com^
 ||xxts11200zs.com^
 ||xxts11201zs.com^
+||xxtzyeiujzlnz.space^
 ||xxuetasxcgrdq.space^
 ||xxurncgmtmvpo.site^
 ||xxvfswapdzisf.website^
@@ -707220,6 +707335,7 @@ zzzyk.com###Tinfo
 ||yjzuchutwulus.online^
 ||yk-ssp.ad.youku.com^
 ||yk9t90dlfx.com^
+||ykacgkgqmvxfn.site^
 ||ykad-data.youku.com^
 ||ykaphydsqfbkv.site^
 ||ykcjxvg.cn^
@@ -707934,6 +708050,7 @@ zzzyk.com###Tinfo
 ||yrlkte.in360.pl^
 ||yrlovhdvzrdxs.site^
 ||yrnyvjyd.paradox24.com^
+||yroclhudiwvcp.website^
 ||yronesefurther.org^
 ||yrorsq.kirara-support.jp^
 ||yrpicm.lotteimall.com^
@@ -709371,6 +709488,7 @@ zzzyk.com###Tinfo
 ||zexfzson.icu^
 ||zexjoslsldvqs.space^
 ||zexmoa.qchicken.com.tw^
+||zextzccadpr.com^
 ||zexudnxmjadlzg.com^
 ||zexyivyvafozx.space^
 ||zeydoo.com^
