@@ -2,7 +2,6 @@
  * AgentRouter 自动签到（Quantumult X / Loon / Surge / Node.js）
  * 站点：https://agentrouter.org/register?aff=cc9p
  * 脚本：https://raw.githubusercontent.com/axtyet/Luminous/main/ddgksf2013/Scripts/agentrouter_checkin.js
- * BOXJS: https://raw.githubusercontent.com/ddgksf2013/BoxJS/refs/heads/main/agentrouter.boxjs.json
  *
  * 原理：POST /api/user/login 使用账号密码登录；登录本身会触发每日签到。
  * 登录后继续请求 /api/log/self/，确认当天存在签到日志。
@@ -33,7 +32,7 @@
  * Loon 旧语法 [Script]
  * cron "0 9 * * *" script-path=https://raw.githubusercontent.com/axtyet/Luminous/main/ddgksf2013/Scripts/agentrouter_checkin.js,tag=AgentRouter 签到,timeout=120,enable=true
  *
- * Node.js（直接读取下方 CONFIG）
+ * Node.js（直接读取上方 CONFIG，不读取环境变量）
  * node agentrouter_checkin.js
  *
  * 无需 MITM。账号密码仅发送给 CONFIG.baseUrl 指定的站点。
@@ -51,4 +50,902 @@ const CONFIG = {
   verifyLog: true,
 };
 
-const LOGIN_PATH="/api/user/login",USER_INFO_PATH="/api/user/self",SELF_LOG_PATH="/api/log/self/",SELF_LOG_HEADER="New-API-User",CHECKIN_LOG_TYPE=4,QUOTA_PER_DOLLAR=5e5,USER_AGENT="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36";let finished=!1;function isQuantumultX(){return"undefined"!=typeof $task}function isLoon(){return"undefined"!=typeof $loon}function isNode(){return"undefined"!=typeof process&&process.versions&&"string"==typeof process.versions.node}function finish(){finished||(finished=!0,"function"==typeof $done&&$done())}function pad2(e){return String(e).padStart(2,"0")}function formatTime(e){let t=e||new Date;return t.getFullYear()+"-"+pad2(t.getMonth()+1)+"-"+pad2(t.getDate())+" "+pad2(t.getHours())+":"+pad2(t.getMinutes())+":"+pad2(t.getSeconds())}function log(e){console.log("["+formatTime()+"] "+e)}function notify(e,t){try{"function"==typeof $notify?$notify(e,"",t):"undefined"!=typeof $notification&&"function"==typeof $notification.post?$notification.post(e,"",t):log("[通知] "+e+"\n"+t)}catch(n){log("通知发送失败（不影响签到）: "+errorMessage(n))}}function readPersistent(e){try{if("undefined"!=typeof $prefs&&"function"==typeof $prefs.valueForKey){let t=$prefs.valueForKey(e);return null==t?"":t}if("undefined"!=typeof $persistentStore&&"function"==typeof $persistentStore.read){let n=$persistentStore.read(e);return null==n?"":n}}catch(r){log("读取持久化配置失败 ["+e+"]: "+errorMessage(r))}return""}function trimString(e){return"string"==typeof e?e.trim():""}function parseBoolean(e,t){if("boolean"==typeof e)return e;let n=String(null==e?"":e).trim().toLowerCase();return["1","true","yes","on"].indexOf(n)>=0||!(["0","false","no","off"].indexOf(n)>=0)&&t}function parseAccount(e){let t=trimString(e),n=t.indexOf("#");return n<0?{email:t,password:""}:{email:t.slice(0,n).trim(),password:t.slice(n+1).trim()}}function normalizeAccount(e,t){if(!e||"object"!=typeof e)return null;let n="",r="";if(trimString(e.account)){let o=parseAccount(e.account);n=o.email,r=o.password}return((!n||!r)&&trimString(e.email)&&trimString(e.password)&&(n=trimString(e.email),r=trimString(e.password)),n&&r)?{name:trimString(e.name)||"账号"+(t+1),email:n,password:r}:null}function parseAccountArray(e,t){let n=e;if("string"==typeof e)try{n=JSON.parse(e)}catch(r){return log(t+" 解析失败: "+errorMessage(r)),[]}return Array.isArray(n)?n.map(function(e,t){return normalizeAccount(e,t)}).filter(Boolean):(e&&log(t+" 必须是 JSON 数组"),[])}function collectAccounts(){let e=trimString(readPersistent("AGENTROUTER_ACCOUNTS"));if(e){let t=parseAccountArray(e,"AGENTROUTER_ACCOUNTS");if(t.length)return log("已读取持久化多账号配置，共 "+t.length+" 个"),t;log("持久化多账号配置无有效账号，继续尝试单账号配置")}let n=trimString(readPersistent("AGENTROUTER_ACCOUNT")),r=parseAccount(n);if(r.email&&r.password)return log("已读取持久化单账号配置"),[{name:"默认账号",email:r.email,password:r.password},];let o=parseAccountArray(CONFIG.accounts,"CONFIG.accounts");if(o.length)return log("已读取脚本内多账号配置，共 "+o.length+" 个"),o;let i=parseAccount(CONFIG.account);return i.email&&i.password?(log("已读取脚本内单账号配置"),[{name:"默认账号",email:i.email,password:i.password},]):(log("未检测到有效配置：请填写 CONFIG.account / CONFIG.accounts，或写入 AGENTROUTER_ACCOUNT / AGENTROUTER_ACCOUNTS"),[])}function getRuntimeConfig(){let e=trimString(readPersistent("AGENTROUTER_BASE_URL")),t=trimString(readPersistent("AGENTROUTER_POLICY")),n=trimString(readPersistent("AGENTROUTER_TIMEOUT")),r=readPersistent("AGENTROUTER_VERIFY_LOG"),o=Number(n||CONFIG.timeoutSeconds);return{baseUrl:(e||trimString(CONFIG.baseUrl)||"https://agentrouter.org").replace(/\/+$/,""),policy:t||trimString(CONFIG.policy),timeoutSeconds:Number.isFinite(o)&&o>0?o:20,verifyLog:parseBoolean(r,!1!==CONFIG.verifyLog)}}function applyNetworkOptions(e,t){return isQuantumultX()?(e.opts={redirection:!0,"skip-cert-verify":!1,"auto-cookie":!1},t.policy&&(e.opts.policy=t.policy),e):(isNode()&&"undefined"==typeof $httpClient||(e["auto-redirect"]=!0,e["auto-cookie"]=!1,isLoon()?(e.timeout=1e3*t.timeoutSeconds,t.policy&&(e.node=t.policy)):(e.timeout=t.timeoutSeconds,e["full-header-mode"]=!0,t.policy&&(e.policy=t.policy))),e)}function nodeRequestOnce(e,t){return new Promise(function(n,r){let o;try{o=new URL(e.url)}catch(i){r(Error("无效请求地址: "+e.url));return}if("http:"!==o.protocol&&"https:"!==o.protocol){r(Error("Node 模式仅支持 HTTP/HTTPS 地址"));return}let a=require("https:"===o.protocol?"https":"http"),s=a.request(o,{method:String(e.method||"GET").toUpperCase(),headers:e.headers||{}},function(e){let t=[];e.setEncoding("utf8"),e.on("data",function(e){t.push(e)}),e.on("end",function(){n({status:Number(e.statusCode||0),headers:e.headers||{},body:t.join("")})})});s.setTimeout(1e3*t.timeoutSeconds,function(){s.destroy(Error("请求超时（"+t.timeoutSeconds+" 秒）"))}),s.on("error",function(e){r(e)}),void 0!==e.body&&null!==e.body&&s.write(String(e.body)),s.end()})}function deleteHeader(e,t){let n=t.toLowerCase();Object.keys(e).forEach(function(t){t.toLowerCase()===n&&delete e[t]})}function nodeRequest(e,t,n,r){let o=n||0,i=r||[];return nodeRequestOnce(e,t).then(function(n){let r=i.concat(headerValues(n.headers,"set-cookie")),a=getHeader(n.headers,"location"),s=[301,302,303,307,308].indexOf(n.status)>=0;if(!s||!a)return r.length&&(n.headers["set-cookie"]=r),n;if(o>=5)throw Error("重定向次数过多");let u=new URL(e.url),l=new URL(a,u);if(l.origin!==u.origin)throw Error("为保护账号密码，已拒绝跨站重定向至 "+l.origin);let c=Object.assign({},e.headers||{}),f=extractCookieHeader({"set-cookie":r});f&&(c.Cookie=f);let d={url:l.href,method:e.method,headers:c,body:e.body},p=String(e.method||"GET").toUpperCase();return(303===n.status||(301===n.status||302===n.status)&&"POST"===p)&&(d.method="GET",delete d.body,deleteHeader(c,"content-type"),deleteHeader(c,"content-length")),nodeRequest(d,t,o+1,r)})}function rawRequest(e,t){return new Promise(function(n,r){if(isQuantumultX()){$task.fetch(e).then(function(e){n({status:Number(e.statusCode||e.status||0),headers:e.headers||{},body:"string"==typeof e.body?e.body:""})},function(e){r(Error(errorMessage(e)))});return}if("undefined"!=typeof $httpClient){let o=String(e.method||"GET").toLowerCase(),i=$httpClient[o];if("function"!=typeof i){r(Error("当前工具不支持 HTTP 方法: "+o.toUpperCase()));return}i(e,function(e,t,o){if(e){r(Error(errorMessage(e)));return}n({status:Number(t&&(t.status||t.statusCode)||0),headers:t&&t.headers||{},body:"string"==typeof o?o:""})});return}if(isNode()){nodeRequest(e,t).then(n,r);return}r(Error("不支持的脚本环境：缺少 $task.fetch、$httpClient 或 Node.js"))})}function request(e,t){let n=applyNetworkOptions(e,t);return new Promise(function(e,r){let o=!1,i=setTimeout(function(){o||(o=!0,r(Error("请求超时（"+t.timeoutSeconds+" 秒）")))},1e3*t.timeoutSeconds);rawRequest(n,t).then(function(t){o||(o=!0,clearTimeout(i),e(t))},function(e){o||(o=!0,clearTimeout(i),r(e))})})}function headerValues(e,t){let n=t.toLowerCase(),r=[];return Array.isArray(e)?(e.forEach(function(e){e&&String(e.field||"").toLowerCase()===n&&(Array.isArray(e.value)?r.push.apply(r,e.value):void 0!==e.value&&null!==e.value&&r.push(e.value))}),r):(e&&"object"==typeof e&&Object.keys(e).forEach(function(t){if(t.toLowerCase()!==n)return;let o=e[t];Array.isArray(o)?r.push.apply(r,o):null!=o&&r.push(o)}),r)}function getHeader(e,t){let n=headerValues(e,t);return n.length?String(n[0]):""}function extractCookieHeader(e){let t=[];return headerValues(e,"set-cookie").forEach(function(e){String(e).split(/\r?\n/).reduce(function(e,t){return e.concat(t.split(/,(?=\s*[^;,\s]+=)/))},[]).forEach(function(e){let n=e.split(";",1)[0].trim();/^[^=;\s]+=.*/.test(n)&&0>t.indexOf(n)&&t.push(n)})}),t.join("; ")}function parseJsonResponse(e,t){let n=getHeader(e.headers,"content-type").toLowerCase();if(n.indexOf("text/html")>=0)throw Error(t+"返回 HTML（HTTP "+e.status+"），可能被 WAF 拦截或接口已变化");try{return JSON.parse(e.body)}catch(r){throw Error(t+"返回非 JSON（HTTP "+e.status+"）")}}function finiteNumber(e){if(null==e||""===e)return null;let t=Number(e);return Number.isFinite(t)?t:null}function quotaToDollars(e){let t=finiteNumber(e);return null===t?null:Math.round(t/5e5*100)/100}function quotaDetailsFromUserData(e,t){if(!e||"object"!=typeof e)return{remaining:null,used:null,total:null,source:t||"unknown"};let n=quotaToDollars(e.quota),r=quotaToDollars(e.used_quota),o=quotaToDollars(e.total_quota);return{remaining:n,used:r,total:null!==o?o:null!==n&&null!==r?Math.round((n+r)*100)/100:n,source:t||"unknown"}}function moneyText(e){let t=finiteNumber(e);return null===t?"未知":"$"+t.toFixed(2)}function errorMessage(e){return e&&"object"==typeof e?String(e.message||e.error||JSON.stringify(e)):String(e||"未知错误")}function safeServerMessage(e,t){let n=String(e||"未知错误").replace(/[\r\n]+/g," ").slice(0,160);return[t.email,t.password].forEach(function(e){e&&(n=n.split(e).join("***"))}),n}function makeResult(e,t,n,r,o){let i=o||{remaining:null,used:null,total:null,source:"unknown"},a={name:e,status:t,message:n,username:r||"",quota:i.remaining,usedQuota:i.used,totalQuota:i.total,quotaSource:i.source,time:formatTime()};return log("["+e+"] "+({success:"✅ 成功",already:"\uD83D\uDFE1 已签到",fail:"❌ 失败"})[t]+" | "+n+" | 剩余: "+moneyText(a.quota)+" | 已用: "+moneyText(a.usedQuota)+" | 总额: "+moneyText(a.totalQuota)),a}function agoText(e){let t=Math.max(0,Math.floor(e));return t<60?t+" 秒前":t<3600?Math.floor(t/60)+" 分钟前":t<86400?Math.floor(t/3600)+" 小时前":Math.floor(t/86400)+" 天前"}async function verifyCheckin(e,t,n,r,o){if(!t)return{level:"error",detail:"缺少 uid，跳过日志核验"};let i={Accept:"application/json, text/plain, */*","User-Agent":USER_AGENT,[SELF_LOG_HEADER]:String(t)};n&&(i.Cookie=n);let a;try{a=await request({url:e.baseUrl+"/api/log/self/?p=1&page_size=20",method:"GET",headers:i},e)}catch(s){return{level:"error",detail:"日志查询异常: "+errorMessage(s)}}if(200!==a.status||getHeader(a.headers,"content-type").toLowerCase().indexOf("text/html")>=0)return{level:"error",detail:"日志接口返回 HTTP "+a.status};let u;try{u=JSON.parse(a.body)}catch(l){return{level:"error",detail:"日志接口返回非 JSON"}}let c=u&&u.data&&Array.isArray(u.data.items)?u.data.items:[],f=null,d="";if(c.forEach(function(e){if(!e||"object"!=typeof e)return;let t=String(e.content||""),n=t.indexOf("签到成功")>=0||4===Number(e.type),r=Number(e.created_at);n&&Number.isFinite(r)&&(null===f||r>f)&&(f=r,d=t)}),null===f)return{level:"none",detail:"日志中未找到任何签到记录"};let p=Math.floor(Date.now()/1e3),m=p-f,g=agoText(m);return f>=p-r?{level:"new",detail:"本次运行已生成签到日志（"+g+"）",timestamp:f,content:d}:f>=p-86400*o?{level:"today",detail:"近 "+o+" 天内有签到记录（"+g+"），本次未新增",timestamp:f,content:d}:{level:"none",detail:"最近一条签到日志较旧（"+g+"）",timestamp:f,content:d}}async function fetchQuotaDetails(e,t,n,r){let o=quotaDetailsFromUserData(r,"login-fallback");if(!t)return{details:o,warning:"缺少 uid，无法查询完整账户额度"};let i={Accept:"application/json, text/plain, */*","User-Agent":USER_AGENT,[SELF_LOG_HEADER]:String(t)};n&&(i.Cookie=n);let a;try{a=await request({url:e.baseUrl+"/api/user/self",method:"GET",headers:i},e)}catch(s){return{details:o,warning:"账户额度查询异常: "+errorMessage(s)}}if(200!==a.status)return{details:o,warning:"账户额度接口返回 HTTP "+a.status};let u;try{u=parseJsonResponse(a,"账户额度接口")}catch(l){return{details:o,warning:errorMessage(l)}}if(!u||!u.success||!u.data||"object"!=typeof u.data)return{details:o,warning:"账户额度接口未返回有效用户数据"};let c=quotaDetailsFromUserData(u.data,"user-self");return null===c.remaining&&null===c.used&&null===c.total?{details:o,warning:"账户资料中未找到 quota / used_quota / total_quota"}:{details:c,warning:""}}async function passwordLogin(e,t){let n=e.name||"默认账号";if(!e.email||!e.password)return makeResult(n,"fail","未配置 email/password，跳过","",null);log("====== 开始处理账号（账号密码登录）: "+n+" ======");let r;try{r=await request({url:t.baseUrl+"/api/user/login",method:"POST",headers:{"User-Agent":USER_AGENT,"Content-Type":"application/json",Accept:"application/json, text/plain, */*",Referer:t.baseUrl+"/login",Origin:t.baseUrl},body:JSON.stringify({username:e.email,password:e.password})},t)}catch(o){return makeResult(n,"fail","登录请求异常: "+safeServerMessage(errorMessage(o),e),"",null)}let i;try{i=parseJsonResponse(r,"登录接口")}catch(a){return makeResult(n,"fail",errorMessage(a),"",null)}if(!i||!i.success)return makeResult(n,"fail","登录失败: "+safeServerMessage(i&&i.message,e),"",null);let s=i.data&&"object"==typeof i.data?i.data:{},u=Boolean(s.checked_in),l=s.username||s.display_name||e.email,c=extractCookieHeader(r.headers),f=await fetchQuotaDetails(t,s.id,c,s),d=f.details,p;if(u&&t.verifyLog){let m=await verifyCheckin(t,s.id,c,300,1);"new"===m.level||"today"===m.level?p="签到成功，日志已确认（"+m.detail+"）":(p="登录成功且服务端返回已签到，但日志未确认: "+m.detail,c||(p+="；登录响应中未读取到 Set-Cookie"))}else p=u?"签到成功（已关闭日志核验）":"登录成功，但 checked_in=false（可能今日额度已发或接口变化）";return f.warning&&(p+="；"+f.warning,"login-fallback"===d.source&&(p+="，当前额度来自登录响应后备值")),makeResult(n,"success",p,l,d)}function buildSummary(e){let t=e.map(function(e){let t="fail"===e.status?"❌":"already"===e.status?"\uD83D\uDFE1":"✅";return t+" "+e.name+"\n"+e.message+"\n剩余额度: "+moneyText(e.quota)+"｜已用: "+moneyText(e.usedQuota)+"｜总额度: "+moneyText(e.totalQuota)}).join("\n\n"),n=e.filter(function(e){return null!==finiteNumber(e.totalQuota)});if(!n.length)return t;let r=n.reduce(function(e,t){let n=finiteNumber(t.quota),r=finiteNumber(t.usedQuota),o=finiteNumber(t.totalQuota);return null!==n?e.remaining+=n:e.remainingKnown=!1,null!==r?e.used+=r:e.usedKnown=!1,null!==o&&(e.total+=o),e},{remaining:0,used:0,total:0,remainingKnown:!0,usedKnown:!0});return t+"\n\n\uD83D\uDCCA "+n.length+" 个账号合计\n剩余额度: "+(r.remainingKnown?moneyText(r.remaining):"部分未知")+"｜已用: "+(r.usedKnown?moneyText(r.used):"部分未知")+"｜总额度: "+moneyText(r.total)}async function main(){log("AgentRouter 自动签到启动（账号密码登录即签到）");let e=getRuntimeConfig(),t=collectAccounts();if(!t.length){notify("[AgentRouter] 签到失败","未检测到有效账号配置");return}let n=[];for(let r=0;r<t.length;r+=1)n.push(await passwordLogin(t[r],e));let o=n.filter(function(e){return"fail"===e.status}).length,i=o?"[AgentRouter] 签到完成（失败 "+o+"/"+n.length+"）":"[AgentRouter] 签到成功（"+n.length+" 个账号）";notify(i,buildSummary(n))}main().catch(function(e){let t="脚本异常: "+errorMessage(e);log(t),notify("[AgentRouter] 签到失败",t)}).finally(finish);
+const LOGIN_PATH = "/api/user/login";
+const USER_INFO_PATH = "/api/user/self";
+const SELF_LOG_PATH = "/api/log/self/";
+const SELF_LOG_HEADER = "New-API-User";
+const CHECKIN_LOG_TYPE = 4;
+const QUOTA_PER_DOLLAR = 500000;
+const USER_AGENT =
+  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
+  "(KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36";
+
+let finished = false;
+
+function isQuantumultX() {
+  return typeof $task !== "undefined";
+}
+
+function isLoon() {
+  return typeof $loon !== "undefined";
+}
+
+function isNode() {
+  return (
+    typeof process !== "undefined" &&
+    process.versions &&
+    typeof process.versions.node === "string"
+  );
+}
+
+function finish() {
+  if (finished) return;
+  finished = true;
+  if (typeof $done === "function") $done();
+}
+
+function pad2(value) {
+  return String(value).padStart(2, "0");
+}
+
+function formatTime(date) {
+  const d = date || new Date();
+  return (
+    d.getFullYear() +
+    "-" +
+    pad2(d.getMonth() + 1) +
+    "-" +
+    pad2(d.getDate()) +
+    " " +
+    pad2(d.getHours()) +
+    ":" +
+    pad2(d.getMinutes()) +
+    ":" +
+    pad2(d.getSeconds())
+  );
+}
+
+function log(message) {
+  console.log("[" + formatTime() + "] " + message);
+}
+
+function notify(title, content) {
+  try {
+    if (typeof $notify === "function") {
+      $notify(title, "", content);
+    } else if (
+      typeof $notification !== "undefined" &&
+      typeof $notification.post === "function"
+    ) {
+      $notification.post(title, "", content);
+    } else {
+      log("[通知] " + title + "\n" + content);
+    }
+  } catch (error) {
+    log("通知发送失败（不影响签到）: " + errorMessage(error));
+  }
+}
+
+function readPersistent(key) {
+  try {
+    if (typeof $prefs !== "undefined" && typeof $prefs.valueForKey === "function") {
+      const value = $prefs.valueForKey(key);
+      return value === null || value === undefined ? "" : value;
+    }
+    if (
+      typeof $persistentStore !== "undefined" &&
+      typeof $persistentStore.read === "function"
+    ) {
+      const value = $persistentStore.read(key);
+      return value === null || value === undefined ? "" : value;
+    }
+  } catch (error) {
+    log("读取持久化配置失败 [" + key + "]: " + errorMessage(error));
+  }
+  return "";
+}
+
+function trimString(value) {
+  return typeof value === "string" ? value.trim() : "";
+}
+
+function normalizeUsername(value) {
+  return trimString(value).replace(/^https?:\/\//i, "").replace(/\/+$/, "");
+}
+
+function parseBoolean(value, fallback) {
+  if (typeof value === "boolean") return value;
+  const normalized = String(value === null || value === undefined ? "" : value)
+    .trim()
+    .toLowerCase();
+  if (["1", "true", "yes", "on"].indexOf(normalized) >= 0) return true;
+  if (["0", "false", "no", "off"].indexOf(normalized) >= 0) return false;
+  return fallback;
+}
+
+function parseAccount(raw) {
+  const value = trimString(raw);
+  const index = value.indexOf("#");
+  if (index < 0) return { email: normalizeUsername(value), password: "" };
+  return {
+    email: normalizeUsername(value.slice(0, index)),
+    password: value.slice(index + 1).trim(),
+  };
+}
+
+function normalizeAccount(item, index) {
+  if (!item || typeof item !== "object") return null;
+
+  let email = "";
+  let password = "";
+  if (trimString(item.account)) {
+    const parsed = parseAccount(item.account);
+    email = parsed.email;
+    password = parsed.password;
+  }
+
+  if ((!email || !password) && trimString(item.email) && trimString(item.password)) {
+    email = normalizeUsername(item.email);
+    password = trimString(item.password);
+  }
+
+  if (!email || !password) return null;
+  return {
+    name: normalizeUsername(item.name) || "账号" + (index + 1),
+    email: email,
+    password: password,
+  };
+}
+
+function parseAccountArray(value, sourceName) {
+  let array = value;
+  if (typeof value === "string") {
+    try {
+      array = JSON.parse(value);
+    } catch (error) {
+      log(sourceName + " 解析失败: " + errorMessage(error));
+      return [];
+    }
+  }
+
+  if (!Array.isArray(array)) {
+    if (value) log(sourceName + " 必须是 JSON 数组");
+    return [];
+  }
+
+  return array
+    .map(function (item, index) {
+      return normalizeAccount(item, index);
+    })
+    .filter(Boolean);
+}
+
+function collectAccounts() {
+  const storedMulti = trimString(readPersistent("AGENTROUTER_ACCOUNTS"));
+  if (storedMulti) {
+    const accounts = parseAccountArray(storedMulti, "AGENTROUTER_ACCOUNTS");
+    if (accounts.length) {
+      log("已读取持久化多账号配置，共 " + accounts.length + " 个");
+      return accounts;
+    }
+    log("持久化多账号配置无有效账号，继续尝试单账号配置");
+  }
+
+  const storedSingle = trimString(readPersistent("AGENTROUTER_ACCOUNT"));
+  const storedAccount = parseAccount(storedSingle);
+  if (storedAccount.email && storedAccount.password) {
+    log("已读取持久化单账号配置");
+    return [
+      { name: "默认账号", email: storedAccount.email, password: storedAccount.password },
+    ];
+  }
+
+  const inlineAccounts = parseAccountArray(CONFIG.accounts, "CONFIG.accounts");
+  if (inlineAccounts.length) {
+    log("已读取脚本内多账号配置，共 " + inlineAccounts.length + " 个");
+    return inlineAccounts;
+  }
+
+  const inlineAccount = parseAccount(CONFIG.account);
+  if (inlineAccount.email && inlineAccount.password) {
+    log("已读取脚本内单账号配置");
+    return [
+      { name: "默认账号", email: inlineAccount.email, password: inlineAccount.password },
+    ];
+  }
+
+  log(
+    "未检测到有效配置：请填写 CONFIG.account / CONFIG.accounts，" +
+      "或写入 AGENTROUTER_ACCOUNT / AGENTROUTER_ACCOUNTS"
+  );
+  return [];
+}
+
+function getRuntimeConfig() {
+  const storedBaseUrl = trimString(readPersistent("AGENTROUTER_BASE_URL"));
+  const storedPolicy = trimString(readPersistent("AGENTROUTER_POLICY"));
+  const storedTimeout = trimString(readPersistent("AGENTROUTER_TIMEOUT"));
+  const storedVerifyLog = readPersistent("AGENTROUTER_VERIFY_LOG");
+  const timeout = Number(storedTimeout || CONFIG.timeoutSeconds);
+  return {
+    baseUrl: (storedBaseUrl || trimString(CONFIG.baseUrl) || "https://agentrouter.org").replace(
+      /\/+$/,
+      ""
+    ),
+    policy: storedPolicy || trimString(CONFIG.policy),
+    timeoutSeconds: Number.isFinite(timeout) && timeout > 0 ? timeout : 20,
+    verifyLog: parseBoolean(storedVerifyLog, CONFIG.verifyLog !== false),
+  };
+}
+
+function applyNetworkOptions(request, runtime) {
+  if (isQuantumultX()) {
+    request.opts = {
+      redirection: true,
+      "skip-cert-verify": false,
+      "auto-cookie": false,
+    };
+    if (runtime.policy) request.opts.policy = runtime.policy;
+    return request;
+  }
+
+  // Node 使用下方原生 http/https 请求，不需要代理工具的专用参数。
+  if (isNode() && typeof $httpClient === "undefined") return request;
+
+  request["auto-redirect"] = true;
+  request["auto-cookie"] = false;
+  if (isLoon()) {
+    // Loon 的 timeout 单位是毫秒。
+    request.timeout = runtime.timeoutSeconds * 1000;
+    if (runtime.policy) request.node = runtime.policy;
+  } else {
+    // Surge（以及大多数兼容 $httpClient 的工具）的单位是秒。
+    request.timeout = runtime.timeoutSeconds;
+    request["full-header-mode"] = true;
+    if (runtime.policy) request.policy = runtime.policy;
+  }
+  return request;
+}
+
+function nodeRequestOnce(options, runtime) {
+  return new Promise(function (resolve, reject) {
+    let target;
+    try {
+      target = new URL(options.url);
+    } catch (error) {
+      reject(new Error("无效请求地址: " + options.url));
+      return;
+    }
+
+    if (target.protocol !== "http:" && target.protocol !== "https:") {
+      reject(new Error("Node 模式仅支持 HTTP/HTTPS 地址"));
+      return;
+    }
+
+    const transport = require(target.protocol === "https:" ? "https" : "http");
+    const req = transport.request(
+      target,
+      {
+        method: String(options.method || "GET").toUpperCase(),
+        headers: options.headers || {},
+      },
+      function (response) {
+        const chunks = [];
+        response.setEncoding("utf8");
+        response.on("data", function (chunk) {
+          chunks.push(chunk);
+        });
+        response.on("end", function () {
+          resolve({
+            status: Number(response.statusCode || 0),
+            headers: response.headers || {},
+            body: chunks.join(""),
+          });
+        });
+      }
+    );
+
+    req.setTimeout(runtime.timeoutSeconds * 1000, function () {
+      req.destroy(new Error("请求超时（" + runtime.timeoutSeconds + " 秒）"));
+    });
+    req.on("error", function (error) {
+      reject(error);
+    });
+    if (options.body !== undefined && options.body !== null) {
+      req.write(String(options.body));
+    }
+    req.end();
+  });
+}
+
+function deleteHeader(headers, wantedName) {
+  const wanted = wantedName.toLowerCase();
+  Object.keys(headers).forEach(function (name) {
+    if (name.toLowerCase() === wanted) delete headers[name];
+  });
+}
+
+function nodeRequest(options, runtime, redirectCount, inheritedSetCookies) {
+  const count = redirectCount || 0;
+  const previousCookies = inheritedSetCookies || [];
+  return nodeRequestOnce(options, runtime).then(function (response) {
+    const currentCookies = previousCookies.concat(headerValues(response.headers, "set-cookie"));
+    const location = getHeader(response.headers, "location");
+    const isRedirect = [301, 302, 303, 307, 308].indexOf(response.status) >= 0;
+
+    if (!isRedirect || !location) {
+      if (currentCookies.length) response.headers["set-cookie"] = currentCookies;
+      return response;
+    }
+    if (count >= 5) throw new Error("重定向次数过多");
+
+    const currentUrl = new URL(options.url);
+    const nextUrl = new URL(location, currentUrl);
+    // 登录请求包含明文密码，禁止跟随跨站重定向，避免凭据被转发到其他站点。
+    if (nextUrl.origin !== currentUrl.origin) {
+      throw new Error("为保护账号密码，已拒绝跨站重定向至 " + nextUrl.origin);
+    }
+
+    const nextHeaders = Object.assign({}, options.headers || {});
+    const cookieHeader = extractCookieHeader({ "set-cookie": currentCookies });
+    if (cookieHeader) nextHeaders.Cookie = cookieHeader;
+
+    const nextOptions = {
+      url: nextUrl.href,
+      method: options.method,
+      headers: nextHeaders,
+      body: options.body,
+    };
+    const method = String(options.method || "GET").toUpperCase();
+    if (response.status === 303 || ((response.status === 301 || response.status === 302) && method === "POST")) {
+      nextOptions.method = "GET";
+      delete nextOptions.body;
+      deleteHeader(nextHeaders, "content-type");
+      deleteHeader(nextHeaders, "content-length");
+    }
+    return nodeRequest(nextOptions, runtime, count + 1, currentCookies);
+  });
+}
+
+function rawRequest(options, runtime) {
+  return new Promise(function (resolve, reject) {
+    if (isQuantumultX()) {
+      $task.fetch(options).then(
+        function (response) {
+          resolve({
+            status: Number(response.statusCode || response.status || 0),
+            headers: response.headers || {},
+            body: typeof response.body === "string" ? response.body : "",
+          });
+        },
+        function (reason) {
+          reject(new Error(errorMessage(reason)));
+        }
+      );
+      return;
+    }
+
+    if (typeof $httpClient !== "undefined") {
+      const method = String(options.method || "GET").toLowerCase();
+      const clientMethod = $httpClient[method];
+      if (typeof clientMethod !== "function") {
+        reject(new Error("当前工具不支持 HTTP 方法: " + method.toUpperCase()));
+        return;
+      }
+      clientMethod(options, function (error, response, data) {
+        if (error) {
+          reject(new Error(errorMessage(error)));
+          return;
+        }
+        resolve({
+          status: Number((response && (response.status || response.statusCode)) || 0),
+          headers: (response && response.headers) || {},
+          body: typeof data === "string" ? data : "",
+        });
+      });
+      return;
+    }
+
+    if (isNode()) {
+      nodeRequest(options, runtime).then(resolve, reject);
+      return;
+    }
+
+    reject(new Error("不支持的脚本环境：缺少 $task.fetch、$httpClient 或 Node.js"));
+  });
+}
+
+function request(options, runtime) {
+  const configured = applyNetworkOptions(options, runtime);
+  return new Promise(function (resolve, reject) {
+    let settled = false;
+    const timer = setTimeout(function () {
+      if (settled) return;
+      settled = true;
+      reject(new Error("请求超时（" + runtime.timeoutSeconds + " 秒）"));
+    }, runtime.timeoutSeconds * 1000);
+
+    rawRequest(configured, runtime).then(
+      function (response) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        resolve(response);
+      },
+      function (error) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        reject(error);
+      }
+    );
+  });
+}
+
+function headerValues(headers, wantedName) {
+  const wanted = wantedName.toLowerCase();
+  const values = [];
+
+  if (Array.isArray(headers)) {
+    headers.forEach(function (header) {
+      if (!header || String(header.field || "").toLowerCase() !== wanted) return;
+      if (Array.isArray(header.value)) values.push.apply(values, header.value);
+      else if (header.value !== undefined && header.value !== null) values.push(header.value);
+    });
+    return values;
+  }
+
+  if (!headers || typeof headers !== "object") return values;
+  Object.keys(headers).forEach(function (name) {
+    if (name.toLowerCase() !== wanted) return;
+    const value = headers[name];
+    if (Array.isArray(value)) values.push.apply(values, value);
+    else if (value !== undefined && value !== null) values.push(value);
+  });
+  return values;
+}
+
+function getHeader(headers, name) {
+  const values = headerValues(headers, name);
+  return values.length ? String(values[0]) : "";
+}
+
+function extractCookieHeader(headers) {
+  const cookiePairs = [];
+  headerValues(headers, "set-cookie").forEach(function (rawValue) {
+    String(rawValue)
+      .split(/\r?\n/)
+      // 不在 Expires=Wed, 09 Jun ... 的逗号处误切分。
+      .reduce(function (parts, line) {
+        return parts.concat(line.split(/,(?=\s*[^;,\s]+=)/));
+      }, [])
+      .forEach(function (cookie) {
+        const pair = cookie.split(";", 1)[0].trim();
+        if (/^[^=;\s]+=.*/.test(pair) && cookiePairs.indexOf(pair) < 0) {
+          cookiePairs.push(pair);
+        }
+      });
+  });
+  return cookiePairs.join("; ");
+}
+
+function parseJsonResponse(response, label) {
+  const contentType = getHeader(response.headers, "content-type").toLowerCase();
+  if (contentType.indexOf("text/html") >= 0) {
+    throw new Error(label + "返回 HTML（HTTP " + response.status + "），可能被 WAF 拦截或接口已变化");
+  }
+  try {
+    return JSON.parse(response.body);
+  } catch (error) {
+    throw new Error(label + "返回非 JSON（HTTP " + response.status + "）");
+  }
+}
+
+function finiteNumber(value) {
+  if (value === null || value === undefined || value === "") return null;
+  const number = Number(value);
+  return Number.isFinite(number) ? number : null;
+}
+
+function quotaToDollars(value) {
+  const number = finiteNumber(value);
+  if (number === null) return null;
+  return Math.round((number / QUOTA_PER_DOLLAR) * 100) / 100;
+}
+
+function quotaDetailsFromUserData(payload, source) {
+  if (!payload || typeof payload !== "object") {
+    return { remaining: null, used: null, total: null, source: source || "unknown" };
+  }
+
+  const remaining = quotaToDollars(payload.quota);
+  const used = quotaToDollars(payload.used_quota);
+  const explicitTotal = quotaToDollars(payload.total_quota);
+  const total =
+    explicitTotal !== null
+      ? explicitTotal
+      : remaining !== null && used !== null
+        ? Math.round((remaining + used) * 100) / 100
+        : remaining;
+
+  return {
+    remaining: remaining,
+    used: used,
+    total: total,
+    source: source || "unknown",
+  };
+}
+
+function moneyText(value) {
+  const number = finiteNumber(value);
+  if (number === null) return "未知";
+  return "$" + number.toFixed(2);
+}
+
+function errorMessage(error) {
+  if (error && typeof error === "object") {
+    return String(error.message || error.error || JSON.stringify(error));
+  }
+  return String(error || "未知错误");
+}
+
+function safeServerMessage(message, account) {
+  let text = String(message || "未知错误").replace(/[\r\n]+/g, " ").slice(0, 160);
+  [account.email, account.password].forEach(function (secret) {
+    if (secret) text = text.split(secret).join("***");
+  });
+  return text;
+}
+
+function makeResult(name, status, message, username, quotaDetails) {
+  const details = quotaDetails || {
+    remaining: null,
+    used: null,
+    total: null,
+    source: "unknown",
+  };
+  const result = {
+    name: name,
+    status: status,
+    message: message,
+    username: username || "",
+    quota: details.remaining,
+    usedQuota: details.used,
+    totalQuota: details.total,
+    quotaSource: details.source,
+    time: formatTime(),
+  };
+  const tags = { success: "✅ 成功", already: "🟡 已签到", fail: "❌ 失败" };
+  log(
+    "[" + name + "] " +
+      tags[status] +
+      " | " +
+      message +
+      " | 剩余: " +
+      moneyText(result.quota) +
+      " | 已用: " +
+      moneyText(result.usedQuota) +
+      " | 总额: " +
+      moneyText(result.totalQuota)
+  );
+  return result;
+}
+
+function agoText(seconds) {
+  const ago = Math.max(0, Math.floor(seconds));
+  if (ago < 60) return ago + " 秒前";
+  if (ago < 3600) return Math.floor(ago / 60) + " 分钟前";
+  if (ago < 86400) return Math.floor(ago / 3600) + " 小时前";
+  return Math.floor(ago / 86400) + " 天前";
+}
+
+async function verifyCheckin(runtime, uid, cookieHeader, slackNew, windowDays) {
+  if (!uid) return { level: "error", detail: "缺少 uid，跳过日志核验" };
+
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "User-Agent": USER_AGENT,
+    [SELF_LOG_HEADER]: String(uid),
+  };
+  if (cookieHeader) headers.Cookie = cookieHeader;
+
+  let response;
+  try {
+    response = await request(
+      {
+        url: runtime.baseUrl + SELF_LOG_PATH + "?p=1&page_size=20",
+        method: "GET",
+        headers: headers,
+      },
+      runtime
+    );
+  } catch (error) {
+    return { level: "error", detail: "日志查询异常: " + errorMessage(error) };
+  }
+
+  if (response.status !== 200 || getHeader(response.headers, "content-type").toLowerCase().indexOf("text/html") >= 0) {
+    return { level: "error", detail: "日志接口返回 HTTP " + response.status };
+  }
+
+  let payload;
+  try {
+    payload = JSON.parse(response.body);
+  } catch (error) {
+    return { level: "error", detail: "日志接口返回非 JSON" };
+  }
+
+  const items =
+    payload && payload.data && Array.isArray(payload.data.items) ? payload.data.items : [];
+  let newestTimestamp = null;
+  let newestContent = "";
+
+  items.forEach(function (item) {
+    if (!item || typeof item !== "object") return;
+    const content = String(item.content || "");
+    const isCheckin = content.indexOf("签到成功") >= 0 || Number(item.type) === CHECKIN_LOG_TYPE;
+    const timestamp = Number(item.created_at);
+    if (isCheckin && Number.isFinite(timestamp) && (newestTimestamp === null || timestamp > newestTimestamp)) {
+      newestTimestamp = timestamp;
+      newestContent = content;
+    }
+  });
+
+  if (newestTimestamp === null) {
+    return { level: "none", detail: "日志中未找到任何签到记录" };
+  }
+
+  const now = Math.floor(Date.now() / 1000);
+  const ago = now - newestTimestamp;
+  const detailAgo = agoText(ago);
+  if (newestTimestamp >= now - slackNew) {
+    return {
+      level: "new",
+      detail: "本次运行已生成签到日志（" + detailAgo + "）",
+      timestamp: newestTimestamp,
+      content: newestContent,
+    };
+  }
+  if (newestTimestamp >= now - windowDays * 86400) {
+    return {
+      level: "today",
+      detail: "近 " + windowDays + " 天内有签到记录（" + detailAgo + "），本次未新增",
+      timestamp: newestTimestamp,
+      content: newestContent,
+    };
+  }
+  return {
+    level: "none",
+    detail: "最近一条签到日志较旧（" + detailAgo + "）",
+    timestamp: newestTimestamp,
+    content: newestContent,
+  };
+}
+
+async function fetchQuotaDetails(runtime, uid, cookieHeader, loginData) {
+  const fallback = quotaDetailsFromUserData(loginData, "login-fallback");
+  if (!uid) {
+    return {
+      details: fallback,
+      warning: "缺少 uid，无法查询完整账户额度",
+    };
+  }
+
+  const headers = {
+    Accept: "application/json, text/plain, */*",
+    "User-Agent": USER_AGENT,
+    [SELF_LOG_HEADER]: String(uid),
+  };
+  if (cookieHeader) headers.Cookie = cookieHeader;
+
+  let response;
+  try {
+    response = await request(
+      {
+        url: runtime.baseUrl + USER_INFO_PATH,
+        method: "GET",
+        headers: headers,
+      },
+      runtime
+    );
+  } catch (error) {
+    return {
+      details: fallback,
+      warning: "账户额度查询异常: " + errorMessage(error),
+    };
+  }
+
+  if (response.status !== 200) {
+    return {
+      details: fallback,
+      warning: "账户额度接口返回 HTTP " + response.status,
+    };
+  }
+
+  let payload;
+  try {
+    payload = parseJsonResponse(response, "账户额度接口");
+  } catch (error) {
+    return { details: fallback, warning: errorMessage(error) };
+  }
+
+  if (!payload || !payload.success || !payload.data || typeof payload.data !== "object") {
+    return {
+      details: fallback,
+      warning: "账户额度接口未返回有效用户数据",
+    };
+  }
+
+  const details = quotaDetailsFromUserData(payload.data, "user-self");
+  if (details.remaining === null && details.used === null && details.total === null) {
+    return {
+      details: fallback,
+      warning: "账户资料中未找到 quota / used_quota / total_quota",
+    };
+  }
+  return { details: details, warning: "" };
+}
+
+async function passwordLogin(account, runtime) {
+  const name = account.name || "默认账号";
+  if (!account.email || !account.password) {
+    return makeResult(name, "fail", "未配置 email/password，跳过", "", null);
+  }
+
+  log("====== 开始处理账号（账号密码登录）: " + name + " ======");
+  let response;
+  try {
+    response = await request(
+      {
+        url: runtime.baseUrl + LOGIN_PATH,
+        method: "POST",
+        headers: {
+          "User-Agent": USER_AGENT,
+          "Content-Type": "application/json",
+          Accept: "application/json, text/plain, */*",
+          Referer: runtime.baseUrl + "/login",
+          Origin: runtime.baseUrl,
+        },
+        body: JSON.stringify({ username: account.email, password: account.password }),
+      },
+      runtime
+    );
+  } catch (error) {
+    return makeResult(
+      name,
+      "fail",
+      "登录请求异常: " + safeServerMessage(errorMessage(error), account),
+      "",
+      null
+    );
+  }
+
+  let payload;
+  try {
+    payload = parseJsonResponse(response, "登录接口");
+  } catch (error) {
+    return makeResult(name, "fail", errorMessage(error), "", null);
+  }
+
+  if (!payload || !payload.success) {
+    return makeResult(
+      name,
+      "fail",
+      "登录失败: " + safeServerMessage(payload && payload.message, account),
+      "",
+      null
+    );
+  }
+
+  const data = payload.data && typeof payload.data === "object" ? payload.data : {};
+  const checkedIn = Boolean(data.checked_in);
+  const username = normalizeUsername(data.username || data.display_name || account.email);
+  const cookieHeader = extractCookieHeader(response.headers);
+  const quotaResult = await fetchQuotaDetails(runtime, data.id, cookieHeader, data);
+  const quotaDetails = quotaResult.details;
+  let message;
+
+  if (checkedIn && runtime.verifyLog) {
+    const verification = await verifyCheckin(runtime, data.id, cookieHeader, 300, 1);
+    if (verification.level === "new" || verification.level === "today") {
+      message = "签到成功，日志已确认（" + verification.detail + "）";
+    } else {
+      message = "登录成功且服务端返回已签到，但日志未确认: " + verification.detail;
+      if (!cookieHeader) message += "；登录响应中未读取到 Set-Cookie";
+    }
+  } else if (checkedIn) {
+    message = "签到成功（已关闭日志核验）";
+  } else {
+    message = "登录成功，但 checked_in=false（可能今日额度已发或接口变化）";
+  }
+
+  if (quotaResult.warning) {
+    message += "；" + quotaResult.warning;
+    if (quotaDetails.source === "login-fallback") message += "，当前额度来自登录响应后备值";
+  }
+
+  return makeResult(name, "success", message, username, quotaDetails);
+}
+
+function buildSummary(results) {
+  const accountBlocks = results
+    .map(function (result) {
+      const icon = result.status === "fail" ? "❌" : result.status === "already" ? "🟡" : "✅";
+      return (
+        icon +
+        " " +
+        result.name +
+        "\n" +
+        result.message +
+        "\n剩余额度: " +
+        moneyText(result.quota) +
+        "｜已用: " +
+        moneyText(result.usedQuota) +
+        "｜总额度: " +
+        moneyText(result.totalQuota)
+      );
+    })
+    .join("\n\n");
+
+  const known = results.filter(function (result) {
+    return finiteNumber(result.totalQuota) !== null;
+  });
+  if (!known.length) return accountBlocks;
+
+  const totals = known.reduce(
+    function (sum, result) {
+      const remaining = finiteNumber(result.quota);
+      const used = finiteNumber(result.usedQuota);
+      const total = finiteNumber(result.totalQuota);
+      if (remaining !== null) sum.remaining += remaining;
+      else sum.remainingKnown = false;
+      if (used !== null) sum.used += used;
+      else sum.usedKnown = false;
+      if (total !== null) sum.total += total;
+      return sum;
+    },
+    { remaining: 0, used: 0, total: 0, remainingKnown: true, usedKnown: true }
+  );
+
+  return (
+    accountBlocks +
+    "\n\n📊 " +
+    known.length +
+    " 个账号合计\n剩余额度: " +
+    (totals.remainingKnown ? moneyText(totals.remaining) : "部分未知") +
+    "｜已用: " +
+    (totals.usedKnown ? moneyText(totals.used) : "部分未知") +
+    "｜总额度: " +
+    moneyText(totals.total)
+  );
+}
+
+async function main() {
+  log("AgentRouter 自动签到启动（账号密码登录即签到）");
+  const runtime = getRuntimeConfig();
+  const accounts = collectAccounts();
+  if (!accounts.length) {
+    notify("[AgentRouter] 签到失败", "未检测到有效账号配置");
+    return;
+  }
+
+  const results = [];
+  for (let i = 0; i < accounts.length; i += 1) {
+    results.push(await passwordLogin(accounts[i], runtime));
+  }
+
+  const failures = results.filter(function (result) {
+    return result.status === "fail";
+  }).length;
+  const title = failures
+    ? "[AgentRouter] 签到完成（失败 " + failures + "/" + results.length + "）"
+    : "[AgentRouter] 签到成功（" + results.length + " 个账号）";
+  notify(title, buildSummary(results));
+}
+
+main()
+  .catch(function (error) {
+    const message = "脚本异常: " + errorMessage(error);
+    log(message);
+    notify("[AgentRouter] 签到失败", message);
+  })
+  .finally(finish);
