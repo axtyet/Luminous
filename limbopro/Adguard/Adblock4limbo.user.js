@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo.[github]
 // @namespace    https://github.com/limbopro/Adblock4limbo/raw/main/Adguard/Adblock4limbo.user.js
-// @version      0.2026.11.03
+// @version      0.2026.11.13
 // @license      CC BY-NC-SA 4.0
 // @description  毒奶去网页广告计划用户脚本 For Quantumult X & Surge & Shadowrocket & Loon & Stash & 油猴 ；1.新增页面右下角导航；2.通过 JavaScript 移除特定网站网页广告 —— 搜索引擎（Bing/Google）广告及内容农场结果清除/低端影视/欧乐影院/iyf爱壹帆/哔滴影视/Pornhub/Javbus/Supjav/Jable(支持抓取M3U8链接)/MissAv/Njav/91porn(支持视频下载)/hitomi/紳士漫畫/禁漫天堂/等视频&ACG&小说&漫画网站上的弹窗广告&视频广告&Gif图片广告等，保持网页清爽干净无打扰！ P.S. 欢迎提交issue
 // @author       limbopro
@@ -58,6 +58,7 @@
 // @match        https://njavtv.com/*
 // @match        https://www.njav.com/*
 // @match        https://javtiful.com/*
+// @match        https://kanav.ad/*
 // @match        https://supjav.com/*
 // @match        https://www.javbus.com/*
 // @match        https://av.jkforum.net/*
@@ -379,6 +380,7 @@ var adsMax = {
         /* @media (min-width:640px){.sm\\:hidden{margin:6px 0 0;padding:0;display:flex !important}} */
         missav: 'div.lg\\:hidden,div.space-y-5 > div, ul.mb-4 > li > a {display:none !important;pointer-events:none !important}body{overflow-x:hidden}', //  MissAVX
         javtiful: "button[data-front-share-toggle],front-home-premium-alert,a[href*='rdx.jav.si'],a[href*='r.trwl1.com'],.front-watch-text-feature,.front-feature-placement-close {display:none !important; pointer-events: none !important;}",
+        kanav: '@media (max-width: 768px) { .m-footer { position: fixed; bottom: 0; height: 50px; max-width: 1024px; width: 100%; background: #000 !important; z-index: 10; display: none !important; } } .home-qf > div[class*="img-qf"] {display:none !important; pointer-events: none !important;} ',
         bigirl: 'div#container + div, h4.adblock_title,div.adblock_subtitle,[class^=\'adblock\'],div[class^=\'ad_\'], .toppage_av {display:none !important; pointer-events: none !important;}', // https://bi-girl.net/
         marketcap: '.ad-tr {display:none !important; pointer-events: none !important;}', // https://8marketcap.com/
         opgg: ".AdSense,  div[data-ad], tr.ad, #banner-container, section[class*='md:hidden'] {display:none !important; pointer-events: none !important;}",
@@ -460,6 +462,7 @@ function values() {
         "missav",
         "njavtv.com",
         "javtiful",
+        "kanav.ad",
         "bi-girl",
         "marketcap",
         "op.gg",
@@ -933,6 +936,7 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
             });
             autoRemoveElements('iframe,footer#footer1,div#btimgid1,div[style*="position: fixed"][style*="bottom: 0px"]') // 给镜像站用
             window_open_defuser(); // 打断 window.open 施法
+
             /*
             window.onload = function () {
                 // 移除广告
@@ -971,6 +975,7 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
                     }, 3000)
                 }
             }() */
+
             window.onload = function () {
                 // 1. 移除广告
                 const targetLink = document.querySelector('a[href*="9432b3b0-661c-4d05-9552-29757dafc4cb"]');
@@ -2192,6 +2197,38 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
             })();
             // 快进快退结束
             break;
+        case 'kanav.ad':
+
+            if (localStorage.getItem('windowhijackDefuser') == null) {
+                localStorage.setItem('windowhijackDefuser', '1');
+            }
+
+            css_adsRemove(adsMax.css.kanav, 100, 'kanav');
+
+
+            if (typeof fastForward === 'function') {
+
+                fastForward('video', '.video-server-btn');
+
+                const initFastForward = () => {
+                    if (document.querySelector('video')) {
+                        observer.disconnect();
+                        fastForward('video', 'h3');
+                    }
+                };
+
+                const observer = new MutationObserver(initFastForward);
+
+                initFastForward();
+
+                observer.observe(document.documentElement, {
+                    childList: true,
+                    subtree: true
+                });
+            }
+
+
+            break;
         case 'njavtv.com':
         case 'missav':
             document.body.style.setProperty('background-color', '#000000', 'important');
@@ -3096,6 +3133,8 @@ function missAv_playbutton() {
         //console.log("视频已开启循环播放；")
     }
 }
+
+
 // 快进快退 fastForward
 // ==UserScript==
 // @name         Jable.tv 视频页：单行快进快退（样式分离注入）
@@ -3109,154 +3148,401 @@ function missAv_playbutton() {
 // @run-at       document-idle
 // ==/UserScript==
 
-function fastForward(videowrap, section) { // fastForward()
+
+function fastForward(videowrap, section) {
     'use strict';
-    const video = document.querySelector(videowrap);
-    if (!video) return;
-    if (document.getElementById('jable-skip-panel')) return;
-    // === 1. 注入全局 CSS 样式 ===
-    const style = document.createElement('style');
-    style.id = 'jable-skip-panel-style';
-    style.textContent = `
-    @media (min-width: 992px) {
-      .pb-e-lg-30 {
-        padding-bottom: 10px !important;
-      }
-    }
-    #jable-skip-panel {
-    touch-action: pan-up pan-down pan-x pan-y manipulation;
-    /* 或者直接写死： */
-    touch-action: manipulation;
-    /* 允许点击+滚动，但彻底禁用双击放大和双指缩放 */
-    -webkit-tap-highlight-color: transparent;
-      display: flex;
-      z-index:114154;
-      flex-wrap: inherit;
-      justify-content: center;
-      gap: 2px;
-      padding: 10px 0px 10px 0px;
-      /*background: var(--indigo);*/
-      border-radius: 0px 0px 0px 0px;
-      box-shadow: 0px 8px 14px var(--indigo)
-      backdrop-filter: blur(14px);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      user-select: none;
-      max-width: 100%;
-      width: 100%;
-      margin: 0px 0px 10px 0px;
-      text-align: center;
-    }
-    .jable-skip-btn {
-    padding:8px 8px 8px 12px;
-    font-size:0.75rem;
-      /*padding: 2px 0px;*/
-      /*font-size: 12.5px;*/
-      font-weight: inherit;
-      color: #fff;
-      border: 1px solid;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.22s ease;
-      /*width: 60px;*/
-      /*height: 25px;*/
-      text-align: center;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      flex: 0 0 auto;
-    }
-    .jable-skip-btn.forward {
-      background: rgba(0, 255, 136, 0.28);
-      border-color: #00ff88;
-    }
-    .jable-skip-btn.backward {
-      background: rgba(255, 80, 80, 0.28);
-      border-color: #ff6666;
-    }
-    .jable-skip-btn:hover {
-      transform: translateY(-2px) scale(1.06);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-    }
-    .jable-skip-btn.forward:hover {
-      background: rgba(0, 255, 136, 0.42);
-      box-shadow: 0 6px 18px rgba(0, 255, 136, 0.5);
-    }
-    .jable-skip-btn.backward:hover {
-      background: rgba(255, 80, 80, 0.42);
-      box-shadow: 0 6px 18px rgba(255, 80, 80, 0.5);
-    }
-    .jable-skip-btn:active {
-      /*transform: translateY(0) scale(1.02);*/
-    }
-  `;
-    document.head.appendChild(style);
-    // === 2. 创建面板 HTML ===
-    const panel = document.createElement('div');
-    panel.id = 'jable-skip-panel';
-    const actions = [
-        { sec: -600, label: '<< 10m', key: 'PageDown', class: 'backward' },
-        { sec: -60, label: '< 1m', key: 'ArrowDown', class: 'backward' },
-        { sec: -15, label: '< 15s', key: 'ArrowLeft', class: 'backward' },
-        { sec: 15, label: '15s >', key: 'ArrowRight', class: 'forward' },
-        { sec: 60, label: '1m >', key: 'ArrowUp', class: 'forward' },
-        { sec: 600, label: '10m >>', key: 'PageUp', class: 'forward' },
-    ];
-    actions.forEach(act => {
-        const btn = document.createElement('button');
-        btn.className = `jable-skip-btn ${act.class}`;
-        btn.textContent = act.label;
-        btn.dataset.sec = act.sec;
-        btn.dataset.origText = act.label; // 预存原始文本
-        btn._restoreTimer = null; // 存储恢复定时器
-        // 快捷键提示
-        if (act.key) {
-            const keyName = {
-                ArrowLeft: '←', ArrowRight: '→',
-                ArrowUp: '↑', ArrowDown: '↓',
-                PageUp: 'PageUp', PageDown: 'PageDown'
-            }[act.key];
-            btn.title = `${act.label}（${keyName}）`;
-        } else {
-            btn.title = act.label;
-        }
-        // 点击事件：带防抖恢复逻辑
-        btn.onclick = function (e) {
-            // 阻止任何可能的冒泡
-            e.stopPropagation();
-            const delta = parseInt(btn.dataset.sec);
-            const newTime = Math.max(0, Math.min(video.currentTime + delta, video.duration));
-            video.currentTime = newTime;
-            // 清除上一个定时器
-            if (btn._restoreTimer) {
-                clearTimeout(btn._restoreTimer);
+
+    const PANEL_ID = 'jable-skip-panel';
+    const STYLE_ID = 'jable-skip-panel-style';
+
+    // === 1. 获取顶层 document ===
+    function getTopDocument() {
+        let win = window;
+
+        try {
+            while (win.parent && win.parent !== win) {
+                const parentDocument = win.parent.document;
+                if (!parentDocument) break;
+                win = win.parent;
             }
-            const orig = btn.dataset.origText;
-            /*btn.textContent = '✓';*/
-            // 设置新的恢复定时器
-            btn._restoreTimer = setTimeout(() => {
-                btn.textContent = orig;
-                btn._restoreTimer = null;
-            }, 400);
-        };
-        // 键盘快捷键（复用 onclick 逻辑）
-        if (act.key) {
-            document.addEventListener('keydown', e => {
-                if (e.key === act.key && !e.ctrlKey && !e.altKey && !e.shiftKey) {
-                    e.preventDefault();
-                    btn.click();
-                }
-            });
+            return win.document;
+        } catch (error) {
+            console.warn('[Jable 快进快退] 无法访问顶层 document，使用当前 document');
+            return document;
         }
-        panel.appendChild(btn);
-    });
-    // === 3. 插入到目标 section 之后 ===
-    const targetSection = document.querySelector(section);
-    if (targetSection && targetSection.parentNode) {
-        targetSection.parentNode.insertBefore(panel, targetSection.nextSibling);
-    } else {
-        console.warn('未找到目标 section，插入 body 末尾');
-        document.body.appendChild(panel);
     }
-    console.log('Jable 单行快进快退面板（v1.8 修复连续点击）已加载');
+
+    const topDocument = getTopDocument();
+
+    // === 2. 递归查找视频：document / iframe / Shadow DOM ===
+    function findVideo() {
+        const videos = [];
+        const checked = new Set();
+
+        function scan(root, path = 'document') {
+            if (!root || checked.has(root)) return;
+            checked.add(root);
+
+            try {
+                if (!root.querySelectorAll) return;
+
+                root.querySelectorAll(videowrap).forEach(video => {
+                    videos.push({ video, path });
+                });
+
+                // Shadow DOM
+                root.querySelectorAll('*').forEach(element => {
+                    if (element.shadowRoot) {
+                        scan(element.shadowRoot, path + ' → Shadow DOM');
+                    }
+                });
+
+                // iframe
+                root.querySelectorAll('iframe').forEach((iframe, index) => {
+                    try {
+                        if (iframe.contentDocument) {
+                            scan(
+                                iframe.contentDocument,
+                                path + ' → iframe[' + index + ']'
+                            );
+                        }
+                    } catch (error) {
+                        console.warn('[Jable 视频扫描] 跨域 iframe:', index);
+                    }
+                });
+            } catch (error) {
+                console.warn('[Jable 视频扫描] 扫描异常:', path, error);
+            }
+        }
+
+        scan(topDocument);
+
+        if (!videos.length) {
+            console.warn('[Jable 快进快退] 没有找到视频:', videowrap);
+            return null;
+        }
+
+        // 优先选择当前播放器视频
+        const selected =
+            videos.find(item =>
+                item.video.matches('.yzmplayer-video-current') &&
+                item.video.readyState > 0 &&
+                Number.isFinite(item.video.duration)
+            ) ||
+            videos.find(item =>
+                !item.video.paused &&
+                item.video.readyState > 0 &&
+                Number.isFinite(item.video.duration)
+            ) ||
+            videos.find(item =>
+                item.video.readyState > 0 &&
+                Number.isFinite(item.video.duration)
+            ) ||
+            videos[0];
+
+        console.group('[Jable 快进快退] 视频扫描结果');
+
+        console.table(videos.map((item, index) => ({
+            index,
+            path: item.path,
+            className: item.video.className,
+            currentTime: item.video.currentTime,
+            duration: item.video.duration,
+            paused: item.video.paused,
+            readyState: item.video.readyState,
+            isConnected: item.video.isConnected
+        })));
+
+        console.log('选中视频:', selected.video);
+        console.log('视频所在位置:', selected.path);
+        console.groupEnd();
+
+        return selected;
+    }
+
+    // === 3. 查找面板挂载目标：只查顶层 document ===
+    function findTarget() {
+        try {
+            return topDocument.querySelector(section);
+        } catch (error) {
+            console.error('[Jable 面板] 目标选择器无效:', section, error);
+            return null;
+        }
+    }
+
+    // === 4. 防止重复创建面板 ===
+    if (topDocument.getElementById(PANEL_ID)) {
+        console.log('[Jable 快进快退] 面板已经存在，跳过创建');
+        return;
+    }
+
+    // === 5. 注入全局 CSS 样式（保留原始样式）===
+    if (!topDocument.getElementById(STYLE_ID)) {
+        const style = topDocument.createElement('style');
+        style.id = STYLE_ID;
+
+        style.textContent = `
+        @media (min-width: 992px) {
+          .pb-e-lg-30 {
+            padding-bottom: 10px !important;
+          }
+        }
+
+        #jable-skip-panel {
+          touch-action: manipulation;
+          -webkit-tap-highlight-color: transparent;
+          display: flex;
+          z-index: 114154;
+          flex-wrap: inherit;
+          justify-content: center;
+          gap: 2px;
+          padding: 10px 0px 10px 0px;
+          border-radius: 0px;
+          /*box-shadow: 0px 8px 14px var(--indigo);*/
+          backdrop-filter: blur(14px);
+          font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          user-select: none;
+          max-width: 100%;
+          width: 100%;
+          margin: 0px 0px 10px 0px;
+          text-align: center;
+        }
+
+        .jable-skip-btn {
+          padding: 8px 8px 8px 12px;
+          font-size: 0.75rem;
+          font-weight: inherit;
+          color: #fff;
+          border: 1px solid;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.22s ease;
+          text-align: center;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          flex: 0 0 auto;
+        }
+
+        .jable-skip-btn.forward {
+          background: rgba(0, 255, 136, 0.28);
+          border-color: #00ff88;
+        }
+
+        .jable-skip-btn.backward {
+          background: rgba(255, 80, 80, 0.28);
+          border-color: #ff6666;
+        }
+
+        .jable-skip-btn:hover {
+          transform: translateY(-2px) scale(1.06);
+          box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+        }
+
+        .jable-skip-btn.forward:hover {
+          background: rgba(0, 255, 136, 0.42);
+          box-shadow: 0 6px 18px rgba(0, 255, 136, 0.5);
+        }
+
+        .jable-skip-btn.backward:hover {
+          background: rgba(255, 80, 80, 0.42);
+          box-shadow: 0 6px 18px rgba(255, 80, 80, 0.5);
+        }
+
+        .jable-skip-btn:active {
+        }
+        `;
+
+        (topDocument.head || topDocument.documentElement).appendChild(style);
+    }
+
+    // === 6. 创建面板（始终属于顶层 document）===
+    const panel = topDocument.createElement('div');
+    panel.id = PANEL_ID;
+
+    // === 7. 六个快进快退按钮 ===
+    const buttons = [
+        { time: -600, text: '<< 10m', key: 'PageDown', type: 'backward' },
+        { time: -60, text: '< 1m', key: 'ArrowDown', type: 'backward' },
+        { time: -15, text: '< 15s', key: 'ArrowLeft', type: 'backward' },
+        { time: 15, text: '15s >', key: 'ArrowRight', type: 'forward' },
+        { time: 60, text: '1m >', key: 'ArrowUp', type: 'forward' },
+        { time: 600, text: '10m >>', key: 'PageUp', type: 'forward' }
+    ];
+
+    // === 8. 快进快退操作 ===
+    function seekVideo(seconds) {
+        const result = findVideo();
+
+        if (!result || !result.video) {
+            console.warn('[Jable 快进快退] 找不到可操作的视频');
+            return;
+        }
+
+        const video = result.video;
+
+        if (
+            !video.isConnected ||
+            video.readyState === 0 ||
+            !Number.isFinite(video.duration)
+        ) {
+            console.warn('[Jable 快进快退] 视频尚未准备好');
+            return;
+        }
+
+        const oldTime = video.currentTime;
+
+        const newTime = Math.max(
+            0,
+            Math.min(video.duration, oldTime + seconds)
+        );
+
+        video.currentTime = newTime;
+
+        console.log(
+            '[Jable 快进快退]',
+            seconds > 0 ? '快进' : '快退',
+            Math.abs(seconds) + 's',
+            oldTime.toFixed(2) + 's →',
+            newTime.toFixed(2) + 's'
+        );
+    }
+
+    // === 9. 创建按钮 ===
+    buttons.forEach(item => {
+        const button = topDocument.createElement('button');
+
+        button.type = 'button';
+        button.className = 'jable-skip-btn ' + item.type;
+        button.textContent = item.text;
+        button.title = item.key;
+
+        button.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            seekVideo(item.time);
+        });
+
+        panel.appendChild(button);
+    });
+
+    // === 10. 键盘快捷键 ===
+    function keyboardHandler(event) {
+        if (event.defaultPrevented || event.repeat) return;
+
+        const target = event.target;
+
+        if (
+            target &&
+            (
+                target.isContentEditable ||
+                /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName)
+            )
+        ) {
+            return;
+        }
+
+        const item = buttons.find(button => button.key === event.key);
+
+        if (!item) return;
+
+        event.preventDefault();
+        seekVideo(item.time);
+    }
+
+    topDocument.addEventListener('keydown', keyboardHandler, true);
+
+    // === 11. 面板插入：始终只操作顶层 document ===
+    function insertPanel() {
+        if (topDocument.getElementById(PANEL_ID)) {
+            return true;
+        }
+
+        const target = findTarget();
+
+        console.group('[Jable 快进快退] 面板插入诊断');
+
+        console.log('目标选择器:', section);
+        console.log('目标元素:', target);
+        console.log('目标 document:', topDocument.URL);
+
+        try {
+            if (target && target.parentNode) {
+                target.parentNode.insertBefore(
+                    panel,
+                    target.nextSibling
+                );
+
+                console.log('插入方式: 目标元素之后');
+            } else if (topDocument.body) {
+                topDocument.body.appendChild(panel);
+
+                console.warn('未找到目标元素，插入顶层 body');
+            } else {
+                console.warn('顶层 body 尚未创建');
+                console.groupEnd();
+                return false;
+            }
+
+            console.log('面板所在 document:', panel.ownerDocument.URL);
+            console.log('面板是否连接 DOM:', panel.isConnected);
+            console.log('面板实际父元素:', panel.parentElement);
+            console.log('面板 HTML:', panel.outerHTML);
+            console.log('面板插入成功:', panel.isConnected);
+
+            console.groupEnd();
+
+            return panel.isConnected;
+        } catch (error) {
+            console.error('[Jable 面板] 插入失败:', error);
+            console.groupEnd();
+            return false;
+        }
+    }
+
+    // === 12. 立即插入，目标动态出现时继续监听 ===
+    if (insertPanel()) {
+        console.log('[Jable 快进快退] 面板已挂载到顶层 document');
+        return;
+    }
+
+    const observer = new MutationObserver(() => {
+        if (insertPanel()) {
+            observer.disconnect();
+            clearTimeout(observerTimeout);
+
+            console.log('[Jable 快进快退] 动态目标已找到，面板插入成功');
+        }
+    });
+
+    observer.observe(topDocument.documentElement, {
+        childList: true,
+        subtree: true
+    });
+
+    // 最多等待 10 秒
+    const observerTimeout = setTimeout(() => {
+        observer.disconnect();
+
+        if (!topDocument.getElementById(PANEL_ID) && topDocument.body) {
+            topDocument.body.appendChild(panel);
+
+            console.warn(
+                '[Jable 快进快退] 等待目标超时，面板已回退到顶层 body'
+            );
+        }
+    }, 10000);
+
+    console.log(
+        '[Jable 快进快退] 正在等待顶层 document 中的挂载目标:',
+        section
+    );
 }
+
+// === 原调用方式 ===
+//fastForward('video', 'h3');
+
+
+
+
 // 在番号详情页追加在线预览链接
 function tmd_land(parentSelector, code, titleText) {
     const formattedCode = code.replace(/-/g, '00');
