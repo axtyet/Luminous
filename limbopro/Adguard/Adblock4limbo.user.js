@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Adblock4limbo.[github]
 // @namespace    https://github.com/limbopro/Adblock4limbo/raw/main/Adguard/Adblock4limbo.user.js
-// @version      0.2026.11.13
+// @version      0.2026.11.14
 // @license      CC BY-NC-SA 4.0
 // @description  毒奶去网页广告计划用户脚本 For Quantumult X & Surge & Shadowrocket & Loon & Stash & 油猴 ；1.新增页面右下角导航；2.通过 JavaScript 移除特定网站网页广告 —— 搜索引擎（Bing/Google）广告及内容农场结果清除/低端影视/欧乐影院/iyf爱壹帆/哔滴影视/Pornhub/Javbus/Supjav/Jable(支持抓取M3U8链接)/MissAv/Njav/91porn(支持视频下载)/hitomi/紳士漫畫/禁漫天堂/等视频&ACG&小说&漫画网站上的弹窗广告&视频广告&Gif图片广告等，保持网页清爽干净无打扰！ P.S. 欢迎提交issue
 // @author       limbopro
@@ -380,7 +380,7 @@ var adsMax = {
         /* @media (min-width:640px){.sm\\:hidden{margin:6px 0 0;padding:0;display:flex !important}} */
         missav: 'div.lg\\:hidden,div.space-y-5 > div, ul.mb-4 > li > a {display:none !important;pointer-events:none !important}body{overflow-x:hidden}', //  MissAVX
         javtiful: "button[data-front-share-toggle],front-home-premium-alert,a[href*='rdx.jav.si'],a[href*='r.trwl1.com'],.front-watch-text-feature,.front-feature-placement-close {display:none !important; pointer-events: none !important;}",
-        kanav: '@media (max-width: 768px) { .m-footer { position: fixed; bottom: 0; height: 50px; max-width: 1024px; width: 100%; background: #000 !important; z-index: 10; display: none !important; } } .home-qf > div[class*="img-qf"] {display:none !important; pointer-events: none !important;} ',
+        kanav: '.category-count {padding-top:50px;} @media (max-width: 768px) { .m-footer { position: fixed; bottom: 0; height: 50px; max-width: 1024px; width: 100%; background: #000 !important; z-index: 10; display: none !important; } } .video-boxad,.home-qf > div[class*="img-qf"] {display:none !important; pointer-events: none !important;} ',
         bigirl: 'div#container + div, h4.adblock_title,div.adblock_subtitle,[class^=\'adblock\'],div[class^=\'ad_\'], .toppage_av {display:none !important; pointer-events: none !important;}', // https://bi-girl.net/
         marketcap: '.ad-tr {display:none !important; pointer-events: none !important;}', // https://8marketcap.com/
         opgg: ".AdSense,  div[data-ad], tr.ad, #banner-container, section[class*='md:hidden'] {display:none !important; pointer-events: none !important;}",
@@ -429,10 +429,10 @@ var adsMax = {
         njav: "div[style=\"position: absolute; inset: 0px; z-index: 999; display: block;\"],.ad-floating,[src*='.gif'],iframe[width='300px'] {display:none!important}",
         jav_common: ".jw-wrapper > div[style=\"opacity: 0; visibility: hidden; overflow: hidden; display: block; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;\"],div[style^=\"position:fixed;inset:0px;z-index:2147483647;background:black;opacity:0.01\"] {height:0px; display:none !important; pointer-events: none !important;}",
         huaren_live: "[src*='0d463e36ddf0630.jpg'],.ad-tso,.ad-s,#dm-opacity,.ad-txt, .pause-ad, .ad-link:not(.adsbox), .action-ad, img[src*='ads.jpg'] {display:none !important; pointer-events: none !important;}",
-        rouman: 'iframe[src^="//tsyndicate.com/"],ins,a[href^="/api/jump/"] > img[src*=".xyz/m/"] {display:none !important; pointer-events: none !important;}',
-        rouvideo: "div[style*='pointer-events: none'],.flex.items-center.justify-center.my-2,ins > iframe,a.vast-blocker,.p-2.rounded.text-center,.text-xl.mb-1,[class*='hover:underline'],[style*='overflow: hidden'],[data-advadstrackid] {display:none !important; pointer-events: none !important;}",
+        rouman: 'ins,a[href^="/api/jump/"] > img[src*=".xyz/m/"],iframe[src^="//tsyndicate.com/"],ins,a[href^="/api/jump/"] > img[src*=".xyz/m/"] {display:none !important; pointer-events: none !important;}',
+        rouvideo: "a[href^='/api/hop/'] > img[src*='.xyz/m/'],div[style*='pointer-events: none'],.flex.items-center.justify-center.my-2,ins > iframe,a.vast-blocker,.p-2.rounded.text-center,.text-xl.mb-1,[class*='hover:underline'],[style*='overflow: hidden'],[data-advadstrackid] {display:none !important; pointer-events: none !important;}",
         diyibanzhu: "img, #adsbox, .slide-ad {height:0px; display:none !important; pointer-events: none !important;}",
-        alicesw: "a[target='_zblank'] {height:0px; display:none !important; pointer-events: none !important;}",
+        alicesw: "ul.itemg {display:none !important; pointer-events: none !important;} a[target='_zblank'] {height:0px; display:none !important; pointer-events: none !important;}",
         novel543: "iframe, div#adfoot, div.px-3.py-3, #adfoot, .gadBlock {height:0px; display:none !important; pointer-events: none !important;}"
         //button_common: "padding: 6px 6px 6px 6px; display: inline-block; color: white;z-index: 114154 !important; border-right: 6px solid #38a3fd; border-left: #292f33 !important; border-top: #292f33 !important; border-bottom: #292f33 !important; background: #2563eb; border-radius: 0px 0px 0px 0px; font-weight: 800 !important; text-align: right !important;" // 按钮/输入框通用样式
     },
@@ -1896,6 +1896,7 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
         case 'rou.video':
             css_adsRemove(adsMax.css.rouvideo, 100, 'rouman_video');
             css_adsRemove(adsMax.css.rouvideo, 500, 'rouman_video');
+            autoRemoveElements('a[href^="/api/hop/"] > img[src*=".xyz/m/"],')
             window_open_defuser(); // 打断 window.open 施法
             try {
                 // 可能会抛出异常的代码
@@ -1927,7 +1928,8 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
             window_open_defuser(); // 打断 window.open 施法
             break;
         case 'alicesw':
-            css_adsRemove(adsMax.css.alicesw, 100, 'alicesw');
+            css_adsRemove(adsMax.css.alicesw, 500, 'alicesw');
+            autoRemoveElements('ul.itemg,.index_ddg')
             break;
         case 'bi-girl': // bigirl
             css_adsRemove(adsMax.css.bigirl, 500, 'bigirl')
@@ -2204,8 +2206,11 @@ function adsDomain_switch(x) { // 匹配参数值 执行相应函数
             }
 
             css_adsRemove(adsMax.css.kanav, 100, 'kanav');
+            autoRemoveElements('.home-ad,.home-qf');
 
+            //.home-ad
 
+            // 视频快进快退
             if (typeof fastForward === 'function') {
 
                 fastForward('video', '.video-server-btn');
@@ -5694,6 +5699,8 @@ setInterval(() => {
 }, 5000)
 // 动态移除鸟鸟韩漫透明弹窗
 // 动态移除符合选择器的任何元素
+
+
 /**
  * 动态监听并自动移除符合选择器的元素
  * @param {string} selector - CSS 选择器字符串（例如：'[id*="model"]' 或 '.ad-box'）
