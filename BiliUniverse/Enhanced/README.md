@@ -54,7 +54,12 @@ Surge 和 Loon 使用原生远程 JSON Mock：先拉取同版本远程资源，�
 
 设置 API 同时匹配 `biliverse.github.io` 与 `app.bilibili.com`。Enhanced 唯一映射共用首页、Biliverse 的 `home.json`、`theme.css` 和 `bridge.mjs`；请求地址与网站真实文件地址保持分离，避免远程资源自引用。Global、Redirect 和 ADBlock 只提供各自配置。
 
-共用 `home.html` 和 `api.js` 使用 PreferencePanes 的 `releases/latest/download/`，独立获取最新正式版。正式／开发模板的 `home.json`、`theme.css` 和 `bridge.mjs` 直接引用 `https://biliverse.github.io/settings/` 下的对应文件；静态 Mock 仅匹配 `app.bilibili.com` 的虚拟入口，不拦截官网资源地址。五张图标由 JSON 中的官网完整 URL 直接加载，不设置图标 Mock。
+共用 `api.js` 使用 PreferencePanes 的 `releases/latest/download/`，独立获取最新正式版。除 Stash 外，`home.html` 也从该 Release 地址获取。
+
+Stash 正式／开发模板将 `https://app.bilibili.com/settings/` 透明映射到官网直接提供的 `https://biliverse.github.io/settings/index.html`，避免 GitHub Release 下载链接的 302 跳转和附件响应影响 WebView 加载。官网首页应直接返回 HTTP 200 与 `Content-Type: text/html; charset=utf-8`；客户端入口仍保持原地址，供相对资源及本机设置 API 使用。Stash 首页随官网部署更新，不直接跟随 PreferencePanes Release 下载地址。
+
+正式／开发模板的 `home.json`、`theme.css` 和 `bridge.mjs` 直接引用 `https://biliverse.github.io/settings/` 下的对应文件；静态 Mock 仅匹配 `app.bilibili.com` 的虚拟入口，不拦截官网资源地址。五张图标由 JSON 中的官网完整 URL 直接加载，不设置图标 Mock。
+
 
 Enhanced 构建不拉取网站源码，也不打包前端资源。业务脚本和配置仍按现有 tag／Gist 流程发布；Bilibili 官方 SDK 与官方 CSS 继续由页面直接引用。
 

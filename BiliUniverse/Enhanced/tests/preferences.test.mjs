@@ -86,7 +86,14 @@ test("settings integration maps static page assets and installs only the storage
 		const template = await readFile(new URL(`../template/${name}`, import.meta.url), "utf8");
 		assert.ok(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/api.js"), name);
 		assert.doesNotMatch(template, /PreferencePanes\.Web|download\/(?:web\.js|index\.html|index\.mjs|navigation\.mjs)/, name);
-		for (const file of ["home.html"]) assert.equal((template.match(new RegExp(`https:\\/\\/github\\.com\\/NSNanoCat\\/PreferencePanes\\/releases\\/latest\\/download\\/${file.replace(".", "\\.")}`, "g")) ?? []).length, 1, `${name}: ${file}`);
+		
+		const homepageURL = name.startsWith("stash")
+			? "https://biliverse.github.io/settings/index.html"
+			: "https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/home.html";
+		assert.equal(template.split(homepageURL).length - 1, 1, `${name}: home.html`);
+		if (name.startsWith("stash"))
+			assert.equal(template.includes("https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/home.html"), false, `${name}: no GitHub homepage download`);
+		
 		assert.ok(template.includes("api\\/(?:get|set|delete)"), name);
 		assert.doesNotMatch(template, /settings\/mock\.js|Biliverse\.Website/, name);
 		assert.doesNotMatch(template, /api\\\/\(\?:get\|set\|delete\)\|settings/);
@@ -107,7 +114,9 @@ test("settings integration maps static page assets and installs only the storage
 		for (const [file, matches, misses] of [
 			["home.html", ["/settings/"], ["/settings/Enhanced", "/settings/home.json", "/settings/bridge.mjs"]],
 		]) {
-			const line = template.split("\n").find(line => line.includes(`download/${file}`));
+			
+			const line = template.split("\n").find(line => line.includes(homepageURL));
+			
 			assert.ok(line, `${name}: ${file}`);
 			const matcher = new RegExp(extractTemplatePattern(name, line));
 			for (const pathname of matches) assert.ok(matcher.test(`https://app.bilibili.com${pathname}?v=1`), `${name}: ${pathname}`);
@@ -193,11 +202,12 @@ test("static resources use platform file mappings without a website script", asy
 				rewrites.some(line => line.endsWith(`https://biliverse.github.io/settings/${file} transparent`)),
 				`${name}: ${file}`,
 			);
-		for (const file of preferenceFiles)
-			assert.ok(
-				rewrites.some(line => line.endsWith(`https://github.com/NSNanoCat/PreferencePanes/releases/latest/download/${file} transparent`)),
-				`${name}: ${file}`,
-			);
+		
+		assert.ok(
+			rewrites.some(line => line.endsWith("https://biliverse.github.io/settings/index.html transparent")),
+			`${name}: home.html`,
+		);
+	
 	}
 	const shadowrocket = await readFile(new URL("../template/shadowrocket.handlebars", import.meta.url), "utf8");
 	const mappings = shadowrocket.split("\n").filter(line => line.includes("data-type=file"));
