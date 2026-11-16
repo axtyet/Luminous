@@ -9,8 +9,8 @@
 #############################################
 
 
-[Script]
-^https?:\/\/beehiveapi\.58\.com\/adplace\/zcm reject-dict
+[Rewrite]
+request if ${url} ~= /^https?:\/\/beehiveapi\.58\.com\/adplace\/zcm/i then reject_dict(200)
 
 
 [MITM]
