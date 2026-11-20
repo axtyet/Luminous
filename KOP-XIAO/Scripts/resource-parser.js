@@ -1,5 +1,5 @@
 /** 
-☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-11-20 11:03 UTC+8⟧
+☑️ 资源解析器 ©𝐒𝐡𝐚𝐰𝐧  ⟦2026-11-20 13:40⟧
 ----------------------------------------------------------
 🛠 发现 𝐁𝐔𝐆 请反馈: https://t.me/ShawnKOP_Parser_Bot
 ⛳️ 关注 🆃🅶 相关频道: https://t.me/QuanX_API
@@ -8,10 +8,9 @@
 
 🤖 主要功能: 
 ❶ 将其它格式的⟦服务器订阅⟧解析成 𝐐𝐮𝐚𝐧𝐭𝐮𝐦𝐮𝐥𝐭 𝐗 格式
-☑︎ 支持 𝐕2𝐫𝐚𝐲𝐍/𝗦𝗦(𝗥/𝗗)/𝗧𝗿𝗼𝗷𝗮𝗻/𝐕𝐋𝗲𝐬𝐬/𝗛𝗧𝗧𝗣(𝗦)/𝗔𝗻𝘆𝗧𝗟𝗦/𝗤𝘂𝗮𝗻𝘁𝘂𝗺𝘂𝗹𝘁(𝗫)/𝗦𝘂𝗿𝗴𝗲/𝐂𝐥𝐚𝐬𝐡/𝐒𝐡𝐚𝐝𝐨𝐰𝐫𝐨𝐜𝐤𝐞𝐭/𝐋𝐨𝐨𝐧 格式
+☑︎ 支持 𝐕2𝐫𝐚𝐲𝐍/𝗦𝗦(𝗥/𝗗)/𝗧𝗿𝗼𝗷𝗮𝗻/𝐕𝐋𝗲𝐬𝐬/𝗛𝗧𝗧𝗣(𝗦)/𝗔𝗻𝘆𝗧𝗟𝗦/𝗤𝘂𝗮𝗻𝘁𝘂𝗺𝘂𝗹𝘁(𝗫)/𝗦𝘂𝗿𝗴𝗲/𝐂𝐥𝐚𝐬𝐡/𝐒𝐡𝐚𝐝𝐨𝐰𝐫𝐨𝐜𝐤𝐞𝐭/𝐋𝐨𝐨𝐧/𝗛𝘆𝘀𝘁𝗲𝗿𝗶𝗮𝟮 格式
 ☑︎ 提供说明 1⃣️ 中的可选个性化参数(筛选、重命名 等)
 ☑︎ 节点扫码识别疑似订阅链接时，点击通知跳转添加节点订阅
-☑︎ Hysteria2（build 965+）：URI、Clash、Surge、原生 QuanX。保留证书验证和支持的 SHA-256 指纹配置。
 ❷ 𝗿𝗲𝘄𝗿𝗶𝘁𝗲(重写) & 𝗳𝗶𝗹𝘁𝗲𝗿(分流) 的 转换 & 筛选 
 ☑︎ 用于禁用/修改远程引用中某(几)项 𝗿𝗲𝘄𝗿𝗶𝘁𝗲/𝗵𝗼𝘀𝘁𝗻𝗮𝗺𝗲/𝗳𝗶𝗹𝘁𝗲𝗿
 ☑︎ 𝐒𝐮𝐫𝐠𝐞/𝐂𝐥𝐚𝐬𝐡 类型规则 𝗹𝗶𝘀𝘁 与 模块 𝐦𝐨𝐝𝐮𝐥𝐞 的解析使用
@@ -3451,8 +3450,11 @@ function HY2Serialize(node) {
   if (interval !== undefined && (!hopping || !/^\d+$/.test(interval) || interval < 5 || interval > 3600)) {
     HY2Invalid("QuanX 端口跳跃仅支持 5–3600 秒的固定间隔")
   }
-  if (node.obfs && node.obfs != "salamander") HY2Invalid("当前 Quantumult X 仅支持 Salamander 混淆")
-  if (node.key !== undefined || node.obfs == "salamander") {
+  // ⟦2026-11-20 12:11 UTC+8⟧ obfs=none/plain 表示无混淆，输出时省略 Salamander 密钥。
+  var plainObfs = typeof node.obfs == "string" && /^(?:none|plain)$/i.test(node.obfs)
+  if (plainObfs && node.key !== undefined && node.key !== "") HY2Invalid("无混淆设置与混淆密钥冲突")
+  if (node.obfs && !plainObfs && node.obfs != "salamander") HY2Invalid("当前 Quantumult X 仅支持 Salamander 混淆")
+  if (!plainObfs && (node.key !== undefined || node.obfs == "salamander")) {
     if (!safeValue(node.key) || encodeURIComponent(node.key).replace(/%[A-F0-9]{2}/g, "x").length < 4) {
       HY2Invalid("Salamander 密钥缺失、少于 4 字节或无法安全表示")
     }
@@ -3490,7 +3492,7 @@ function HY2Serialize(node) {
   var fields = {
     password: node.auth, "tls-host": node.sni, "tls-verification": verification,
     "tls-cert-sha256": certPin, "tls-pubkey-sha256": keyPin, "udp-relay": udp,
-    "salamander-password": node.key, "download-bandwidth": mbps || undefined,
+    "salamander-password": plainObfs ? undefined : node.key, "download-bandwidth": mbps || undefined,
     "port-hopping": hopping, "port-hopping-interval": interval === undefined ? undefined : Number(interval),
     server_check_url: node.check
   }
